@@ -62,6 +62,9 @@ public class NodeRepresentation extends AbstractRepresentation
     @SerializedName("createdByUser")
     protected UserInfoRepresentation createdBy = null;
 
+    @SerializedName("isLink")
+    protected Boolean isLink = null;
+
     @SerializedName("content")
     protected ContentInfoRepresentation content = null;
 
@@ -323,6 +326,26 @@ public class NodeRepresentation extends AbstractRepresentation
         this.allowableOperations = allowableOperations;
     }
 
+    public Boolean isLink()
+    {
+        return isLink;
+    }
+
+    public void setLink(Boolean link)
+    {
+        isLink = link;
+    }
+
+    public PathRepresentation getPath()
+    {
+        return path;
+    }
+
+    public void setPath(PathRepresentation path)
+    {
+        this.path = path;
+    }
+
     @Override
     public boolean equals(java.lang.Object o)
     {
@@ -333,19 +356,20 @@ public class NodeRepresentation extends AbstractRepresentation
                 && Objects.equals(this.name, nodeFull.name) && Objects.equals(this.nodeType, nodeFull.nodeType)
                 && Objects.equals(this.isFolder, nodeFull.isFolder) && Objects.equals(this.isFile, nodeFull.isFile)
                 && Objects.equals(this.isLocked, nodeFull.isLocked)
+                && Objects.equals(this.isLink, nodeFull.isLink)
                 && Objects.equals(this.modifiedAt, nodeFull.modifiedAt)
                 && Objects.equals(this.modifiedBy, nodeFull.modifiedBy)
                 && Objects.equals(this.createdAt, nodeFull.createdAt)
                 && Objects.equals(this.createdBy, nodeFull.createdBy) && Objects.equals(this.content, nodeFull.content)
                 && Objects.equals(this.aspects, nodeFull.aspects)
-                && Objects.equals(this.properties, nodeFull.properties)
                 && Objects.equals(this.allowableOperations, nodeFull.allowableOperations);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(id, parentId, name, nodeType, isFolder, isFile, isLocked, modifiedAt, modifiedBy, createdAt,
+        return Objects.hash(id, parentId, name, nodeType, isFolder, isFile, isLocked, isLink, modifiedAt, modifiedBy,
+                createdAt,
                 createdBy, content, aspects, properties, allowableOperations, association);
     }
 
@@ -362,6 +386,7 @@ public class NodeRepresentation extends AbstractRepresentation
         sb.append("    isFolder: ").append(toIndentedString(isFolder)).append("\n");
         sb.append("    isFile: ").append(toIndentedString(isFile)).append("\n");
         sb.append("    isLocked: ").append(toIndentedString(isLocked)).append("\n");
+        sb.append("    isLink: ").append(toIndentedString(isLink)).append("\n");
         sb.append("    modifiedAt: ").append(toIndentedString(modifiedAt)).append("\n");
         sb.append("    modifiedByUser: ").append(toIndentedString(modifiedBy)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");

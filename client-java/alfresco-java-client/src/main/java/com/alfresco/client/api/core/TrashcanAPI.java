@@ -74,8 +74,8 @@ public interface TrashcanAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes")
     Call<ResultPaging<DeletedNodeRepresentation>> listDeletedNodesCall(
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include);
 
     /**
@@ -96,8 +96,8 @@ public interface TrashcanAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes")
     Observable<ResultPaging<DeletedNodeRepresentation>> listDeletedNodesObservable(
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include);
 
     // ///////////////////////////////////////////////////////////////////////////

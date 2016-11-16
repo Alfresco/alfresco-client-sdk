@@ -101,7 +101,11 @@ public abstract class AbstractClient<T>
 
         public Builder<T> connect(String endpoint, String username, String password)
         {
-            this.endpoint = endpoint;
+            if (endpoint != null && !endpoint.isEmpty())
+            {
+                this.endpoint = (endpoint.lastIndexOf("/") == (endpoint.length() - 1)) ? endpoint
+                        : endpoint.concat("/");
+            }
             this.username = username;
             this.password = password;
             return this;
@@ -117,7 +121,11 @@ public abstract class AbstractClient<T>
         // TODO Design it better.
         public Builder<T> connectWithTicket(String endpoint, String ticket)
         {
-            this.endpoint = endpoint;
+            if (endpoint != null && !endpoint.isEmpty())
+            {
+                this.endpoint = (endpoint.lastIndexOf("/") == (endpoint.length() - 1)) ? endpoint
+                        : endpoint.concat("/");
+            }
             this.ticket = ticket;
             return this;
         }
@@ -132,7 +140,11 @@ public abstract class AbstractClient<T>
         // TODO Design it better.
         public Builder<T> connectWithToken(String endpoint, String token)
         {
-            this.endpoint = endpoint;
+            if (endpoint != null && !endpoint.isEmpty())
+            {
+                this.endpoint = (endpoint.lastIndexOf("/") == (endpoint.length() - 1)) ? endpoint
+                        : endpoint.concat("/");
+            }
             this.token = token;
             return this;
         }

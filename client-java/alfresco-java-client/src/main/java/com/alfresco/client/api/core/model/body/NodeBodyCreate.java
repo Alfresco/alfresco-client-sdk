@@ -48,6 +48,16 @@ public class NodeBodyCreate
     }
 
     public NodeBodyCreate(String name, String nodeType, LinkedTreeMap<String, Object> properties,
+            List<String> aspectNames)
+    {
+        this.nodeType = nodeType;
+        this.name = name;
+        this.properties = properties;
+        this.content = null;
+        this.aspectNames = aspectNames;
+    }
+
+    public NodeBodyCreate(String name, String nodeType, LinkedTreeMap<String, Object> properties,
             List<String> aspectNames, ContentInfoRepresentation content)
     {
         this.nodeType = nodeType;

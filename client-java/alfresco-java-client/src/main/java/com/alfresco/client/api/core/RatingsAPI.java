@@ -71,8 +71,8 @@ public interface RatingsAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings")
     Call<ResultPaging<RatingRepresentation>> listRatingsCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -95,8 +95,8 @@ public interface RatingsAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings")
     Observable<ResultPaging<RatingRepresentation>> listRatingsObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////

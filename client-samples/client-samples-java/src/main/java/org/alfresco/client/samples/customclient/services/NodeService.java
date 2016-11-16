@@ -44,20 +44,20 @@ public interface NodeService
 
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
     Call<ResultPaging<Node>> getChildren(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
 
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
     Observable<ResultPaging<Node>> getChildrenObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
 
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
     Call<ResultPaging<Node>> getChildren(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
             @Query(PublicAPIConstant.WHERE_VALUE) String where, @Query(PublicAPIConstant.FIELDS_VALUE) String fields);
 

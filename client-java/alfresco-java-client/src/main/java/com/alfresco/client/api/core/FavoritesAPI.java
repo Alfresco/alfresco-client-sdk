@@ -122,8 +122,9 @@ public interface FavoritesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites")
     Call<ResultPaging<FavoriteRepresentation>> listFavoritesCall(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems, @Query(PublicAPIConstant.WHERE_VALUE) String where,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
+            @Query(PublicAPIConstant.WHERE_VALUE) String where,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -164,8 +165,9 @@ public interface FavoritesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites")
     Observable<ResultPaging<FavoriteRepresentation>> listFavoritesObservable(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems, @Query(PublicAPIConstant.WHERE_VALUE) String where,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
+            @Query(PublicAPIConstant.WHERE_VALUE) String where,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////

@@ -122,8 +122,8 @@ public interface SitesAPI
      * @return SitePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites")
-    Call<ResultPaging<SiteRepresentation>> listSitesCall(@Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+    Call<ResultPaging<SiteRepresentation>> listSitesCall(@Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
             @Query(PublicAPIConstant.RELATIONS_VALUE) int relations,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields,
@@ -173,8 +173,8 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites")
     Observable<ResultPaging<SiteRepresentation>> listSitesObservable(
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
             @Query(PublicAPIConstant.RELATIONS_VALUE) int relations,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields,
@@ -459,8 +459,8 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites")
     Call<ResultPaging<SiteContainerRepresentation>> listSiteContainersCall(@Path("siteId") String siteId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -484,8 +484,8 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites")
     Observable<ResultPaging<SiteContainerRepresentation>> listSiteContainersObservable(@Path("siteId") String siteId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -593,8 +593,8 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members")
     Call<ResultPaging<SiteMemberRepresentation>> listSiteMembershipsCall(@Path("siteId") String siteId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -617,8 +617,8 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members")
     Observable<ResultPaging<SiteMemberRepresentation>> listSiteMembershipsObservable(@Path("siteId") String siteId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -823,8 +823,8 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/sites")
     Call<ResultPaging<SiteRoleRepresentation>> listSiteMembershipsForPersonCall(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy, @Query("relations") String relations,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields,
             @Query(PublicAPIConstant.WHERE_VALUE) String where);
@@ -871,8 +871,8 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/sites")
     Observable<ResultPaging<SiteRoleRepresentation>> listSiteMembershipsForPersonObservable(
-            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy, @Query("relations") String relations,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields,
             @Query(PublicAPIConstant.WHERE_VALUE) String where);
@@ -992,8 +992,8 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests")
     Call<ResultPaging<SiteMembershipRequestRepresentation>> listSiteMembershipRequestsForPersonCall(
-            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -1019,8 +1019,8 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests")
     Observable<ResultPaging<SiteMembershipRequestRepresentation>> listSiteMembershipRequestsForPersonObservable(
-            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     // SITE MEMBERSHIP REQUEST

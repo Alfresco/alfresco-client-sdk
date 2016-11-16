@@ -129,8 +129,7 @@ public abstract class AlfrescoAPITestCase
         {
             ResultPaging<NodeRepresentation> nodeResponse = nodeService
                     .listNodeChildrenCall(NodesAPI.FOLDER_MY, 0, 25, null, "(isFolder=true)", null, null, null, null)
-                    .execute()
-                    .body();
+                    .execute().body();
             for (NodeRepresentation folder : nodeResponse.getList())
             {
                 if (TEST_FOLDER_NAME.equals(folder.getName()))
@@ -155,8 +154,7 @@ public abstract class AlfrescoAPITestCase
 
         // Let's Create
         Response<NodeRepresentation> createdNodeResponse = nodeService
-                .createNodeCall(testFolder.getId(), fileRequestBody)
-                .execute();
+                .createNodeCall(testFolder.getId(), fileRequestBody).execute();
 
         if (!createdNodeResponse.isSuccessful())
         {

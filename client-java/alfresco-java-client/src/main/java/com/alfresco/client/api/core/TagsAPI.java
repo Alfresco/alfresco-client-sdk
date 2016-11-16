@@ -71,8 +71,8 @@ public interface TagsAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
     Call<ResultPaging<TagRepresentation>> listTagsForNodeCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -95,8 +95,8 @@ public interface TagsAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
     Observable<ResultPaging<TagRepresentation>> ListTagsForNodeObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -136,8 +136,8 @@ public interface TagsAPI
      * @return ResultPaging<TagRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/tags")
-    Call<ResultPaging<TagRepresentation>> listTagsCall(@Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+    Call<ResultPaging<TagRepresentation>> listTagsCall(@Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -159,8 +159,8 @@ public interface TagsAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/tags")
     Observable<ResultPaging<TagRepresentation>> listTagsObservable(
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////

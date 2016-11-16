@@ -29,6 +29,8 @@ public class NodeBodyUpdate
 {
     private final String name;
 
+    private final String nodeType;
+
     private final LinkedTreeMap<String, Object> properties;
 
     private final List<String> aspectNames;
@@ -36,13 +38,31 @@ public class NodeBodyUpdate
     public NodeBodyUpdate(String name)
     {
         this.name = name;
+        this.nodeType = null;
         this.properties = null;
         this.aspectNames = null;
     }
 
-    public NodeBodyUpdate(String name, LinkedTreeMap<String, Object> properties, List<String> aspectNames)
+    public NodeBodyUpdate(LinkedTreeMap<String, Object> properties)
+    {
+        this.name = null;
+        this.nodeType = null;
+        if (properties != null && !properties.isEmpty())
+        {
+            this.properties = properties;
+        }
+        else
+        {
+            this.properties = null;
+        }
+        this.aspectNames = null;
+    }
+
+    public NodeBodyUpdate(String name, String nodeType, LinkedTreeMap<String, Object> properties,
+            List<String> aspectNames)
     {
         this.name = name;
+        this.nodeType = nodeType;
         if (properties != null && !properties.isEmpty())
         {
             this.properties = properties;
@@ -67,5 +87,10 @@ public class NodeBodyUpdate
     public List<String> getAspectNames()
     {
         return aspectNames;
+    }
+
+    public String getNodeType()
+    {
+        return nodeType;
     }
 }

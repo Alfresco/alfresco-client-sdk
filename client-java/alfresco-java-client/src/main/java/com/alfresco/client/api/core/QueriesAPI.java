@@ -89,8 +89,8 @@ public interface QueriesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/people")
     Call<ResultPaging<PersonRepresentation>> findPeopleCall(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
@@ -120,8 +120,8 @@ public interface QueriesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/people")
     Observable<ResultPaging<PersonRepresentation>> findPeopleObservable(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
@@ -177,8 +177,8 @@ public interface QueriesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/sites")
     Call<ResultPaging<SiteRepresentation>> findSitesCall(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
@@ -207,8 +207,8 @@ public interface QueriesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/sites")
     Observable<ResultPaging<SiteRepresentation>> findSitesObservable(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
@@ -271,8 +271,8 @@ public interface QueriesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/nodes")
     Call<ResultPaging<NodeRepresentation>> findNodesCall(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
 
     /**
@@ -297,8 +297,8 @@ public interface QueriesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/nodes")
     Observable<ResultPaging<NodeRepresentation>> findNodesObservable(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
 
     /**
@@ -338,8 +338,8 @@ public interface QueriesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/nodes")
     Call<ResultPaging<NodeRepresentation>> findNodesCall(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems, @Query("rootNodeId") String rootNodeId,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems, @Query("rootNodeId") String rootNodeId,
             @Query("nodeType") String nodeType, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
@@ -381,8 +381,8 @@ public interface QueriesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/nodes")
     Observable<ResultPaging<NodeRepresentation>> findNodesObservable(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems, @Query("rootNodeId") String rootNodeId,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems, @Query("rootNodeId") String rootNodeId,
             @Query("nodeType") String nodeType, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);

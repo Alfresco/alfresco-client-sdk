@@ -19,6 +19,7 @@
 package com.alfresco.client.api.core;
 
 import java.util.Date;
+import java.util.Map;
 
 import com.alfresco.client.api.common.constant.PublicAPIConstant;
 import com.alfresco.client.api.common.representation.ResultPaging;
@@ -41,6 +42,8 @@ public interface NodesAPI
     String FOLDER_ROOT = "-root-";
 
     String FOLDER_MY = "-my-";
+
+    String FOLDER_SHARED = "-shared-";
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO
@@ -184,8 +187,8 @@ public interface NodesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
     Call<ResultPaging<NodeRepresentation>> listNodeChildrenCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
 
     /**
@@ -218,8 +221,8 @@ public interface NodesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
     Observable<ResultPaging<NodeRepresentation>> listNodeChildrenObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
 
     /**
@@ -279,8 +282,8 @@ public interface NodesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
     Call<ResultPaging<NodeRepresentation>> listNodeChildrenCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
             @Query(PublicAPIConstant.WHERE_VALUE) String where,
             @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
@@ -345,8 +348,8 @@ public interface NodesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
     Observable<ResultPaging<NodeRepresentation>> listNodeChildrenObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
             @Query(PublicAPIConstant.WHERE_VALUE) String where,
             @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
@@ -836,6 +839,10 @@ public interface NodesAPI
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
     Call<NodeRepresentation> createNodeCall(@Path("nodeId") String nodeId, @Part("filedata") RequestBody file);
 
+    @Multipart
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
+    Call<NodeRepresentation> createNodeCall(@Path("nodeId") String nodeId, @PartMap() Map<String, RequestBody> partMap);
+
     /**
      * Create a node Creates a node as a (primary) child of the node with
      * identifier **nodeId**. This API method supports file upload using
@@ -925,6 +932,11 @@ public interface NodesAPI
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
     Observable<NodeRepresentation> createNodeObservable(@Path("nodeId") String nodeId,
             @Part("filedata") RequestBody file);
+
+    @Multipart
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
+    Observable<NodeRepresentation> createNodeObservable(@Path("nodeId") String nodeId,
+            @PartMap() Map<String, RequestBody> partMap);
 
     /**
      * Create a node Creates a node as a (primary) child of the node with
@@ -1587,8 +1599,8 @@ public interface NodesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/parents")
     Call<ResultPaging<NodeRepresentation>> listParentsCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems);
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
 
     /**
      * List parents Returns a list of parent nodes that point to (ie. are
@@ -1604,8 +1616,8 @@ public interface NodesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/parents")
     Observable<ResultPaging<NodeRepresentation>> listParentsObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems);
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
 
     /**
      * List parents Returns a list of parent nodes that point to (ie. are
@@ -1638,8 +1650,9 @@ public interface NodesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/parents")
     Call<ResultPaging<NodeRepresentation>> listParentsCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems, @Query(PublicAPIConstant.WHERE_VALUE) String where,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
+            @Query(PublicAPIConstant.WHERE_VALUE) String where,
             @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
@@ -1674,8 +1687,9 @@ public interface NodesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/parents")
     Observable<ResultPaging<NodeRepresentation>> listParentsObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems, @Query(PublicAPIConstant.WHERE_VALUE) String where,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
+            @Query(PublicAPIConstant.WHERE_VALUE) String where,
             @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
@@ -1721,8 +1735,8 @@ public interface NodesAPI
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children")
     Call<ResultPaging<NodeRepresentation>> listSecondaryChildrenCall(@Path("nodeId") String nodeId,
             @Query(PublicAPIConstant.ASSOC_TYPE_VALUE) String assocType,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems);
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
 
     /**
      * List secondary children Returns a list of secondary child nodes that are
@@ -1741,8 +1755,8 @@ public interface NodesAPI
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children")
     Observable<ResultPaging<NodeRepresentation>> listSecondaryChildrenObservable(@Path("nodeId") String nodeId,
             @Query(PublicAPIConstant.ASSOC_TYPE_VALUE) String assocType,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems);
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
 
     /**
      * List secondary children Returns a list of secondary child nodes that are
@@ -1776,8 +1790,9 @@ public interface NodesAPI
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children")
     Call<ResultPaging<NodeRepresentation>> listSecondaryChildrenCall(@Path("nodeId") String nodeId,
             @Query(PublicAPIConstant.ASSOC_TYPE_VALUE) String assocType,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems, @Query(PublicAPIConstant.WHERE_VALUE) String where,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
+            @Query(PublicAPIConstant.WHERE_VALUE) String where,
             @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
@@ -1813,8 +1828,9 @@ public interface NodesAPI
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children")
     Observable<ResultPaging<NodeRepresentation>> listSecondaryChildrenObservable(@Path("nodeId") String nodeId,
             @Query(PublicAPIConstant.ASSOC_TYPE_VALUE) String assocType,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems, @Query(PublicAPIConstant.WHERE_VALUE) String where,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
+            @Query(PublicAPIConstant.WHERE_VALUE) String where,
             @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 

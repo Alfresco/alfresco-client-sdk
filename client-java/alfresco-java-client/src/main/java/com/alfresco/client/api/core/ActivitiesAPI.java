@@ -71,8 +71,8 @@ public interface ActivitiesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
     Call<ResultPaging<ActivityRepresentation>> listActivitiesForPersonCall(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems);
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
 
     /**
      * Get activities Returns a list of activities for person **personId**. You
@@ -88,8 +88,8 @@ public interface ActivitiesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
     Observable<ResultPaging<ActivityRepresentation>> listActivitiesForPersonObservable(
-            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems);
+            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
 
     /**
      * Get activities Returns a list of activities for person **personId**. You
@@ -118,8 +118,8 @@ public interface ActivitiesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
     Call<ResultPaging<ActivityRepresentation>> listActivitiesForPersonCall(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems, @Query("siteId") String siteId,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems, @Query("siteId") String siteId,
             @Query("who") String who, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -149,8 +149,8 @@ public interface ActivitiesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
     Observable<ResultPaging<ActivityRepresentation>> listActivitiesForPersonObservable(
-            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems, @Query("siteId") String siteId,
+            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems, @Query("siteId") String siteId,
             @Query("who") String who, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
 }

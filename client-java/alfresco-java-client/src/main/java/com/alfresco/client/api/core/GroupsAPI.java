@@ -94,8 +94,8 @@ public interface GroupsAPI
      * @return GroupPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups")
-    Call<ResultPaging<GroupRepresentation>> listGroupsCall(@Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+    Call<ResultPaging<GroupRepresentation>> listGroupsCall(@Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -125,8 +125,8 @@ public interface GroupsAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups")
     Observable<ResultPaging<GroupRepresentation>> listGroupsObservable(
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -373,8 +373,8 @@ public interface GroupsAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/parents")
     Call<ResultPaging<GroupRepresentation>> listGroupParentsCall(@Path("groupId") String groupId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -404,8 +404,8 @@ public interface GroupsAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/parents")
     Observable<ResultPaging<GroupRepresentation>> listGroupParentsObservable(@Path("groupId") String groupId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -467,8 +467,8 @@ public interface GroupsAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/members")
     Call<ResultPaging<GroupMemberRepresentation>> listGroupMembersCall(@Path("groupId") String groupId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -497,8 +497,8 @@ public interface GroupsAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/members")
     Observable<ResultPaging<GroupMemberRepresentation>> listGroupMembersObservable(@Path("groupId") String groupId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -716,8 +716,8 @@ public interface GroupsAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/groups")
     Call<ResultPaging<GroupRepresentation>> listGroupsCall(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -746,8 +746,8 @@ public interface GroupsAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/groups")
     Observable<ResultPaging<GroupRepresentation>> listGroupsObservable(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
 }

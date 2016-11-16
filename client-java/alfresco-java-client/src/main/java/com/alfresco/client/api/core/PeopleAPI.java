@@ -89,8 +89,9 @@ public interface PeopleAPI
      * @return PeoplePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people")
-    Call<ResultPaging<PersonRepresentation>> listPeopleCall(@Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+    Call<ResultPaging<PersonRepresentation>> listPeopleCall(
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
@@ -125,8 +126,8 @@ public interface PeopleAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people")
     Observable<ResultPaging<PersonRepresentation>> listPeopleObservable(
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 

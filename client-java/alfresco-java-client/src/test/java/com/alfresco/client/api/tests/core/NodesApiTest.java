@@ -248,7 +248,7 @@ public class NodesApiTest extends AlfrescoAPITestCase
         // EDIT PROPERTIES
         LinkedTreeMap<String, Object> properties = new LinkedTreeMap<>();
         properties.put("cm:title", "ALFRESCO");
-        NodeBodyUpdate editRequest = new NodeBodyUpdate("TestV3", properties, null);
+        NodeBodyUpdate editRequest = new NodeBodyUpdate("TestV3", null, properties, null);
         Response<NodeRepresentation> editedResponse = nodeService.updateNodeCall(testNode.getId(), editRequest)
                 .execute();
 

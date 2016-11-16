@@ -90,8 +90,8 @@ public interface VersionAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions")
     Call<ResultPaging<VersionRepresentation>> listVersionHistoryCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
@@ -122,8 +122,8 @@ public interface VersionAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions")
     Observable<ResultPaging<VersionRepresentation>> listVersionHistoryObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
@@ -185,8 +185,8 @@ public interface VersionAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}")
     Call<ResultPaging<VersionRepresentation>> getVersionCall(@Path("nodeId") String nodeId,
-            @Path("versionId") String versionId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Path("versionId") String versionId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
@@ -217,8 +217,8 @@ public interface VersionAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}")
     Observable<ResultPaging<VersionRepresentation>> getVersionObservable(@Path("nodeId") String nodeId,
-            @Path("versionId") String versionId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) int skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) int maxItems,
+            @Path("versionId") String versionId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
