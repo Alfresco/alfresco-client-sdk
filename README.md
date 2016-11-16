@@ -10,6 +10,7 @@ Those projects are currently the foundation of our major next version of [Alfres
 ## Important Notice
 
 Alfresco Client is currently in **Early Access mode**. It evolves as you use them, as you give feedback, and as the developers update and add file. We like to think app & lib development as services that grow and evolve with the involvement of the community.
+
 Alfresco Client doesn't support workflow API (i.e interacting with embedded Activiti)
 If you are looking for a client to interact with Activiti Rest API (Enterprise Only), please have a look to [Activiti Github Repo](https://github.com/Alfresco/activiti-client-sdk)
 
@@ -19,9 +20,14 @@ Alfresco REST API v1 is currently on Early Access Mode and it's only available w
 Before using this library you have to install this platform [available here](https://wiki.alfresco.com/wiki/Alfresco_Community_Edition_201606_EA_Release_Notes)
 
 For more information about Alfresco REST API
+- [v1 REST API - Part 1 - Introduction](https://community.alfresco.com/community/ecm/blog/2016/10/11/v1-rest-api-part-1-introduction)
+- [v1 REST API - Part 2 - Navigation](https://community.alfresco.com/community/ecm/blog/2016/10/17/v1-rest-api-part-2-navigation)
+- [v1 REST API - Part 3 - Creating Nodes](https://community.alfresco.com/community/ecm/blog/2016/10/24/v1-rest-api-part-3-creating-nodes)
+- [v1 REST API - Part 4 - Managing Nodes](https://community.alfresco.com/community/ecm/blog/2016/11/02/v1-rest-api-part-4-managing-nodes)
+- [v1 REST API - Part 5 - Versioning & Locking](https://community.alfresco.com/community/ecm/blog/2016/11/11/v1-rest-api-part-5-versioning-locking)
+- [Alfresco REST API Explorer](https://api-explorer.alfresco.com/api-explorer/)
 - ["The Future of REST APIs” Tech Talk Live session](https://www.youtube.com/watch?v=LCw7fe1pVSw)
 - ["Alfresco REST API of the future" BeeCon slides](http://www.slideshare.net/jvonka/alfresco-rest-api-of-the-future-is-closer-than-you-think)
-- [Alfresco Core REST API](https://api-explorer.alfresco.com/api-explorer/)
 
 
 ##Overview
