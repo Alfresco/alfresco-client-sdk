@@ -12,7 +12,7 @@ Those projects are currently the foundation of our major next version of [Alfres
 Alfresco Client is currently in **Early Access mode**. It evolves as you use them, as you give feedback, and as the developers update and add file. We like to think app & lib development as services that grow and evolve with the involvement of the community.
 
 Alfresco Client doesn't support workflow API (i.e interacting with embedded Activiti)
-If you are looking for a client to interact with Activiti Rest API (Enterprise Only), please have a look to [Activiti Github Repo](https://github.com/Alfresco/activiti-client-sdk)
+If you are looking for a client to interact with Activiti Rest API (Enterprise Only), please have a look to [Activiti Java Client Github Repo](https://github.com/Alfresco/activiti-client-sdk)
 
 ##Requirements
 
@@ -59,7 +59,7 @@ Documentation samples are available ["Alfresco Java Client” README](https://gi
 	
 ## How to Contribute ?
 
-If you spot a bug then please raise an issue on [Github](https://github.com/Alfresco/alfresco-client-sdk/issues?q=is%3Aopen+sort%3Acreated-desc)
+If you spot a bug then please raise an issue on [Github](https://github.com/Alfresco/alfresco-client-sdk/issues?q=is%3Aopen+sort%3Acreated-desc)<br/>
 If you would like to contribute code you can do so through GitHub by forking the repository and sending a pull request.<br/>
 When submitting code, please make every effort to follow existing conventions and style in order to keep the code as readable as possible.<br/>
 	
