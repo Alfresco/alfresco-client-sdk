@@ -55,7 +55,13 @@ For more information about Alfresco REST API
 
 ## Usage
 
-Documentation samples are available ["Alfresco Java Client” README](https://github.com/Alfresco/alfresco-client-sdk/tree/master/client-java/alfresco-java-client)
+Documentation samples are available ["Alfresco Java Client” README](https://github.com/Alfresco/alfresco-client-sdk/tree/master/client-java/alfresco-java-client)<br/>
+There's also a series of blog post illustrating some usage
+- [Alfresco Java Client SDK](https://community.alfresco.com/community/ecm/blog/2016/11/17/alfresco-java-client-sdk)
+- [Alfresco Java Client SDK - Part 2](https://community.alfresco.com/community/ecm/blog/2016/11/17/alfresco-java-client-sdk-usage)
+- [Alfresco Java Client SDK - Part 3](https://community.alfresco.com/community/ecm/blog/2016/11/17/alfresco-java-client-sdk-usage-part-3)
+- [Alfresco Java Client SDK - Part 4](https://community.alfresco.com/community/ecm/blog/2016/11/17/alfresco-java-client-sdk-usage-part-4)
+- [Alfresco Java Client SDK - Part 5](https://community.alfresco.com/community/ecm/blog/2016/11/17/alfresco-java-client-sdk-usage-part-5)
 	
 ## How to Contribute ?
 
