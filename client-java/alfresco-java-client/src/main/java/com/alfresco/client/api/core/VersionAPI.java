@@ -22,7 +22,7 @@ import java.util.Date;
 
 import com.alfresco.client.api.common.constant.PublicAPIConstant;
 import com.alfresco.client.api.common.representation.ResultPaging;
-import com.alfresco.client.api.core.model.body.NodeBodyUnLock;
+import com.alfresco.client.api.core.model.body.RevertBody;
 import com.alfresco.client.api.core.model.parameters.FieldsParam;
 import com.alfresco.client.api.core.model.parameters.IncludeParam;
 import com.alfresco.client.api.core.model.representation.VersionRepresentation;
@@ -234,7 +234,7 @@ public interface VersionAPI
      * @param versionId The identifier of a version, ie. version label, within
      *            the version history of a node. (required)
      */
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}")
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/content")
     Call<ResponseBody> getVersionContentCall(@Path("nodeId") String nodeId, @Path("versionId") String versionId);
 
     /**
@@ -246,7 +246,7 @@ public interface VersionAPI
      * @param versionId The identifier of a version, ie. version label, within
      *            the version history of a node. (required)
      */
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}")
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/content")
     Observable<ResponseBody> getVersionContentObservable(@Path("nodeId") String nodeId,
             @Path("versionId") String versionId);
 
@@ -272,7 +272,7 @@ public interface VersionAPI
      *            For example, &#x60;Wed, 09 Mar 2016 16:56:34 GMT&#x60;.
      *            (optional)
      */
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}")
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/content")
     Call<ResponseBody> getVersionContentCall(@Path("nodeId") String nodeId, @Path("versionId") String versionId,
             @Query("attachment") Boolean attachment, @Header("If-Modified-Since") Date ifModifiedSince);
 
@@ -298,7 +298,7 @@ public interface VersionAPI
      *            For example, &#x60;Wed, 09 Mar 2016 16:56:34 GMT&#x60;.
      *            (optional)
      */
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}")
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/content")
     Observable<ResponseBody> getVersionContentObservable(@Path("nodeId") String nodeId,
             @Path("versionId") String versionId, @Query("attachment") Boolean attachment,
             @Header("If-Modified-Since") Date ifModifiedSince);
@@ -307,30 +307,89 @@ public interface VersionAPI
     // REVERT
     // ///////////////////////////////////////////////////////////////////////////
     /**
-     * Get version content **Note:** this endpoint is available in Alfresco 5.2
-     * and newer versions. Gets the version content for **versionId** of file
-     * node **nodeId**.
-     * 
-     * @param nodeId The identifier of a node. (required)
-     * @param versionId The identifier of a version, ie. version label, within
-     *            the version history of a node. (required)
-     */
-    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/revert")
-    Call<ResponseBody> revertVersionCall(@Path("nodeId") String nodeId, @Path("versionId") String versionId,
-            @Body NodeBodyUnLock unlockBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
-
-    /**
-     * Get version content **Note:** this endpoint is available in Alfresco 5.2
-     * and newer versions. Gets the version content for **versionId** of file
-     * node **nodeId**.
+     * Note: this endpoint is available in Alfresco 5.2 and newer versions.
+     * Attempts to revert the version identified by **versionId** and **nodeId**
+     * to the live node. If the node is successfully reverted then the content
+     * and metadata for that versioned node will be promoted to the live node
+     * and a new version will appear in the version history.
      *
      * @param nodeId The identifier of a node. (required)
      * @param versionId The identifier of a version, ie. version label, within
      *            the version history of a node. (required)
+     * @param revertBody Optionally, specify a version comment and whether this
+     *            should be a major version, or not.
      */
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/revert")
-    Observable<ResponseBody> revertVersionObservable(@Path("nodeId") String nodeId, @Path("versionId") String versionId,
-            @Body NodeBodyUnLock unlockBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<VersionRepresentation> revertVersionCall(@Path("nodeId") String nodeId, @Path("versionId") String versionId,
+            @Body RevertBody revertBody);
+
+    /**
+     * Note: this endpoint is available in Alfresco 5.2 and newer versions.
+     * Attempts to revert the version identified by **versionId** and **nodeId**
+     * to the live node. If the node is successfully reverted then the content
+     * and metadata for that versioned node will be promoted to the live node
+     * and a new version will appear in the version history.
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param versionId The identifier of a version, ie. version label, within
+     *            the version history of a node. (required)
+     * @param revertBody Optionally, specify a version comment and whether this
+     *            should be a major version, or not.
+     * @param fields A list of field names. You can use this parameter to
+     *            restrict the fields returned within a response if, for
+     *            example, you want to save on overall bandwidth. The list
+     *            applies to a returned individual entity or entries within a
+     *            collection. If the API method also supports the **include**
+     *            parameter, then the fields specified in the **include**
+     *            parameter are returned in addition to those specified in the
+     *            **fields** parameter. (optional)
+     */
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/revert")
+    Call<VersionRepresentation> revertVersionCall(@Path("nodeId") String nodeId, @Path("versionId") String versionId,
+            @Body RevertBody revertBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+
+    /**
+     * Note: this endpoint is available in Alfresco 5.2 and newer versions.
+     * Attempts to revert the version identified by **versionId** and **nodeId**
+     * to the live node. If the node is successfully reverted then the content
+     * and metadata for that versioned node will be promoted to the live node
+     * and a new version will appear in the version history.
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param versionId The identifier of a version, ie. version label, within
+     *            the version history of a node. (required)
+     * @param revertBody Optionally, specify a version comment and whether this
+     *            should be a major version, or not.
+     */
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/revert")
+    Observable<VersionRepresentation> revertVersionObservable(@Path("nodeId") String nodeId,
+            @Path("versionId") String versionId, @Body RevertBody revertBody);
+
+    /**
+     * **Note:** this endpoint is available in Alfresco 5.2 and newer versions.
+     * Attempts to revert the version identified by **versionId** and **nodeId**
+     * to the live node. If the node is successfully reverted then the content
+     * and metadata for that versioned node will be promoted to the live node
+     * and a new version will appear in the version history.
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param versionId The identifier of a version, ie. version label, within
+     *            the version history of a node. (required)
+     * @param revertBody Optionally, specify a version comment and whether this
+     *            should be a major version, or not.
+     * @param fields A list of field names. You can use this parameter to
+     *            restrict the fields returned within a response if, for
+     *            example, you want to save on overall bandwidth. The list
+     *            applies to a returned individual entity or entries within a
+     *            collection. If the API method also supports the **include**
+     *            parameter, then the fields specified in the **include**
+     *            parameter are returned in addition to those specified in the
+     *            **fields** parameter. (optional)
+     */
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/revert")
+    Observable<VersionRepresentation> revertVersionObservable(@Path("nodeId") String nodeId,
+            @Path("versionId") String versionId, @Body RevertBody revertBody,
+            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE

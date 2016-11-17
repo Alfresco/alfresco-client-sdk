@@ -13,11 +13,12 @@ import com.alfresco.client.AlfrescoClient;
 import com.alfresco.client.api.common.constant.ContentModel;
 import com.alfresco.client.api.common.representation.ResultPaging;
 import com.alfresco.client.api.core.NodesAPI;
-import com.alfresco.client.api.core.model.body.NodeBodyCreate;
-import com.alfresco.client.api.core.model.body.NodeBodyUpdate;
+import com.alfresco.client.api.core.VersionAPI;
+import com.alfresco.client.api.core.model.body.*;
 import com.alfresco.client.api.core.model.parameters.IncludeParam;
 import com.alfresco.client.api.core.model.parameters.OrderByParam;
 import com.alfresco.client.api.core.model.representation.NodeRepresentation;
+import com.alfresco.client.api.core.model.representation.VersionRepresentation;
 import com.google.gson.internal.LinkedTreeMap;
 
 import okhttp3.MediaType;
@@ -37,7 +38,7 @@ public class TutorialTest {
 
     public static void main(String[] args) throws IOException {
         tutorialInitiation();
-        tutorialPart4ManagingNodes();
+        tutorialPart5VersioningLocking();
         Assert.assertTrue(true);
     }
 
@@ -306,4 +307,62 @@ public class TutorialTest {
     }
 
 
+    static void tutorialPart5VersioningLocking() throws IOException {
+
+        // Select NodesAPI
+        NodesAPI nodesAPI = client.getNodesAPI();
+
+        //Create Empty Node
+        NodeBodyCreate emptyFileBody = new NodeBodyCreate("version.txt", ContentModel.TYPE_CONTENT);
+        Response<NodeRepresentation> initialNodeResponse = nodesAPI.createNodeCall(NodesAPI.FOLDER_MY, emptyFileBody).execute();
+
+        //Update content as Major Version
+        String nodeId = initialNodeResponse.body().getId();
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"), "This is the initial content for the file.");
+        NodeRepresentation updatedContentNode = nodesAPI.updateNodeContentCall(nodeId, requestBody, true, "First version").execute().body();
+        Assert.assertEquals(updatedContentNode.getContent().getSizeInBytes(), 41);
+        Assert.assertEquals(updatedContentNode.getProperties().get(ContentModel.PROP_VERSION_LABEL), "1.0");
+
+        //Retrieve version history
+        VersionAPI versionAPI = client.getVersionAPI();
+        ResultPaging<VersionRepresentation> versions = versionAPI.listVersionHistoryCall(nodeId).execute().body();
+        Assert.assertEquals(versions.getCount(), 1);
+        Assert.assertEquals(versions.getPagination().getCount(), 1);
+
+        //Update content as minor version
+        RequestBody minorRequestBody = RequestBody.create(MediaType.parse("text/plain"), "This is the second version of the content, v1.1.");
+        NodeRepresentation minorupdatedContentNode = nodesAPI.updateNodeContentCall(nodeId, minorRequestBody, false, "Second version").execute().body();
+        Assert.assertEquals(minorupdatedContentNode.getContent().getSizeInBytes(), 48);
+        Assert.assertEquals(minorupdatedContentNode.getProperties().get(ContentModel.PROP_VERSION_LABEL), "1.1");
+
+        //Get Content
+        Call<ResponseBody> downloadCall = nodesAPI.getNodeContentCall(nodeId);
+        File dlFile = new File("W:\\", "version-1.1.txt");
+        IOUtils.copyFile(downloadCall.execute().body().byteStream(), dlFile);
+        Assert.assertEquals(dlFile.length(), 48);
+
+        //Retrieve Version Content
+        Call<ResponseBody> downloadOriginalCall = versionAPI.getVersionContentCall(nodeId, "1.0");
+        File originalFile = new File("W:\\", "version-1.0.txt");
+        IOUtils.copyFile(downloadOriginalCall.execute().body().byteStream(), originalFile);
+        Assert.assertEquals(originalFile.length(), 41);
+
+        //Revert Version
+        RevertBody revertBody = new RevertBody("Reverted to original", true);
+        VersionRepresentation versionReverted = versionAPI.revertVersionCall(nodeId, "1.0", revertBody).execute().body();
+        Assert.assertEquals(versionReverted.getContent().getSizeInBytes(), 41);
+        Assert.assertEquals(versionReverted.getProperties().get(ContentModel.PROP_VERSION_LABEL), "2.0");
+
+        //Lock File
+        NodeRepresentation lockedNode = nodesAPI.lockNodeCall(nodeId, new NodeBodyLock(), new IncludeParam(Arrays.asList("isLocked")), null).execute().body();
+        Assert.assertTrue(lockedNode.isLocked());
+        Assert.assertTrue(lockedNode.getAspects().contains(ContentModel.ASPECT_LOCKABLE));
+        Assert.assertEquals(lockedNode.getProperties().get(ContentModel.PROP_LOCK_TYPE), "WRITE_LOCK");
+        Assert.assertEquals(lockedNode.getProperties().get(ContentModel.PROP_LOCK_LIFETIME), NodeBodyLock.LifetimeEnum.PERSISTENT.toString());
+
+        //UnLock File
+        NodeRepresentation unlockedNode = nodesAPI.unlockNodeCall(nodeId, new NodeBodyUnLock(), new IncludeParam(Arrays.asList("isLocked")), null).execute().body();
+        Assert.assertFalse(unlockedNode.isLocked());
+        Assert.assertFalse(unlockedNode.getAspects().contains(ContentModel.ASPECT_LOCKABLE));
+    }
 }

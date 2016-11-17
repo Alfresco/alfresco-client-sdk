@@ -31,6 +31,12 @@ public class NodeBodyUnLock
     @SerializedName("allowCheckedOut")
     public final Boolean allowCheckedOut;
 
+    public NodeBodyUnLock()
+    {
+        this.includeChildren = null;
+        this.allowCheckedOut = null;
+    }
+
     public NodeBodyUnLock(Boolean includeChildren, Boolean allowCheckedOut)
     {
         this.includeChildren = includeChildren != null ? includeChildren : false;

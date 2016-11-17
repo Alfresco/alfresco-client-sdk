@@ -1356,6 +1356,61 @@ public interface NodesAPI
      * based content can be provided. This is because the OpenAPI Specification
      * does not allow a wildcard to be provided or the ability for tooling to
      * accept an arbitary file.
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param contentBody The binary content (required)
+     * @param majorVersion If **true**, create a major version. Setting this
+     *            parameter also enables versioning of this node, if it is not
+     *            already versioned. (optional, default to false)
+     * @param comment Add a version comment which will appear in version
+     *            history. Setting this parameter also enables versioning of
+     *            this node, if it is not already versioned. (optional)
+     * @return NodeRepresentation
+     */
+    @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/content")
+    Call<NodeRepresentation> updateNodeContentCall(@Path("nodeId") String nodeId, @Body RequestBody contentBody,
+            @Query("majorVersion") Boolean majorVersion, @Query("comment") String comment);
+
+    /**
+     * Update file content Updates the content of the node with identifier
+     * **nodeId**. The body body for this endpoint can be any text or binary
+     * stream. The Content-Type header should be set correctly for the type of
+     * content being updated. The Content-Type header is used to set the
+     * mimetype in the repository. The **majorVersion** and **comment**
+     * parameters can be used to control versioning behaviour. If the content is
+     * versionable, a new minor version is created by default. **Note:** This
+     * API method accepts any content type, but for testing with this tool text
+     * based content can be provided. This is because the OpenAPI Specification
+     * does not allow a wildcard to be provided or the ability for tooling to
+     * accept an arbitary file.
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param contentBody The binary content (required)
+     * @param majorVersion If **true**, create a major version. Setting this
+     *            parameter also enables versioning of this node, if it is not
+     *            already versioned. (optional, default to false)
+     * @param comment Add a version comment which will appear in version
+     *            history. Setting this parameter also enables versioning of
+     *            this node, if it is not already versioned. (optional)
+     * @return NodeRepresentation
+     */
+    @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/content")
+    Observable<NodeRepresentation> updateNodeContentObservable(@Path("nodeId") String nodeId,
+            @Body RequestBody contentBody, @Query("majorVersion") Boolean majorVersion,
+            @Query("comment") String comment);
+
+    /**
+     * Update file content Updates the content of the node with identifier
+     * **nodeId**. The body body for this endpoint can be any text or binary
+     * stream. The Content-Type header should be set correctly for the type of
+     * content being updated. The Content-Type header is used to set the
+     * mimetype in the repository. The **majorVersion** and **comment**
+     * parameters can be used to control versioning behaviour. If the content is
+     * versionable, a new minor version is created by default. **Note:** This
+     * API method accepts any content type, but for testing with this tool text
+     * based content can be provided. This is because the OpenAPI Specification
+     * does not allow a wildcard to be provided or the ability for tooling to
+     * accept an arbitary file.
      * 
      * @param nodeId The identifier of a node. (required)
      * @param contentBody The binary content (required)

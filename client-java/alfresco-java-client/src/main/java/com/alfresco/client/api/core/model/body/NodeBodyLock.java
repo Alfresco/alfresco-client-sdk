@@ -86,6 +86,14 @@ public class NodeBodyLock
     @SerializedName("lifetime")
     public final LifetimeEnum lifetime;
 
+    public NodeBodyLock()
+    {
+        this.includeChildren = null;
+        this.timeToExpire = null;
+        this.type = null;
+        this.lifetime = null;
+    }
+
     public NodeBodyLock(Boolean includeChildren, Integer timeToExpire, TypeEnum type, LifetimeEnum lifetime)
     {
         this.includeChildren = includeChildren != null ? includeChildren : false;

@@ -75,7 +75,9 @@ public class AlfrescoClient extends AbstractClient<AlfrescoClient>
 
     protected SearchAPI searchAPI;
 
-    protected GroupsAPI groupsAPI;
+    // protected GroupsAPI groupsAPI;
+
+    protected VersionAPI versionAPI;
 
     // ///////////////////////////////////////////////////////////////////////////
     // CONSTRUCTOR
@@ -231,13 +233,19 @@ public class AlfrescoClient extends AbstractClient<AlfrescoClient>
         return searchAPI;
     }
 
-    public GroupsAPI getGroupsAPI()
+    // Not implemented
+    /*
+     * public GroupsAPI getGroupsAPI() { if (groupsAPI == null) { groupsAPI =
+     * getAPI(GroupsAPI.class); } return groupsAPI; }
+     */
+
+    public VersionAPI getVersionAPI()
     {
-        if (groupsAPI == null)
+        if (versionAPI == null)
         {
-            groupsAPI = getAPI(GroupsAPI.class);
+            versionAPI = getAPI(VersionAPI.class);
         }
-        return groupsAPI;
+        return versionAPI;
     }
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -329,6 +337,7 @@ public class AlfrescoClient extends AbstractClient<AlfrescoClient>
                             new EntryDeserializer<SiteMembershipRequestRepresentation>())
                     .registerTypeAdapter(SiteRepresentation.class, new EntryDeserializer<SiteRepresentation>())
                     .registerTypeAdapter(TagRepresentation.class, new EntryDeserializer<TagRepresentation>())
+                    .registerTypeAdapter(VersionRepresentation.class, new EntryDeserializer<VersionRepresentation>())
                     .registerTypeAdapter(FavoriteRepresentation.class, new FavoriteEntryDeserializer())
 
                     // Paging Results
@@ -377,6 +386,9 @@ public class AlfrescoClient extends AbstractClient<AlfrescoClient>
                     .registerTypeAdapter(new TypeToken<ResultPaging<TagRepresentation>>()
                     {
                     }.getType(), new PagingDeserializer<>(TagRepresentation.class))
+                    .registerTypeAdapter(new TypeToken<ResultPaging<VersionRepresentation>>()
+                    {
+                    }.getType(), new PagingDeserializer<>(VersionRepresentation.class))
 
                     // People API
                     .registerTypeAdapter(PersonRepresentation.class, new EntryDeserializer<PersonRepresentation>())

@@ -247,7 +247,6 @@ public interface ContentModel
 
     //
     // PEOPLE
-    // @Since 1.3
     //
     String TYPE_PERSON = CONTENT_MODEL_PREFIX.concat(":person");
 
@@ -301,18 +300,17 @@ public interface ContentModel
 
     String PROP_USER_STATUS_TIME = CONTENT_MODEL_PREFIX.concat(":userStatusTime");
 
-    //
-    // DISTRIBUTION POLICIES
-    // @Since 1.3
-    //
-    String ASPECT_RESTRICTABLE = DISTRIBUTION_MODEL_PREFIX.concat(":restrictable");
+    // LOCK aspect
+    String ASPECT_LOCKABLE = CONTENT_MODEL_PREFIX.concat(":lockable");
 
-    String PROP_OFFLINE_EXPIRES_AFTER = DISTRIBUTION_MODEL_PREFIX.concat(":offlineExpiresAfter");
+    String PROP_LOCK_OWNER = CONTENT_MODEL_PREFIX.concat(":lockOwner");
 
-    List<String> ASPECT_RESTRICTABLE_PROPS = new ArrayList<String>(1)
-    {
-        {
-            add(PROP_OFFLINE_EXPIRES_AFTER);
-        }
-    };
+    String PROP_LOCK_TYPE = CONTENT_MODEL_PREFIX.concat(":lockType");
+
+    String PROP_LOCK_LIFETIME = CONTENT_MODEL_PREFIX.concat(":lockLifetime");
+
+    String PROP_EXPIRY_DATE = CONTENT_MODEL_PREFIX.concat(":expiryDate");
+
+    String PROP_LOCK_ADDITIONAL_INFO = CONTENT_MODEL_PREFIX.concat(":lockAdditionalInfo");
+
 }
