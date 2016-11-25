@@ -2,10 +2,7 @@ package org.alfresco.client.samples.tutorial;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import org.testng.Assert;
 
@@ -17,6 +14,8 @@ import com.alfresco.client.api.core.VersionAPI;
 import com.alfresco.client.api.core.model.body.*;
 import com.alfresco.client.api.core.model.parameters.IncludeParam;
 import com.alfresco.client.api.core.model.parameters.OrderByParam;
+import com.alfresco.client.api.core.model.representation.AssociationRepresentation;
+import com.alfresco.client.api.core.model.representation.ChildAssociationRepresentation;
 import com.alfresco.client.api.core.model.representation.NodeRepresentation;
 import com.alfresco.client.api.core.model.representation.VersionRepresentation;
 import com.google.gson.internal.LinkedTreeMap;
@@ -38,7 +37,7 @@ public class TutorialTest {
 
     public static void main(String[] args) throws IOException {
         tutorialInitiation();
-        tutorialPart5VersioningLocking();
+        tutorialPart6Associations();
         Assert.assertTrue(true);
     }
 
@@ -364,5 +363,170 @@ public class TutorialTest {
         NodeRepresentation unlockedNode = nodesAPI.unlockNodeCall(nodeId, new NodeBodyUnLock(), new IncludeParam(Arrays.asList("isLocked")), null).execute().body();
         Assert.assertFalse(unlockedNode.isLocked());
         Assert.assertFalse(unlockedNode.getAspects().contains(ContentModel.ASPECT_LOCKABLE));
+    }
+
+    static void tutorialPart6Associations() throws IOException {
+        // Select NodesAPI
+        NodesAPI nodesAPI = client.getNodesAPI();
+
+        //Attempt creation of fdk:gadget node
+        NodeBodyCreate emptyFileBody = new NodeBodyCreate("fdk.txt", "fdk:gadget");
+        Response<NodeRepresentation> initialNodeResponse = nodesAPI.createNodeCall(NodesAPI.FOLDER_MY, emptyFileBody).execute();
+        Assert.assertFalse(initialNodeResponse.isSuccessful());
+        Assert.assertEquals(initialNodeResponse.code(), 422);
+
+        //Create Images Folder
+        NodeBodyCreate creationBody = new NodeBodyCreate("Images", ContentModel.TYPE_FOLDER);
+        Response<NodeRepresentation> folderCreationResponse = nodesAPI.createNodeCall(NodesAPI.FOLDER_MY, creationBody).execute();
+        Assert.assertTrue(folderCreationResponse.isSuccessful());
+        Assert.assertEquals(folderCreationResponse.body().getName(), "Images");
+
+        //Upload First Image
+        File file = new File("W:\\image.png");
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/png"), file);
+        MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+        multipartBuilder.addFormDataPart("filedata", "image.png", requestBody);
+        RequestBody fileRequestBody = multipartBuilder.build();
+
+        //Create Content
+        Response<NodeRepresentation> firstImageResponse = nodesAPI.createNodeCall(folderCreationResponse.body().getId(), fileRequestBody).execute();
+
+        //Upload Second Image
+        file = new File("W:\\image.png");
+        requestBody = RequestBody.create(MediaType.parse("image/png"), file);
+        multipartBuilder = new MultipartBody.Builder();
+        multipartBuilder.addFormDataPart("filedata", "image2.png", requestBody);
+        fileRequestBody = multipartBuilder.build();
+
+        //Create Content
+        Response<NodeRepresentation> secondImageResponse = nodesAPI.createNodeCall(folderCreationResponse.body().getId(), fileRequestBody).execute();
+
+        //Upload review text
+        file = new File("W:\\test.txt");
+        requestBody = RequestBody.create(MediaType.parse("text/plain"), file);
+        multipartBuilder = new MultipartBody.Builder();
+        multipartBuilder.addFormDataPart("filedata", "test.txt", requestBody);
+        fileRequestBody = multipartBuilder.build();
+
+        HashMap<String, RequestBody> map = new HashMap<>();
+        map.put("filedata", fileRequestBody);
+        map.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), "review-text.txt"));
+
+        //Create Content
+        Response<NodeRepresentation> reviewTextResponse = nodesAPI.createNodeCall(NodesAPI.FOLDER_MY, map).execute();
+
+        //Create Amazon company node
+        Map<String, Object> props = new HashMap<>();
+        props.put("fdk:email", "info@amazon.com");
+        props.put("fdk:url", "http://www.amazon.com");
+        props.put("fdk:city", "Seattle");
+
+        NodeBodyCreate amazonNode = new NodeBodyCreate("Amazon", "fdk:company", props, null);
+        Response<NodeRepresentation> amazonNodeResponse = nodesAPI.createNodeCall(NodesAPI.FOLDER_MY, amazonNode).execute();
+        Assert.assertTrue(amazonNodeResponse.isSuccessful());
+
+
+        //Create fdk:gadget node
+        //Secondary Children
+        ChildAssociationBody firstImage = new ChildAssociationBody(firstImageResponse.body().getId(), "fdk:images");
+        ChildAssociationBody secondImage = new ChildAssociationBody(secondImageResponse.body().getId(), "fdk:images");
+        List<ChildAssociationBody> secondaryChildren = Arrays.asList(firstImage, secondImage);
+
+        //Target
+        AssociationBody review = new AssociationBody(reviewTextResponse.body().getId(), "fdk:reviews");
+        AssociationBody company = new AssociationBody(amazonNodeResponse.body().getId(), "fdk:company");
+        List<AssociationBody> targets = Arrays.asList(review, company);
+
+        //Create Gadget
+        NodeBodyCreate gadgetNode = new NodeBodyCreate("Amazon Echo", "fdk:gadget", null, null, null, null, secondaryChildren, targets);
+        Response<NodeRepresentation> amazonEchoResponse = nodesAPI.createNodeCall(NodesAPI.FOLDER_MY, gadgetNode).execute();
+        Assert.assertTrue(amazonEchoResponse.isSuccessful());
+
+        //Get fdk:gadget peer associations
+        Response<ResultPaging<NodeRepresentation>> targetsAssocsResponse = nodesAPI.listTargetAssociationsCall(amazonEchoResponse.body().getId()).execute();
+        Assert.assertTrue(targetsAssocsResponse.isSuccessful());
+        Assert.assertEquals(targetsAssocsResponse.body().getCount(), 2);
+
+        //Get fdk:gadget peer associations
+        Response<ResultPaging<NodeRepresentation>> targetsAssocsResponse2 = nodesAPI.listTargetAssociationsCall(
+                amazonEchoResponse.body().getId(),
+                "(assocType='fdk:reviews')",
+                new IncludeParam(Arrays.asList("properties", "path")), null).execute();
+        Assert.assertTrue(targetsAssocsResponse2.isSuccessful());
+        Assert.assertEquals(targetsAssocsResponse2.body().getCount(), 1);
+
+        //Get fdk:gadget secondary child associations
+        Response<ResultPaging<NodeRepresentation>> childAssocsResponse = nodesAPI.listSecondaryChildrenCall(amazonEchoResponse.body().getId()).execute();
+        Assert.assertTrue(childAssocsResponse.isSuccessful());
+        Assert.assertEquals(childAssocsResponse.body().getCount(), 2);
+
+        //Get review text sources
+        Response<ResultPaging<NodeRepresentation>> reviewAssocsResponse = nodesAPI.listSourceAssociationsCall(reviewTextResponse.body().getId()).execute();
+        Assert.assertTrue(reviewAssocsResponse.isSuccessful());
+        Assert.assertEquals(reviewAssocsResponse.body().getCount(), 1);
+
+        //Get first image parents
+        Response<ResultPaging<NodeRepresentation>> firstImageParentResponse = nodesAPI.listParentsCall(firstImageResponse.body().getId()).execute();
+        Assert.assertTrue(firstImageParentResponse.isSuccessful());
+        Assert.assertEquals(firstImageParentResponse.body().getCount(), 2);
+
+        //Upload Third image
+        file = new File("W:\\image.png");
+        requestBody = RequestBody.create(MediaType.parse("image/png"), file);
+        multipartBuilder = new MultipartBody.Builder();
+        multipartBuilder.addFormDataPart("filedata", "image3.png", requestBody);
+        fileRequestBody = multipartBuilder.build();
+
+        //Create Content
+        Response<NodeRepresentation> thirdImageResponse = nodesAPI.createNodeCall(folderCreationResponse.body().getId(), fileRequestBody).execute();
+
+        //Upload second review text
+        file = new File("W:\\test.txt");
+        requestBody = RequestBody.create(MediaType.parse("text/plain"), file);
+        multipartBuilder = new MultipartBody.Builder();
+        multipartBuilder.addFormDataPart("filedata", "test.txt", requestBody);
+        fileRequestBody = multipartBuilder.build();
+
+        HashMap<String, RequestBody> map2 = new HashMap<>();
+        map2.put("filedata", fileRequestBody);
+        map2.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), "2nd-review-text.txt"));
+
+        //Create Content
+        Response<NodeRepresentation> secondReviewTextResponse = nodesAPI.createNodeCall(NodesAPI.FOLDER_MY, map2).execute();
+
+        //Create fdk:images child association
+        ChildAssociationBody thirdImage = new ChildAssociationBody(thirdImageResponse.body().getId(), "fdk:images");
+        Response<ChildAssociationRepresentation> imageAssoc = nodesAPI.createSecondaryChildAssocationCall(amazonEchoResponse.body().getId(), thirdImage, null).execute();
+        Assert.assertTrue(imageAssoc.isSuccessful());
+
+        //Create fdk:reviews peer association
+        AssociationBody secondReview = new AssociationBody(secondReviewTextResponse.body().getId(), "fdk:reviews");
+        Response<AssociationRepresentation> reviewAssoc = nodesAPI.createAssocationCall(amazonEchoResponse.body().getId(), secondReview, null).execute();
+        Assert.assertTrue(reviewAssoc.isSuccessful());
+
+        //Multi-file review text
+        ChildAssociationBody reviewChild = new ChildAssociationBody(reviewTextResponse.body().getId(), "cm:contains");
+        Response<ChildAssociationRepresentation> reviewChildAssoc = nodesAPI.createSecondaryChildAssocationCall(folderCreationResponse.body().getId(), reviewChild, null).execute();
+        Assert.assertTrue(reviewChildAssoc.isSuccessful());
+
+        //Get images folder children
+        Response<ResultPaging<NodeRepresentation>> imageFolderChildrenResponse =
+                nodesAPI.listNodeChildrenCall(folderCreationResponse.body().getId(), null, null, null, null, new IncludeParam(Arrays.asList("association")), null, null, null).execute();
+        Assert.assertTrue(imageFolderChildrenResponse.isSuccessful());
+        Assert.assertEquals(imageFolderChildrenResponse.body().getCount(), 4);
+
+        //Get images folder primary children only
+        Response<ResultPaging<NodeRepresentation>> imageFolderPrimaryChildrenResponse =
+                nodesAPI.listNodeChildrenCall(folderCreationResponse.body().getId(), null, null, null, "(isPrimary=true)", null, null, null, null).execute();
+        Assert.assertTrue(imageFolderPrimaryChildrenResponse.isSuccessful());
+        Assert.assertEquals(imageFolderPrimaryChildrenResponse.body().getCount(), 3);
+
+        //Delete second review text peer association
+        Response<Void> deleteAssocResponse = nodesAPI.deleteAssocationCall(amazonEchoResponse.body().getId(), secondReviewTextResponse.body().getId(), "fdk:reviews").execute();
+        Assert.assertTrue(deleteAssocResponse.isSuccessful());
+
+        //Delete third image child association
+        Response<Void> deleteChildAssocResponse = nodesAPI.deleteSecondaryChildAssocationCall(amazonEchoResponse.body().getId(), thirdImageResponse.body().getId(), "fdk:images").execute();
+        Assert.assertTrue(deleteChildAssocResponse.isSuccessful());
     }
 }

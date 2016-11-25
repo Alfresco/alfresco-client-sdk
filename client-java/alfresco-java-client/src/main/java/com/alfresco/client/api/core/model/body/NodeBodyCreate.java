@@ -19,9 +19,7 @@
 package com.alfresco.client.api.core.model.body;
 
 import java.util.List;
-
-import com.alfresco.client.api.core.model.representation.ContentInfoRepresentation;
-import com.google.gson.internal.LinkedTreeMap;
+import java.util.Map;
 
 /**
  * Created by jpascal on 15/12/2015.
@@ -32,39 +30,67 @@ public class NodeBodyCreate
 
     public final String nodeType;
 
-    public final LinkedTreeMap<String, Object> properties;
+    public final Map<String, Object> properties;
 
     public final List<String> aspectNames;
 
-    public final ContentInfoRepresentation content;
+    public final String relativePath;
+
+    public final NodeBodyCreateAssociation association;
+
+    public final List<ChildAssociationBody> secondaryChildren;
+
+    public final List<AssociationBody> targets;
 
     public NodeBodyCreate(String name, String nodeType)
     {
         this.nodeType = nodeType;
         this.name = name;
         this.properties = null;
-        this.content = null;
         this.aspectNames = null;
+        this.relativePath = null;
+        this.association = null;
+        this.secondaryChildren = null;
+        this.targets = null;
     }
 
-    public NodeBodyCreate(String name, String nodeType, LinkedTreeMap<String, Object> properties,
-            List<String> aspectNames)
+    public NodeBodyCreate(String name, String nodeType, Map<String, Object> properties, List<String> aspectNames)
     {
         this.nodeType = nodeType;
         this.name = name;
         this.properties = properties;
-        this.content = null;
         this.aspectNames = aspectNames;
+        this.relativePath = null;
+        this.association = null;
+        this.secondaryChildren = null;
+        this.targets = null;
     }
 
-    public NodeBodyCreate(String name, String nodeType, LinkedTreeMap<String, Object> properties,
-            List<String> aspectNames, ContentInfoRepresentation content)
+    public NodeBodyCreate(String name, String nodeType, Map<String, Object> properties, List<String> aspectNames,
+            String relativePath)
     {
         this.nodeType = nodeType;
         this.name = name;
         this.properties = properties;
-        this.content = content;
         this.aspectNames = aspectNames;
+        this.relativePath = relativePath;
+        this.association = null;
+        this.secondaryChildren = null;
+        this.targets = null;
+    }
+
+    public NodeBodyCreate(String name, String nodeType, Map<String, Object> properties, List<String> aspectNames,
+            String relativePath, NodeBodyCreateAssociation association, List<ChildAssociationBody> secondaryChildren,
+            List<AssociationBody> targets)
+    {
+        this.nodeType = nodeType;
+        this.name = name;
+        this.properties = properties;
+        this.aspectNames = aspectNames;
+        this.relativePath = relativePath;
+        this.association = association;
+        this.secondaryChildren = secondaryChildren;
+        this.targets = targets;
     }
 
 }
