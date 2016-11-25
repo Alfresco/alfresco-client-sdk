@@ -24,7 +24,7 @@
         <groupId>org.alfresco.client</groupId>
         <artifactId>alfresco-client</artifactId>
         <version>1.0.0-beta1</version>
-        <relativePath>../../../</relativePath>
+        <relativePath>../../</relativePath>
     </parent>
     <artifactId>client-samples-java</artifactId>
     <name>Alfresco Client Samples - Java</name>
