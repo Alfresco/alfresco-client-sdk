@@ -22,6 +22,12 @@ public class RequestFacetFields
         return this;
     }
 
+    public RequestFacetFields addFacetsItem(RequestFacetFieldsFacets facetsItem)
+    {
+        this.facets.add(facetsItem);
+        return this;
+    }
+
     /**
      * Define specifc fields on which to facet (adds SOLR facet.field and f.
      * <field>.facet.* options)

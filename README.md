@@ -1,4 +1,4 @@
-#Alfresco Java Client (Early Access)
+# Alfresco Java Client (Early Access)
 
 ## Introduction
 This project contains Java lib project to consume easily Alfresco Public REST API.
@@ -14,7 +14,7 @@ Alfresco Client is currently in **Early Access mode**. It evolves as you use the
 Alfresco Client doesn't support workflow API (i.e interacting with embedded Activiti)
 If you are looking for a client to interact with Activiti Rest API (Enterprise Only), please have a look to [Activiti Java Client Github Repo](https://github.com/Alfresco/activiti-client-sdk)
 
-##Requirements
+## Requirements
 
 Alfresco REST API v1 is currently on Early Access Mode and it's only available with the latest version of Alfresco Community 201606.
 Before using this library you have to install this platform [available here](https://wiki.alfresco.com/wiki/Alfresco_Community_Edition_201606_EA_Release_Notes)
@@ -25,12 +25,18 @@ For more information about Alfresco REST API
 - [v1 REST API - Part 3 - Creating Nodes](https://community.alfresco.com/community/ecm/blog/2016/10/24/v1-rest-api-part-3-creating-nodes)
 - [v1 REST API - Part 4 - Managing Nodes](https://community.alfresco.com/community/ecm/blog/2016/11/02/v1-rest-api-part-4-managing-nodes)
 - [v1 REST API - Part 5 - Versioning & Locking](https://community.alfresco.com/community/ecm/blog/2016/11/11/v1-rest-api-part-5-versioning-locking)
+- [v1 REST API - Part 6 - Assocations](https://community.alfresco.com/community/ecm/blog/2016/11/23/v1-rest-api-part-6-associations)
+- [v1 REST API - Part 7 - Collaboration](https://community.alfresco.com/community/ecm/blog/2016/12/14/v1-rest-api-part-7-collaboration)
+- [v1 REST API - Part 8 - Sites](https://community.alfresco.com/community/ecm/blog/2017/02/24/v1-rest-api-part-8-sites)
+- [v1 REST API - Part 9 - Queries & Search](https://community.alfresco.com/community/ecm/blog/2017/04/11/v1-rest-api-part-9-queries-search)
+- [v1 REST API - Part 10 - People](https://community.alfresco.com/community/ecm/blog/2017/04/18/v1-rest-api-part-10-people)
+- [v1 REST API - Part 11 - Trashcan](https://community.alfresco.com/community/ecm/blog/2017/04/24/v1-rest-api-part-11-trashcan)
 - [Alfresco REST API Explorer](https://api-explorer.alfresco.com/api-explorer/)
 - ["The Future of REST APIs” Tech Talk Live session](https://www.youtube.com/watch?v=LCw7fe1pVSw)
 - ["Alfresco REST API of the future" BeeCon slides](http://www.slideshare.net/jvonka/alfresco-rest-api-of-the-future-is-closer-than-you-think)
 
 
-##Overview
+## Overview
 - **Client Java**: Contains Client API Project for Alfresco
     * **Alfresco Java Client** set of APIs to interact with Alfresco Alfresco Public API 1.0 (Alfresco 5.2+)
     * **Client API Commons** utility used by all client APIs
@@ -40,12 +46,12 @@ For more information about Alfresco REST API
     * **Client Samples Command Line Tool** Illustrate how to use Client API as command Line tool.
 
 ### Status
-| Projects   |      Status      |  Informations |
-|----------|:-------------:|------:|------:|
-|[Alfresco Java Client](client-java/alfresco-java-client)   | **Beta**   |Full API coverage, simple test  |
-|[Client API Commons](client-java/client-commons)   | **Beta**  | To evolve regarding other evolution  |
-|[Client Samples](client-samples/client-samples-java)   | **Beta**   |Under development  |
-|[Client Command Line](client-samples/client-samples-cli)   | **Beta**   |Under development  |
+| Projects | Status | Informations |
+| --- | --- | --- | --- |
+| [Alfresco Java Client](client-java/alfresco-java-client) | **Beta** | Full API coverage, simple test |
+| [Client API Commons](client-java/client-commons) | **Beta** | To evolve regarding other evolution |
+| [Client Samples](client-samples/client-samples-java) | **Beta** | Under development |
+| [Client Command Line](client-samples/client-samples-cli) | **Beta** | Under development |
 
 ## Build
 
@@ -58,10 +64,16 @@ For more information about Alfresco REST API
 Documentation samples are available ["Alfresco Java Client” README](https://github.com/Alfresco/alfresco-client-sdk/tree/master/client-java/alfresco-java-client)<br/>
 There's also a series of blog post illustrating some usage
 - [Alfresco Java Client SDK](https://community.alfresco.com/community/ecm/blog/2016/11/17/alfresco-java-client-sdk)
-- [Alfresco Java Client SDK - Part 2](https://community.alfresco.com/community/ecm/blog/2016/11/17/alfresco-java-client-sdk-usage)
-- [Alfresco Java Client SDK - Part 3](https://community.alfresco.com/community/ecm/blog/2016/11/17/alfresco-java-client-sdk-usage-part-3)
-- [Alfresco Java Client SDK - Part 4](https://community.alfresco.com/community/ecm/blog/2016/11/17/alfresco-java-client-sdk-usage-part-4)
-- [Alfresco Java Client SDK - Part 5](https://community.alfresco.com/community/ecm/blog/2016/11/17/alfresco-java-client-sdk-usage-part-5)
+- [Alfresco Java Client SDK - Part 2 - Navigation](https://community.alfresco.com/community/ecm/blog/2016/11/17/alfresco-java-client-sdk-usage)
+- [Alfresco Java Client SDK - Part 3 - Creating Nodes](https://community.alfresco.com/community/ecm/blog/2016/11/17/alfresco-java-client-sdk-usage-part-3)
+- [Alfresco Java Client SDK - Part 4 - Managing Nodes](https://community.alfresco.com/community/ecm/blog/2016/11/17/alfresco-java-client-sdk-usage-part-4)
+- [Alfresco Java Client SDK - Part 5 - Versioning & Locking](https://community.alfresco.com/community/ecm/blog/2016/11/17/alfresco-java-client-sdk-usage-part-5)
+- [Alfresco Java Client SDK - Part 6 - Assocations](https://community.alfresco.com/community/ecm/blog/2016/11/25/alfresco-java-client-sdk-usage-part-6)
+- [Alfresco Java Client SDK - Part 7 - Collaboration](https://community.alfresco.com/community/ecm/blog/2017/04/26/alfresco-java-client-sdk-usage-part-7)
+- [Alfresco Java Client SDK - Part 8 - Sites](https://community.alfresco.com/community/ecm/blog/2017/04/26/alfresco-java-client-sdk-usage-part-8)
+- [Alfresco Java Client SDK - Part 9 - Queries & Search](https://community.alfresco.com/community/ecm/blog/2017/04/26/alfresco-java-client-sdk-usage-part-9)
+- [Alfresco Java Client SDK - Part 10 - People](https://community.alfresco.com/community/ecm/blog/2017/04/26/alfresco-java-client-sdk-usage-part-10)
+- [Alfresco Java Client SDK - Part 11 - Trashcan](https://community.alfresco.com/community/ecm/blog/2017/04/26/alfresco-java-client-sdk-usage-part-11)
 	
 ## How to Contribute ?
 
@@ -73,7 +85,7 @@ When submitting code, please make every effort to follow existing conventions an
 
     Alfresco Client Librairies
 
-    Copyright © 2016 Alfresco Software, Ltd. and others.
+    Copyright © 2017 Alfresco Software, Ltd. and others.
 
     This product distribution is made available under the Apache 2.0 license.
     
@@ -99,7 +111,7 @@ Once the data is downloaded then it is parsed into a Plain Old Java Object (POJO
 * Simple architecture & Easy to customize: Each component can be modified and customized to match 
 * Large community and Open Source compatible	
 	
-###More informations
+### More informations
 
 **Retrofit**
 

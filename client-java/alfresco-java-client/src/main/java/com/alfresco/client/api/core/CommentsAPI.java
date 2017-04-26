@@ -124,10 +124,44 @@ public interface CommentsAPI
      * \&quot;skipCount\&quot;: 0, \&quot;maxItems\&quot;: 100 },
      * \&quot;entries\&quot;: [ { \&quot;entry\&quot;: { ... } }, {
      * \&quot;entry\&quot;: { ... } } ] } } &#x60;&#x60;&#x60;
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param commentBody The comment text. Note that you can also provide a
+     *            list of comments. (required)
+     * @return CommentEntry
+     */
+    @Headers({ "Content-type: application/json" })
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments")
+    Call<CommentRepresentation> createCommentCall(@Path("nodeId") String nodeId, @Body CommentBody commentBody);
+
+    /**
+     * Add a comment Creates a comment on node **nodeId**. You specify the
+     * comment in a JSON body like this: &#x60;&#x60;&#x60;JSON {
+     * \&quot;content\&quot;: \&quot;This is a comment\&quot; }
+     * &#x60;&#x60;&#x60; **Note:** You can create more than one comment by
+     * specifying a list of comments in the JSON body like this:
+     * &#x60;&#x60;&#x60;JSON [ { \&quot;content\&quot;: \&quot;This is a
+     * comment\&quot; }, { \&quot;content\&quot;: \&quot;This is another
+     * comment\&quot; } ] &#x60;&#x60;&#x60; If you specify a list as input,
+     * then a paginated list rather than an entry is returned in the response
+     * body. For example: &#x60;&#x60;&#x60;JSON { \&quot;list\&quot;: {
+     * \&quot;pagination\&quot;: { \&quot;count\&quot;: 2,
+     * \&quot;hasMoreItems\&quot;: false, \&quot;totalItems\&quot;: 2,
+     * \&quot;skipCount\&quot;: 0, \&quot;maxItems\&quot;: 100 },
+     * \&quot;entries\&quot;: [ { \&quot;entry\&quot;: { ... } }, {
+     * \&quot;entry\&quot;: { ... } } ] } } &#x60;&#x60;&#x60;
      * 
      * @param nodeId The identifier of a node. (required)
      * @param commentBody The comment text. Note that you can also provide a
      *            list of comments. (required)
+     * @param fields A list of field names. You can use this parameter to
+     *            restrict the fields returned within a response if, for
+     *            example, you want to save on overall bandwidth. The list
+     *            applies to a returned individual entity or entries within a
+     *            collection. If the API method also supports the **include**
+     *            parameter, then the fields specified in the **include**
+     *            parameter are returned in addition to those specified in the
+     *            **fields** parameter. (optional)
      * @return CommentEntry
      */
     @Headers({ "Content-type: application/json" })
@@ -155,6 +189,41 @@ public interface CommentsAPI
      * @param nodeId The identifier of a node. (required)
      * @param commentBody The comment text. Note that you can also provide a
      *            list of comments. (required)
+     * @return CommentEntry
+     */
+    @Headers({ "Content-type: application/json" })
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments")
+    Observable<CommentRepresentation> createCommentObservable(@Path("nodeId") String nodeId,
+            @Body CommentBody commentBody);
+
+    /**
+     * Add a comment Creates a comment on node **nodeId**. You specify the
+     * comment in a JSON body like this: &#x60;&#x60;&#x60;JSON {
+     * \&quot;content\&quot;: \&quot;This is a comment\&quot; }
+     * &#x60;&#x60;&#x60; **Note:** You can create more than one comment by
+     * specifying a list of comments in the JSON body like this:
+     * &#x60;&#x60;&#x60;JSON [ { \&quot;content\&quot;: \&quot;This is a
+     * comment\&quot; }, { \&quot;content\&quot;: \&quot;This is another
+     * comment\&quot; } ] &#x60;&#x60;&#x60; If you specify a list as input,
+     * then a paginated list rather than an entry is returned in the response
+     * body. For example: &#x60;&#x60;&#x60;JSON { \&quot;list\&quot;: {
+     * \&quot;pagination\&quot;: { \&quot;count\&quot;: 2,
+     * \&quot;hasMoreItems\&quot;: false, \&quot;totalItems\&quot;: 2,
+     * \&quot;skipCount\&quot;: 0, \&quot;maxItems\&quot;: 100 },
+     * \&quot;entries\&quot;: [ { \&quot;entry\&quot;: { ... } }, {
+     * \&quot;entry\&quot;: { ... } } ] } } &#x60;&#x60;&#x60;
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param commentBody The comment text. Note that you can also provide a
+     *            list of comments. (required)
+     * @param fields A list of field names. You can use this parameter to
+     *            restrict the fields returned within a response if, for
+     *            example, you want to save on overall bandwidth. The list
+     *            applies to a returned individual entity or entries within a
+     *            collection. If the API method also supports the **include**
+     *            parameter, then the fields specified in the **include**
+     *            parameter are returned in addition to those specified in the
+     *            **fields** parameter. (optional)
      * @return CommentEntry
      */
     @Headers({ "Content-type: application/json" })

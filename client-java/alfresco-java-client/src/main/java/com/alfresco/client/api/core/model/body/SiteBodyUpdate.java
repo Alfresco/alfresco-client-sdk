@@ -18,19 +18,33 @@
 
 package com.alfresco.client.api.core.model.body;
 
+import com.alfresco.client.api.core.model.representation.SiteVisibilityEnum;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by jpascal on 15/12/2015.
  */
-public class RatingBody
+public class SiteBodyUpdate
 {
-    public final String id;
+    @SerializedName("title")
+    private String title = null;
 
-    public final Object myRating;
+    @SerializedName("description")
+    private String description = null;
 
-    public RatingBody(String id, Object myRating)
+    @SerializedName("visibility")
+    private SiteVisibilityEnum visibility = null;
+
+    public SiteBodyUpdate(String description)
     {
-        this.id = id;
-        this.myRating = myRating;
+        this.description = description;
+    }
+
+    public SiteBodyUpdate(String title, String description, SiteVisibilityEnum visibility)
+    {
+        this.title = title;
+        this.description = description;
+        this.visibility = visibility;
     }
 
 }

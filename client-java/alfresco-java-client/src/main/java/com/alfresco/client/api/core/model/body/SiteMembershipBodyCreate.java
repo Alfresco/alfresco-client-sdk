@@ -25,23 +25,17 @@ public class SiteMembershipBodyCreate
 {
     public final String role;
 
-    public final String personId;
+    public final String id;
 
     /**
      * Update only
      * 
      * @param role
      */
-    public SiteMembershipBodyCreate(String role)
+    public SiteMembershipBodyCreate(String personId, String role)
     {
         this.role = role;
-        this.personId = null;
-    }
-
-    public SiteMembershipBodyCreate(String role, String personId)
-    {
-        this.role = role;
-        this.personId = personId;
+        this.id = personId;
     }
 
 }

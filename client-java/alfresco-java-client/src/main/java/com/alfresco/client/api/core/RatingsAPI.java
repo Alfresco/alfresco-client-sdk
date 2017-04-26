@@ -30,6 +30,10 @@ import rx.Observable;
 
 public interface RatingsAPI
 {
+    String FIVE_STAR = "fiveStar";
+
+    String LIKES = "likes";
+
     // ///////////////////////////////////////////////////////////////////////////
     // LISTING
     // ///////////////////////////////////////////////////////////////////////////
@@ -104,6 +108,22 @@ public interface RatingsAPI
     // ///////////////////////////////////////////////////////////////////////////
     /**
      * Rate Rate the node with identifier **nodeId**
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param ratingBody For \&quot;myRating\&quot; the type is specific to the
+     *            rating scheme, boolean for the likes and an integer for the
+     *            fiveStar. For example, to \&quot;like\&quot; a file the
+     *            following body would be used: &#x60;&#x60;&#x60;JSON {
+     *            \&quot;id\&quot;: \&quot;likes\&quot;, \&quot;myRating\&quot;:
+     *            true } &#x60;&#x60;&#x60; (required)
+     * @return RatingRepresentation
+     */
+    @Headers({ "Content-type: application/json" })
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings")
+    Call<RatingRepresentation> rateNodeCall(@Path("nodeId") String nodeId, @Body RatingBody ratingBody);
+
+    /**
+     * Rate Rate the node with identifier **nodeId**
      * 
      * @param nodeId The identifier of a node. (required)
      * @param ratingBody For \&quot;myRating\&quot; the type is specific to the
@@ -112,6 +132,14 @@ public interface RatingsAPI
      *            following body would be used: &#x60;&#x60;&#x60;JSON {
      *            \&quot;id\&quot;: \&quot;likes\&quot;, \&quot;myRating\&quot;:
      *            true } &#x60;&#x60;&#x60; (required)
+     * @param fields A list of field names. You can use this parameter to
+     *            restrict the fields returned within a response if, for
+     *            example, you want to save on overall bandwidth. The list
+     *            applies to a returned individual entity or entries within a
+     *            collection. If the API method also supports the **include**
+     *            parameter, then the fields specified in the **include**
+     *            parameter are returned in addition to those specified in the
+     *            **fields** parameter. (optional)
      * @return RatingRepresentation
      */
     @Headers({ "Content-type: application/json" })
@@ -133,8 +161,33 @@ public interface RatingsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings")
+    Observable<RatingRepresentation> rateNodeObservable(@Path("nodeId") String nodeId, @Body RatingBody ratingBody);
+
+    /**
+     * Rate Rate the node with identifier **nodeId**
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param ratingBody For \&quot;myRating\&quot; the type is specific to the
+     *            rating scheme, boolean for the likes and an integer for the
+     *            fiveStar. For example, to \&quot;like\&quot; a file the
+     *            following body would be used: &#x60;&#x60;&#x60;JSON {
+     *            \&quot;id\&quot;: \&quot;likes\&quot;, \&quot;myRating\&quot;:
+     *            true } &#x60;&#x60;&#x60; (required)
+     * @param fields A list of field names. You can use this parameter to
+     *            restrict the fields returned within a response if, for
+     *            example, you want to save on overall bandwidth. The list
+     *            applies to a returned individual entity or entries within a
+     *            collection. If the API method also supports the **include**
+     *            parameter, then the fields specified in the **include**
+     *            parameter are returned in addition to those specified in the
+     *            **fields** parameter. (optional)
+     * @return RatingRepresentation
+     */
+    @Headers({ "Content-type: application/json" })
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings")
     Observable<RatingRepresentation> rateNodeObservable(@Path("nodeId") String nodeId, @Body RatingBody ratingBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+                                                        @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+
 
     // ///////////////////////////////////////////////////////////////////////////
     // GET

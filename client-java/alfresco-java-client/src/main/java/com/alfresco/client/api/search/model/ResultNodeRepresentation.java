@@ -1,46 +1,178 @@
-/*
- *   Copyright (C) 2005-2016 Alfresco Software Limited.
- *
- *   This file is part of Alfresco Java Client.
- *
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 package com.alfresco.client.api.search.model;
 
+import java.util.Date;
+import java.util.Objects;
+
 import com.alfresco.client.api.core.model.representation.NodeRepresentation;
+import com.alfresco.client.api.core.model.representation.UserInfoRepresentation;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * ResultNodeRepresentation
+ */
 public class ResultNodeRepresentation extends NodeRepresentation
 {
     @SerializedName("search")
-    private SearchScore search = null;
+    private SearchEntry search = null;
 
-    // ///////////////////////////////////////////////////////////////////////////
-    // GETTERS & SETTERS
-    // ///////////////////////////////////////////////////////////////////////////
+    @SerializedName("archivedByUser")
+    private UserInfoRepresentation archivedByUser = null;
+
+    @SerializedName("archivedAt")
+    private Date archivedAt = null;
+
+    @SerializedName("versionLabel")
+    private String versionLabel = null;
+
+    @SerializedName("versionComment")
+    private String versionComment = null;
+
+    public ResultNodeRepresentation search(SearchEntry search)
+    {
+        this.search = search;
+        return this;
+    }
+
     /**
-     * The score for this row
+     * Get search
      * 
-     * @return score
+     * @return search
      **/
-    public SearchScore getSearch()
+    public SearchEntry getSearch()
     {
         return search;
     }
 
-    public void setSearch(SearchScore search)
+    public void setSearch(SearchEntry search)
     {
         this.search = search;
+    }
+
+    public ResultNodeRepresentation archivedByUser(UserInfoRepresentation archivedByUser)
+    {
+        this.archivedByUser = archivedByUser;
+        return this;
+    }
+
+    /**
+     * Get archivedByUser
+     * 
+     * @return archivedByUser
+     **/
+    public UserInfoRepresentation getArchivedByUser()
+    {
+        return archivedByUser;
+    }
+
+    public void setArchivedByUser(UserInfoRepresentation archivedByUser)
+    {
+        this.archivedByUser = archivedByUser;
+    }
+
+    public ResultNodeRepresentation archivedAt(Date archivedAt)
+    {
+        this.archivedAt = archivedAt;
+        return this;
+    }
+
+    /**
+     * Get archivedAt
+     * 
+     * @return archivedAt
+     **/
+    public Date getArchivedAt()
+    {
+        return archivedAt;
+    }
+
+    public void setArchivedAt(Date archivedAt)
+    {
+        this.archivedAt = archivedAt;
+    }
+
+    public ResultNodeRepresentation versionLabel(String versionLabel)
+    {
+        this.versionLabel = versionLabel;
+        return this;
+    }
+
+    /**
+     * Get versionLabel
+     * 
+     * @return versionLabel
+     **/
+    public String getVersionLabel()
+    {
+        return versionLabel;
+    }
+
+    public void setVersionLabel(String versionLabel)
+    {
+        this.versionLabel = versionLabel;
+    }
+
+    public ResultNodeRepresentation versionComment(String versionComment)
+    {
+        this.versionComment = versionComment;
+        return this;
+    }
+
+    /**
+     * Get versionComment
+     * 
+     * @return versionComment
+     **/
+    public String getVersionComment()
+    {
+        return versionComment;
+    }
+
+    public void setVersionComment(String versionComment)
+    {
+        this.versionComment = versionComment;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o)
+    {
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) { return false; }
+        ResultNodeRepresentation ResultNodeRepresentation = (ResultNodeRepresentation) o;
+        return Objects.equals(this.search, ResultNodeRepresentation.search)
+                && Objects.equals(this.archivedByUser, ResultNodeRepresentation.archivedByUser)
+                && Objects.equals(this.archivedAt, ResultNodeRepresentation.archivedAt)
+                && Objects.equals(this.versionLabel, ResultNodeRepresentation.versionLabel)
+                && Objects.equals(this.versionComment, ResultNodeRepresentation.versionComment);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(search, archivedByUser, archivedAt, versionLabel, versionComment);
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ResultNodeRepresentation {\n");
+
+        sb.append("    search: ").append(toIndentedString(search)).append("\n");
+        sb.append("    archivedByUser: ").append(toIndentedString(archivedByUser)).append("\n");
+        sb.append("    archivedAt: ").append(toIndentedString(archivedAt)).append("\n");
+        sb.append("    versionLabel: ").append(toIndentedString(versionLabel)).append("\n");
+        sb.append("    versionComment: ").append(toIndentedString(versionComment)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o)
+    {
+        if (o == null) { return "null"; }
+        return o.toString().replace("\n", "\n    ");
     }
 }

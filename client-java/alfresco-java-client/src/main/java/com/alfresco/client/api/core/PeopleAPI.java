@@ -202,6 +202,16 @@ public interface PeopleAPI
     /**
      * Create person **Note:** this endpoint is available in Alfresco 5.2 and
      * newer versions. Create a person.
+     *
+     * @param personBodyCreate The person details. (required)
+     * @return PersonRepresentation
+     */
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/people")
+    Call<PersonRepresentation> createPersonCall(@Body() PersonBodyCreate personBodyCreate);
+
+    /**
+     * Create person **Note:** this endpoint is available in Alfresco 5.2 and
+     * newer versions. Create a person.
      * 
      * @param personBodyCreate The person details. (required)
      * @param fields A list of field names. You can use this parameter to
@@ -217,6 +227,16 @@ public interface PeopleAPI
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/people")
     Call<PersonRepresentation> createPersonCall(@Body() PersonBodyCreate personBodyCreate,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+
+    /**
+     * Create person **Note:** this endpoint is available in Alfresco 5.2 and
+     * newer versions. Create a person.
+     *
+     * @param personBodyCreate The person details. (required)
+     * @return PersonRepresentation
+     */
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/people")
+    Observable<PersonRepresentation> createPersonObservable(@Body() PersonBodyCreate personBodyCreate);
 
     /**
      * Create person **Note:** this endpoint is available in Alfresco 5.2 and

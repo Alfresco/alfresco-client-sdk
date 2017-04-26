@@ -40,6 +40,12 @@ public class ResultSetContextSpellcheck
     @SerializedName("suggestion")
     private List<String> suggestion = new ArrayList<String>();
 
+    public ResultSetContextSpellcheck type(TypeEnum type)
+    {
+        this.type = type;
+        return this;
+    }
+
     /**
      * Get type
      * 
@@ -53,6 +59,18 @@ public class ResultSetContextSpellcheck
     public void setType(TypeEnum type)
     {
         this.type = type;
+    }
+
+    public ResultSetContextSpellcheck suggestion(List<String> suggestion)
+    {
+        this.suggestion = suggestion;
+        return this;
+    }
+
+    public ResultSetContextSpellcheck addSuggestionItem(String suggestionItem)
+    {
+        this.suggestion.add(suggestionItem);
+        return this;
     }
 
     /**

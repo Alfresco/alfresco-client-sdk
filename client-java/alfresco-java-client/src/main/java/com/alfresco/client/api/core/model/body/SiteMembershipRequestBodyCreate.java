@@ -29,6 +29,13 @@ public class SiteMembershipRequestBodyCreate
 
     public final String title;
 
+    public SiteMembershipRequestBodyCreate(String id)
+    {
+        this.id = id;
+        this.message = null;
+        this.title = null;
+    }
+
     public SiteMembershipRequestBodyCreate(String id, String message, String title)
     {
         this.id = id;

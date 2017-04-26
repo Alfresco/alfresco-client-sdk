@@ -5,7 +5,7 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Request that highlight fragements to be added to result set rows The
+ * Request that spellcheck fragments to be added to result set rows The
  * properties reflect SOLR spellcheck parameters.
  */
 public class RequestSpellcheck

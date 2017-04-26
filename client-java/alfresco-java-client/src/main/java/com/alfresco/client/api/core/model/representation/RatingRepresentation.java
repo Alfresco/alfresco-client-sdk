@@ -36,7 +36,7 @@ public class RatingRepresentation extends AbstractRepresentation
     private Date ratedAt = null;
 
     @SerializedName("myRating")
-    private String myRating = null;
+    private Object myRating = null;
 
     // ///////////////////////////////////////////////////////////////////////////
     // GETTERS & SETTERS
@@ -92,12 +92,12 @@ public class RatingRepresentation extends AbstractRepresentation
      * 
      * @return myRating
      **/
-    public String getMyRating()
+    public Object getMyRating()
     {
         return myRating;
     }
 
-    public void setMyRating(String myRating)
+    public void setMyRating(Object myRating)
     {
         this.myRating = myRating;
     }

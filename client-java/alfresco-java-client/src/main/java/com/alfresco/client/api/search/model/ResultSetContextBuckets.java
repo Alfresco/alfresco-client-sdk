@@ -19,6 +19,12 @@ public class ResultSetContextBuckets
     @SerializedName("display")
     private Object display = null;
 
+    public ResultSetContextBuckets label(String label)
+    {
+        this.label = label;
+        return this;
+    }
+
     /**
      * The bucket label
      * 
@@ -32,6 +38,12 @@ public class ResultSetContextBuckets
     public void setLabel(String label)
     {
         this.label = label;
+    }
+
+    public ResultSetContextBuckets count(BigDecimal count)
+    {
+        this.count = count;
+        return this;
     }
 
     /**
@@ -49,6 +61,17 @@ public class ResultSetContextBuckets
         this.count = count;
     }
 
+    public ResultSetContextBuckets display(Object display)
+    {
+        this.display = display;
+        return this;
+    }
+
+    /**
+     * An optional field for additional display information
+     * 
+     * @return display
+     **/
     public Object getDisplay()
     {
         return display;
@@ -66,13 +89,14 @@ public class ResultSetContextBuckets
         if (o == null || getClass() != o.getClass()) { return false; }
         ResultSetContextBuckets resultSetContextBuckets = (ResultSetContextBuckets) o;
         return Objects.equals(this.label, resultSetContextBuckets.label)
-                && Objects.equals(this.count, resultSetContextBuckets.count);
+                && Objects.equals(this.count, resultSetContextBuckets.count)
+                && Objects.equals(this.display, resultSetContextBuckets.display);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(label, count);
+        return Objects.hash(label, count, display);
     }
 
     @Override
@@ -83,7 +107,7 @@ public class ResultSetContextBuckets
 
         sb.append("    label: ").append(toIndentedString(label)).append("\n");
         sb.append("    count: ").append(toIndentedString(count)).append("\n");
-        sb.append("    display: ").append(toIndentedString(count)).append("\n");
+        sb.append("    display: ").append(toIndentedString(display)).append("\n");
         sb.append("}");
         return sb.toString();
     }

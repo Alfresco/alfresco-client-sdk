@@ -53,7 +53,7 @@ public class RequestSortDefinition
     /**
      * How to order - using a field, when position of the document in the index,
      * score/relevence.
-     * 
+     *
      * @return type
      **/
     public TypeEnum getType()
@@ -74,7 +74,7 @@ public class RequestSortDefinition
 
     /**
      * The name of the field
-     * 
+     *
      * @return field
      **/
     public String getField()
@@ -96,7 +96,7 @@ public class RequestSortDefinition
     /**
      * The sort order. (The ordering of nulls is determined by the SOLR
      * configuration)
-     * 
+     *
      * @return ascending
      **/
     public Boolean getAscending()

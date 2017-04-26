@@ -1,5 +1,7 @@
 package com.alfresco.client.api.search.body;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import com.google.gson.annotations.SerializedName;
@@ -67,6 +69,9 @@ public class RequestFacetFieldsFacets
     @SerializedName("method")
     private MethodEnum method = null;
 
+    @SerializedName("missing")
+    private Boolean missing = false;
+
     @SerializedName("limit")
     private Integer limit = null;
 
@@ -78,6 +83,9 @@ public class RequestFacetFieldsFacets
 
     @SerializedName("facetEnumCacheMinDf")
     private Integer facetEnumCacheMinDf = null;
+
+    @SerializedName("excludeFilters")
+    private List<String> excludeFilters = new ArrayList<>();
 
     public RequestFacetFieldsFacets field(String field)
     {
@@ -164,6 +172,28 @@ public class RequestFacetFieldsFacets
         this.method = method;
     }
 
+    public RequestFacetFieldsFacets missing(Boolean missing)
+    {
+        this.missing = missing;
+        return this;
+    }
+
+    /**
+     * When true, count results that match the query but which have no facet
+     * value for the field (in addition to the Term-based constraints).
+     * 
+     * @return missing
+     **/
+    public Boolean getMissing()
+    {
+        return missing;
+    }
+
+    public void setMissing(Boolean missing)
+    {
+        this.missing = missing;
+    }
+
     public RequestFacetFieldsFacets limit(Integer limit)
     {
         this.limit = limit;
@@ -213,7 +243,8 @@ public class RequestFacetFieldsFacets
     }
 
     /**
-     * Get mincount
+     * The minimum count required for a facet field to be included in the
+     * response.
      * 
      * @return mincount
      **/
@@ -248,6 +279,34 @@ public class RequestFacetFieldsFacets
         this.facetEnumCacheMinDf = facetEnumCacheMinDf;
     }
 
+    public RequestFacetFieldsFacets excludeFilters(List<String> excludeFilters)
+    {
+        this.excludeFilters = excludeFilters;
+        return this;
+    }
+
+    public RequestFacetFieldsFacets addExcludeFiltersItem(String excludeFiltersItem)
+    {
+        this.excludeFilters.add(excludeFiltersItem);
+        return this;
+    }
+
+    /**
+     * Filter Queries with tags listed here will not be included in facet
+     * counts. This is used for multi-select facetting.
+     * 
+     * @return excludeFilters
+     **/
+    public List<String> getExcludeFilters()
+    {
+        return excludeFilters;
+    }
+
+    public void setExcludeFilters(List<String> excludeFilters)
+    {
+        this.excludeFilters = excludeFilters;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -258,16 +317,19 @@ public class RequestFacetFieldsFacets
                 && Objects.equals(this.prefix, requestFacetFieldsFacets.prefix)
                 && Objects.equals(this.sort, requestFacetFieldsFacets.sort)
                 && Objects.equals(this.method, requestFacetFieldsFacets.method)
+                && Objects.equals(this.missing, requestFacetFieldsFacets.missing)
                 && Objects.equals(this.limit, requestFacetFieldsFacets.limit)
                 && Objects.equals(this.offset, requestFacetFieldsFacets.offset)
                 && Objects.equals(this.mincount, requestFacetFieldsFacets.mincount)
-                && Objects.equals(this.facetEnumCacheMinDf, requestFacetFieldsFacets.facetEnumCacheMinDf);
+                && Objects.equals(this.facetEnumCacheMinDf, requestFacetFieldsFacets.facetEnumCacheMinDf)
+                && Objects.equals(this.excludeFilters, requestFacetFieldsFacets.excludeFilters);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(field, prefix, sort, method, limit, offset, mincount, facetEnumCacheMinDf);
+        return Objects.hash(field, prefix, sort, method, missing, limit, offset, mincount, facetEnumCacheMinDf,
+                excludeFilters);
     }
 
     @Override
@@ -280,10 +342,12 @@ public class RequestFacetFieldsFacets
         sb.append("    prefix: ").append(toIndentedString(prefix)).append("\n");
         sb.append("    sort: ").append(toIndentedString(sort)).append("\n");
         sb.append("    method: ").append(toIndentedString(method)).append("\n");
+        sb.append("    missing: ").append(toIndentedString(missing)).append("\n");
         sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
         sb.append("    offset: ").append(toIndentedString(offset)).append("\n");
         sb.append("    mincount: ").append(toIndentedString(mincount)).append("\n");
         sb.append("    facetEnumCacheMinDf: ").append(toIndentedString(facetEnumCacheMinDf)).append("\n");
+        sb.append("    excludeFilters: ").append(toIndentedString(excludeFilters)).append("\n");
         sb.append("}");
         return sb.toString();
     }

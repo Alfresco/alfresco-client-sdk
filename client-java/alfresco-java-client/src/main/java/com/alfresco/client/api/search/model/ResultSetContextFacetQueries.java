@@ -16,6 +16,12 @@ public class ResultSetContextFacetQueries
     @SerializedName("count")
     private BigDecimal count = null;
 
+    public ResultSetContextFacetQueries label(String label)
+    {
+        this.label = label;
+        return this;
+    }
+
     /**
      * Get label
      * 

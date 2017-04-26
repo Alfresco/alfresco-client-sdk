@@ -181,9 +181,41 @@ public interface TagsAPI
      * \&quot;skipCount\&quot;: 0, \&quot;maxItems\&quot;: 100 },
      * \&quot;entries\&quot;: [ { \&quot;entry\&quot;: { ... } }, {
      * \&quot;entry\&quot;: { ... } } ] } } &#x60;&#x60;&#x60;
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param tagBody The new tag (required)
+     * @return TagRepresentation
+     */
+    @Headers({ "Content-type: application/json" })
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
+    Call<TagRepresentation> createTagForNodeCall(@Path("nodeId") String nodeId, @Body TagBody tagBody);
+
+    /**
+     * Add a tag Adds a tag to the node **nodeId**. You specify the tag in a
+     * JSON body like this: &#x60;&#x60;&#x60;JSON {
+     * \&quot;tag\&quot;:\&quot;test-tag-1\&quot; } &#x60;&#x60;&#x60; **Note:**
+     * You can create more than one tag by specifying a list of tags in the JSON
+     * body like this: &#x60;&#x60;&#x60;JSON [ {
+     * \&quot;tag\&quot;:\&quot;test-tag-1\&quot; }, {
+     * \&quot;tag\&quot;:\&quot;test-tag-2\&quot; } ] &#x60;&#x60;&#x60; If you
+     * specify a list as input, then a paginated list rather than an entry is
+     * returned in the response body. For example: &#x60;&#x60;&#x60;JSON {
+     * \&quot;list\&quot;: { \&quot;pagination\&quot;: { \&quot;count\&quot;: 2,
+     * \&quot;hasMoreItems\&quot;: false, \&quot;totalItems\&quot;: 2,
+     * \&quot;skipCount\&quot;: 0, \&quot;maxItems\&quot;: 100 },
+     * \&quot;entries\&quot;: [ { \&quot;entry\&quot;: { ... } }, {
+     * \&quot;entry\&quot;: { ... } } ] } } &#x60;&#x60;&#x60;
      * 
      * @param nodeId The identifier of a node. (required)
      * @param tagBody The new tag (required)
+     * @param fields A list of field names. You can use this parameter to
+     *            restrict the fields returned within a response if, for
+     *            example, you want to save on overall bandwidth. The list
+     *            applies to a returned individual entity or entries within a
+     *            collection. If the API method also supports the **include**
+     *            parameter, then the fields specified in the **include**
+     *            parameter are returned in addition to those specified in the
+     *            **fields** parameter. (optional)
      * @return TagRepresentation
      */
     @Headers({ "Content-type: application/json" })
@@ -209,12 +241,44 @@ public interface TagsAPI
      *
      * @param nodeId The identifier of a node. (required)
      * @param tagBody The new tag (required)
+     * @param fields A list of field names. You can use this parameter to
+     *            restrict the fields returned within a response if, for
+     *            example, you want to save on overall bandwidth. The list
+     *            applies to a returned individual entity or entries within a
+     *            collection. If the API method also supports the **include**
+     *            parameter, then the fields specified in the **include**
+     *            parameter are returned in addition to those specified in the
+     *            **fields** parameter. (optional)
      * @return TagRepresentation
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
     Observable<TagRepresentation> createTagForNodeObservable(@Path("nodeId") String nodeId, @Body TagBody tagBody,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+
+    /**
+     * Add a tag Adds a tag to the node **nodeId**. You specify the tag in a
+     * JSON body like this: &#x60;&#x60;&#x60;JSON {
+     * \&quot;tag\&quot;:\&quot;test-tag-1\&quot; } &#x60;&#x60;&#x60; **Note:**
+     * You can create more than one tag by specifying a list of tags in the JSON
+     * body like this: &#x60;&#x60;&#x60;JSON [ {
+     * \&quot;tag\&quot;:\&quot;test-tag-1\&quot; }, {
+     * \&quot;tag\&quot;:\&quot;test-tag-2\&quot; } ] &#x60;&#x60;&#x60; If you
+     * specify a list as input, then a paginated list rather than an entry is
+     * returned in the response body. For example: &#x60;&#x60;&#x60;JSON {
+     * \&quot;list\&quot;: { \&quot;pagination\&quot;: { \&quot;count\&quot;: 2,
+     * \&quot;hasMoreItems\&quot;: false, \&quot;totalItems\&quot;: 2,
+     * \&quot;skipCount\&quot;: 0, \&quot;maxItems\&quot;: 100 },
+     * \&quot;entries\&quot;: [ { \&quot;entry\&quot;: { ... } }, {
+     * \&quot;entry\&quot;: { ... } } ] } } &#x60;&#x60;&#x60;
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param tagBody The new tag (required)
+     * @return TagRepresentation
+     */
+    @Headers({ "Content-type: application/json" })
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
+    Observable<TagRepresentation> createTagForNodeObservable(@Path("nodeId") String nodeId, @Body TagBody tagBody);
 
     /**
      * Add tags Adds a tag to the node **nodeId**. You specify the tag in a JSON
@@ -238,8 +302,73 @@ public interface TagsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
+    Call<ResultPaging<TagRepresentation>> createTagsForNodeCall(@Path("nodeId") String nodeId, @Body TagBody[] tagBody);
+
+    /**
+     * Add tags Adds a tag to the node **nodeId**. You specify the tag in a JSON
+     * body like this: &#x60;&#x60;&#x60;JSON {
+     * \&quot;tag\&quot;:\&quot;test-tag-1\&quot; } &#x60;&#x60;&#x60; **Note:**
+     * You can create more than one tag by specifying a list of tags in the JSON
+     * body like this: &#x60;&#x60;&#x60;JSON [ {
+     * \&quot;tag\&quot;:\&quot;test-tag-1\&quot; }, {
+     * \&quot;tag\&quot;:\&quot;test-tag-2\&quot; } ] &#x60;&#x60;&#x60; If you
+     * specify a list as input, then a paginated list rather than an entry is
+     * returned in the response body. For example: &#x60;&#x60;&#x60;JSON {
+     * \&quot;list\&quot;: { \&quot;pagination\&quot;: { \&quot;count\&quot;: 2,
+     * \&quot;hasMoreItems\&quot;: false, \&quot;totalItems\&quot;: 2,
+     * \&quot;skipCount\&quot;: 0, \&quot;maxItems\&quot;: 100 },
+     * \&quot;entries\&quot;: [ { \&quot;entry\&quot;: { ... } }, {
+     * \&quot;entry\&quot;: { ... } } ] } } &#x60;&#x60;&#x60;
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param tagBody List of new tags (required)
+     * @param fields A list of field names. You can use this parameter to
+     *            restrict the fields returned within a response if, for
+     *            example, you want to save on overall bandwidth. The list
+     *            applies to a returned individual entity or entries within a
+     *            collection. If the API method also supports the **include**
+     *            parameter, then the fields specified in the **include**
+     *            parameter are returned in addition to those specified in the
+     *            **fields** parameter. (optional)
+     * @return TagRepresentation
+     */
+    @Headers({ "Content-type: application/json" })
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
     Call<ResultPaging<TagRepresentation>> createTagsForNodeCall(@Path("nodeId") String nodeId, @Body TagBody[] tagBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+                                                                @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+
+    /**
+     * Add tags Adds a tag to the node **nodeId**. You specify the tag in a JSON
+     * body like this: &#x60;&#x60;&#x60;JSON {
+     * \&quot;tag\&quot;:\&quot;test-tag-1\&quot; } &#x60;&#x60;&#x60; **Note:**
+     * You can create more than one tag by specifying a list of tags in the JSON
+     * body like this: &#x60;&#x60;&#x60;JSON [ {
+     * \&quot;tag\&quot;:\&quot;test-tag-1\&quot; }, {
+     * \&quot;tag\&quot;:\&quot;test-tag-2\&quot; } ] &#x60;&#x60;&#x60; If you
+     * specify a list as input, then a paginated list rather than an entry is
+     * returned in the response body. For example: &#x60;&#x60;&#x60;JSON {
+     * \&quot;list\&quot;: { \&quot;pagination\&quot;: { \&quot;count\&quot;: 2,
+     * \&quot;hasMoreItems\&quot;: false, \&quot;totalItems\&quot;: 2,
+     * \&quot;skipCount\&quot;: 0, \&quot;maxItems\&quot;: 100 },
+     * \&quot;entries\&quot;: [ { \&quot;entry\&quot;: { ... } }, {
+     * \&quot;entry\&quot;: { ... } } ] } } &#x60;&#x60;&#x60;
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param tagBody List of new tags (required)
+     * @param fields A list of field names. You can use this parameter to
+     *            restrict the fields returned within a response if, for
+     *            example, you want to save on overall bandwidth. The list
+     *            applies to a returned individual entity or entries within a
+     *            collection. If the API method also supports the **include**
+     *            parameter, then the fields specified in the **include**
+     *            parameter are returned in addition to those specified in the
+     *            **fields** parameter. (optional)
+     * @return TagRepresentation
+     */
+    @Headers({ "Content-type: application/json" })
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
+    Observable<ResultPaging<TagRepresentation>> createTagsForNodeObservable(@Path("nodeId") String nodeId,
+            @Body TagBody[] tagBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
      * Add tags Adds a tag to the node **nodeId**. You specify the tag in a JSON
@@ -264,7 +393,7 @@ public interface TagsAPI
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
     Observable<ResultPaging<TagRepresentation>> createTagsForNodeObservable(@Path("nodeId") String nodeId,
-            @Body TagBody[] tagBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+                                                                            @Body TagBody[] tagBody);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO

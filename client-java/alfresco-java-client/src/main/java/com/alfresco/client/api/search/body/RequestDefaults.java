@@ -80,6 +80,12 @@ public class RequestDefaults
         return this;
     }
 
+    public RequestDefaults addTextAttributesItem(String textAttributesItem)
+    {
+        this.textAttributes.add(textAttributesItem);
+        return this;
+    }
+
     /**
      * A list of query fields/properties used to expand TEXT: queries. The
      * default is cm:content. You could include all content properties using

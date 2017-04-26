@@ -12,6 +12,12 @@ public class ResponseConsistency
     @SerializedName("lastTxId")
     private Integer lastTxId = null;
 
+    public ResponseConsistency lastTxId(Integer lastTxId)
+    {
+        this.lastTxId = lastTxId;
+        return this;
+    }
+
     /**
      * The id of the last indexed transaction
      * 

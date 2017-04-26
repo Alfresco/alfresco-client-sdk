@@ -46,7 +46,30 @@ public class SearchApiTest extends AlfrescoAPITestCase
     @Test
     public void querySearchTest() throws IOException
     {
-        RequestQuery query = new RequestQuery().query("alfresco").language(RequestQuery.LanguageEnum.AFTS);
+        RequestQuery query = new RequestQuery().query("foo").language(RequestQuery.LanguageEnum.AFTS);
+        QueryBody body = new QueryBody().query(query);
+
+        // Request
+        Response<ResultSetRepresentation<ResultNodeRepresentation>> response = client.getSearchAPI().searchCall(body)
+                .execute();
+        Assert.assertNotNull(response);
+        Assert.assertEquals(response.isSuccessful(), true);
+
+        // Check Response
+        ResultSetRepresentation<ResultNodeRepresentation> resultSet = response.body();
+        Assert.assertNotNull(resultSet, "Response is empty");
+        Assert.assertNotNull(resultSet.getList(), "Response has no entries  ");
+        Assert.assertNotNull(resultSet.getPagination(), "Response has no Pagination Info");
+        Assert.assertNull(resultSet.getContext(), "Response has Context");
+
+        // Check Pagination & Entries
+        List<ResultNodeRepresentation> results = resultSet.getList();
+    }
+
+    @Test
+    public void queryCMISSearchTest() throws IOException
+    {
+        RequestQuery query = new RequestQuery().query("select * from cmis:folder").language(RequestQuery.LanguageEnum.CMIS);
         QueryBody body = new QueryBody().query(query);
 
         // Request

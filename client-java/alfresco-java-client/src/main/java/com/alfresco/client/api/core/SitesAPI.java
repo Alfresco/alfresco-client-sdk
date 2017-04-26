@@ -20,10 +20,7 @@ package com.alfresco.client.api.core;
 
 import com.alfresco.client.api.common.constant.PublicAPIConstant;
 import com.alfresco.client.api.common.representation.ResultPaging;
-import com.alfresco.client.api.core.model.body.SiteBodyCreate;
-import com.alfresco.client.api.core.model.body.SiteMembershipBodyCreate;
-import com.alfresco.client.api.core.model.body.SiteMembershipRequestBodyCreate;
-import com.alfresco.client.api.core.model.body.SiteMembershipRequestBodyUpdate;
+import com.alfresco.client.api.core.model.body.*;
 import com.alfresco.client.api.core.model.parameters.FieldsParam;
 import com.alfresco.client.api.core.model.parameters.OrderByParam;
 import com.alfresco.client.api.core.model.representation.*;
@@ -34,6 +31,8 @@ import rx.Observable;
 
 public interface SitesAPI
 {
+    //TODO Add Default Site Container id
+
     // ///////////////////////////////////////////////////////////////////////////
     // LISTING
     // ///////////////////////////////////////////////////////////////////////////
@@ -377,6 +376,81 @@ public interface SitesAPI
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
+    // UPDATE
+    // ///////////////////////////////////////////////////////////////////////////
+    /**
+     *  **Note:** this endpoint is available in Alfresco 5.2 and newer versions.
+     * Update the details for the given site **siteId**. Site Manager or otherwise a
+     * (site) admin can update title, description or visibility.
+     * Note: the id of a site cannot be updated once the site has been created.
+     *
+     * @param siteId The identifier of a site. (required)
+     * @param siteBodyUpdate The site details (required)
+     * @return SiteRepresentation
+     */
+    @Headers({ "Content-type: application/json" })
+    @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
+    Call<SiteRepresentation> updateSiteCall(@Path("siteId") String siteId, @Body SiteBodyUpdate siteBodyUpdate);
+
+    /**
+     *  **Note:** this endpoint is available in Alfresco 5.2 and newer versions.
+     * Update the details for the given site **siteId**. Site Manager or otherwise a
+     * (site) admin can update title, description or visibility.
+     * Note: the id of a site cannot be updated once the site has been created.
+     *
+     * @param siteId The identifier of a site. (required)
+     * @param siteBodyUpdate The site details (required)
+     * @return SiteRepresentation
+     */
+    @Headers({ "Content-type: application/json" })
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
+    Observable<SiteRepresentation> updateSiteObservable(@Path("siteId") String siteId, @Body SiteBodyUpdate siteBodyUpdate);
+
+    /**
+     *  **Note:** this endpoint is available in Alfresco 5.2 and newer versions.
+     * Update the details for the given site **siteId**. Site Manager or otherwise a
+     * (site) admin can update title, description or visibility.
+     * Note: the id of a site cannot be updated once the site has been created.
+     *
+     * @param siteId The identifier of a site. (required)
+     * @param siteBodyUpdate The site details (required)
+     * @param fields A list of field names. You can use this parameter to
+     *            restrict the fields returned within a response if, for
+     *            example, you want to save on overall bandwidth. The list
+     *            applies to a returned individual entity or entries within a
+     *            collection. If the API method also supports the **include**
+     *            parameter, then the fields specified in the **include**
+     *            parameter are returned in addition to those specified in the
+     *            **fields** parameter. (optional)
+     * @return SiteRepresentation
+     */
+    @Headers({ "Content-type: application/json" })
+    @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
+    Call<SiteRepresentation> updateSiteCall(@Path("siteId") String siteId, @Body SiteBodyUpdate siteBodyUpdate,  @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+
+    /**
+     *  **Note:** this endpoint is available in Alfresco 5.2 and newer versions.
+     * Update the details for the given site **siteId**. Site Manager or otherwise a
+     * (site) admin can update title, description or visibility.
+     * Note: the id of a site cannot be updated once the site has been created.
+     *
+     * @param siteId The identifier of a site. (required)
+     * @param siteBodyUpdate The site details (required)
+     * @param fields A list of field names. You can use this parameter to
+     *            restrict the fields returned within a response if, for
+     *            example, you want to save on overall bandwidth. The list
+     *            applies to a returned individual entity or entries within a
+     *            collection. If the API method also supports the **include**
+     *            parameter, then the fields specified in the **include**
+     *            parameter are returned in addition to those specified in the
+     *            **fields** parameter. (optional)
+     * @return SiteRepresentation
+     */
+    @Headers({ "Content-type: application/json" })
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
+    Observable<SiteRepresentation> updateSiteObservable(@Path("siteId") String siteId, @Body SiteBodyUpdate siteBodyUpdate,  @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+
+    // ///////////////////////////////////////////////////////////////////////////
     // DELETE
     // ///////////////////////////////////////////////////////////////////////////
     /**
@@ -696,7 +770,7 @@ public interface SitesAPI
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members/{personId}")
     Call<SiteMemberRepresentation> updateSiteMembershipCall(@Path("siteId") String siteId,
-            @Path("personId") String personId, @Body SiteMembershipBodyCreate siteMemberRoleBody,
+            @Path("personId") String personId, @Body SiteMembershipBodyUpdate siteMemberRoleBody,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -714,7 +788,7 @@ public interface SitesAPI
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members/{personId}")
     Observable<SiteMemberRepresentation> updateSiteMembershipObservable(@Path("siteId") String siteId,
-            @Path("personId") String personId, @Body SiteMembershipBodyCreate siteMemberRoleBody,
+            @Path("personId") String personId, @Body SiteMembershipBodyUpdate siteMemberRoleBody,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -893,7 +967,7 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/sites/{siteId}")
     Call<SiteRoleRepresentation> getSiteMembershipForPersonCall(@Path("personId") String personId,
-            @Path("siteId") int siteId);
+            @Path("siteId") String siteId);
 
     /**
      * Get site membership for a site Returns site membership information for
@@ -907,7 +981,7 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/sites/{siteId}")
     Observable<SiteRoleRepresentation> getSiteMembershipForPersonObservable(@Path("personId") String personId,
-            @Path("siteId") int siteId);
+            @Path("siteId") String siteId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE PERSON SITE MEMBERSHIP
@@ -923,7 +997,7 @@ public interface SitesAPI
      * @return ApiResponse&lt;Void&gt;
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/sites/{siteId}")
-    Call<Void> deleteSiteMembershipForPersonCall(@Path("personId") String personId, @Path("siteId") int siteId);
+    Call<Void> deleteSiteMembershipForPersonCall(@Path("personId") String personId, @Path("siteId") String siteId);
 
     /**
      * Delete a site membership Deletes person **personId** as a member of site
@@ -936,7 +1010,7 @@ public interface SitesAPI
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/sites/{siteId}")
     Observable<Void> deleteSiteMembershipForPersonObservable(@Path("personId") String personId,
-            @Path("siteId") int siteId);
+            @Path("siteId") String siteId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // SITE MEMBERSHIP REQUEST

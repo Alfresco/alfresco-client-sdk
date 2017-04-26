@@ -17,11 +17,17 @@ public class ResultSetContext
     @SerializedName("facetQueries")
     private List<ResultSetContextFacetQueries> facetQueries = new ArrayList<ResultSetContextFacetQueries>();
 
-    @SerializedName("facetFields")
+    @SerializedName("facetsFields")
     private List<ResultSetContextFacetFields> facetFields = new ArrayList<ResultSetContextFacetFields>();
 
     @SerializedName("spellcheck")
     private List<ResultSetContextSpellcheck> spellcheck = new ArrayList<ResultSetContextSpellcheck>();
+
+    public ResultSetContext consistency(ResponseConsistency consistency)
+    {
+        this.consistency = consistency;
+        return this;
+    }
 
     /**
      * Get consistency
@@ -36,6 +42,18 @@ public class ResultSetContext
     public void setConsistency(ResponseConsistency consistency)
     {
         this.consistency = consistency;
+    }
+
+    public ResultSetContext facetQueries(List<ResultSetContextFacetQueries> facetQueries)
+    {
+        this.facetQueries = facetQueries;
+        return this;
+    }
+
+    public ResultSetContext addFacetQueriesItem(ResultSetContextFacetQueries facetQueriesItem)
+    {
+        this.facetQueries.add(facetQueriesItem);
+        return this;
     }
 
     /**
@@ -53,6 +71,18 @@ public class ResultSetContext
         this.facetQueries = facetQueries;
     }
 
+    public ResultSetContext facetFields(List<ResultSetContextFacetFields> facetFields)
+    {
+        this.facetFields = facetFields;
+        return this;
+    }
+
+    public ResultSetContext addFacetFieldsItem(ResultSetContextFacetFields facetFieldsItem)
+    {
+        this.facetFields.add(facetFieldsItem);
+        return this;
+    }
+
     /**
      * The counts from field facets
      * 
@@ -66,6 +96,18 @@ public class ResultSetContext
     public void setFacetFields(List<ResultSetContextFacetFields> facetFields)
     {
         this.facetFields = facetFields;
+    }
+
+    public ResultSetContext spellcheck(List<ResultSetContextSpellcheck> spellcheck)
+    {
+        this.spellcheck = spellcheck;
+        return this;
+    }
+
+    public ResultSetContext addSpellcheckItem(ResultSetContextSpellcheck spellcheckItem)
+    {
+        this.spellcheck.add(spellcheckItem);
+        return this;
     }
 
     /**

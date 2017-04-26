@@ -9,15 +9,15 @@ import org.testng.Assert;
 import com.alfresco.client.AlfrescoClient;
 import com.alfresco.client.api.common.constant.ContentModel;
 import com.alfresco.client.api.common.representation.ResultPaging;
-import com.alfresco.client.api.core.NodesAPI;
-import com.alfresco.client.api.core.VersionAPI;
+import com.alfresco.client.api.core.*;
 import com.alfresco.client.api.core.model.body.*;
 import com.alfresco.client.api.core.model.parameters.IncludeParam;
 import com.alfresco.client.api.core.model.parameters.OrderByParam;
-import com.alfresco.client.api.core.model.representation.AssociationRepresentation;
-import com.alfresco.client.api.core.model.representation.ChildAssociationRepresentation;
-import com.alfresco.client.api.core.model.representation.NodeRepresentation;
-import com.alfresco.client.api.core.model.representation.VersionRepresentation;
+import com.alfresco.client.api.core.model.representation.*;
+import com.alfresco.client.api.search.SearchAPI;
+import com.alfresco.client.api.search.body.*;
+import com.alfresco.client.api.search.model.ResultNodeRepresentation;
+import com.alfresco.client.api.search.model.ResultSetRepresentation;
 import com.google.gson.internal.LinkedTreeMap;
 
 import okhttp3.MediaType;
@@ -37,7 +37,7 @@ public class TutorialTest {
 
     public static void main(String[] args) throws IOException {
         tutorialInitiation();
-        tutorialPart6Associations();
+        tutorialPart11Trashcan();
         Assert.assertTrue(true);
     }
 
@@ -116,10 +116,10 @@ public class TutorialTest {
         NodesAPI nodesAPI = client.getNodesAPI();
 
         //Create Folder
-        /*NodeBodyCreate nodeBodyCreate = new NodeBodyCreate("My Folder", ContentModel.TYPE_FOLDER);
+        NodeBodyCreate nodeBodyCreate = new NodeBodyCreate("My Folder", ContentModel.TYPE_FOLDER);
         Response<NodeRepresentation> nodeResponse = nodesAPI.createNodeCall(NodesAPI.FOLDER_MY, nodeBodyCreate).execute();
         NodeRepresentation folder = nodeResponse.body();
-        Assert.assertEquals(folder.getName(), "My Folder");*/
+        Assert.assertEquals(folder.getName(), "My Folder");
 
         //Create Empty File
         /*NodeBodyCreate emptyFileBody = new NodeBodyCreate("my-file.txt", ContentModel.TYPE_CONTENT);
@@ -528,5 +528,457 @@ public class TutorialTest {
         //Delete third image child association
         Response<Void> deleteChildAssocResponse = nodesAPI.deleteSecondaryChildAssocationCall(amazonEchoResponse.body().getId(), thirdImageResponse.body().getId(), "fdk:images").execute();
         Assert.assertTrue(deleteChildAssocResponse.isSuccessful());
+    }
+
+    static void tutorialPart7Collaboration() throws IOException
+    {
+        // Select NodesAPI
+        NodesAPI nodesAPI = client.getNodesAPI();
+
+        //Create Content
+        NodeBodyCreate emptyFileBody = new NodeBodyCreate("collaboration.txt", ContentModel.TYPE_CONTENT);
+        Response<NodeRepresentation> emptyNodeResponse = nodesAPI.createNodeCall(NodesAPI.FOLDER_MY, emptyFileBody).execute();
+        NodeRepresentation emptyNode = emptyNodeResponse.body();
+        Assert.assertEquals(emptyNode.getContent().getSizeInBytes(), 0);
+
+        ////////////////////////////////////////
+        // COMMENTS
+        ////////////////////////////////////////
+        //Setting up Comments API
+        CommentsAPI commentsAPI = client.getCommentsAPI();
+
+        //Add a comment
+        String commentValue = "This is my comment";
+        CommentBody commentBody = new CommentBody(commentValue);
+        Response<CommentRepresentation> commentResponse = commentsAPI.createCommentCall(emptyNode.getId(), commentBody).execute();
+        CommentRepresentation commentRepresentation = commentResponse.body();
+        Assert.assertEquals(commentRepresentation.getContent(), commentValue);
+        Assert.assertEquals(commentRepresentation.getCreatedBy().getId(), "admin");
+
+        //Retrieve Comment
+        Response<ResultPaging<CommentRepresentation>> commentsListResponse = commentsAPI.listCommentsCall(emptyNode.getId()).execute();
+        ResultPaging<CommentRepresentation> commentListing = commentsListResponse.body();
+        Assert.assertEquals(commentListing.getCount(), 1);
+        Assert.assertEquals(commentListing.getList().get(0), commentRepresentation);
+        Assert.assertEquals(commentListing.getList().get(0).getCanEdit(), Boolean.TRUE);
+        Assert.assertEquals(commentListing.getList().get(0).getCanDelete(), Boolean.TRUE);
+
+        //Update Comment
+        String updatedCommentValue = "Updated comment";
+        CommentBody updatedCommentBody = new CommentBody(updatedCommentValue);
+        Response<CommentRepresentation> updatedCommentResponse = commentsAPI.updateCommentCall(emptyNode.getId(), commentRepresentation.getId(), updatedCommentBody).execute();
+        CommentRepresentation updatedCommentRepresentation = updatedCommentResponse.body();
+        Assert.assertEquals(updatedCommentRepresentation.getContent(), updatedCommentValue);
+        //Uncomment to test async flag issue
+        //Assert.assertEquals(updatedCommentRepresentation.isEdited(), Boolean.TRUE);
+
+        //Delete Comment
+        Response<Void> deleteResponse = commentsAPI.deleteCommentCall(emptyNode.getId(), commentRepresentation.getId()).execute();
+        Assert.assertEquals(deleteResponse.isSuccessful(), true);
+        Assert.assertEquals(commentsAPI.listCommentsCall(emptyNode.getId()).execute().body().getCount(), 0);
+
+        ////////////////////////////////////////
+        // RATINGS
+        ////////////////////////////////////////
+        //Setting up Ratings API
+        RatingsAPI ratingsAPI = client.getRatingsAPI();
+
+        //Like a node
+        RatingBody likeBody = new RatingBody(RatingsAPI.LIKES, true);
+        Response<RatingRepresentation> likeResponse = ratingsAPI.rateNodeCall(emptyNode.getId(), likeBody).execute();
+        Assert.assertEquals(likeResponse.body().getId(), RatingsAPI.LIKES);
+        Assert.assertEquals(likeResponse.body().getMyRating(), Boolean.TRUE);
+        Assert.assertEquals(likeResponse.body().getAggregate().getNumberOfRatings(), (Integer) 1);
+
+        //Retrieve Ratings
+        Response<ResultPaging<RatingRepresentation>> ratingListingResponse = ratingsAPI.listRatingsCall(emptyNode.getId()).execute();
+        ResultPaging<RatingRepresentation> ratingListing = ratingListingResponse.body();
+        Assert.assertEquals(ratingListing.getCount(), 2);
+        Assert.assertEquals(ratingListing.getList().get(0).getId(),RatingsAPI.FIVE_STAR);
+        Assert.assertEquals(ratingListing.getList().get(1).getId(),RatingsAPI.LIKES);
+
+        //Unlike a node
+        Response<Void> unlikeResponse = ratingsAPI.deleteRatingCall(emptyNode.getId(), RatingsAPI.LIKES).execute();
+        Assert.assertEquals(unlikeResponse.isSuccessful(), true);
+
+        //Retrieve Like Rating
+        Response<RatingRepresentation> ratingRepresentationResponse = ratingsAPI.getRatingCall(emptyNode.getId(), RatingsAPI.LIKES).execute();
+        Assert.assertNull(ratingRepresentationResponse.body().getMyRating());
+        Assert.assertEquals(ratingRepresentationResponse.body().getAggregate().getNumberOfRatings(), (Integer) 0);
+
+        ////////////////////////////////////////
+        // TAGGING
+        ////////////////////////////////////////
+        //Setting up Tagging API
+        TagsAPI tagsApi = client.getTagsAPI();
+
+        //Add Blog Tag
+        String blog = "blog";
+        TagBody tagBody = new TagBody(blog);
+        Response<TagRepresentation> tagRepresentationResponse = tagsApi.createTagForNodeCall(emptyNode.getId(), tagBody).execute();
+        TagRepresentation tagBlog = tagRepresentationResponse.body();
+        Assert.assertEquals(tagBlog.getTag(), blog);
+
+        //Add Post Tag
+        String post = "post";
+        TagBody tag2Body = new TagBody(post);
+        Response<TagRepresentation> tag2RepresentationResponse = tagsApi.createTagForNodeCall(emptyNode.getId(), tag2Body).execute();
+        Assert.assertEquals(tag2RepresentationResponse.body().getTag(), post);
+
+        //Retrieve node Tags
+        Response<ResultPaging<TagRepresentation>> tagListResponse = tagsApi.listTagsForNodeCall(emptyNode.getId()).execute();
+        ResultPaging<TagRepresentation> tagList = tagListResponse.body();
+        Assert.assertEquals(tagList.getCount(), 2);
+        Assert.assertEquals(tagList.getList().get(0).getTag(), blog);
+        Assert.assertEquals(tagList.getList().get(1).getTag(), post);
+
+        //Retrieve Repository Tags
+        Response<ResultPaging<TagRepresentation>> tagRepoListResponse = tagsApi.listTagsCall().execute();
+        ResultPaging<TagRepresentation> tagRepoList = tagRepoListResponse.body();
+        Assert.assertEquals(tagRepoList.getCount(), 2);
+        Assert.assertEquals(tagRepoList.getList().get(0).getTag(), blog);
+        Assert.assertEquals(tagRepoList.getList().get(1).getTag(), post);
+
+        //Delete Tag from Node
+        Response<Void> deleteTagResponse = tagsApi.deleteTagFromNodeCall(emptyNode.getId(), tagBlog.getId()).execute();
+        Assert.assertEquals(deleteTagResponse.isSuccessful(), true);
+        Assert.assertEquals(tagsApi.listTagsForNodeCall(emptyNode.getId()).execute().body().getCount(), 1);
+    }
+
+    static void tutorialPart8Sites() throws IOException{
+
+        // Select PeopleAPI
+        PeopleAPI peopleAPI = client.getPeopleAPI();
+
+        //Create Test user
+        /*PersonBodyCreate personBodyCreate = new PersonBodyCreate("test", "Test", "User", "test@alfresco.com", "test");
+        Response<PersonRepresentation> personRepresentationResponse = peopleAPI.createPersonCall(personBodyCreate).execute();
+        PersonRepresentation personRepresentation = personRepresentationResponse.body();
+        Assert.assertEquals(personRepresentation.getId(), "test");*/
+
+
+        // Create new Client and connect with new user test/test user
+        client = new AlfrescoClient.Builder().httpLogging(HttpLoggingInterceptor.Level.BODY)
+                .connect("http://localhost:8080/alfresco", "test", "test").build();
+
+        //Create a public Site
+        SitesAPI sitesAPI = client.getSitesAPI();
+
+        //Create public site
+        /*SiteBodyCreate siteBodyCreate = new SiteBodyCreate("publicSite", "Public Site", "Public site created for blog post", SiteVisibilityEnum.PUBLIC);
+        Response<SiteRepresentation> siteRepresentationResponse = sitesAPI.createSiteCall(siteBodyCreate).execute();
+        SiteRepresentation siteRepresentation = siteRepresentationResponse.body();
+        Assert.assertEquals(siteRepresentation.getId(), "publicSite");
+        Assert.assertEquals(siteRepresentation.getVisibilityEnum(), SiteVisibilityEnum.PUBLIC);
+        Assert.assertEquals(siteRepresentation.getRole(), "SiteManager");
+
+        //Retrieve document library container
+        Response<SiteContainerRepresentation> doclibContainerResponse = sitesAPI.getSiteContainerCall("publicSite", "documentLibrary").execute();
+        SiteContainerRepresentation doclibContainer = doclibContainerResponse.body();
+        Assert.assertEquals(doclibContainer.getFolderId(), "documentLibrary");
+
+        //Update site description
+        SiteBodyUpdate update = new SiteBodyUpdate("Public site created for blog post - part 8");
+        Response<SiteRepresentation> siteRepresentationResponse = sitesAPI.updateSiteCall("publicSite", update).execute();
+        SiteRepresentation siteRepresentation = siteRepresentationResponse.body();
+        Assert.assertEquals(siteRepresentation.getId(), "publicSite");
+        Assert.assertEquals(siteRepresentation.getDescription(), "Public site created for blog post - part 8");*/
+
+        // Create Moderated Site
+        /*SiteBodyCreate siteBodyCreate = new SiteBodyCreate("moderatedSite", "Moderated Site",
+                "Moderated site created for blog post", SiteVisibilityEnum.MODERATED);
+        Response<SiteRepresentation> siteRepresentationResponse = sitesAPI.createSiteCall(siteBodyCreate).execute();
+        SiteRepresentation siteRepresentation = siteRepresentationResponse.body();
+        Assert.assertEquals(siteRepresentation.getId(), "moderatedSite");
+        Assert.assertEquals(siteRepresentation.getVisibilityEnum(), SiteVisibilityEnum.MODERATED);
+        Assert.assertEquals(siteRepresentation.getRole(), "SiteManager");
+
+        // Create 2nd Test user
+        PersonBodyCreate personBodyCreate = new PersonBodyCreate("test2", "Test", "User2", "test2@alfresco.com",
+                "test2");
+        Response<PersonRepresentation> personRepresentationResponse = peopleAPI.createPersonCall(personBodyCreate)
+                .execute();
+        PersonRepresentation personRepresentation = personRepresentationResponse.body();
+        Assert.assertEquals(personRepresentation.getId(), "test2");*/
+
+        // Create new Client and connect with new user test2/test2 user
+        AlfrescoClient client2 = new AlfrescoClient.Builder().httpLogging(HttpLoggingInterceptor.Level.BODY)
+                .connect("http://localhost:8080/alfresco", "test2", "test2").build();
+
+        // Join public site
+        /*SiteMembershipRequestBodyCreate requestBodyCreate = new SiteMembershipRequestBodyCreate("publicSite");
+        Response<SiteMembershipRequestRepresentation> publicSiteRepresentationResponse = client2.getSitesAPI()
+                .createSiteMembershipRequestForPersonCall("test2", requestBodyCreate, null).execute();
+        SiteMembershipRequestRepresentation requestRepresentation = publicSiteRepresentationResponse.body();
+        Assert.assertEquals(requestRepresentation.getSite().getRole(), "SiteConsumer");
+        Assert.assertEquals(requestRepresentation.getSite().getId(), "publicSite");
+        Assert.assertEquals(requestRepresentation.getId(), "publicSite");
+
+        // Join moderated site
+        SiteMembershipRequestBodyCreate requestModeratedBodyCreate = new SiteMembershipRequestBodyCreate(
+                "moderatedSite", "I would like to join this site as it looks interesting", null);
+        Response<SiteMembershipRequestRepresentation> moderatedSiteRepresentationResponse = client2.getSitesAPI()
+                .createSiteMembershipRequestForPersonCall("test2", requestModeratedBodyCreate, null).execute();
+        SiteMembershipRequestRepresentation moderatedRequestRepresentation = moderatedSiteRepresentationResponse.body();
+        Assert.assertNull(moderatedRequestRepresentation.getSite().getRole());
+        Assert.assertEquals(moderatedRequestRepresentation.getSite().getId(), "moderatedSite");
+        Assert.assertEquals(moderatedRequestRepresentation.getId(), "moderatedSite");
+        
+        // Review site membership requests
+        ResultPaging<SiteMembershipRequestRepresentation> siteMembershipRequestPaging = client2.getSitesAPI()
+                .listSiteMembershipRequestsForPersonCall("test2").execute().body();
+        Assert.assertEquals(siteMembershipRequestPaging.getCount(), 1);
+        Assert.assertEquals(siteMembershipRequestPaging.getList().get(0).getId(), "moderatedSite");*/
+
+        //List site members
+       /* ResultPaging<SiteMemberRepresentation> siteMembers = client2.getSitesAPI().listSiteMembershipsCall("publicSite").execute().body();
+        Assert.assertEquals(siteMembers.getCount(), 2);
+        Assert.assertEquals(siteMembers.getList().size(), 2);
+
+        //List my sites
+        ResultPaging<SiteRoleRepresentation> mySites = client2.getSitesAPI().listSiteMembershipsForPersonCall("test2").execute().body();
+        Assert.assertEquals(mySites.getCount(), 1);
+        Assert.assertEquals(mySites.getList().get(0).getRole(), "SiteConsumer");
+
+        //List all sites
+        ResultPaging<SiteRepresentation> allSites = client2.getSitesAPI().listSitesCall().execute().body();
+        Assert.assertEquals(allSites.getCount(), 3);
+
+        //Find site
+        ResultPaging<SiteRepresentation> findSites = client2.getQueriesAPI().findSitesCall("public").execute().body();
+        Assert.assertEquals(findSites.getCount(), 1);
+        Assert.assertEquals(findSites.getList().get(0).getId(), "publicSite");
+
+        //Leave Site
+        Response<Void> leaveSiteResponse = client2.getSitesAPI().deleteSiteMembershipForPersonCall("test2", "publicSite").execute();
+        Assert.assertEquals(leaveSiteResponse.isSuccessful(), true);
+        Assert.assertEquals(client2.getSitesAPI().listSiteMembershipsForPersonCall("test2").execute().body().getCount(), 0);*/
+
+        // Add Site Member
+        /*SiteMembershipBodyCreate siteMembershipBodyCreate = new SiteMembershipBodyCreate("test2", "SiteContributor");
+        SiteMemberRepresentation siteMember = client.getSitesAPI()
+                .createSiteMembershipCall("publicSite", siteMembershipBodyCreate, null).execute().body();
+        Assert.assertEquals(siteMember.getRole(), "SiteContributor");
+        Assert.assertEquals(siteMember.getId(), "test2");
+        Assert.assertEquals(client2.getSitesAPI().listSiteMembershipsForPersonCall("test2").execute().body().getCount(), 1);*/
+
+        //Change member role
+        SiteMembershipBodyUpdate siteMembershipBodyUpdate = new SiteMembershipBodyUpdate("SiteManager");
+        SiteMemberRepresentation siteMemberUpdated = client.getSitesAPI()
+                .updateSiteMembershipCall("publicSite", "test2", siteMembershipBodyUpdate, null).execute().body();
+        Assert.assertEquals(siteMemberUpdated.getRole(), "SiteManager");
+        Assert.assertEquals(siteMemberUpdated.getId(), "test2");
+        Assert.assertEquals(client2.getSitesAPI().listSiteMembershipsForPersonCall("test2").execute().body().getCount(), 1);
+
+        //Delete Site
+        Response<Void> deleteSiteResponse = client.getSitesAPI().deleteSiteCall("publicSite").execute();
+        Assert.assertTrue(deleteSiteResponse.isSuccessful());
+    }
+
+    static void tutorialPart9Queries() throws IOException
+    {
+        //Create a public Site
+        SitesAPI sitesAPI = client.getSitesAPI();
+
+        //Create public site
+        /*SiteBodyCreate siteBodyCreate = new SiteBodyCreate("queriesSearchSite", "Queries and Search Site", "Site created for queries and search blog post", SiteVisibilityEnum.PUBLIC);
+        Response<SiteRepresentation> siteRepresentationResponse = sitesAPI.createSiteCall(siteBodyCreate).execute();
+        SiteRepresentation siteRepresentation = siteRepresentationResponse.body();
+        Assert.assertEquals(siteRepresentation.getId(), "queriesSearchSite");
+        Assert.assertEquals(siteRepresentation.getVisibilityEnum(), SiteVisibilityEnum.PUBLIC);
+
+        //Retrieve Document Library Container
+        Response<SiteContainerRepresentation> doclibContainerResponse = sitesAPI.getSiteContainerCall("queriesSearchSite", "documentLibrary").execute();
+        SiteContainerRepresentation doclibContainer = doclibContainerResponse.body();
+        Assert.assertEquals(doclibContainer.getFolderId(), "documentLibrary");
+
+         //Create text file
+         File file = new File("W:\\test.txt");
+         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"), file);
+         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+         multipartBuilder.addFormDataPart("filedata", "test.txt", requestBody);
+         RequestBody fileRequestBody = multipartBuilder.build();
+         client.getNodesAPI().createNodeCall(doclibContainer.getId(), fileRequestBody).execute();
+
+        //Create image file
+        file = new File("W:\\image.png");
+        requestBody = RequestBody.create(MediaType.parse("image/png"), file);
+        multipartBuilder = new MultipartBody.Builder();
+        multipartBuilder.addFormDataPart("filedata", "image.png", requestBody);
+        fileRequestBody = multipartBuilder.build();
+        client.getNodesAPI().createNodeCall(doclibContainer.getId(), fileRequestBody).execute();*/
+
+        //Nodes query
+        /*ResultPaging<NodeRepresentation> loremResult = client.getQueriesAPI().findNodesCall("lorem").execute().body();
+        Assert.assertTrue(loremResult.getCount() >= 7);
+
+        //Sites query
+        ResultPaging<SiteRepresentation> siteResult = client.getQueriesAPI().findSitesCall("queries").execute().body();
+        Assert.assertEquals(siteResult.getCount(), 1);
+        Assert.assertEquals(siteResult.getList().get(0).getId(), "queriesSearchSite");
+
+        //People Query
+        ResultPaging<PersonRepresentation> personResult = client.getQueriesAPI().findPeopleCall("jackson").execute().body();
+        Assert.assertEquals(personResult.getCount(), 1);
+        Assert.assertEquals(personResult.getList().get(0).getId(), "mjackson");*/
+
+
+        // Basic Search
+        SearchAPI searchAPI = client.getSearchAPI();
+
+       /* QueryBody body = new QueryBody().query(new RequestQuery().query("lorem"));
+        ResultSetRepresentation<ResultNodeRepresentation> loremSearchResult = searchAPI.searchCall(body).execute().body();
+        Assert.assertTrue(loremSearchResult.getCount() >= 7);
+
+        // Basic CMIS Search
+        RequestQuery cmisQuery = new RequestQuery().query("select * from cmis:document WHERE cmis:name LIKE 'test.%'")
+                .language(RequestQuery.LanguageEnum.CMIS);
+        QueryBody cmisbody = new QueryBody().query(cmisQuery);
+        ResultSetRepresentation<ResultNodeRepresentation> cmisResult = searchAPI.searchCall(cmisbody).execute().body();
+        Assert.assertTrue(cmisResult.getCount() >= 1);
+
+        // Basic Lucene Search
+        RequestQuery luceneQuery = new RequestQuery().query("+@cm\\:modified:[NOW/DAY-7DAYS TO NOW/DAY+1DAY] +TYPE:\"cm:content\"")
+                .language(RequestQuery.LanguageEnum.LUCENE);
+        QueryBody lucenebody = new QueryBody().query(luceneQuery);
+        ResultSetRepresentation<ResultNodeRepresentation> luceneResult = searchAPI.searchCall(lucenebody).execute().body();
+        Assert.assertTrue(luceneResult.getCount() == 100);
+
+        //Search with Paging & Sorting
+        RequestQuery pagingQuery = new RequestQuery().query("+TYPE:\"cm:content\"").language(RequestQuery.LanguageEnum.AFTS);
+
+        List<RequestSortDefinition> sortDefinitions = Arrays.asList(
+                new RequestSortDefinition().type(RequestSortDefinition.TypeEnum.FIELD).field("cm:name").ascending(false));
+
+        RequestPagination pagination = new RequestPagination().skipCount(10).maxItems(25);
+
+        QueryBody pagingQueryBody = new QueryBody().query(pagingQuery).sort(sortDefinitions).paging(pagination);
+        ResultSetRepresentation<ResultNodeRepresentation> pagingResult = searchAPI.searchCall(pagingQueryBody).execute().body();
+        Assert.assertTrue(pagingResult.getCount() == 25);
+        Assert.assertEquals(pagingResult.getPagination().getMaxItems(), 25);
+        Assert.assertEquals(pagingResult.getPagination().getSkipCount(), 10);*/
+
+        //Search with Facets
+        RequestQuery facetQuery = new RequestQuery().query("(name:\"test*\" OR title:\"test*\") AND TYPE:\"cm:content\"");
+
+        List<RequestFacetQuery> facetsQuery = Arrays.asList(
+                new RequestFacetQuery().query("content.size:[0 TO 10240]").label("Small Files"),
+                new RequestFacetQuery().query("content.mimetype:'text/plain'").label("Plain Text"),
+                new RequestFacetQuery().query("content.mimetype:'image/jpeg' OR content.mimetype:'image/png' OR content.mimetype:'image/gif'").label("Images"),
+                new RequestFacetQuery().query("content.mimetype:'application/msword' OR content.mimetype:'application/vnd.ms-excel'").label("Office")
+                );
+
+        RequestFacetFields facetFields = new RequestFacetFields().facets(Arrays.asList(new RequestFacetFieldsFacets().field("creator")));
+
+        QueryBody facetQueryBody = new QueryBody().query(facetQuery).facetQueries(facetsQuery).facetFields(facetFields);
+        ResultSetRepresentation<ResultNodeRepresentation> facetResult = searchAPI.searchCall(facetQueryBody).execute().body();
+        Assert.assertTrue(facetResult.getCount() >= 3);
+        Assert.assertEquals(facetResult.getContext().getFacetQueries().size(), 4);
+        Assert.assertEquals(facetResult.getContext().getFacetFields().get(0).getBuckets().size(), 2);
+        Assert.assertEquals(facetResult.getList().size(), 3);
+
+        //Search with term highlighting
+        RequestQuery highlightQuery = new RequestQuery().query("(name:\"test*\" OR title:\"test*\") AND TYPE:\"cm:content\"");
+
+        List<RequestHighlightField> highlightField = Arrays.asList(
+                new RequestHighlightField().field("cm:name").prefix("(").postfix(")"),
+                new RequestHighlightField().field("{http://www.alfresco.org/model/content/1.0}title")
+        );
+
+        RequestHighlight highlight = new RequestHighlight().fields(highlightField);
+
+        QueryBody highlightQueryBody = new QueryBody().query(highlightQuery).highlight(highlight);
+        ResultSetRepresentation<ResultNodeRepresentation> highlightResult = searchAPI.searchCall(highlightQueryBody).execute().body();
+        Assert.assertTrue(highlightResult.getCount() >= 3);
+        Assert.assertEquals(highlightResult.getList().size(), 3);
+        Assert.assertEquals(highlightResult.getList().get(0).getSearch().getHighlight().size(), 2);
+    }
+
+    static void tutorialPart10People() throws IOException{
+        //Create Person
+        PeopleAPI peopleAPI = client.getPeopleAPI();
+
+        PersonBodyCreate bodyCreate = new PersonBodyCreate("jdoe").firstName("John").lastName("Doe")
+                .email("john.doe@example.com").password("jdoe").skypeId("johndoe_skype").jobTitle("Software Engineer");
+
+        PersonRepresentation personRepresentation = peopleAPI.createPersonCall(bodyCreate).execute().body();
+        Assert.assertEquals(personRepresentation.getId(), "jdoe");
+        Assert.assertEquals(personRepresentation.getFirstName(), "John");
+        Assert.assertEquals(personRepresentation.getLastName(), "Doe");
+        Assert.assertEquals(personRepresentation.getEmail(), "john.doe@example.com");
+        Assert.assertEquals(personRepresentation.getSkypeId(), "johndoe_skype");
+        Assert.assertEquals(personRepresentation.getJobTitle(), "Software Engineer");
+
+        //List People
+        ResultPaging<PersonRepresentation> personList = peopleAPI.listPeopleCall().execute().body();
+        Assert.assertEquals(personList.getCount(), 7);
+
+        //Find People
+        ResultPaging<PersonRepresentation> searchPersonList = client.getQueriesAPI().findPeopleCall("jdoe").execute().body();
+        Assert.assertEquals(searchPersonList.getCount(), 1);
+        Assert.assertEquals(searchPersonList.getList().get(0).getId(), "jdoe");
+
+        //Person Details
+        PersonRepresentation jdoeDetails = peopleAPI.getPersonCall("jdoe").execute().body();
+        Assert.assertEquals(jdoeDetails.getId(), "jdoe");
+        Assert.assertEquals(jdoeDetails.getFirstName(), "John");
+        Assert.assertEquals(jdoeDetails.getLastName(), "Doe");
+        Assert.assertEquals(jdoeDetails.getEmail(), "john.doe@example.com");
+        Assert.assertEquals(jdoeDetails.getSkypeId(), "johndoe_skype");
+        Assert.assertEquals(jdoeDetails.getJobTitle(), "Software Engineer");
+
+        //Update Person Details
+        PersonBodyUpdate bodyUpdate = new PersonBodyUpdate().firstName("Johnathon").mobile("07000 123456");
+
+        PersonRepresentation updatedPerson = peopleAPI.updatePersonCall("jdoe", bodyUpdate, null).execute().body();
+        Assert.assertEquals(updatedPerson.getMobile(), "07000 123456");
+        Assert.assertEquals(updatedPerson.getFirstName(), "Johnathon");
+
+        //Change Password
+        PersonBodyUpdate changePassword = new PersonBodyUpdate().oldPassword("jdoe").password("my-new-password");
+
+        PersonRepresentation updatedPPerson = peopleAPI.updatePersonCall("jdoe", changePassword, null).execute().body();
+
+
+        //Disable Person
+        PersonBodyUpdate disablePersonBody = new PersonBodyUpdate().enabled(false);
+
+        PersonRepresentation disablePerson = peopleAPI.updatePersonCall("jdoe", disablePersonBody, null).execute().body();
+        Assert.assertEquals(disablePerson.isEnabled(), Boolean.FALSE);
+    }
+
+    static void tutorialPart11Trashcan() throws IOException {
+
+        //Create text file
+        File file = new File("W:\\test.txt");
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"), file);
+        MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+        multipartBuilder.addFormDataPart("filedata", "content-to-be-deleted.txt", requestBody);
+        RequestBody fileRequestBody = multipartBuilder.build();
+        NodeRepresentation nodeToDelete = client.getNodesAPI().createNodeCall(NodesAPI.FOLDER_MY, fileRequestBody).execute().body();
+
+        //Delete file
+        client.getNodesAPI().deleteNodeCall(nodeToDelete.getId()).execute();
+        Assert.assertFalse(client.getNodesAPI().getNodeCall(nodeToDelete.getId()).execute().isSuccessful());
+
+        //List deleted Nodes
+        TrashcanAPI trashcanAPI = client.getTrashcanAPI();
+        ResultPaging<DeletedNodeRepresentation> deletedNodes = trashcanAPI.listDeletedNodesCall().execute().body();
+        Assert.assertTrue(deletedNodes.getCount() > 10);
+
+        //Deleted Node details
+        DeletedNodeRepresentation deletedNodeInfo = trashcanAPI.getDeletedNodeCall(nodeToDelete.getId()).execute().body();
+        Assert.assertEquals(deletedNodeInfo.getId() , nodeToDelete.getId());
+
+        //Restore node
+        NodeRepresentation restoredNode = trashcanAPI.restoreDeletedNodeCall(nodeToDelete.getId(), null).execute().body();
+        Assert.assertEquals(restoredNode.getId() , nodeToDelete.getId());
+        Assert.assertTrue(client.getNodesAPI().getNodeCall(nodeToDelete.getId()).execute().isSuccessful());
+
+        //Permanently delete node
+        client.getNodesAPI().deleteNodeCall(nodeToDelete.getId()).execute();
+        Response<Void> purgedNodeResponse = trashcanAPI.purgeDeletedNodeCall(restoredNode.getId()).execute();
+        Assert.assertTrue(purgedNodeResponse.isSuccessful());
+        Assert.assertFalse(client.getNodesAPI().getNodeCall(nodeToDelete.getId()).execute().isSuccessful());
     }
 }

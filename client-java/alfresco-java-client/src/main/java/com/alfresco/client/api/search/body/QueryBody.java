@@ -6,7 +6,7 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by jpascal on 05/10/2016.
+ * QueryBody
  */
 public class QueryBody
 {
@@ -48,6 +48,9 @@ public class QueryBody
 
     @SerializedName("limits")
     private RequestLimits limits = null;
+
+    @SerializedName("highlight")
+    private RequestHighlight highlight = null;
 
     public QueryBody query(RequestQuery query)
     {
@@ -322,6 +325,27 @@ public class QueryBody
         this.limits = limits;
     }
 
+    public QueryBody highlight(RequestHighlight highlight)
+    {
+        this.highlight = highlight;
+        return this;
+    }
+
+    /**
+     * Get highlight
+     * 
+     * @return highlight
+     **/
+    public RequestHighlight getHighlight()
+    {
+        return highlight;
+    }
+
+    public void setHighlight(RequestHighlight highlight)
+    {
+        this.highlight = highlight;
+    }
+
     @Override
     public boolean equals(java.lang.Object o)
     {
@@ -336,14 +360,14 @@ public class QueryBody
                 && Objects.equals(this.facetQueries, queryBody.facetQueries)
                 && Objects.equals(this.facetFields, queryBody.facetFields)
                 && Objects.equals(this.spellcheck, queryBody.spellcheck) && Objects.equals(this.scope, queryBody.scope)
-                && Objects.equals(this.limits, queryBody.limits);
+                && Objects.equals(this.limits, queryBody.limits) && Objects.equals(this.highlight, queryBody.highlight);
     }
 
     @Override
     public int hashCode()
     {
         return Objects.hash(query, paging, include, fields, sort, templates, defaults, filterQueries, facetQueries,
-                facetFields, spellcheck, scope, limits);
+                facetFields, spellcheck, scope, limits, highlight);
     }
 
     @Override
@@ -365,6 +389,7 @@ public class QueryBody
         sb.append("    spellcheck: ").append(toIndentedString(spellcheck)).append("\n");
         sb.append("    scope: ").append(toIndentedString(scope)).append("\n");
         sb.append("    limits: ").append(toIndentedString(limits)).append("\n");
+        sb.append("    highlight: ").append(toIndentedString(highlight)).append("\n");
         sb.append("}");
         return sb.toString();
     }

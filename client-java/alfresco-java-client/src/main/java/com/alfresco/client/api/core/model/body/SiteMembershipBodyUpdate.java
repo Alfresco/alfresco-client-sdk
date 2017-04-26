@@ -21,16 +21,18 @@ package com.alfresco.client.api.core.model.body;
 /**
  * Created by jpascal on 15/12/2015.
  */
-public class RatingBody
+public class SiteMembershipBodyUpdate
 {
-    public final String id;
+    public final String role;
 
-    public final Object myRating;
-
-    public RatingBody(String id, Object myRating)
+    /**
+     * Update only
+     *
+     * @param role
+     */
+    public SiteMembershipBodyUpdate( String role)
     {
-        this.id = id;
-        this.myRating = myRating;
+        this.role = role;
     }
 
 }
