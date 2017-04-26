@@ -1,4 +1,4 @@
-#Alfresco Java Client
+# Alfresco Java Client
 
 ## Introduction
 The idea behind this project is to enable developers to interact easily with Alfresco One Public REST API V1.
@@ -7,9 +7,9 @@ To achieve this goal this project provide a **single JAR** file that can be used
 ### Status
 **Please note this project is currently under development and is available only on Early Access Mode**
 
-##Requirements
+## Requirements
 
-###Alfresco
+### Alfresco
 Alfresco REST API v1 is currently on Early Access Mode and it's only available with the latest version of Alfresco Community 201606 and onward.
 Before using this library you have to install this platform [available here](https://wiki.alfresco.com/wiki/Alfresco_Community_Edition_201606_EA_Release_Notes)
 
@@ -18,9 +18,9 @@ For more information about Alfresco REST API
 - ["Alfresco REST API of the future" BeeCon slides](http://www.slideshare.net/jvonka/alfresco-rest-api-of-the-future-is-closer-than-you-think)
 - [Alfresco Core REST API](https://api-explorer.alfresco.com/api-explorer/)
 
-##Installation
+## Installation
 
-###MAVEN
+### MAVEN
 
 ```xml
 <dependency>
@@ -30,16 +30,16 @@ For more information about Alfresco REST API
 </dependency>
 ```
 
-###GRADLE
+### GRADLE
 ```gradle
 compile 'org.alfresco.client:alfresco-java-client:1.0.0-beta1'
 ```
 
 
-##Usage
+## Usage
 
 
-###Create Client/Session Object
+### Create Client/Session Object
 
 **Basic Auth**
 ```java
@@ -57,7 +57,7 @@ AlfrescoClient client =  new AlfrescoClient.Builder().connectWithToken(baseUrl, 
 ```
 
 
-###Create Services
+### Create Services
 ```java
 //Retrieve user activities and site activities
 ActivityStreamAPI activityAPI = client.getActivityStreamAPI();
@@ -94,7 +94,7 @@ TrashcanAPI trashcanAPI = client.getTrashcanAPI();
 
 ```
 
-###Retrieve Company Home (Root Folder) Information
+### Retrieve Company Home (Root Folder) Information
 
 **Synchronuously**
 ```java
@@ -121,7 +121,7 @@ Response<NodeRepresentation> response = client.getNodesAPI().getNodeCall(NodeAPI
 nodesAPI.getNodeObservable(NodeAPI.FOLDER_ROOT).subscribe(root -> Assert.assertEquals(root.getName(), "Company Home"));
 ```
 
-###Create, Edit & Delete Folder
+### Create, Edit & Delete Folder
 ```java
  // Retrieve NODE API
  NodesAPI nodeService = client.getNodesAPI();
@@ -145,7 +145,7 @@ nodesAPI.getNodeObservable(NodeAPI.FOLDER_ROOT).subscribe(root -> Assert.assertE
 
 ```
 
-###Print the Number of site (RxJava)
+### Print the Number of site (RxJava)
 ```java
 //Print the number of sites
 nodesAPI.getNodeObservable(NodesAPI.FOLDER_ROOT)
@@ -156,17 +156,17 @@ nodesAPI.getNodeObservable(NodesAPI.FOLDER_ROOT)
         .subscribe(sites -> System.out.println(sites.getPagination().getTotalItems()));
 ```
 
-###Others
+### Others
 
 You can retrieve other usage of the lib in [unit tests defined here](src/test/java/com/alfresco/client/api/tests)
 
-##Running tests
+## Running tests
 
-###Requirements
+### Requirements
 
 Tests can be executed only with the latest version of Alfresco One i.e Alfresco One Enterprise 5.2 or Alfresco Community 201609 and onwards.
 
-###Usage 
+### Usage 
 
 Tests can be executed with a fresh Alfresco install on localhost:8080 with user admin/admin
 
