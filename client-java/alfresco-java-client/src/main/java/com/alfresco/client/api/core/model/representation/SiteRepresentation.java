@@ -43,6 +43,9 @@ public class SiteRepresentation extends AbstractRepresentation
     @SerializedName("role")
     private String role = null;
 
+    @SerializedName("preset")
+    private String preset = null;
+
     /**
      * Get id
      * 
@@ -143,6 +146,31 @@ public class SiteRepresentation extends AbstractRepresentation
         this.role = role;
     }
 
+    public SiteRoleEnum getRoleEnum()
+    {
+        return role != null ? SiteRoleEnum.fromString(role) : null;
+    }
+
+    public void setRoleEnum(SiteRoleEnum siteRoleEnum)
+    {
+        this.role = siteRoleEnum.toString();
+    }
+
+    /**
+     * Get preset
+     * 
+     * @return preset
+     **/
+    public String getPreset()
+    {
+        return preset;
+    }
+
+    public void setPreset(String preset)
+    {
+        this.preset = preset;
+    }
+
     @Override
     public boolean equals(java.lang.Object o)
     {
@@ -151,26 +179,28 @@ public class SiteRepresentation extends AbstractRepresentation
         SiteRepresentation site = (SiteRepresentation) o;
         return Objects.equals(this.id, site.id) && Objects.equals(this.guid, site.guid)
                 && Objects.equals(this.title, site.title) && Objects.equals(this.description, site.description)
-                && Objects.equals(this.visibility, site.visibility) && Objects.equals(this.role, site.role);
+                && Objects.equals(this.visibility, site.visibility) && Objects.equals(this.preset, site.preset)
+                && Objects.equals(this.role, site.role);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(id, guid, title, description, visibility, role);
+        return Objects.hash(id, guid, title, description, visibility, preset, role);
     }
 
     @Override
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("class Site {\n");
+        sb.append("class SiteRepresentation {\n");
 
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    guid: ").append(toIndentedString(guid)).append("\n");
         sb.append("    title: ").append(toIndentedString(title)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    visibility: ").append(toIndentedString(visibility)).append("\n");
+        sb.append("    preset: ").append(toIndentedString(preset)).append("\n");
         sb.append("    role: ").append(toIndentedString(role)).append("\n");
         sb.append("}");
         return sb.toString();

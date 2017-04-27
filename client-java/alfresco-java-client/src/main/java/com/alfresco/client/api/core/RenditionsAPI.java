@@ -21,7 +21,7 @@ package com.alfresco.client.api.core;
 import java.util.Date;
 
 import com.alfresco.client.api.common.representation.ResultPaging;
-import com.alfresco.client.api.core.model.body.RenditionBody;
+import com.alfresco.client.api.core.model.body.RenditionBodyCreate;
 import com.alfresco.client.api.core.model.representation.RenditionRepresentation;
 
 import okhttp3.ResponseBody;
@@ -72,11 +72,11 @@ public interface RenditionsAPI
      * 
      * @param nodeId The identifier of a node. You can also use one of these
      *            well-known aliases: * -my- * -shared- * -root- (required)
-     * @param renditionBody The rendition \&quot;id\&quot;. (required)
+     * @param renditionBodyCreate The rendition \&quot;id\&quot;. (required)
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions")
-    Call<Void> createRenditionCall(@Path("nodeId") String nodeId, @Body RenditionBody renditionBody);
+    Call<Void> createRenditionCall(@Path("nodeId") String nodeId, @Body RenditionBodyCreate renditionBodyCreate);
 
     /**
      * Create rendition Async body to create a rendition for file with
@@ -86,11 +86,12 @@ public interface RenditionsAPI
      *
      * @param nodeId The identifier of a node. You can also use one of these
      *            well-known aliases: * -my- * -shared- * -root- (required)
-     * @param renditionBody The rendition \&quot;id\&quot;. (required)
+     * @param renditionBodyCreate The rendition \&quot;id\&quot;. (required)
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions")
-    Observable<Void> createRenditionObservable(@Path("nodeId") String nodeId, @Body RenditionBody renditionBody);
+    Observable<Void> createRenditionObservable(@Path("nodeId") String nodeId,
+            @Body RenditionBodyCreate renditionBodyCreate);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO

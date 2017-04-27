@@ -18,13 +18,17 @@
 
 package com.alfresco.client.api.core.model.body;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by jpascal on 15/12/2015.
  */
 public class RatingBody
 {
+    @SerializedName("id")
     public final String id;
 
+    @SerializedName("myRating")
     public final Object myRating;
 
     public RatingBody(String id, Object myRating)

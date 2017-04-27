@@ -31,7 +31,6 @@ public class SiteMemberRepresentation extends AbstractRepresentation
     @SerializedName("person")
     private PersonRepresentation person = null;
 
-    // TODO RoleEnum?
     @SerializedName("role")
     private String role = null;
 
@@ -81,6 +80,16 @@ public class SiteMemberRepresentation extends AbstractRepresentation
     public void setRole(String role)
     {
         this.role = role;
+    }
+
+    public SiteRoleEnum getRoleEnum()
+    {
+        return role != null ? SiteRoleEnum.fromString(role) : null;
+    }
+
+    public void setRoleEnum(SiteRoleEnum siteRoleEnum)
+    {
+        this.role = siteRoleEnum.toString();
     }
 
     @Override

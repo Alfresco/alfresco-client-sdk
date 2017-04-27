@@ -23,19 +23,18 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by jpascal on 15/12/2015.
  */
-public class CommentBody
+public class NodeBodyMove
 {
-    @SerializedName("content")
-    private final String content;
+    @SerializedName("targetParentId")
+    public final String targetParentId;
 
-    public CommentBody(String content)
-    {
-        this.content = content;
-    }
+    @SerializedName("name")
+    public final String name;
 
-    public String getContent()
+    public NodeBodyMove(String targetParentId, String name)
     {
-        return content;
+        this.name = name;
+        this.targetParentId = targetParentId;
     }
 
 }

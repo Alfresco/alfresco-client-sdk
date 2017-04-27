@@ -78,10 +78,13 @@ public class NodeRepresentation extends AbstractRepresentation
     protected List<String> allowableOperations = new ArrayList<String>();
 
     @SerializedName("path")
-    protected PathRepresentation path;
+    protected PathInfoRepresentation path;
 
     @SerializedName("association")
-    protected AssocInfoRepresentation association;
+    protected AssociationInfoRepresentation association;
+
+    @SerializedName("permissions")
+    private PermissionsInfoRepresentation permissions = null;
 
     // ///////////////////////////////////////////////////////////////////////////
     // GETTERS & SETTERS
@@ -301,12 +304,12 @@ public class NodeRepresentation extends AbstractRepresentation
      * 
      * @return Associations
      **/
-    public AssocInfoRepresentation getAssociation()
+    public AssociationInfoRepresentation getAssociation()
     {
         return association;
     }
 
-    public void setAssociation(AssocInfoRepresentation association)
+    public void setAssociation(AssociationInfoRepresentation association)
     {
         this.association = association;
     }
@@ -336,14 +339,29 @@ public class NodeRepresentation extends AbstractRepresentation
         isLink = link;
     }
 
-    public PathRepresentation getPath()
+    public PathInfoRepresentation getPath()
     {
         return path;
     }
 
-    public void setPath(PathRepresentation path)
+    public void setPath(PathInfoRepresentation path)
     {
         this.path = path;
+    }
+
+    /**
+     * Get permissions
+     * 
+     * @return permissions
+     **/
+    public PermissionsInfoRepresentation getPermissions()
+    {
+        return permissions;
+    }
+
+    public void setPermissions(PermissionsInfoRepresentation permissions)
+    {
+        this.permissions = permissions;
     }
 
     @Override
@@ -351,26 +369,23 @@ public class NodeRepresentation extends AbstractRepresentation
     {
         if (this == o) { return true; }
         if (o == null || getClass() != o.getClass()) { return false; }
-        NodeRepresentation nodeFull = (NodeRepresentation) o;
-        return Objects.equals(this.id, nodeFull.id) && Objects.equals(this.parentId, nodeFull.parentId)
-                && Objects.equals(this.name, nodeFull.name) && Objects.equals(this.nodeType, nodeFull.nodeType)
-                && Objects.equals(this.isFolder, nodeFull.isFolder) && Objects.equals(this.isFile, nodeFull.isFile)
-                && Objects.equals(this.isLocked, nodeFull.isLocked)
-                && Objects.equals(this.isLink, nodeFull.isLink)
-                && Objects.equals(this.modifiedAt, nodeFull.modifiedAt)
-                && Objects.equals(this.modifiedBy, nodeFull.modifiedBy)
-                && Objects.equals(this.createdAt, nodeFull.createdAt)
-                && Objects.equals(this.createdBy, nodeFull.createdBy) && Objects.equals(this.content, nodeFull.content)
-                && Objects.equals(this.aspects, nodeFull.aspects)
-                && Objects.equals(this.allowableOperations, nodeFull.allowableOperations);
+        NodeRepresentation node = (NodeRepresentation) o;
+        return Objects.equals(this.id, node.id) && Objects.equals(this.parentId, node.parentId)
+                && Objects.equals(this.name, node.name) && Objects.equals(this.nodeType, node.nodeType)
+                && Objects.equals(this.isFolder, node.isFolder) && Objects.equals(this.isFile, node.isFile)
+                && Objects.equals(this.isLocked, node.isLocked) && Objects.equals(this.isLink, node.isLink)
+                && Objects.equals(this.modifiedAt, node.modifiedAt) && Objects.equals(this.modifiedBy, node.modifiedBy)
+                && Objects.equals(this.createdAt, node.createdAt) && Objects.equals(this.createdBy, node.createdBy)
+                && Objects.equals(this.content, node.content) && Objects.equals(this.aspects, node.aspects)
+                && Objects.equals(this.allowableOperations, node.allowableOperations)
+                && Objects.equals(this.permissions, node.permissions);
     }
 
     @Override
     public int hashCode()
     {
         return Objects.hash(id, parentId, name, nodeType, isFolder, isFile, isLocked, isLink, modifiedAt, modifiedBy,
-                createdAt,
-                createdBy, content, aspects, properties, allowableOperations, association);
+                createdAt, createdBy, content, aspects, properties, allowableOperations, association, permissions);
     }
 
     @Override
@@ -396,6 +411,7 @@ public class NodeRepresentation extends AbstractRepresentation
         sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
         sb.append("    allowableOperations: ").append(toIndentedString(allowableOperations)).append("\n");
         sb.append("    association: ").append(toIndentedString(association)).append("\n");
+        sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
         sb.append("}");
         return sb.toString();
     }

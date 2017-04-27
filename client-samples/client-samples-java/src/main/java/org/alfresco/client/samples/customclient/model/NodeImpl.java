@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.alfresco.client.api.common.representation.AbstractRepresentation;
 import com.alfresco.client.api.core.model.representation.ContentInfoRepresentation;
-import com.alfresco.client.api.core.model.representation.PathRepresentation;
+import com.alfresco.client.api.core.model.representation.PathInfoRepresentation;
 import com.alfresco.client.api.core.model.representation.UserInfoRepresentation;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.internal.LinkedTreeMap;
@@ -35,7 +35,7 @@ public class NodeImpl extends AbstractRepresentation implements Node
 
     private String parentId;
 
-    private PathRepresentation path;
+    private PathInfoRepresentation path;
 
     private ContentInfoRepresentation content;
 
@@ -147,12 +147,12 @@ public class NodeImpl extends AbstractRepresentation implements Node
         this.parentId = parentId;
     }
 
-    public PathRepresentation getPath()
+    public PathInfoRepresentation getPath()
     {
         return path;
     }
 
-    public void setPath(PathRepresentation path)
+    public void setPath(PathInfoRepresentation path)
     {
         this.path = path;
     }

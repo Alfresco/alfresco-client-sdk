@@ -18,24 +18,33 @@
 
 package com.alfresco.client.api.core.model.body;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by jpascal on 15/12/2015.
+ * Created by jpascal on 23/08/2016.
  */
-public class CommentBody
+public class SharedLinkBodyEmail
 {
-    @SerializedName("content")
-    private final String content;
 
-    public CommentBody(String content)
+    @SerializedName("client")
+    public final String client;
+
+    @SerializedName("message")
+    public final String message;
+
+    @SerializedName("locale")
+    public final String locale;
+
+    @SerializedName("recipientEmails")
+    public final List<String> recipientEmails;
+
+    public SharedLinkBodyEmail(String client, String message, String locale, List<String> recipientEmails)
     {
-        this.content = content;
+        this.client = client;
+        this.message = message;
+        this.locale = locale;
+        this.recipientEmails = recipientEmails;
     }
-
-    public String getContent()
-    {
-        return content;
-    }
-
 }

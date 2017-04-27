@@ -23,19 +23,14 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by jpascal on 15/12/2015.
  */
-public class CommentBody
+public class RenditionBodyCreate
 {
-    @SerializedName("content")
-    private final String content;
+    @SerializedName("id")
+    public final String id;
 
-    public CommentBody(String content)
+    public RenditionBodyCreate(String id, String myRating)
     {
-        this.content = content;
-    }
-
-    public String getContent()
-    {
-        return content;
+        this.id = id;
     }
 
 }

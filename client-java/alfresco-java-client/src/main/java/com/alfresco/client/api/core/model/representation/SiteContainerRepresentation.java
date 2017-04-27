@@ -18,17 +18,27 @@
 
 package com.alfresco.client.api.core.model.representation;
 
+import java.util.Objects;
+
 import com.alfresco.client.api.common.representation.AbstractRepresentation;
+import com.google.gson.annotations.SerializedName;
 
 public class SiteContainerRepresentation extends AbstractRepresentation
 {
+    @SerializedName("id")
     private String id;
 
+    @SerializedName("folderId")
     private String folderId;
 
     // ///////////////////////////////////////////////////////////////////////////
     // GETTERS & SETTERS
     // ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Get id
+     * 
+     * @return id
+     **/
     public String getId()
     {
         return id;
@@ -39,6 +49,11 @@ public class SiteContainerRepresentation extends AbstractRepresentation
         this.id = id;
     }
 
+    /**
+     * Get folderId
+     * 
+     * @return folderId
+     **/
     public String getFolderId()
     {
         return folderId;
@@ -47,5 +62,42 @@ public class SiteContainerRepresentation extends AbstractRepresentation
     public void setFolderId(String folderId)
     {
         this.folderId = folderId;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o)
+    {
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) { return false; }
+        SiteContainerRepresentation siteContainer = (SiteContainerRepresentation) o;
+        return Objects.equals(this.id, siteContainer.id) && Objects.equals(this.folderId, siteContainer.folderId);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(id, folderId);
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SiteContainer {\n");
+
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    folderId: ").append(toIndentedString(folderId)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o)
+    {
+        if (o == null) { return "null"; }
+        return o.toString().replace("\n", "\n    ");
     }
 }

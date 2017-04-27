@@ -25,7 +25,6 @@ import com.google.gson.annotations.SerializedName;
  */
 public class NodeBodyLock
 {
-
     /**
      * Gets or Sets type
      */
@@ -74,9 +73,6 @@ public class NodeBodyLock
         }
     }
 
-    @SerializedName("includeChildren")
-    public final Boolean includeChildren;
-
     @SerializedName("timeToExpire")
     public final Integer timeToExpire;
 
@@ -88,15 +84,13 @@ public class NodeBodyLock
 
     public NodeBodyLock()
     {
-        this.includeChildren = null;
         this.timeToExpire = null;
         this.type = null;
         this.lifetime = null;
     }
 
-    public NodeBodyLock(Boolean includeChildren, Integer timeToExpire, TypeEnum type, LifetimeEnum lifetime)
+    public NodeBodyLock(Integer timeToExpire, TypeEnum type, LifetimeEnum lifetime)
     {
-        this.includeChildren = includeChildren != null ? includeChildren : false;
         this.timeToExpire = timeToExpire;
         this.type = type != null ? type : TypeEnum.ALLOW_OWNER_CHANGES;
         this.lifetime = lifetime != null ? lifetime : LifetimeEnum.PERSISTENT;

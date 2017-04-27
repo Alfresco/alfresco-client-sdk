@@ -20,6 +20,7 @@ package com.alfresco.client.api.core.model.body;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.internal.LinkedTreeMap;
 
 /**
@@ -27,13 +28,20 @@ import com.google.gson.internal.LinkedTreeMap;
  */
 public class NodeBodyUpdate
 {
+    @SerializedName("name")
     private final String name;
 
+    @SerializedName("nodeType")
     private final String nodeType;
 
+    @SerializedName("aspectNames")
+    private final List<String> aspectNames;
+
+    @SerializedName("properties")
     private final LinkedTreeMap<String, Object> properties;
 
-    private final List<String> aspectNames;
+    @SerializedName("permissions")
+    private final PermissionsBodyUpdate permissions;
 
     public NodeBodyUpdate(String name)
     {
@@ -41,6 +49,7 @@ public class NodeBodyUpdate
         this.nodeType = null;
         this.properties = null;
         this.aspectNames = null;
+        this.permissions = null;
     }
 
     public NodeBodyUpdate(LinkedTreeMap<String, Object> properties)
@@ -56,6 +65,16 @@ public class NodeBodyUpdate
             this.properties = null;
         }
         this.aspectNames = null;
+        this.permissions = null;
+    }
+
+    public NodeBodyUpdate(PermissionsBodyUpdate permissions)
+    {
+        this.name = null;
+        this.nodeType = null;
+        this.properties = null;
+        this.aspectNames = null;
+        this.permissions = permissions;
     }
 
     public NodeBodyUpdate(String name, String nodeType, LinkedTreeMap<String, Object> properties,
@@ -72,6 +91,24 @@ public class NodeBodyUpdate
             this.properties = null;
         }
         this.aspectNames = aspectNames;
+        this.permissions = null;
+    }
+
+    public NodeBodyUpdate(String name, String nodeType, LinkedTreeMap<String, Object> properties,
+            List<String> aspectNames, PermissionsBodyUpdate permissions)
+    {
+        this.name = name;
+        this.nodeType = nodeType;
+        if (properties != null && !properties.isEmpty())
+        {
+            this.properties = properties;
+        }
+        else
+        {
+            this.properties = null;
+        }
+        this.aspectNames = aspectNames;
+        this.permissions = permissions;
     }
 
     public String getName()

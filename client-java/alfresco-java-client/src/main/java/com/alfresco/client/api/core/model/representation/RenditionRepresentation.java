@@ -32,30 +32,7 @@ public class RenditionRepresentation extends AbstractRepresentation
     private ContentInfoRepresentation content = null;
 
     @SerializedName("status")
-    private StatusEnum status = null;
-
-    /**
-     * Gets or Sets status
-     */
-    public enum StatusEnum
-    {
-        @SerializedName("CREATED") CREATED("CREATED"),
-
-        @SerializedName("NOT_CREATED") NOT_CREATED("NOT_CREATED");
-
-        private String value;
-
-        StatusEnum(String value)
-        {
-            this.value = value;
-        }
-
-        @Override
-        public String toString()
-        {
-            return String.valueOf(value);
-        }
-    }
+    private RenditionStatusEnum status = null;
 
     /**
      * Get id
@@ -92,12 +69,12 @@ public class RenditionRepresentation extends AbstractRepresentation
      * 
      * @return status
      **/
-    public StatusEnum getStatus()
+    public RenditionStatusEnum getStatus()
     {
         return status;
     }
 
-    public void setStatus(StatusEnum status)
+    public void setStatus(RenditionStatusEnum status)
     {
         this.status = status;
     }

@@ -21,25 +21,35 @@ package com.alfresco.client.api.core.model.body;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by jpascal on 15/12/2015.
  */
 public class NodeBodyCreate
 {
+    @SerializedName("name")
     public final String name;
 
+    @SerializedName("nodeType")
     public final String nodeType;
 
+    @SerializedName("properties")
     public final Map<String, Object> properties;
 
+    @SerializedName("aspectNames")
     public final List<String> aspectNames;
 
+    @SerializedName("relativePath")
     public final String relativePath;
 
+    @SerializedName("association")
     public final NodeBodyCreateAssociation association;
 
+    @SerializedName("secondaryChildren")
     public final List<ChildAssociationBody> secondaryChildren;
 
+    @SerializedName("targets")
     public final List<AssociationBody> targets;
 
     public NodeBodyCreate(String name, String nodeType)

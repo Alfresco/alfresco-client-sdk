@@ -25,7 +25,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by jpascal on 29/07/2016.
  */
-public class AssocInfoRepresentation
+public class AssociationInfoRepresentation
 {
     @SerializedName("assocType")
     protected String assocType = null;
@@ -64,7 +64,7 @@ public class AssocInfoRepresentation
     {
         if (this == o) { return true; }
         if (o == null || getClass() != o.getClass()) { return false; }
-        AssocInfoRepresentation assocChild = (AssocInfoRepresentation) o;
+        AssociationInfoRepresentation assocChild = (AssociationInfoRepresentation) o;
         return Objects.equals(this.assocType, assocChild.assocType)
                 && Objects.equals(this.isPrimary, assocChild.isPrimary);
     }

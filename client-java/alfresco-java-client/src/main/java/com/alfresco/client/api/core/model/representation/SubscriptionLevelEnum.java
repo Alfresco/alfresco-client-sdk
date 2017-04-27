@@ -16,35 +16,38 @@
  *   limitations under the License.
  */
 
-package com.alfresco.client.api.core.model.body;
-
-import java.util.List;
+package com.alfresco.client.api.core.model.representation;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by jpascal on 23/08/2016.
- */
-public class SharedLinkEmailBody
+public enum SubscriptionLevelEnum
 {
+    @SerializedName("Free") FREE("Free"),
 
-    @SerializedName("client")
-    public final String client;
+    @SerializedName("Standard") STANDARD("Standard"),
 
-    @SerializedName("message")
-    public final String message;
+    @SerializedName("Enterprise") ENTERPRISE("Enterprise");
 
-    @SerializedName("locale")
-    public final String locale;
+    private String value;
 
-    @SerializedName("recipientEmails")
-    public final List<String> recipientEmails;
-
-    public SharedLinkEmailBody(String client, String message, String locale, List<String> recipientEmails)
+    SubscriptionLevelEnum(String value)
     {
-        this.client = client;
-        this.message = message;
-        this.locale = locale;
-        this.recipientEmails = recipientEmails;
+        this.value = value;
     }
+
+    @Override
+    public String toString()
+    {
+        return String.valueOf(value);
+    }
+
+    public static SubscriptionLevelEnum fromString(String text)
+    {
+        for (SubscriptionLevelEnum b : SubscriptionLevelEnum.values())
+        {
+            if (b.value.equalsIgnoreCase(text)) { return b; }
+        }
+        return null;
+    }
+
 }

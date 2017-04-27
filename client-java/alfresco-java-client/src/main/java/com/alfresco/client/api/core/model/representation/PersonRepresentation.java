@@ -18,8 +18,7 @@
 
 package com.alfresco.client.api.core.model.representation;
 
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 import com.alfresco.client.api.common.representation.AbstractRepresentation;
 import com.google.gson.annotations.SerializedName;
@@ -79,6 +78,12 @@ public class PersonRepresentation extends AbstractRepresentation
 
     @SerializedName("emailNotificationsEnabled")
     private Boolean emailNotificationsEnabled = null;
+
+    @SerializedName("aspectNames")
+    private List<String> aspectNames = new ArrayList<>();
+
+    @SerializedName("properties")
+    private Map<String, String> properties = new HashMap<>();
 
     // ///////////////////////////////////////////////////////////////////////////
     // GETTERS & SETTERS
@@ -353,6 +358,36 @@ public class PersonRepresentation extends AbstractRepresentation
         this.emailNotificationsEnabled = emailNotificationsEnabled;
     }
 
+    /**
+     * Get aspectNames
+     * 
+     * @return aspectNames
+     **/
+    public List<String> getAspectNames()
+    {
+        return aspectNames;
+    }
+
+    public void setAspectNames(List<String> aspectNames)
+    {
+        this.aspectNames = aspectNames;
+    }
+
+    /**
+     * Get properties
+     * 
+     * @return properties
+     **/
+    public Map<String, String> getProperties()
+    {
+        return properties;
+    }
+
+    public void setProperties(Map<String, String> properties)
+    {
+        this.properties = properties;
+    }
+
     @Override
     public boolean equals(java.lang.Object o)
     {
@@ -370,7 +405,9 @@ public class PersonRepresentation extends AbstractRepresentation
                 && Objects.equals(this.telephone, person.telephone)
                 && Objects.equals(this.statusUpdatedAt, person.statusUpdatedAt)
                 && Objects.equals(this.userStatus, person.userStatus) && Objects.equals(this.enabled, person.enabled)
-                && Objects.equals(this.emailNotificationsEnabled, person.emailNotificationsEnabled);
+                && Objects.equals(this.emailNotificationsEnabled, person.emailNotificationsEnabled)
+                && Objects.equals(this.aspectNames, person.aspectNames)
+                && Objects.equals(this.properties, person.properties);
     }
 
     @Override
@@ -378,7 +415,7 @@ public class PersonRepresentation extends AbstractRepresentation
     {
         return Objects.hash(id, firstName, lastName, description, avatarId, email, skypeId, googleId, instantMessageId,
                 jobTitle, location, company, mobile, telephone, statusUpdatedAt, userStatus, enabled,
-                emailNotificationsEnabled);
+                emailNotificationsEnabled, aspectNames, properties);
     }
 
     @Override
@@ -405,6 +442,8 @@ public class PersonRepresentation extends AbstractRepresentation
         sb.append("    userStatus: ").append(toIndentedString(userStatus)).append("\n");
         sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
         sb.append("    emailNotificationsEnabled: ").append(toIndentedString(emailNotificationsEnabled)).append("\n");
+        sb.append("    aspectNames: ").append(toIndentedString(aspectNames)).append("\n");
+        sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
         sb.append("}");
         return sb.toString();
     }

@@ -31,6 +31,9 @@ public class SharedLinkRepresentation extends AbstractRepresentation
     @SerializedName("id")
     private String id = null;
 
+    @SerializedName("expiresAt")
+    private Date expiresAt = null;
+
     @SerializedName("nodeId")
     private String nodeId = null;
 
@@ -83,6 +86,21 @@ public class SharedLinkRepresentation extends AbstractRepresentation
     public void setNodeId(String nodeId)
     {
         this.nodeId = nodeId;
+    }
+
+    /**
+     * Get expiresAt
+     * 
+     * @return expiresAt
+     **/
+    public Date getExpiresAt()
+    {
+        return expiresAt;
+    }
+
+    public void setExpiresAt(Date expiresAt)
+    {
+        this.expiresAt = expiresAt;
     }
 
     /**
@@ -183,6 +201,7 @@ public class SharedLinkRepresentation extends AbstractRepresentation
         SharedLinkRepresentation nodeSharedLink = (SharedLinkRepresentation) o;
         return Objects.equals(this.id, nodeSharedLink.id) && Objects.equals(this.nodeId, nodeSharedLink.nodeId)
                 && Objects.equals(this.name, nodeSharedLink.name)
+                && Objects.equals(this.expiresAt, nodeSharedLink.expiresAt)
                 && Objects.equals(this.modifiedAt, nodeSharedLink.modifiedAt)
                 && Objects.equals(this.modifiedByUser, nodeSharedLink.modifiedByUser)
                 && Objects.equals(this.sharedByUser, nodeSharedLink.sharedByUser)
@@ -193,7 +212,8 @@ public class SharedLinkRepresentation extends AbstractRepresentation
     @Override
     public int hashCode()
     {
-        return Objects.hash(id, nodeId, name, modifiedAt, modifiedByUser, sharedByUser, content, allowableOperations);
+        return Objects.hash(id, expiresAt, nodeId, name, modifiedAt, modifiedByUser, sharedByUser, content,
+                allowableOperations);
     }
 
     @Override
@@ -203,6 +223,7 @@ public class SharedLinkRepresentation extends AbstractRepresentation
         sb.append("class NodeSharedLink {\n");
 
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    expiresAt: ").append(toIndentedString(expiresAt)).append("\n");
         sb.append("    nodeId: ").append(toIndentedString(nodeId)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    modifiedAt: ").append(toIndentedString(modifiedAt)).append("\n");

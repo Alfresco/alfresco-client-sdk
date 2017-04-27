@@ -23,7 +23,7 @@ import java.util.Date;
 import com.alfresco.client.api.common.constant.PublicAPIConstant;
 import com.alfresco.client.api.common.representation.ResultPaging;
 import com.alfresco.client.api.core.model.body.SharedLinkBodyCreate;
-import com.alfresco.client.api.core.model.body.SharedLinkEmailBody;
+import com.alfresco.client.api.core.model.body.SharedLinkBodyEmail;
 import com.alfresco.client.api.core.model.parameters.FieldsParam;
 import com.alfresco.client.api.core.model.parameters.IncludeParam;
 import com.alfresco.client.api.core.model.representation.RenditionRepresentation;
@@ -278,7 +278,7 @@ public interface SharedLinksAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/email")
-    Call<Void> emailSharedLinkCall(@Path("sharedId") String sharedId, @Body SharedLinkEmailBody emailSharedLinkBody);
+    Call<Void> emailSharedLinkCall(@Path("sharedId") String sharedId, @Body SharedLinkBodyEmail emailSharedLinkBody);
 
     /**
      * Email shared link Sends email with app-specific url including identifier
@@ -304,7 +304,7 @@ public interface SharedLinksAPI
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/email")
     Observable<Void> emailSharedLinkObservable(@Path("sharedId") String sharedId,
-            @Body SharedLinkEmailBody emailSharedLinkBody);
+            @Body SharedLinkBodyEmail emailSharedLinkBody);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE

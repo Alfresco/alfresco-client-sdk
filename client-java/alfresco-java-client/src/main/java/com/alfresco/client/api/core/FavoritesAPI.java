@@ -20,7 +20,7 @@ package com.alfresco.client.api.core;
 
 import com.alfresco.client.api.common.constant.PublicAPIConstant;
 import com.alfresco.client.api.common.representation.ResultPaging;
-import com.alfresco.client.api.core.model.body.FavoriteBody;
+import com.alfresco.client.api.core.model.body.FavoriteBodyCreate;
 import com.alfresco.client.api.core.model.parameters.FieldsParam;
 import com.alfresco.client.api.core.model.representation.CommentRepresentation;
 import com.alfresco.client.api.core.model.representation.FavoriteRepresentation;
@@ -263,9 +263,9 @@ public interface FavoritesAPI
      * \&quot;entry\&quot;: { ... } } ] } } &#x60;&#x60;&#x60;
      * 
      * @param personId The identifier of a person. (required)
-     * @param favoriteBody An object identifying the entity to be favorited. The
-     *            object consists of a single property which is an object with
-     *            the name &#x60;site&#x60;, &#x60;file&#x60;, or
+     * @param favoriteBodyCreate An object identifying the entity to be
+     *            favorited. The object consists of a single property which is
+     *            an object with the name &#x60;site&#x60;, &#x60;file&#x60;, or
      *            &#x60;folder&#x60;. The content of that object is the
      *            &#x60;guid&#x60; of the target entity. For example, to
      *            favorite a file the following body would be used:
@@ -277,7 +277,8 @@ public interface FavoritesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites")
-    Call<FavoriteRepresentation> createFavoriteCall(@Path("personId") String personId, @Body FavoriteBody favoriteBody,
+    Call<FavoriteRepresentation> createFavoriteCall(@Path("personId") String personId,
+            @Body FavoriteBodyCreate favoriteBodyCreate,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
@@ -299,9 +300,9 @@ public interface FavoritesAPI
      * \&quot;entry\&quot;: { ... } } ] } } &#x60;&#x60;&#x60;
      * 
      * @param personId The identifier of a person. (required)
-     * @param favoriteBody An object identifying the entity to be favorited. The
-     *            object consists of a single property which is an object with
-     *            the name &#x60;site&#x60;, &#x60;file&#x60;, or
+     * @param favoriteBodyCreate An object identifying the entity to be
+     *            favorited. The object consists of a single property which is
+     *            an object with the name &#x60;site&#x60;, &#x60;file&#x60;, or
      *            &#x60;folder&#x60;. The content of that object is the
      *            &#x60;guid&#x60; of the target entity. For example, to
      *            favorite a file the following body would be used:
@@ -314,7 +315,7 @@ public interface FavoritesAPI
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites")
     Observable<FavoriteRepresentation> createFavoriteObservable(@Path("personId") String personId,
-            @Body FavoriteBody favoriteBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Body FavoriteBodyCreate favoriteBodyCreate, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE

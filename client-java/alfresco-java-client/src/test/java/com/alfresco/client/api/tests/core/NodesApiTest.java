@@ -33,7 +33,7 @@ import com.alfresco.client.api.AlfrescoAPITestCase;
 import com.alfresco.client.api.common.representation.ResultPaging;
 import com.alfresco.client.api.core.NodesAPI;
 import com.alfresco.client.api.core.model.body.*;
-import com.alfresco.client.api.core.model.representation.AssocInfoRepresentation;
+import com.alfresco.client.api.core.model.representation.AssociationInfoRepresentation;
 import com.alfresco.client.api.core.model.representation.NodeRepresentation;
 import com.alfresco.client.api.tests.utils.IOUtils;
 import com.alfresco.client.api.tests.utils.NodeRefUtils;
@@ -297,8 +297,7 @@ public class NodesApiTest extends AlfrescoAPITestCase
 
         // Let's Create
         Response<NodeRepresentation> createdNodeResponse = nodeService
-                .createNodeCall(NodesAPI.FOLDER_MY, fileRequestBody)
-                .execute();
+                .createNodeCall(NodesAPI.FOLDER_MY, fileRequestBody).execute();
 
         // Check Result
         Assert.assertNotNull(createdNodeResponse);
@@ -341,8 +340,7 @@ public class NodesApiTest extends AlfrescoAPITestCase
 
         // Let's createCommentsCall
         Response<NodeRepresentation> updateNodeResponse = nodeService
-                .updateNodeContentCall(testNode.getId(), requestBody)
-                .execute();
+                .updateNodeContentCall(testNode.getId(), requestBody).execute();
         // Check Result
         Assert.assertNotNull(updateNodeResponse);
         Assert.assertEquals(updateNodeResponse.isSuccessful(), true, "Update doesn't work");
@@ -362,8 +360,7 @@ public class NodesApiTest extends AlfrescoAPITestCase
 
         NodeBodyCopy copyRequest = new NodeBodyCopy(testFolder.getId(), "Copied.txt");
         Response<NodeRepresentation> copiedNodeResponse = nodeService
-                .copyNodeCall(nodeUpdatedResponse.getId(), copyRequest)
-                .execute();
+                .copyNodeCall(nodeUpdatedResponse.getId(), copyRequest).execute();
 
         // Check Result
         Assert.assertNotNull(copiedNodeResponse);
@@ -421,16 +418,15 @@ public class NodesApiTest extends AlfrescoAPITestCase
         ResultPaging<NodeRepresentation> targetAssocNodes = nodeService.listTargetAssociationsCall(copiedNode.getId())
                 .execute().body();
         Assert.assertEquals(targetAssocNodes.getCount(), 1, "Copied Association is not present after copy");
-        AssocInfoRepresentation association = targetAssocNodes.getList().get(0).getAssociation();
+        AssociationInfoRepresentation association = targetAssocNodes.getList().get(0).getAssociation();
         Assert.assertNotNull(association);
         Assert.assertEquals(association.getAssocType(), CM_ORIGINAL, "AssocType is not cm:original");
 
         // dummyNode contains source association
-        ResultPaging<NodeRepresentation> sourceAssocNodes = nodeService
-                .listSourceAssociationsCall(originalNode.getId())
+        ResultPaging<NodeRepresentation> sourceAssocNodes = nodeService.listSourceAssociationsCall(originalNode.getId())
                 .execute().body();
         Assert.assertEquals(sourceAssocNodes.getCount(), 1, "Copied Association is not present after copy");
-        AssocInfoRepresentation sourceAssociation = sourceAssocNodes.getList().get(0).getAssociation();
+        AssociationInfoRepresentation sourceAssociation = sourceAssocNodes.getList().get(0).getAssociation();
         Assert.assertNotNull(sourceAssociation);
         Assert.assertEquals(sourceAssociation.getAssocType(), CM_ORIGINAL, "AssocType is not cm:original");
 
@@ -514,8 +510,7 @@ public class NodesApiTest extends AlfrescoAPITestCase
         NodeRepresentation originalNode = createDummyFile();
 
         Response<NodeRepresentation> response = nodeService.lockNodeCall(originalNode.getId(),
-                new NodeBodyLock(false, 0, NodeBodyLock.TypeEnum.ALLOW_OWNER_CHANGES,
-                        NodeBodyLock.LifetimeEnum.EPHEMERAL))
+                new NodeBodyLock(0, NodeBodyLock.TypeEnum.ALLOW_OWNER_CHANGES, NodeBodyLock.LifetimeEnum.EPHEMERAL))
                 .execute();
 
         // TODO

@@ -143,6 +143,16 @@ public class PersonNetworkRepresentation
         this.subscriptionLevel = subscriptionLevel;
     }
 
+    public SubscriptionLevelEnum getSubscriptionLevelEnum()
+    {
+        return subscriptionLevel != null ? SubscriptionLevelEnum.fromString(subscriptionLevel) : null;
+    }
+
+    public void setSubscriptionLevelEnum(SubscriptionLevelEnum subscriptionLevel)
+    {
+        this.subscriptionLevel = subscriptionLevel.toString();
+    }
+
     /**
      * Get quotas
      * 

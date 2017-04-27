@@ -1,16 +1,11 @@
 swagger: '2.0'
 info:
   description: |
-    Provides access to the core features of Alfresco.
+    **Core API**
 
-    This API uses the term **entity** to refer to an object in an Alfresco repository.
-    An **entity** is of a specific **type**, and has a unique **id**.
-
-    * The **id** of an entity of type **node** is the **NodeRef** with the `workspace://SpacesStore` prefix removed.
-    * The **id** of an entity of type **site** is the site's short name.
-    * The **id** for an entity of type **person** is the person's username.
+    Provides access to the core features of Alfresco Content Services.
   version: '1'
-  title: Alfresco Core REST API
+  title: Alfresco Content Services REST API
 basePath: /alfresco/api/-default-/public/alfresco/versions/1
 securityDefinitions:
   basicAuth:
@@ -120,6 +115,7 @@ parameters:
       * isLocked
       * path
       * properties
+      * permissions
     required: false
     type: array
     items:
@@ -147,9 +143,11 @@ parameters:
     description: |
       Returns additional information about the node. The following optional fields can be requested:
       * allowableOperations
+      * association
       * isLink
       * isLocked
       * path
+      * permissions
     required: false
     type: array
     items:
@@ -161,6 +159,7 @@ parameters:
     description: |
       Returns additional information about the person. The following optional fields can be requested:
       * properties
+      * aspectNames
     required: false
     type: array
     items:
@@ -290,7 +289,7 @@ parameters:
       A string to control the order of the entities returned in a list. You can use the **orderBy** parameter to
       sort the list by one or more fields.
 
-      Each field has a default sort order, which is normally acending order. Read the API method implementation notes
+      Each field has a default sort order, which is normally ascending order. Read the API method implementation notes
       above to check if any fields used in this method have a descending default search order.
 
       To sort the entities in a specific order, you can use the **ASC** and **DESC** keywords for any field.
@@ -817,6 +816,8 @@ paths:
         **Note:** this endpoint is available in Alfresco 5.2 and newer versions.
 
         Get information for node **nodeId**.
+
+        You can use the **include** parameter to return additional information.
       operationId: getNode
       parameters:
         - $ref: '#/parameters/nodeIdWithAliasParam'
@@ -841,6 +842,8 @@ paths:
             Invalid parameter: **nodeId** is not a valid format
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission to retrieve **nodeId**
         '404':
           description: |
             **nodeId** does not exist
@@ -866,12 +869,31 @@ paths:
         ```JSON
         {
           "properties":
+          {
+            "cm:title":"Folder title"
+          }
+        }
+        ```
+        **Note:** setting properties of type d:content and d:category are not supported.
+
+        **Note:** if you want to add or remove aspects, then you must use **GET /nodes/{nodeId}** first to get the complete set of *aspectNames*.
+
+        You can add (or remove) *locallySet* permissions, if any, in addition to any inherited permissions.
+        You can also optionally disable (or re-enable) inherited permissions via *isInheritanceEnabled* flag:
+        ```JSON
+        {
+          "permissions":
             {
-              "cm:title":"Folder title"
+              "isInheritanceEnabled": false,
+              "locallySet":
+                [
+                  {"authorityId": "GROUP_special", "name": "Read", "accessStatus":"DENIED"},
+                  {"authorityId": "testuser", "name": "Contributor", "accessStatus":"ALLOWED"}
+                ]
             }
         }
         ```
-        **Note:** if you want to add or remove aspects, then you must use **GET /nodes/{nodeId}** first to get the complete set of *aspectNames*.
+        **Note:** if you want to add or remove locally set permissions then you must use **GET /nodes/{nodeId}** first to get the complete set of *locallySet* permissions.
 
         **Note:** Currently there is no optimistic locking for updates, so they are applied in "last one wins" order.
       operationId: updateNode
@@ -1024,6 +1046,7 @@ paths:
 
             *   ```where=(assocType='my:specialAssocType')```
 
+            *   ```where=(isPrimary=false and assocType='my:specialAssocType')```
           required: false
           type: string
         - $ref: '#/parameters/nodeMinimalEntryIncludeParam'
@@ -1050,6 +1073,8 @@ paths:
             Invalid parameter: **nodeId** is not a valid format, **nodeId** is not a folder or **orderBy** is invalid
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission to retrieve children of **nodeId**
         '404':
           description: |
             **nodeId** does not exist
@@ -1067,12 +1092,20 @@ paths:
 
         Create a node and add it as a primary child of node **nodeId**.
 
-        This API method supports file upload using multipart/form-data.
+        This endpoint supports both JSON and multipart/form-data (file upload).
 
-        Use the **filedata** field to represent the content to upload.
-        You can use a **name** field to give an alternative name for the new file.
+        **Using multipart/form-data**
 
-        For multipart/form-data upload you can use the **renditions** field to create renditions (e.g. doclib) asynchronously upon upload.
+        Use the **filedata** field to represent the content to upload, for example, the following curl command will
+        create a node with the contents of test.txt in the test user's home folder.
+
+        ```curl -utest:test -X POST host:port/alfresco/api/-default-/public/alfresco/versions/1/nodes/-my-/children -F filedata=@test.txt```
+
+        You can use the **name** field to give an alternative name for the new file.
+
+        You can use the **nodeType** field to create a specific type. The default is cm:content.
+
+        You can use the **renditions** field to create renditions (e.g. doclib) asynchronously upon upload.
         Note that currently only one rendition can be requested. Also, as requesting rendition is a background process,
         any rendition failure (e.g. No transformer is currently available) will not fail the whole upload and has the potential to silently fail.
 
@@ -1087,12 +1120,16 @@ paths:
         version history. This also enables versioning of this node, if it is not already versioned.
 
         You can set the **autoRename** boolean field to automatically resolve name clashes. If there is a name clash, then
-        the API method tries to create
-        a unique name using an integer suffix.
+        the API method tries to create a unique name using an integer suffix.
 
-        Any field in the JSON body defined below can also be passed as a form-data field.
+        You can use the **relativePath** field to specify the folder structure to create relative to the node **nodeId**.
+        Folders in the **relativePath** that do not exist are created before the node is created.
 
-        This API method also supports node creation using application/json.
+        Any other field provided will be treated as a property to set on the newly created node.
+
+        **Note:** setting properties of type d:content and d:category are not supported.
+
+        **Using JSON**
 
         You must specify at least a **name** and **nodeType**. For example, to create a folder:
         ```JSON
@@ -1128,14 +1165,16 @@ paths:
           "name":"My Other Folder",
           "nodeType":"cm:folder",
           "properties":
-            {
-              "cm:title":"Folder title",
-              "cm:description":"This is an important folder"
-            }
+          {
+            "cm:title":"Folder title",
+            "cm:description":"This is an important folder"
+          }
         }
         ```
         Any missing aspects are applied automatically. For example, **cm:titled** in the JSON shown above. You can set aspects
         explicitly, if needed, using an **aspectNames** field.
+
+        **Note:** setting properties of type d:content and d:category are not supported.
 
         Typically, for files and folders, the primary children are created within the parent folder using the default "cm:contains" assocType.
         If the content model allows then it is also possible to create primary children with a different assoc type. For example:
@@ -1144,9 +1183,9 @@ paths:
           "name":"My Node",
           "nodeType":"my:specialNodeType",
           "association":
-            {
-              "assocType":"my:specialAssocType"
-            }
+          {
+            "assocType":"my:specialAssocType"
+          }
         }
         ```
 
@@ -1279,6 +1318,8 @@ paths:
         The new node has the same name as the source node unless you specify a new **name** in the request body.
 
         If the source **nodeId** is a folder, then all of its children are also copied.
+
+        If the source **nodeId** is a file, it's properties, aspects and tags are copied, it's ratings, comments and locks are not.
       operationId: copyNode
       parameters:
         - $ref: '#/parameters/nodeIdParam'
@@ -1305,7 +1346,7 @@ paths:
         '401':
           description: Authentication failed
         '403':
-          description: Current user does not have permission to create children of **nodeId**
+          description: Current user does not have permission to copy **nodeId**
         '404':
           description: |
             **nodeId** does not exist
@@ -1482,7 +1523,7 @@ paths:
         '401':
           description: Authentication failed
         '403':
-          description: Current user does not have permission to create children of **nodeId**
+          description: Current user does not have permission to move **nodeId**
         '404':
           description: |
             **nodeId** does not exist
@@ -1519,6 +1560,8 @@ paths:
             Invalid parameter: **nodeId** is not a valid format, or is not a file
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission to retrieve content of **nodeId**
         '404':
           description: |
             **nodeId** does not exist
@@ -1697,6 +1740,8 @@ paths:
             Invalid parameter: **nodeId** is not a valid format or is not a file
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission for **nodeId**
         '404':
           description: |
             **nodeId** does not exist
@@ -1728,6 +1773,8 @@ paths:
             Invalid parameter: **nodeId** is not a valid format, or is not a file, or **renditionId** is invalid
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission for **nodeId**
         '404':
           description: |
             **nodeId** or **renditionId** does not exist
@@ -1770,6 +1817,8 @@ paths:
             Invalid parameter: **nodeId** is not a valid format, or is not a file, or **renditionId** is invalid
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission for **nodeId**
         '404':
           description: |
             **nodeId** or **renditionId** does not exist
@@ -1853,6 +1902,8 @@ paths:
             or **secondaryChildAssociationBodyCreate** invalid
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission to create secondary children of **nodeId**
         '404':
           description: Parent **nodeId** or **childId** does not exist
         '409':
@@ -1900,6 +1951,8 @@ paths:
             Invalid parameter: **assocType** is unknown or the **nodeId** is not a valid format
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission for **nodeId**
         '404':
           description: Parent **nodeId** does not exist
         default:
@@ -1944,6 +1997,8 @@ paths:
             Use delete node instead
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission for **nodeId**
         '404':
           description: Parent **nodeId** or **childId** does not exist (with given assocType, if specified)
         default:
@@ -1994,6 +2049,8 @@ paths:
             Invalid parameter: **assocType** is unknown or the **nodeId** is not a valid format
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission for **nodeId**
         '404':
           description: Child **nodeId** does not exist
         default:
@@ -2076,6 +2133,8 @@ paths:
             or **associationBodyCreate** invalid
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission for **nodeId**
         '404':
           description: Source **nodeId** or **targetId** does not exist
         '409':
@@ -2120,6 +2179,8 @@ paths:
             Invalid parameter: **assocType** is unknown or the **nodeId** is not a valid format
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission for **nodeId**
         '404':
           description: Source **nodeId** does not exist
         default:
@@ -2165,6 +2226,8 @@ paths:
             Invalid parameter: **assocType** is unknown, or the **nodeId** is not a valid format, or **targetId** is invalid
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission for **nodeId**
         '404':
           description: Source **nodeId** or **targetId** does not exist (with given assocType, if specified)
         default:
@@ -2206,6 +2269,8 @@ paths:
             Invalid parameter: **nodeId** is not a valid format or **assocType** is unknown
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission for **nodeId**
         '404':
           description: Target **nodeId** does not exist
         default:
@@ -2244,6 +2309,8 @@ paths:
             Invalid parameter: **nodeId** is not a valid format
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission for **nodeId**
         '404':
           description: Target **nodeId** does not exist
         default:
@@ -2274,6 +2341,8 @@ paths:
             Invalid parameter: **nodeId** is not a valid format, or it exists but does not identify a file, or **versionId** is invalid
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission for **nodeId**
         '404':
           description: |
             **nodeId** or **versionId** does not exist
@@ -2315,7 +2384,7 @@ paths:
         '401':
           description: Authentication failed
         '403':
-          description: User does not have permission to delete the versioned node
+          description: Current user does not have permission to delete the versioned node
         '404':
           description: |
             **nodeId** or **versionId** does not exist
@@ -2351,6 +2420,8 @@ paths:
             Invalid parameter: **nodeId** is not a valid format, or is not a file, or **versionId** is invalid
         '401':
           description: Authentication failed
+        '403':
+          description: Current user does not have permission for **nodeId**
         '404':
           description: |
             **nodeId** or **versionId** does not exist
@@ -2397,7 +2468,7 @@ paths:
         '401':
           description: Authentication failed
         '403':
-          description: User does not have permission to revert the versioned node
+          description: Current user does not have permission to revert the versioned node
         '404':
           description: |
             **nodeId** or **versionId** does not exist
@@ -2571,6 +2642,22 @@ paths:
         If applicable, the given person's login access can also be optionally disabled.
 
         You must have admin rights to create a person.
+
+        You can set custom properties when you create a person:
+        ```JSON
+        {
+          "id": "abeecher",
+          "firstName": "Alice",
+          "lastName": "Beecher",
+          "email": "abeecher@example.com",
+          "password": "secret",
+          "properties":
+          {
+            "my:property": "The value"
+          }
+        }
+        ```
+        **Note:** setting properties of type d:content and d:category are not supported.
       operationId: createPerson
       parameters:
         - $ref: '#/parameters/fieldsParam'
@@ -2615,7 +2702,9 @@ paths:
         You can use the **include** parameter to return any additional information.
 
         The default sort order for the returned list is for people to be sorted by ascending id.
-        You can override the default specify one or more fields in the **orderBy** parameter. For example:
+        You can override the default by using the **orderBy** parameter.
+
+        You can use any of the following fields to order the results:
         * id
         * firstName
         * lastName
@@ -2681,9 +2770,28 @@ paths:
 
         Update the given person's details.
 
-        If applicable, the given person's login access can also be optionally be disabled or re-enabled.
+        If applicable, the given person's login access can also be optionally disabled or re-enabled.
 
-        You must have admin rights to update a person.
+        You must have admin rights to update a person — unless updating your own details.
+
+        If you are changing your password, as a non-admin user, then the existing password must also
+        be supplied (using the oldPassword field in addition to the new password value).
+
+        Admin users cannot be disabled by setting enabled to false.
+
+        Non-admin users may not disable themselves.
+
+        You can set custom properties when you update a person:
+        ```JSON
+        {
+          "firstName": "Alice",
+          "properties":
+          {
+            "my:property": "The value"
+          }
+        }
+        ```
+        **Note:** setting properties of type d:content and d:category are not supported.
       operationId: updatePerson
       parameters:
         - $ref: '#/parameters/personIdParam'
@@ -4320,7 +4428,15 @@ paths:
       description: |
         **Note:** this endpoint is available in Alfresco 5.2 and newer versions.
 
-        Create a shared link to the file **nodeId** in the request body.
+        Create a shared link to the file **nodeId** in the request body. Also, an optional expiry date could be set,
+        so the shared link would become invalid when the expiry date is reached. For example:
+
+        ```JSON
+          {
+            "nodeId": "1ff9da1a-ee2f-4b9c-8c34-3333333333",
+            "expiresAt": "2017-03-23T23:00:00.000+0000"
+          }
+        ```
 
         **Note:** You can create shared links to more than one file
         specifying a list of **nodeId**s in the JSON body like this:
@@ -4384,7 +4500,8 @@ paths:
         '400':
           description: |
             Invalid parameter: **nodeId** is not a valid format, or does not identify a file,
-            or **sharedLinkBodyCreate** invalid
+            or **sharedLinkBodyCreate** invalid, or the specified expiry date is invalid. E.g. the expiry date
+            has already passed
         '401':
           description: Authentication failed
         '403':
@@ -4792,7 +4909,9 @@ paths:
 
         The search term is used to look for sites that match against site id, title or description.
 
-        The search term must contain a minimum of 2 alphanumeric characters.
+        The search term:
+        - must contain a minimum of 2 alphanumeric characters
+        - can optionally use '*' for wildcard matching within the term
 
         The default sort order for the returned list is for sites to be sorted by ascending id.
         You can override the default by using the **orderBy** parameter. You can specify one or more of the following fields in the **orderBy** parameter:
@@ -4841,7 +4960,7 @@ paths:
 
         The search term:
         - must contain a minimum of 2 alphanumeric characters
-        - can optionally use '*' for wildcard matching
+        - can optionally use '*' for wildcard matching within the term
 
         You can sort the result list using the **orderBy** parameter. You can specify one or more of the following fields in the **orderBy** parameter:
         * id
@@ -5216,8 +5335,17 @@ definitions:
         default: true
       emailNotificationsEnabled:
         type: boolean
+        default: true
       password:
         type: string
+      aspectNames:
+        type: array
+        items:
+          type: string
+      properties:
+        type: object
+        additionalProperties:
+          type: string
   PersonBodyUpdate:
     type: object
     properties:
@@ -5253,6 +5381,16 @@ definitions:
         type: boolean
       password:
         type: string
+      oldPassword:
+        type: string
+      aspectNames:
+        type: array
+        items:
+          type: string
+      properties:
+        type: object
+        additionalProperties:
+          type: string
   PersonPaging:
     type: object
     properties:
@@ -5318,6 +5456,15 @@ definitions:
         default: true
       emailNotificationsEnabled:
         type: boolean
+        default: true
+      aspectNames:
+        type: array
+        items:
+          type: string
+      properties:
+        type: object
+        additionalProperties:
+          type: string
   Company:
     type: object
     properties:
@@ -5711,17 +5858,8 @@ definitions:
       activitySummary:
         type: object
         description: An object summarizing the activity
-        properties:
-          firstName:
-            type: string
-          lastName:
-            type: string
-          parentObjectId:
-            type: string
-          title:
-            type: string
-          objectId:
-            type: string
+        additionalProperties:
+          type: string
       activityType:
         description: The type of the activity posted
         type: string
@@ -5898,6 +6036,45 @@ definitions:
         type: string
       isComplete:
         type: boolean
+  PermissionElement:
+    type: object
+    properties:
+      authorityId:
+        type: string
+      name:
+        type: string
+      accessStatus:
+        type: string
+        default: ALLOWED
+        enum:
+         - ALLOWED
+         - DENIED
+  PermissionsInfo:
+    type: object
+    properties:
+      isInheritanceEnabled:
+        type: boolean
+      inherited:
+        type: array
+        items:
+          $ref: '#/definitions/PermissionElement'
+      locallySet:
+        type: array
+        items:
+          $ref: '#/definitions/PermissionElement'
+      settable:
+        type: array
+        items:
+          type: string
+  PermissionsBodyUpdate:
+    type: object
+    properties:
+      isInheritanceEnabled:
+        type: boolean
+      locallySet:
+        type: array
+        items:
+          $ref: '#/definitions/PermissionElement'
   NodeBodyCreate:
     type: object
     required:
@@ -5954,6 +6131,8 @@ definitions:
         type: object
         additionalProperties:
           type: string
+      permissions:
+        $ref: '#/definitions/PermissionsBodyUpdate'
   NodeBodyCopy:
     type: object
     required:
@@ -6167,6 +6346,8 @@ definitions:
           type: string
       path:
         $ref: '#/definitions/PathInfo'
+      permissions:
+        $ref: '#/definitions/PermissionsInfo'
   SharedLinkBodyCreate:
     type: object
     required:
@@ -6174,6 +6355,9 @@ definitions:
     properties:
       nodeId:
         type: string
+      expiresAt:
+        type: string
+        format: date-time
   SharedLinkBodyEmail:
     type: object
     properties:
@@ -6216,6 +6400,9 @@ definitions:
     properties:
       id:
         type: string
+      expiresAt:
+        type: string
+        format: date-time
       nodeId:
         type: string
       name:

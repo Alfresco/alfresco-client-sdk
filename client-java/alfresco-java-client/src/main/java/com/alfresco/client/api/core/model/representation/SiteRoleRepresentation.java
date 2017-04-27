@@ -101,6 +101,16 @@ public class SiteRoleRepresentation extends AbstractRepresentation
         this.role = role;
     }
 
+    public SiteRoleEnum getRoleEnum()
+    {
+        return role != null ? SiteRoleEnum.fromString(role) : null;
+    }
+
+    public void setRoleEnum(SiteRoleEnum siteRoleEnum)
+    {
+        this.role = siteRoleEnum.toString();
+    }
+
     @Override
     public boolean equals(java.lang.Object o)
     {

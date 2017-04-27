@@ -23,7 +23,7 @@ import java.util.List;
 import com.alfresco.client.api.common.representation.AbstractRepresentation;
 import com.google.gson.annotations.SerializedName;
 
-public class PathRepresentation extends AbstractRepresentation
+public class PathInfoRepresentation extends AbstractRepresentation
 {
     @SerializedName("name")
     private String name;
@@ -32,9 +32,9 @@ public class PathRepresentation extends AbstractRepresentation
     private Boolean isComplete;
 
     @SerializedName("elements")
-    private List<PathElement> element;
+    private List<PathElementRepresentation> element;
 
-    public class PathElement
+    public class PathElementRepresentation
     {
         @SerializedName("id")
         private String id;
@@ -86,12 +86,12 @@ public class PathRepresentation extends AbstractRepresentation
         isComplete = complete;
     }
 
-    public List<PathElement> getElement()
+    public List<PathElementRepresentation> getElement()
     {
         return element;
     }
 
-    public void setElement(List<PathElement> path)
+    public void setElement(List<PathElementRepresentation> path)
     {
         this.element = path;
     }

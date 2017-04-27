@@ -23,6 +23,9 @@ import java.util.Objects;
 import com.alfresco.client.api.common.representation.AbstractRepresentation;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * A specific preference.
+ */
 public class PreferenceRepresentation extends AbstractRepresentation
 {
     @SerializedName("id")

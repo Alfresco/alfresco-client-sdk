@@ -16,26 +16,39 @@
  *   limitations under the License.
  */
 
-package com.alfresco.client.api.core.model.body;
+package com.alfresco.client.api.core.model.representation;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by jpascal on 15/12/2015.
+ * Created by jpascal on 25/07/2016.
  */
-public class CommentBody
+public enum RenditionStatusEnum
 {
-    @SerializedName("content")
-    private final String content;
+    @SerializedName("CREATED") CREATED("CREATED"),
 
-    public CommentBody(String content)
+    @SerializedName("NOT_CREATED") NOT_CREATED("NOT_CREATED");
+
+    private String value;
+
+    RenditionStatusEnum(String value)
     {
-        this.content = content;
+        this.value = value;
     }
 
-    public String getContent()
+    public static RenditionStatusEnum fromString(String text)
     {
-        return content;
+        for (RenditionStatusEnum b : RenditionStatusEnum.values())
+        {
+            if (b.value.equalsIgnoreCase(text)) { return b; }
+        }
+        return null;
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.valueOf(value);
     }
 
 }

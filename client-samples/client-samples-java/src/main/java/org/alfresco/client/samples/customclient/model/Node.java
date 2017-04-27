@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.alfresco.client.api.core.model.representation.ContentInfoRepresentation;
-import com.alfresco.client.api.core.model.representation.PathRepresentation;
+import com.alfresco.client.api.core.model.representation.PathInfoRepresentation;
 import com.alfresco.client.api.core.model.representation.UserInfoRepresentation;
 import com.google.gson.internal.LinkedTreeMap;
 
@@ -34,7 +34,7 @@ public interface Node
 
     String getParentId();
 
-    PathRepresentation getPath();
+    PathInfoRepresentation getPath();
 
     ContentInfoRepresentation getContent();
 

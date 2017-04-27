@@ -24,6 +24,11 @@ import java.util.Objects;
 import com.alfresco.client.api.common.representation.AbstractRepresentation;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * A person can rate an item of content by liking it. They can also remove their
+ * like of an item of content. API methods exist to get a list of ratings and to
+ * add a new rating.
+ */
 public class RatingRepresentation extends AbstractRepresentation
 {
     @SerializedName("id")

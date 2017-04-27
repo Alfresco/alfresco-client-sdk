@@ -16,18 +16,35 @@
  *   limitations under the License.
  */
 
-package com.alfresco.client.api.core.model.body;
+package com.alfresco.client.api.core.model.representation;
 
-/**
- * Created by jpascal on 15/12/2015.
- */
-public class RenditionBody
+import com.google.gson.annotations.SerializedName;
+
+public enum RatingIdEnum
 {
-    public final String id;
+    @SerializedName("likes") LIKES("likes"),
 
-    public RenditionBody(String id, String myRating)
+    @SerializedName("fiveStar") FIVESTAR("fiveStar");
+
+    private String value;
+
+    RatingIdEnum(String value)
     {
-        this.id = id;
+        this.value = value;
     }
 
+    public static RatingIdEnum fromString(String text)
+    {
+        for (RatingIdEnum b : RatingIdEnum.values())
+        {
+            if (b.value.equalsIgnoreCase(text)) { return b; }
+        }
+        return null;
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.valueOf(value);
+    }
 }

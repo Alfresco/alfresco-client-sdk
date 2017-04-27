@@ -18,15 +18,30 @@
 
 package com.alfresco.client.api.core.model.body;
 
+import java.util.Date;
+
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by jpascal on 23/08/2016.
  */
 public class SharedLinkBodyCreate
 {
+    @SerializedName("nodeId")
     public final String nodeId;
+
+    @SerializedName("expiresAt")
+    public final Date expiresAt;
 
     public SharedLinkBodyCreate(String nodeId)
     {
         this.nodeId = nodeId;
+        this.expiresAt = null;
+    }
+
+    public SharedLinkBodyCreate(String nodeId, Date expiresAt)
+    {
+        this.nodeId = nodeId;
+        this.expiresAt = expiresAt;
     }
 }

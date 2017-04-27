@@ -27,7 +27,7 @@ import org.testng.annotations.Test;
 import com.alfresco.client.api.AlfrescoAPITestCase;
 import com.alfresco.client.api.common.representation.ResultPaging;
 import com.alfresco.client.api.core.FavoritesAPI;
-import com.alfresco.client.api.core.model.body.FavoriteBody;
+import com.alfresco.client.api.core.model.body.FavoriteBodyCreate;
 import com.alfresco.client.api.core.model.representation.FavoriteRepresentation;
 import com.alfresco.client.api.core.model.representation.NodeRepresentation;
 
@@ -58,7 +58,7 @@ public class FavoritesApiTest extends AlfrescoAPITestCase
 
         // Add Favorite File
         Response<FavoriteRepresentation> favResponse = favoritesAPI.createFavoriteCall(TEST_USERNAME,
-                new FavoriteBody(FavoriteBody.FavoriteTypeEnum.FILE, dummyNode.getId()), null).execute();
+                new FavoriteBodyCreate(FavoriteBodyCreate.FavoriteTypeEnum.FILE, dummyNode.getId()), null).execute();
         Assert.assertNotNull(favResponse);
         Assert.assertEquals(favResponse.isSuccessful(), true);
 

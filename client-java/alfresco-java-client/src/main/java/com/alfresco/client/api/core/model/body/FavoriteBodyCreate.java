@@ -23,7 +23,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by jpascal on 25/08/2016.
  */
-public class FavoriteBody
+public class FavoriteBodyCreate
 {
     @SerializedName("target")
     public final Object target;
@@ -55,7 +55,7 @@ public class FavoriteBody
         }
     }
 
-    public FavoriteBody(FavoriteTypeEnum type, String guid)
+    public FavoriteBodyCreate(FavoriteTypeEnum type, String guid)
     {
         switch (type)
         {
