@@ -22,7 +22,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.alfresco.client</groupId>
     <artifactId>alfresco-client</artifactId>
-    <version>1.0.0-beta1</version>
+    <version>1.0.0-beta2</version>
     <packaging>pom</packaging>
 
     <name>Alfresco Client (Parent)</name>
@@ -121,8 +121,8 @@
         <maven.compiler.testSource>1.8</maven.compiler.testSource>
 
         <!-- Libraries versions -->
-        <retrofit.version>2.1.0</retrofit.version>
-        <okhttp.version>3.4.1</okhttp.version>
+        <retrofit.version>2.2.0</retrofit.version>
+        <okhttp.version>3.6.0</okhttp.version>
     </properties>
 
     <build>
@@ -364,10 +364,11 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>client-java/client-commons</module>
-                <module>client-java/alfresco-java-client</module>
-                <module>client-samples/client-samples-cli</module>
-                <module>client-samples/client-samples-java</module>
+                <module>client-java/java-client</module>
+                <module>client-services</module>
+                <module>client-java/alfresco-platform-client</module>
+                <module>samples/client-samples-cli</module>
+                <module>samples/client-samples-java</module>
             </modules>
         </profile>
     </profiles>
@@ -377,12 +378,34 @@
             <!-- ALFRESCO PROJECTS -->
             <dependency>
                 <groupId>org.alfresco.client</groupId>
-                <artifactId>client-commons</artifactId>
+                <artifactId>java-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.alfresco.client</groupId>
-                <artifactId>alfresco-java-client</artifactId>
+                <artifactId>java-client</artifactId>
+                <version>${project.version}</version>
+                <type>test-jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.alfresco.client</groupId>
+                <artifactId>content-services</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.alfresco.client</groupId>
+                <artifactId>process-services</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.alfresco.client</groupId>
+                <artifactId>governance-services</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.alfresco.client</groupId>
+                <artifactId>java-platform-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
