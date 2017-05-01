@@ -1,9 +1,9 @@
 # Alfresco Java Client (Early Access)
 
 ## Introduction
-This project is the foundation to support each Alfresco Services Client Project. It's not targeted to be used by a developer
+This project is the foundation to support each Alfresco Services Client Project. It's not targeted to be used by a developer.
 
-If you are a developer and just want to consume Alfresco Services have a look to Alfresco Platform Client.
+If you are a developer and just want to consume Alfresco Services have a look to Alfresco Platform Client or use one specific Alfresco services librairy like Content Services, Process Services, Governance Services
 
 
 ### Status

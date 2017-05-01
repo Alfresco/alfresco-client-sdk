@@ -1,7 +1,7 @@
 # Alfresco Digital Business Platform Java Client
 
 ## Introduction
-The idea behind this project is to enable developers to interact easily with Alfresco REST API.
+The idea behind this project is to enable developers to interact easily with Alfresco Digital Business Platform REST API.
 To achieve this goal this project provide a **single JAR** file that can be used in Java or Android applications.
 
 ### Status

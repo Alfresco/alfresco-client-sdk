@@ -9,6 +9,8 @@ import org.alfresco.client.services.governance.core.api.*;
  */
 public class GSAPIRegistry extends AbstractAPIRegistry implements GovernanceServicesRegistry
 {
+    protected FilesAPI filesAPI;
+
     protected GsSitesAPI gsSitesAPI;
 
     protected FilePlansAPI filePlansAPI;
@@ -38,6 +40,15 @@ public class GSAPIRegistry extends AbstractAPIRegistry implements GovernanceServ
     // ///////////////////////////////////////////////////////////////////////////
     // GETTERS
     // ///////////////////////////////////////////////////////////////////////////
+    public FilesAPI getFilesAPI()
+    {
+        if (filesAPI == null)
+        {
+            filesAPI = getAPI(FilesAPI.class);
+        }
+        return filesAPI;
+    }
+
     public GsSitesAPI getGsSitesAPI()
     {
         if (gsSitesAPI == null)

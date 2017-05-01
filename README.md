@@ -11,17 +11,25 @@ Those projects are currently the foundation of our major next version of [Alfres
 
 Alfresco Digital Business Platform Java Client is currently in **Early Access mode**. It evolves as you use them, as you give feedback, and as the developers update and add file. We like to think app & lib development as services that grow and evolve with the involvement of the community.
 
+## Usage
+
+If you are a developer trying to interact with only one Alfresco Services have a look to one of the **[Services Client](client-services)**
+
+If you are a developer trying to interact with more than one Alfresco Services have a look to **[Alfresco PLatform Client](client-java/alfresco-platform-client)**
+
+
 ## Overview
 - **Client Java**
-    * **Alfresco Platform Client** set of APIs to interact with Alfresco Digital Business Platform Public REST API
-    * **Java Client** utility used by all client services APIs
+    * **[Alfresco Platform Client](client-java/alfresco-platform-client)** Helpers to interact with Alfresco Digital Business Platform Public REST API
+    * **[Java Client](client-java/java-client)** utility used by all client services APIs
 - **Client Services**
-    * **Alfresco Content Services Client** set of APIs to interact with Content Services Public API 1.0 (CS 5.2+)
-    * **Alfresco Governance Services Client** set of APIs to interact with Governance Services Public API 1.0 (GS 2.6+)
-    * **Alfresco Process Services Client** set of APIs to interact with Alfresco Process Services Public API (PS 1.5+)
+    * **[Alfresco Content Services Client](client-services/content-services)** set of APIs to interact with Content Services Public API 1.0 (CS 5.2+)
+    * **[Alfresco Governance Services Client](client-services/governance-services)** set of APIs to interact with Governance Services Public API 1.0 (GS 2.6+)
+    * **[Alfresco Process Services Client](client-services/process-services)** set of APIs to interact with Alfresco Process Services Public API (PS 1.5+)
 - **Client Samples**
-    * **Client Samples Java** Sample simple project using different java technique: java7, java8, RxJava...
-    * **Client Samples Command Line Tool** Illustrate how to use Client API as command Line tool.
+    * **[Client Samples Java](samples/client-samples-java)** Sample simple project using different java technique: java7, java8, RxJava...
+    * **[Client Samples Command Line Tool](samples/client-samples-cli)** Illustrate how to use Client API as command Line tool.
+
 
 ## Build
 

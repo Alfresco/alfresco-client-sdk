@@ -16,7 +16,7 @@
  *  limitations under the License.
  */
 
-package org.alfresco.client.services.process.core.model.utils;
+package org.alfresco.client.services.common.utils;
 
 /**
  * Created by jpascal on 17/02/2016.

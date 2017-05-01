@@ -22,7 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import org.alfresco.client.services.process.core.model.utils.StringUtils;
+import org.alfresco.client.services.common.utils.StringUtils;
 
 /**
  * @author Joram Barrez
