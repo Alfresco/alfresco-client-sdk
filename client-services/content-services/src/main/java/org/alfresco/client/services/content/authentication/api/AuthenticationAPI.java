@@ -40,6 +40,40 @@ public interface AuthenticationAPI
     Call<TicketRepresentation> createTicketCall(@Body TicketBody ticketBodyCreate);
 
     /**
+     * Validate ticket **Note:** this endpoint is available in Alfresco 5.2 and
+     * newer versions. Validates the specified ticket (derived from
+     * Authorization header) is still valid. For example, you can pass the
+     * Authorization request header using Javascript:
+     * &#x60;&#x60;&#x60;Javascript request.setRequestHeader
+     * (\&quot;Authorization\&quot;, \&quot;Basic \&quot; + btoa(ticket));
+     * &#x60;&#x60;&#x60;
+     * 
+     * @return ValidTicketRepresentation
+     */
+    @GET(AuthenticationConstant.AUTHENTICATION_PUBLIC_API_V1 + "/tickets/-me-")
+    Call<ValidTicketRepresentation> validateTicketCall();
+
+    /**
+     * Delete ticket (logout) **Note:** this endpoint is available in Alfresco
+     * 5.2 and newer versions. Deletes logged in ticket (logout).
+     */
+    @DELETE(AuthenticationConstant.AUTHENTICATION_PUBLIC_API_V1 + "/tickets/-me-")
+    Call<Void> deleteTicketCall();
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+
+    /**
      * Create ticket (login) **Note:** this endpoint is available in Alfresco
      * 5.2 and newer versions. Logs in and returns the new authentication
      * ticket. The userId and password properties are mandatory in the request
@@ -65,32 +99,11 @@ public interface AuthenticationAPI
      * &#x60;&#x60;&#x60;Javascript request.setRequestHeader
      * (\&quot;Authorization\&quot;, \&quot;Basic \&quot; + btoa(ticket));
      * &#x60;&#x60;&#x60;
-     * 
-     * @return ValidTicketRepresentation
-     */
-    @GET(AuthenticationConstant.AUTHENTICATION_PUBLIC_API_V1 + "/tickets/-me-")
-    Call<ValidTicketRepresentation> validateTicketCall();
-
-    /**
-     * Validate ticket **Note:** this endpoint is available in Alfresco 5.2 and
-     * newer versions. Validates the specified ticket (derived from
-     * Authorization header) is still valid. For example, you can pass the
-     * Authorization request header using Javascript:
-     * &#x60;&#x60;&#x60;Javascript request.setRequestHeader
-     * (\&quot;Authorization\&quot;, \&quot;Basic \&quot; + btoa(ticket));
-     * &#x60;&#x60;&#x60;
      *
      * @return ValidTicketRepresentation
      */
     @GET(AuthenticationConstant.AUTHENTICATION_PUBLIC_API_V1 + "/tickets/-me-")
     Observable<ValidTicketRepresentation> validateTicketObservable();
-
-    /**
-     * Delete ticket (logout) **Note:** this endpoint is available in Alfresco
-     * 5.2 and newer versions. Deletes logged in ticket (logout).
-     */
-    @DELETE(AuthenticationConstant.AUTHENTICATION_PUBLIC_API_V1 + "/tickets/-me-")
-    Call<Void> deleteTicketCall();
 
     /**
      * Delete ticket (logout) **Note:** this endpoint is available in Alfresco

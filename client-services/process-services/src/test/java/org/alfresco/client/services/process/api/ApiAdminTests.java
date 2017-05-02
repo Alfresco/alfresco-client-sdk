@@ -21,11 +21,11 @@ package org.alfresco.client.services.process.api;
 import java.io.IOException;
 
 import org.alfresco.client.services.ActivitiAPITestCase;
-import org.alfresco.client.services.process.core.api.AdminAPI;
-import org.alfresco.client.services.process.core.api.UserGroupAPI;
-import org.alfresco.client.services.process.core.model.common.ResultList;
-import org.alfresco.client.services.process.core.model.idm.LightUserRepresentation;
-import org.alfresco.client.services.process.core.model.idm.UserRepresentation;
+import org.alfresco.client.services.process.enterprise.admin.api.AdminUsersAPI;
+import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
+import org.alfresco.client.services.process.enterprise.core.api.UsersGroupsAPI;
+import org.alfresco.client.services.process.enterprise.core.model.idm.LightUserRepresentation;
+import org.alfresco.client.services.process.enterprise.core.model.idm.UserRepresentation;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -43,11 +43,11 @@ public class ApiAdminTests extends ActivitiAPITestCase
     @Test
     public void manageUsers() throws IOException
     {
-        UserGroupAPI userGroupAPI = client.getAPI(UserGroupAPI.class);
-        AdminAPI adminAPI = client.getAPI(AdminAPI.class);
+        UsersGroupsAPI usersGroupsAPI = client.getAPI(UsersGroupsAPI.class);
+        AdminUsersAPI adminAPI = client.getAPI(AdminUsersAPI.class);
 
         // Check if the user is present
-        Response<ResultList<LightUserRepresentation>> users = userGroupAPI.getUsers("First Name").execute();
+        Response<ResultList<LightUserRepresentation>> users = usersGroupsAPI.getUsersCall("First Name").execute();
         if (!users.body().getList().isEmpty())
         {
             // TODO Delete User
@@ -66,7 +66,7 @@ public class ApiAdminTests extends ActivitiAPITestCase
         userRep.setTenantId(1L);
 
         // Create a new User
-        Response<UserRepresentation> response = adminAPI.createNewUser(userRep).execute();
+        Response<UserRepresentation> response = adminAPI.createNewUserCall(userRep).execute();
         Assert.assertNotNull(response);
         Assert.assertEquals(response.isSuccessful(), true);
 

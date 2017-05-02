@@ -51,17 +51,6 @@ public interface TrashcanAPI
      * If the current user is an administrator deleted nodes for all users will
      * be returned. The list of deleted nodes will be ordered with the most
      * recently deleted node at the top of the list.
-     *
-     * @return ResultPaging<DeletedNodeRepresentation>
-     */
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes")
-    Observable<ResultPaging<DeletedNodeRepresentation>> listDeletedNodesObservable();
-
-    /**
-     * Get deleted nodes Returns a list of deleted nodes for the current user.
-     * If the current user is an administrator deleted nodes for all users will
-     * be returned. The list of deleted nodes will be ordered with the most
-     * recently deleted node at the top of the list.
      * 
      * @param skipCount The number of entities that exist in the collection
      *            before those included in this list. (optional)
@@ -78,6 +67,107 @@ public interface TrashcanAPI
             @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
             @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include);
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // INFO
+    // ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Get a deleted node Returns a specific deleted node identified by
+     * **nodeId**.
+     * 
+     * @param nodeId The identifier of a node. (required)
+     * @return DeletedNodeRepresentation
+     */
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}")
+    Call<DeletedNodeRepresentation> getDeletedNodeCall(@Path("nodeId") String nodeId);
+
+    /**
+     * Get a deleted node Returns a specific deleted node identified by
+     * **nodeId**.
+     * 
+     * @param nodeId The identifier of a node. (required)
+     * @param include Returns additional information about the node. The
+     *            following optional fields can be requested: * path * isLink *
+     *            allowableOperations (optional)
+     * @return DeletedNodeRepresentation
+     */
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}")
+    Call<DeletedNodeRepresentation> getDeletedNodeCall(@Path("nodeId") String nodeId,
+            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include);
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // RESTORE
+    // ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Restore a deleted node Attempts to restore the deleted node identified by
+     * **nodeId** to its original location. If the node is successfully restored
+     * to it&#39;s former primary parent, then only the primary child
+     * association will be restored, including recursively for any primary
+     * children. It should be noted that no other secondary child association or
+     * peer association will be restored, for any of the nodes within the
+     * primary parent-child hierarchy of restored nodes, irrespective of whether
+     * these association were to nodes within or outside of the restored
+     * hierarchy. Also, any previously shared link will not be restored since it
+     * is removed at the time of delete of each node.
+     * 
+     * @param nodeId The identifier of a node. (required)
+     * @return NodeRepresentation
+     */
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}/restore")
+    Call<NodeRepresentation> restoreDeletedNodeCall(@Path("nodeId") String nodeId,
+            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // DELETE
+    // ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Purge a deleted node Permanently removes the deleted node identified by
+     * **nodeId**.
+     * 
+     * @param nodeId The identifier of a node. (required)
+     */
+    @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}")
+    Call<Void> purgeDeletedNodeCall(@Path("nodeId") String nodeId);
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // LISTING
+    // ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Get deleted nodes Returns a list of deleted nodes for the current user.
+     * If the current user is an administrator deleted nodes for all users will
+     * be returned. The list of deleted nodes will be ordered with the most
+     * recently deleted node at the top of the list.
+     *
+     * @return ResultPaging<DeletedNodeRepresentation>
+     */
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes")
+    Observable<ResultPaging<DeletedNodeRepresentation>> listDeletedNodesObservable();
 
     /**
      * Get deleted nodes Returns a list of deleted nodes for the current user.
@@ -104,15 +194,6 @@ public interface TrashcanAPI
     // ///////////////////////////////////////////////////////////////////////////
     // INFO
     // ///////////////////////////////////////////////////////////////////////////
-    /**
-     * Get a deleted node Returns a specific deleted node identified by
-     * **nodeId**.
-     * 
-     * @param nodeId The identifier of a node. (required)
-     * @return DeletedNodeRepresentation
-     */
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}")
-    Call<DeletedNodeRepresentation> getDeletedNodeCall(@Path("nodeId") String nodeId);
 
     /**
      * Get a deleted node Returns a specific deleted node identified by
@@ -123,20 +204,6 @@ public interface TrashcanAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}")
     Observable<DeletedNodeRepresentation> getDeletedNodeObservable(@Path("nodeId") String nodeId);
-
-    /**
-     * Get a deleted node Returns a specific deleted node identified by
-     * **nodeId**.
-     * 
-     * @param nodeId The identifier of a node. (required)
-     * @param include Returns additional information about the node. The
-     *            following optional fields can be requested: * path * isLink *
-     *            allowableOperations (optional)
-     * @return DeletedNodeRepresentation
-     */
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}")
-    Call<DeletedNodeRepresentation> getDeletedNodeCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include);
 
     /**
      * Get a deleted node Returns a specific deleted node identified by
@@ -155,24 +222,6 @@ public interface TrashcanAPI
     // ///////////////////////////////////////////////////////////////////////////
     // RESTORE
     // ///////////////////////////////////////////////////////////////////////////
-    /**
-     * Restore a deleted node Attempts to restore the deleted node identified by
-     * **nodeId** to its original location. If the node is successfully restored
-     * to it&#39;s former primary parent, then only the primary child
-     * association will be restored, including recursively for any primary
-     * children. It should be noted that no other secondary child association or
-     * peer association will be restored, for any of the nodes within the
-     * primary parent-child hierarchy of restored nodes, irrespective of whether
-     * these association were to nodes within or outside of the restored
-     * hierarchy. Also, any previously shared link will not be restored since it
-     * is removed at the time of delete of each node.
-     * 
-     * @param nodeId The identifier of a node. (required)
-     * @return NodeRepresentation
-     */
-    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}/restore")
-    Call<NodeRepresentation> restoreDeletedNodeCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     /**
      * Restore a deleted node Attempts to restore the deleted node identified by
@@ -196,14 +245,6 @@ public interface TrashcanAPI
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
     // ///////////////////////////////////////////////////////////////////////////
-    /**
-     * Purge a deleted node Permanently removes the deleted node identified by
-     * **nodeId**.
-     * 
-     * @param nodeId The identifier of a node. (required)
-     */
-    @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}")
-    Call<Void> purgeDeletedNodeCall(@Path("nodeId") String nodeId);
 
     /**
      * Purge a deleted node Permanently removes the deleted node identified by
@@ -213,4 +254,5 @@ public interface TrashcanAPI
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}")
     Observable<Void> purgeDeletedNodeObservable(@Path("nodeId") String nodeId);
+
 }

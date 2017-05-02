@@ -2,34 +2,47 @@ package org.alfresco.client.services.process;
 
 import org.alfresco.client.services.common.AbstractAPIRegistry;
 import org.alfresco.client.services.common.RestClient;
-import org.alfresco.client.services.process.core.api.*;
+import org.alfresco.client.services.process.enterprise.admin.api.AdminEndpointsAPI;
+import org.alfresco.client.services.process.enterprise.admin.api.AdminGroupsAPI;
+import org.alfresco.client.services.process.enterprise.admin.api.AdminTenantsAPI;
+import org.alfresco.client.services.process.enterprise.admin.api.AdminUsersAPI;
+import org.alfresco.client.services.process.enterprise.core.api.*;
+import org.alfresco.client.services.process.enterprise.discovery.api.DiscoveryAPI;
 
 /**
  * Created by jpascal on 30/04/2017.
  */
 public class PSAPIRegistry extends AbstractAPIRegistry implements ProcessServicesRegistry
 {
-    protected AboutAPI aboutAPI;
+    protected DiscoveryAPI discoveryAPI;
 
-    protected AdminAPI admiAPI;
+    protected AdminEndpointsAPI adminEndpointsAPI;
 
-    protected ContentAPI contentAPI;
+    protected AdminGroupsAPI adminGroupsAPI;
+
+    protected AdminTenantsAPI adminTenantsAPI;
+
+    protected AdminUsersAPI adminUsersAPI;
+
+    protected ContentsAPI contentsAPI;
 
     protected ModelsAPI modelsAPI;
 
-    protected ProcessDefinitionAPI processDefinitionAPI;
+    protected ProcessDefinitionsAPI processDefinitionsAPI;
 
-    protected ProcessInstanceAPI processInstanceAPI;
+    protected ProcessInstancesAPI processInstancesAPI;
 
-    protected ProfileAPI profileAPI;
+    protected UserProfileAPI profileAPI;
 
-    protected RuntimeAppDefinitionAPI runtimeAppDefinitionAPI;
+    protected RuntimeAppDefinitionsAPI runtimeAppDefinitionsAPI;
 
-    protected TaskAPI taskAPI;
+    protected TasksAPI tasksAPI;
 
     protected UserFiltersAPI userFiltersAPI;
 
-    protected UserGroupAPI userGroupAPI;
+    protected UsersGroupsAPI usersGroupsAPI;
+
+    protected AppDefinitionsAPI appDefinitionsAPI;
 
     // ///////////////////////////////////////////////////////////////////////////
     // CONSTRUCTOR
@@ -42,19 +55,34 @@ public class PSAPIRegistry extends AbstractAPIRegistry implements ProcessService
     // ///////////////////////////////////////////////////////////////////////////
     // GETTERS
     // ///////////////////////////////////////////////////////////////////////////
-    public AboutAPI getAboutAPI()
+    public DiscoveryAPI getDiscoveryAPI()
     {
-        return aboutAPI = (aboutAPI == null) ? getAPI(AboutAPI.class) : aboutAPI;
+        return discoveryAPI = (discoveryAPI == null) ? getAPI(DiscoveryAPI.class) : discoveryAPI;
     }
 
-    public AdminAPI getAdmiAPI()
+    public AdminUsersAPI geAdminUsersAPI()
     {
-        return admiAPI = (admiAPI == null) ? getAPI(AdminAPI.class) : admiAPI;
+        return adminUsersAPI = (adminUsersAPI == null) ? getAPI(AdminUsersAPI.class) : adminUsersAPI;
     }
 
-    public ContentAPI getContentAPI()
+    public AdminEndpointsAPI getAdminEndpointsAPI()
     {
-        return contentAPI = (contentAPI == null) ? getAPI(ContentAPI.class) : contentAPI;
+        return adminEndpointsAPI = (adminEndpointsAPI == null) ? getAPI(AdminEndpointsAPI.class) : adminEndpointsAPI;
+    }
+
+    public AdminTenantsAPI getAdminTenantsAPI()
+    {
+        return adminTenantsAPI = (adminTenantsAPI == null) ? getAPI(AdminTenantsAPI.class) : adminTenantsAPI;
+    }
+
+    public AdminGroupsAPI getAdminGroupsAPI()
+    {
+        return adminGroupsAPI = (adminGroupsAPI == null) ? getAPI(AdminGroupsAPI.class) : adminGroupsAPI;
+    }
+
+    public ContentsAPI getContentsAPI()
+    {
+        return contentsAPI = (contentsAPI == null) ? getAPI(ContentsAPI.class) : contentsAPI;
     }
 
     public ModelsAPI getModelsAPI()
@@ -62,32 +90,32 @@ public class PSAPIRegistry extends AbstractAPIRegistry implements ProcessService
         return modelsAPI = (modelsAPI == null) ? getAPI(ModelsAPI.class) : modelsAPI;
     }
 
-    public ProcessDefinitionAPI getProcessDefinitionAPI()
+    public ProcessDefinitionsAPI getProcessDefinitionsAPI()
     {
-        return processDefinitionAPI = (processDefinitionAPI == null) ? getAPI(ProcessDefinitionAPI.class)
-                : processDefinitionAPI;
+        return processDefinitionsAPI = (processDefinitionsAPI == null) ? getAPI(ProcessDefinitionsAPI.class)
+                : processDefinitionsAPI;
     }
 
-    public ProcessInstanceAPI getProcessInstanceAPI()
+    public ProcessInstancesAPI getProcessInstancesAPI()
     {
-        return processInstanceAPI = (processInstanceAPI == null) ? getAPI(ProcessInstanceAPI.class)
-                : processInstanceAPI;
+        return processInstancesAPI = (processInstancesAPI == null) ? getAPI(ProcessInstancesAPI.class)
+                : processInstancesAPI;
     }
 
-    public ProfileAPI getProfileAPI()
+    public UserProfileAPI getProfileAPI()
     {
-        return profileAPI = (profileAPI == null) ? getAPI(ProfileAPI.class) : profileAPI;
+        return profileAPI = (profileAPI == null) ? getAPI(UserProfileAPI.class) : profileAPI;
     }
 
-    public RuntimeAppDefinitionAPI getRuntimeAppDefinitionAPI()
+    public RuntimeAppDefinitionsAPI getRuntimeAppDefinitionsAPI()
     {
-        return runtimeAppDefinitionAPI = (runtimeAppDefinitionAPI == null) ? getAPI(RuntimeAppDefinitionAPI.class)
-                : runtimeAppDefinitionAPI;
+        return runtimeAppDefinitionsAPI = (runtimeAppDefinitionsAPI == null) ? getAPI(RuntimeAppDefinitionsAPI.class)
+                : runtimeAppDefinitionsAPI;
     }
 
-    public TaskAPI getTaskAPI()
+    public TasksAPI getTasksAPI()
     {
-        return taskAPI = (taskAPI == null) ? getAPI(TaskAPI.class) : taskAPI;
+        return tasksAPI = (tasksAPI == null) ? getAPI(TasksAPI.class) : tasksAPI;
     }
 
     public UserFiltersAPI getUserFiltersAPI()
@@ -95,8 +123,13 @@ public class PSAPIRegistry extends AbstractAPIRegistry implements ProcessService
         return userFiltersAPI = (userFiltersAPI == null) ? getAPI(UserFiltersAPI.class) : userFiltersAPI;
     }
 
-    public UserGroupAPI getUserGroupAPI()
+    public UsersGroupsAPI getUsersGroupsAPI()
     {
-        return userGroupAPI = (userGroupAPI == null) ? getAPI(UserGroupAPI.class) : userGroupAPI;
+        return usersGroupsAPI = (usersGroupsAPI == null) ? getAPI(UsersGroupsAPI.class) : usersGroupsAPI;
+    }
+
+    public AppDefinitionsAPI getAppDefinitionsAPI()
+    {
+        return appDefinitionsAPI = (appDefinitionsAPI == null) ? getAPI(AppDefinitionsAPI.class) : appDefinitionsAPI;
     }
 }

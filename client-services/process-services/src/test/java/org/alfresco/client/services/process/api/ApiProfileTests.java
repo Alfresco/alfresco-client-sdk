@@ -21,8 +21,8 @@ package org.alfresco.client.services.process.api;
 import java.io.IOException;
 
 import org.alfresco.client.services.ActivitiAPITestCase;
-import org.alfresco.client.services.process.core.api.ProfileAPI;
-import org.alfresco.client.services.process.core.model.idm.UserRepresentation;
+import org.alfresco.client.services.process.enterprise.core.api.UserProfileAPI;
+import org.alfresco.client.services.process.enterprise.core.model.idm.UserRepresentation;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -42,7 +42,7 @@ public class ApiProfileTests extends ActivitiAPITestCase
     @Test
     public void profileTests() throws IOException
     {
-        client.getAPI(ProfileAPI.class).getProfile().enqueue(new Callback<UserRepresentation>()
+        client.getAPI(UserProfileAPI.class).getProfileCall().enqueue(new Callback<UserRepresentation>()
         {
             @Override
             public void onResponse(Call<UserRepresentation> call, Response<UserRepresentation> response)
@@ -82,7 +82,7 @@ public class ApiProfileTests extends ActivitiAPITestCase
         });
 
         // Request All Comments for a document
-        Response<UserRepresentation> response = client.getAPI(ProfileAPI.class).getProfile().execute();
+        Response<UserRepresentation> response = client.getAPI(UserProfileAPI.class).getProfileCall().execute();
 
     }
 }

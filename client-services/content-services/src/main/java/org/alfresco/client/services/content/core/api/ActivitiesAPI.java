@@ -52,18 +52,6 @@ public interface ActivitiesAPI
      * &#x60;&lt;personId&gt;&#x60; to specify the currently authenticated user.
      *
      * @param personId The identifier of a person. (required)
-     * @return ResultPaging<ActivityRepresentation>
-     */
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
-    Observable<ResultPaging<ActivityRepresentation>> listActivitiesForPersonObservable(
-            @Path("personId") String personId);
-
-    /**
-     * Get activities Returns a list of activities for person **personId**. You
-     * can use the &#x60;-me-&#x60; string in place of
-     * &#x60;&lt;personId&gt;&#x60; to specify the currently authenticated user.
-     *
-     * @param personId The identifier of a person. (required)
      * @param skipCount The number of entities that exist in the collection
      *            before those included in this list. (optional)
      * @param maxItems The maximum number of items to return in the list.
@@ -73,23 +61,6 @@ public interface ActivitiesAPI
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
     Call<ResultPaging<ActivityRepresentation>> listActivitiesForPersonCall(@Path("personId") String personId,
             @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
-
-    /**
-     * Get activities Returns a list of activities for person **personId**. You
-     * can use the &#x60;-me-&#x60; string in place of
-     * &#x60;&lt;personId&gt;&#x60; to specify the currently authenticated user.
-     *
-     * @param personId The identifier of a person. (required)
-     * @param skipCount The number of entities that exist in the collection
-     *            before those included in this list. (optional)
-     * @param maxItems The maximum number of items to return in the list.
-     *            (optional)
-     * @return ResultPaging<ActivityRepresentation>
-     */
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
-    Observable<ResultPaging<ActivityRepresentation>> listActivitiesForPersonObservable(
-            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
             @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
 
     /**
@@ -123,11 +94,65 @@ public interface ActivitiesAPI
             @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems, @Query("siteId") String siteId,
             @Query("who") String who, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+
     /**
      * Get activities Returns a list of activities for person **personId**. You
      * can use the &#x60;-me-&#x60; string in place of
      * &#x60;&lt;personId&gt;&#x60; to specify the currently authenticated user.
-     * 
+     *
+     * @param personId The identifier of a person. (required)
+     * @return ResultPaging<ActivityRepresentation>
+     */
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
+    Observable<ResultPaging<ActivityRepresentation>> listActivitiesForPersonObservable(
+            @Path("personId") String personId);
+
+    /**
+     * Get activities Returns a list of activities for person **personId**. You
+     * can use the &#x60;-me-&#x60; string in place of
+     * &#x60;&lt;personId&gt;&#x60; to specify the currently authenticated user.
+     *
+     * @param personId The identifier of a person. (required)
+     * @param skipCount The number of entities that exist in the collection
+     *            before those included in this list. (optional)
+     * @param maxItems The maximum number of items to return in the list.
+     *            (optional)
+     * @return ResultPaging<ActivityRepresentation>
+     */
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
+    Observable<ResultPaging<ActivityRepresentation>> listActivitiesForPersonObservable(
+            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
+
+    /**
+     * Get activities Returns a list of activities for person **personId**. You
+     * can use the &#x60;-me-&#x60; string in place of
+     * &#x60;&lt;personId&gt;&#x60; to specify the currently authenticated user.
+     *
      * @param personId The identifier of a person. (required)
      * @param skipCount The number of entities that exist in the collection
      *            before those included in this list. (optional)

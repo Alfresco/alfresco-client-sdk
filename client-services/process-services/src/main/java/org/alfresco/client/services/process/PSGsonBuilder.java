@@ -1,8 +1,8 @@
 package org.alfresco.client.services.process;
 
-import org.alfresco.client.services.process.core.model.common.ResultList;
-import org.alfresco.client.services.process.core.model.deserializer.ResultListDeserializer;
-import org.alfresco.client.services.process.core.model.runtime.ProcessDefinitionRepresentation;
+import org.alfresco.client.services.process.enterprise.common.model.deserializer.ResultListDeserializer;
+import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
+import org.alfresco.client.services.process.enterprise.core.model.runtime.ProcessDefinitionRepresentation;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

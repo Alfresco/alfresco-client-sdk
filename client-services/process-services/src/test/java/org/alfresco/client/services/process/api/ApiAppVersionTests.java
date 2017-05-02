@@ -21,8 +21,8 @@ package org.alfresco.client.services.process.api;
 import java.io.IOException;
 
 import org.alfresco.client.services.ActivitiAPITestCase;
-import org.alfresco.client.services.process.core.api.AboutAPI;
-import org.alfresco.client.services.process.core.model.runtime.AppVersionRepresentation;
+import org.alfresco.client.services.process.enterprise.discovery.api.DiscoveryAPI;
+import org.alfresco.client.services.process.enterprise.discovery.model.runtime.AppVersionRepresentation;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -43,7 +43,7 @@ public class ApiAppVersionTests extends ActivitiAPITestCase
     public void retrieveAppVersionInfo() throws IOException
     {
         // Request All Comments for a document
-        Response<AppVersionRepresentation> response = client.getAPI(AboutAPI.class).getAppVersion().execute();
+        Response<AppVersionRepresentation> response = client.getAPI(DiscoveryAPI.class).getAppVersionCall().execute();
         Assert.assertNotNull(response);
         Assert.assertEquals(response.isSuccessful(), true);
 
@@ -59,7 +59,7 @@ public class ApiAppVersionTests extends ActivitiAPITestCase
         Assert.assertNotNull(activitiesResponse.getMinorVersion(), "Response has a No Minor Version");
         Assert.assertNotNull(activitiesResponse.getRevisionVersion(), "Response has a No Revision Version");
 
-        client.getAPI(AboutAPI.class).getAppVersion().enqueue(new Callback<AppVersionRepresentation>()
+        client.getAPI(DiscoveryAPI.class).getAppVersionCall().enqueue(new Callback<AppVersionRepresentation>()
         {
             @Override
             public void onResponse(Call<AppVersionRepresentation> call, Response<AppVersionRepresentation> response)

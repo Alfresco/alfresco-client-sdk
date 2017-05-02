@@ -22,8 +22,8 @@ import java.io.File;
 import java.io.IOException;
 
 import org.alfresco.client.services.ActivitiAPITestCase;
-import org.alfresco.client.services.process.core.api.ContentAPI;
-import org.alfresco.client.services.process.core.model.runtime.RelatedContentRepresentation;
+import org.alfresco.client.services.process.enterprise.core.api.ContentsAPI;
+import org.alfresco.client.services.process.enterprise.core.model.runtime.RelatedContentRepresentation;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -46,7 +46,7 @@ public class ApiContentTests extends ActivitiAPITestCase
     @Test
     public void contentLifeCycle() throws IOException
     {
-        ContentAPI api = client.getAPI(ContentAPI.class);
+        ContentsAPI api = client.getAPI(ContentsAPI.class);
 
         // Create a Content
         // Create Body
@@ -56,7 +56,7 @@ public class ApiContentTests extends ActivitiAPITestCase
         multipartBuilder.addFormDataPart("filename", "test.txt", requestBody);
         RequestBody fileRequestBody = multipartBuilder.build();
 
-        Response<RelatedContentRepresentation> response = api.createTemporaryRawRelatedContent(fileRequestBody)
+        Response<RelatedContentRepresentation> response = api.createTemporaryRawRelatedContentCall(fileRequestBody)
                 .execute();
         hasSuceedReponse(response);
 
@@ -78,7 +78,7 @@ public class ApiContentTests extends ActivitiAPITestCase
         Assert.assertNotNull(contentRep.getThumbnailStatus(), "Response has No Thumbnail Status");
 
         // DELETE a Content
-        api.deleteContent(Long.toString(contentRep.getId())).enqueue(new Callback<Void>()
+        api.deleteContentCall(Long.toString(contentRep.getId())).enqueue(new Callback<Void>()
         {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response)
@@ -95,7 +95,7 @@ public class ApiContentTests extends ActivitiAPITestCase
         });
 
         // GET a Content
-        api.getContent(Long.toString(contentRep.getId())).enqueue(new Callback<RelatedContentRepresentation>()
+        api.getContentCall(Long.toString(contentRep.getId())).enqueue(new Callback<RelatedContentRepresentation>()
         {
             @Override
             public void onResponse(Call<RelatedContentRepresentation> call,

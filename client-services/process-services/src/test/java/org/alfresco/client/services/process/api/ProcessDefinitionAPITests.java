@@ -21,9 +21,9 @@ package org.alfresco.client.services.process.api;
 import java.io.IOException;
 
 import org.alfresco.client.services.ActivitiAPITestCase;
-import org.alfresco.client.services.process.core.api.ProcessDefinitionAPI;
-import org.alfresco.client.services.process.core.model.common.ResultList;
-import org.alfresco.client.services.process.core.model.runtime.ProcessDefinitionRepresentation;
+import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
+import org.alfresco.client.services.process.enterprise.core.api.ProcessDefinitionsAPI;
+import org.alfresco.client.services.process.enterprise.core.model.runtime.ProcessDefinitionRepresentation;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -41,10 +41,10 @@ public class ProcessDefinitionAPITests extends ActivitiAPITestCase
     @Test
     public void listProcessDefinitions() throws IOException
     {
-        ProcessDefinitionAPI processDefAPI = client.getAPI(ProcessDefinitionAPI.class);
+        ProcessDefinitionsAPI processDefAPI = client.getAPI(ProcessDefinitionsAPI.class);
 
         // Check if the user is present
-        Response<ResultList<ProcessDefinitionRepresentation>> response = processDefAPI.getProcessDefinitions()
+        Response<ResultList<ProcessDefinitionRepresentation>> response = processDefAPI.getProcessDefinitionsCall()
                 .execute();
         Assert.assertNotNull(response);
         Assert.assertEquals(response.isSuccessful(), true);

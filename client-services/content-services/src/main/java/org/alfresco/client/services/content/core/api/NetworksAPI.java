@@ -48,15 +48,6 @@ public interface NetworksAPI
      * Get a network Returns information for a network **networkId**.
      * 
      * @param networkId The identifier of a network. (required)
-     * @return PersonNetworkRepresentation
-     */
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/networks/{networkId}/networks")
-    Observable<PersonNetworkRepresentation> getNetworkObservable(@Path("networkId") String networkId);
-
-    /**
-     * Get a network Returns information for a network **networkId**.
-     * 
-     * @param networkId The identifier of a network. (required)
      * @param fields A list of field names. You can use this parameter to
      *            restrict the fields returned within a response if, for
      *            example, you want to save on overall bandwidth. The list
@@ -69,24 +60,6 @@ public interface NetworksAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/networks/{networkId}/networks")
     Call<PersonNetworkRepresentation> getNetworkCall(@Path("networkId") String networkId,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
-
-    /**
-     * Get a network Returns information for a network **networkId**.
-     * 
-     * @param networkId The identifier of a network. (required)
-     * @param fields A list of field names. You can use this parameter to
-     *            restrict the fields returned within a response if, for
-     *            example, you want to save on overall bandwidth. The list
-     *            applies to a returned individual entity or entries within a
-     *            collection. If the API method also supports the **include**
-     *            parameter, then the fields specified in the **include**
-     *            parameter are returned in addition to those specified in the
-     *            **fields** parameter. (optional)
-     * @return PersonNetworkRepresentation
-     */
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/networks/{networkId}/networks")
-    Observable<PersonNetworkRepresentation> getNetworkObservable(@Path("networkId") String networkId,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -102,10 +75,6 @@ public interface NetworksAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks")
     Call<ResultPaging<PersonNetworkRepresentation>> listNetworksForPersonCall(@Path("personId") String personId);
-
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks")
-    Observable<ResultPaging<PersonNetworkRepresentation>> listNetworksForPersonObservable(
-            @Path("personId") String personId);
 
     /**
      * Get network membership Gets a list of network memberships for person
@@ -130,32 +99,6 @@ public interface NetworksAPI
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks")
     Call<ResultPaging<PersonNetworkRepresentation>> listNetworksForPersonCall(@Path("personId") String personId,
             @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
-
-    /**
-     * Get network membership Gets a list of network memberships for person
-     * **personId**. You can use the &#x60;-me-&#x60; string in place of
-     * &#x60;&lt;personId&gt;&#x60; to specify the currently authenticated user.
-     *
-     * @param personId The identifier of a person. (required)
-     * @param skipCount The number of entities that exist in the collection
-     *            before those included in this list. (optional)
-     * @param maxItems The maximum number of items to return in the list.
-     *            (optional)
-     * @param fields A list of field names. You can use this parameter to
-     *            restrict the fields returned within a response if, for
-     *            example, you want to save on overall bandwidth. The list
-     *            applies to a returned individual entity or entries within a
-     *            collection. If the API method also supports the **include**
-     *            parameter, then the fields specified in the **include**
-     *            parameter are returned in addition to those specified in the
-     *            **fields** parameter. (optional)
-     * @return ResultPaging<PersonNetworkRepresentation>
-     */
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks")
-    Observable<ResultPaging<PersonNetworkRepresentation>> listNetworksForPersonObservable(
-            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
             @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
             @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
@@ -198,12 +141,113 @@ public interface NetworksAPI
     Call<PersonNetworkRepresentation> getNetworkForPersonCall(@Path("personId") String personId,
             @Path("networkId") String networkId, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
 
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // INFO NETWORK
+    // ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Get a network Returns information for a network **networkId**.
+     *
+     * @param networkId The identifier of a network. (required)
+     * @return PersonNetworkRepresentation
+     */
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/networks/{networkId}/networks")
+    Observable<PersonNetworkRepresentation> getNetworkObservable(@Path("networkId") String networkId);
+
+    /**
+     * Get a network Returns information for a network **networkId**.
+     *
+     * @param networkId The identifier of a network. (required)
+     * @param fields A list of field names. You can use this parameter to
+     *            restrict the fields returned within a response if, for
+     *            example, you want to save on overall bandwidth. The list
+     *            applies to a returned individual entity or entries within a
+     *            collection. If the API method also supports the **include**
+     *            parameter, then the fields specified in the **include**
+     *            parameter are returned in addition to those specified in the
+     *            **fields** parameter. (optional)
+     * @return PersonNetworkRepresentation
+     */
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/networks/{networkId}/networks")
+    Observable<PersonNetworkRepresentation> getNetworkObservable(@Path("networkId") String networkId,
+            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // LIST PERSON NETWORK
+    // ///////////////////////////////////////////////////////////////////////////
+    /**
+     * Get network membership Gets a list of network memberships for person
+     * **personId**. You can use the &#x60;-me-&#x60; string in place of
+     * &#x60;&lt;personId&gt;&#x60; to specify the currently authenticated user.
+     *
+     * @param personId The identifier of a person. (required)
+     * @return ResultPaging<PersonNetworkRepresentation>
+     */
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks")
+    Observable<ResultPaging<PersonNetworkRepresentation>> listNetworksForPersonObservable(
+            @Path("personId") String personId);
+
+    /**
+     * Get network membership Gets a list of network memberships for person
+     * **personId**. You can use the &#x60;-me-&#x60; string in place of
+     * &#x60;&lt;personId&gt;&#x60; to specify the currently authenticated user.
+     *
+     * @param personId The identifier of a person. (required)
+     * @param skipCount The number of entities that exist in the collection
+     *            before those included in this list. (optional)
+     * @param maxItems The maximum number of items to return in the list.
+     *            (optional)
+     * @param fields A list of field names. You can use this parameter to
+     *            restrict the fields returned within a response if, for
+     *            example, you want to save on overall bandwidth. The list
+     *            applies to a returned individual entity or entries within a
+     *            collection. If the API method also supports the **include**
+     *            parameter, then the fields specified in the **include**
+     *            parameter are returned in addition to those specified in the
+     *            **fields** parameter. (optional)
+     * @return ResultPaging<PersonNetworkRepresentation>
+     */
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks")
+    Observable<ResultPaging<PersonNetworkRepresentation>> listNetworksForPersonObservable(
+            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
+            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
+            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // INFO PERSON NETWORK
+    // ///////////////////////////////////////////////////////////////////////////
+
     /**
      * Get network information Returns network information on a single network
      * specified by **networkId** for **personId**. You can use the
      * &#x60;-me-&#x60; string in place of &#x60;&lt;personId&gt;&#x60; to
      * specify the currently authenticated user.
-     * 
+     *
      * @param personId The identifier of a person. (required)
      * @param networkId The identifier of a network. (required)
      * @return PersonNetworkRepresentation
@@ -217,7 +261,7 @@ public interface NetworksAPI
      * specified by **networkId** for **personId**. You can use the
      * &#x60;-me-&#x60; string in place of &#x60;&lt;personId&gt;&#x60; to
      * specify the currently authenticated user.
-     * 
+     *
      * @param personId The identifier of a person. (required)
      * @param networkId The identifier of a network. (required)
      * @param fields A list of field names. You can use this parameter to
@@ -233,5 +277,4 @@ public interface NetworksAPI
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks/{networkId}")
     Observable<PersonNetworkRepresentation> getNetworkForPersonObservable(@Path("personId") String personId,
             @Path("networkId") String networkId, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
-
 }

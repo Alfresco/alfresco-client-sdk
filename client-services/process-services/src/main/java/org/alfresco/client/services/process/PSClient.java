@@ -22,7 +22,12 @@ import org.alfresco.client.Version;
 import org.alfresco.client.services.common.RestClient;
 import org.alfresco.client.services.common.ServicesClient;
 import org.alfresco.client.services.common.utils.ISO8601Utils;
-import org.alfresco.client.services.process.core.api.*;
+import org.alfresco.client.services.process.enterprise.admin.api.AdminEndpointsAPI;
+import org.alfresco.client.services.process.enterprise.admin.api.AdminGroupsAPI;
+import org.alfresco.client.services.process.enterprise.admin.api.AdminTenantsAPI;
+import org.alfresco.client.services.process.enterprise.admin.api.AdminUsersAPI;
+import org.alfresco.client.services.process.enterprise.core.api.*;
+import org.alfresco.client.services.process.enterprise.discovery.api.DiscoveryAPI;
 
 import com.google.gson.GsonBuilder;
 
@@ -64,22 +69,38 @@ public class PSClient extends ServicesClient<PSClient> implements ProcessService
         return psapiRegistry;
     }
 
-    @Override
-    public AboutAPI getAboutAPI()
+    public DiscoveryAPI getDiscoveryAPI()
     {
-        return psapiRegistry.getAboutAPI();
+        return psapiRegistry.getDiscoveryAPI();
     }
 
     @Override
-    public AdminAPI getAdmiAPI()
+    public AdminUsersAPI geAdminUsersAPI()
     {
-        return psapiRegistry.getAdmiAPI();
+        return psapiRegistry.geAdminUsersAPI();
     }
 
     @Override
-    public ContentAPI getContentAPI()
+    public AdminEndpointsAPI getAdminEndpointsAPI()
     {
-        return psapiRegistry.getContentAPI();
+        return psapiRegistry.getAdminEndpointsAPI();
+    }
+
+    @Override
+    public AdminTenantsAPI getAdminTenantsAPI()
+    {
+        return psapiRegistry.getAdminTenantsAPI();
+    }
+
+    @Override
+    public AdminGroupsAPI getAdminGroupsAPI()
+    {
+        return psapiRegistry.getAdminGroupsAPI();
+    }
+
+    public ContentsAPI getContentsAPI()
+    {
+        return psapiRegistry.getContentsAPI();
     }
 
     @Override
@@ -88,34 +109,30 @@ public class PSClient extends ServicesClient<PSClient> implements ProcessService
         return psapiRegistry.getModelsAPI();
     }
 
-    @Override
-    public ProcessDefinitionAPI getProcessDefinitionAPI()
+    public ProcessDefinitionsAPI getProcessDefinitionsAPI()
     {
-        return psapiRegistry.getProcessDefinitionAPI();
+        return psapiRegistry.getProcessDefinitionsAPI();
+    }
+
+    public ProcessInstancesAPI getProcessInstancesAPI()
+    {
+        return psapiRegistry.getProcessInstancesAPI();
     }
 
     @Override
-    public ProcessInstanceAPI getProcessInstanceAPI()
-    {
-        return psapiRegistry.getProcessInstanceAPI();
-    }
-
-    @Override
-    public ProfileAPI getProfileAPI()
+    public UserProfileAPI getProfileAPI()
     {
         return psapiRegistry.getProfileAPI();
     }
 
-    @Override
-    public RuntimeAppDefinitionAPI getRuntimeAppDefinitionAPI()
+    public RuntimeAppDefinitionsAPI getRuntimeAppDefinitionsAPI()
     {
-        return psapiRegistry.getRuntimeAppDefinitionAPI();
+        return psapiRegistry.getRuntimeAppDefinitionsAPI();
     }
 
-    @Override
-    public TaskAPI getTaskAPI()
+    public TasksAPI getTasksAPI()
     {
-        return psapiRegistry.getTaskAPI();
+        return psapiRegistry.getTasksAPI();
     }
 
     @Override
@@ -124,10 +141,15 @@ public class PSClient extends ServicesClient<PSClient> implements ProcessService
         return psapiRegistry.getUserFiltersAPI();
     }
 
-    @Override
-    public UserGroupAPI getUserGroupAPI()
+    public UsersGroupsAPI getUsersGroupsAPI()
     {
-        return psapiRegistry.getUserGroupAPI();
+        return psapiRegistry.getUsersGroupsAPI();
+    }
+
+    @Override
+    public AppDefinitionsAPI getAppDefinitionsAPI()
+    {
+        return psapiRegistry.getAppDefinitionsAPI();
     }
 
     // ///////////////////////////////////////////////////////////////////////////

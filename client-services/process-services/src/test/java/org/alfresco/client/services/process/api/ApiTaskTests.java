@@ -22,11 +22,11 @@ import java.io.File;
 import java.io.IOException;
 
 import org.alfresco.client.services.ActivitiAPITestCase;
-import org.alfresco.client.services.process.core.api.TaskAPI;
-import org.alfresco.client.services.process.core.model.common.ResultList;
-import org.alfresco.client.services.process.core.model.runtime.RelatedContentRepresentation;
-import org.alfresco.client.services.process.core.model.runtime.TaskRepresentation;
-import org.alfresco.client.services.process.core.model.runtime.request.QueryTasksRepresentation;
+import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
+import org.alfresco.client.services.process.enterprise.core.api.TasksAPI;
+import org.alfresco.client.services.process.enterprise.core.model.runtime.RelatedContentRepresentation;
+import org.alfresco.client.services.process.enterprise.core.model.runtime.TaskRepresentation;
+import org.alfresco.client.services.process.enterprise.core.model.runtime.request.QueryTasksRepresentation;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -47,11 +47,11 @@ public class ApiTaskTests extends ActivitiAPITestCase
     @Test
     public void standAloneLifeCycle() throws IOException
     {
-        TaskAPI api = client.getTaskAPI();
+        TasksAPI api = client.getTasksAPI();
 
         // CLEAN ALL STANDALONE TASKS
         QueryTasksRepresentation rep = new QueryTasksRepresentation(null, 1L, null);
-        Response<ResultList<TaskRepresentation>> response0 = api.listTasks(rep).execute();
+        Response<ResultList<TaskRepresentation>> response0 = api.listTasksCall(rep).execute();
         Assert.assertNotNull(response0);
         Assert.assertEquals(response0.isSuccessful(), true);
 
@@ -62,11 +62,11 @@ public class ApiTaskTests extends ActivitiAPITestCase
             {
                 if (task.getFormKey() == null)
                 {
-                    api.completeTask(task.getId()).execute();
+                    api.completeTaskCall(task.getId()).execute();
                 }
                 else
                 {
-                    api.deleteTask(task.getId()).execute();
+                    api.deleteTaskCall(task.getId()).execute();
                 }
             }
         }
@@ -76,7 +76,7 @@ public class ApiTaskTests extends ActivitiAPITestCase
         representation.setName("Task 1");
         representation.setDescription("Description 1");
 
-        Response<TaskRepresentation> response = api.createNewTask(representation).execute();
+        Response<TaskRepresentation> response = api.createNewTaskCall(representation).execute();
         Assert.assertNotNull(response);
         Assert.assertEquals(response.isSuccessful(), true);
 
@@ -121,16 +121,17 @@ public class ApiTaskTests extends ActivitiAPITestCase
         multipartBuilder.addFormDataPart("file", "test.txt", requestBody);
         RequestBody fileRequestBody = multipartBuilder.build();
 
-        Response<RelatedContentRepresentation> resp = api.createRelatedContentOnTask(taskRep.getId(), fileRequestBody)
+        Response<RelatedContentRepresentation> resp = api
+                .createRelatedContentOnTaskCall(taskRep.getId(), fileRequestBody)
                 .execute();
         hasSuceedReponse(resp);
 
         // COMPLETE STANDALONE TASK
-        Response<Void> completionResponse = api.completeTask(taskRep.getId()).execute();
+        Response<Void> completionResponse = api.completeTaskCall(taskRep.getId()).execute();
         hasSuceedReponse(completionResponse);
 
         // Check Values
-        Response<TaskRepresentation> resp3 = api.getTask(taskRep.getId()).execute();
+        Response<TaskRepresentation> resp3 = api.getTaskCall(taskRep.getId()).execute();
         Assert.assertNotNull(resp3);
         Assert.assertEquals(resp3.isSuccessful(), true);
 

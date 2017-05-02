@@ -49,19 +49,6 @@ public interface RenditionsAPI
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions")
     Call<ResultPaging<RenditionRepresentation>> listRenditionsCall(@Path("nodeId") String nodeId);
 
-    /**
-     * List information for renditions Returns the rendition information for the
-     * file **nodeId**. This will return rendition information, including the
-     * rendition id, for each rendition. The rendition status is CREATED, which
-     * means it is available to view or download; or NOT_CREATED, which means
-     * the rendition can be requested.
-     * 
-     * @param nodeId The identifier of a node. (required)
-     * @return RenditionPaging
-     */
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions")
-    Observable<ResultPaging<RenditionRepresentation>> listRenditionsObservable(@Path("nodeId") String nodeId);
-
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
     // ///////////////////////////////////////////////////////////////////////////
@@ -79,21 +66,6 @@ public interface RenditionsAPI
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions")
     Call<Void> createRenditionCall(@Path("nodeId") String nodeId, @Body RenditionBodyCreate renditionBodyCreate);
 
-    /**
-     * Create rendition Async body to create a rendition for file with
-     * identifier **nodeId**. The rendition is specified by name
-     * \&quot;id\&quot; in the body body: &#x60;&#x60;&#x60;JSON {
-     * \&quot;id\&quot;:\&quot;doclib\&quot; } &#x60;&#x60;&#x60;
-     *
-     * @param nodeId The identifier of a node. You can also use one of these
-     *            well-known aliases: * -my- * -shared- * -root- (required)
-     * @param renditionBodyCreate The rendition \&quot;id\&quot;. (required)
-     */
-    @Headers({ "Content-type: application/json" })
-    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions")
-    Observable<Void> createRenditionObservable(@Path("nodeId") String nodeId,
-            @Body RenditionBodyCreate renditionBodyCreate);
-
     // ///////////////////////////////////////////////////////////////////////////
     // INFO
     // ///////////////////////////////////////////////////////////////////////////
@@ -110,19 +82,6 @@ public interface RenditionsAPI
     Call<RenditionRepresentation> getRenditionCall(@Path("nodeId") String nodeId,
             @Path("renditionId") String renditionId);
 
-    /**
-     * Get rendition information Returns the rendition information for file node
-     * with identifier **nodeId**.
-     *
-     * @param nodeId The identifier of a node. (required)
-     * @param renditionId The name of a thumbnail rendition, for example
-     *            *doclib*, or *pdf*. (required)
-     * @return RenditionRepresentation
-     */
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions/{renditionId}")
-    Observable<RenditionRepresentation> getRenditionObservable(@Path("nodeId") String nodeId,
-            @Path("renditionId") String renditionId);
-
     // ///////////////////////////////////////////////////////////////////////////
     // CONTENT
     // ///////////////////////////////////////////////////////////////////////////
@@ -137,19 +96,6 @@ public interface RenditionsAPI
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions/{renditionId}/content")
     Call<ResponseBody> getRenditionContentCall(@Path("nodeId") String nodeId, @Path("renditionId") String renditionId);
-
-    /**
-     * Get rendition content Returns the rendition content for file node with
-     * identifier **nodeId**.
-     *
-     * @param nodeId The identifier of a node. (required)
-     * @param renditionId The name of a thumbnail rendition, for example
-     *            *doclib*, or *pdf*. (required)
-     */
-    @Streaming
-    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions/{renditionId}/content")
-    Observable<ResponseBody> getRenditionContentObservable(@Path("nodeId") String nodeId,
-            @Path("renditionId") String renditionId);
 
     /**
      * Get rendition content Returns the rendition content for file node with
@@ -177,6 +123,101 @@ public interface RenditionsAPI
     Call<ResponseBody> getRenditionContentCall(@Path("nodeId") String nodeId, @Path("renditionId") String renditionId,
             @Query("attachment") Boolean attachment, @Header("If-Modified-Since") Date ifModifiedSince);
 
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // LISTING
+    // ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * List information for renditions Returns the rendition information for the
+     * file **nodeId**. This will return rendition information, including the
+     * rendition id, for each rendition. The rendition status is CREATED, which
+     * means it is available to view or download; or NOT_CREATED, which means
+     * the rendition can be requested.
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @return RenditionPaging
+     */
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions")
+    Observable<ResultPaging<RenditionRepresentation>> listRenditionsObservable(@Path("nodeId") String nodeId);
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // CREATE
+    // ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Create rendition Async body to create a rendition for file with
+     * identifier **nodeId**. The rendition is specified by name
+     * \&quot;id\&quot; in the body body: &#x60;&#x60;&#x60;JSON {
+     * \&quot;id\&quot;:\&quot;doclib\&quot; } &#x60;&#x60;&#x60;
+     *
+     * @param nodeId The identifier of a node. You can also use one of these
+     *            well-known aliases: * -my- * -shared- * -root- (required)
+     * @param renditionBodyCreate The rendition \&quot;id\&quot;. (required)
+     */
+    @Headers({ "Content-type: application/json" })
+    @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions")
+    Observable<Void> createRenditionObservable(@Path("nodeId") String nodeId,
+            @Body RenditionBodyCreate renditionBodyCreate);
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // INFO
+    // ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Get rendition information Returns the rendition information for file node
+     * with identifier **nodeId**.
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param renditionId The name of a thumbnail rendition, for example
+     *            *doclib*, or *pdf*. (required)
+     * @return RenditionRepresentation
+     */
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions/{renditionId}")
+    Observable<RenditionRepresentation> getRenditionObservable(@Path("nodeId") String nodeId,
+            @Path("renditionId") String renditionId);
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // CONTENT
+    // ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Get rendition content Returns the rendition content for file node with
+     * identifier **nodeId**.
+     *
+     * @param nodeId The identifier of a node. (required)
+     * @param renditionId The name of a thumbnail rendition, for example
+     *            *doclib*, or *pdf*. (required)
+     */
+    @Streaming
+    @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions/{renditionId}/content")
+    Observable<ResponseBody> getRenditionContentObservable(@Path("nodeId") String nodeId,
+            @Path("renditionId") String renditionId);
+
     /**
      * Get rendition content Returns the rendition content for file node with
      * identifier **nodeId**.
@@ -203,7 +244,4 @@ public interface RenditionsAPI
     Observable<ResponseBody> getRenditionContentObservable(@Path("nodeId") String nodeId,
             @Path("renditionId") String renditionId, @Query("attachment") Boolean attachment,
             @Header("If-Modified-Since") Date ifModifiedSince);
-
-
-
 }
