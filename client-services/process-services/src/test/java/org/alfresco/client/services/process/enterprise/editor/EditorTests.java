@@ -21,14 +21,14 @@ package org.alfresco.client.services.process.enterprise.editor;
 import java.io.IOException;
 import java.util.List;
 
-import org.alfresco.client.services.ActivitiAPITestCase;
+import org.alfresco.client.services.PSAPITestCase;
 import org.alfresco.client.services.process.enterprise.core.model.editor.form.FormRepresentation;
 import org.alfresco.client.services.process.enterprise.editor.api.EditorsAPI;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class EditorTests extends ActivitiAPITestCase
+public class EditorTests extends PSAPITestCase
 {
     @BeforeClass
     public void prepare() throws Exception
@@ -41,7 +41,7 @@ public class EditorTests extends ActivitiAPITestCase
     {
         EditorsAPI editors = client.getAPI(EditorsAPI.class);
         String[] ids = { "1", "2" };
-        List<FormRepresentation> list = editors.getForms(ids).execute().body();
+        List<FormRepresentation> list = editors.getFormsCall(ids).execute().body();
         Assert.assertNotNull(list);
     }
 }

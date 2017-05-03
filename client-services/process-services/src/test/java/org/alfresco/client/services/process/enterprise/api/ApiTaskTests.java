@@ -16,12 +16,12 @@
  *  limitations under the License.
  */
 
-package org.alfresco.client.services.process.api;
+package org.alfresco.client.services.process.enterprise.api;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.alfresco.client.services.ActivitiAPITestCase;
+import org.alfresco.client.services.PSAPITestCase;
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.core.api.TasksAPI;
 import org.alfresco.client.services.process.enterprise.core.model.runtime.RelatedContentRepresentation;
@@ -36,7 +36,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Response;
 
-public class ApiTaskTests extends ActivitiAPITestCase
+public class ApiTaskTests extends PSAPITestCase
 {
     @BeforeClass
     public void prepare() throws Exception

@@ -16,11 +16,11 @@
  *  limitations under the License.
  */
 
-package org.alfresco.client.services.process.api;
+package org.alfresco.client.services.process.enterprise.api;
 
 import java.io.IOException;
 
-import org.alfresco.client.services.ActivitiAPITestCase;
+import org.alfresco.client.services.PSAPITestCase;
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.core.api.ProcessDefinitionsAPI;
 import org.alfresco.client.services.process.enterprise.core.model.runtime.ProcessDefinitionRepresentation;
@@ -30,7 +30,7 @@ import org.testng.annotations.Test;
 
 import retrofit2.Response;
 
-public class ProcessDefinitionAPITests extends ActivitiAPITestCase
+public class ProcessDefinitionAPITests extends PSAPITestCase
 {
     @BeforeClass
     public void prepare() throws Exception

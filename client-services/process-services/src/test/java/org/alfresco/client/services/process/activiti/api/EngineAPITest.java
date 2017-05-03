@@ -16,17 +16,19 @@
  *  limitations under the License.
  */
 
-package org.alfresco.client.services.process.enterprise.integration;
+package org.alfresco.client.services.process.activiti.api;
 
 import java.io.IOException;
+import java.util.Map;
 
-import org.alfresco.client.services.PSAPITestCase;
-import org.alfresco.client.services.process.enterprise.integration.api.BoxAPI;
+import org.alfresco.client.services.process.activiti.ActivitiAPITestCase;
+import org.alfresco.client.services.process.activiti.core.api.EngineAPI;
+import org.alfresco.client.services.process.activiti.core.model.representation.ProcessEngineInfoResponse;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class BoxIntegrationTests extends PSAPITestCase
+public class EngineAPITest extends ActivitiAPITestCase
 {
     @BeforeClass
     public void prepare() throws Exception
@@ -35,9 +37,18 @@ public class BoxIntegrationTests extends PSAPITestCase
     }
 
     @Test
-    public void boxIntegration() throws IOException
+    public void engineInfoTest() throws IOException
     {
-        BoxAPI box = client.getAPI(BoxAPI.class);
-        Assert.assertEquals(box.getBoxPluginStatus().execute().body(), Boolean.FALSE);
+        EngineAPI engineAPI = client.getAPI(EngineAPI.class);
+
+        ProcessEngineInfoResponse response = engineAPI.getEngineInfoCall().execute().body();
+        Assert.assertEquals(response.getName(), "default");
+        Assert.assertNotNull(response.getVersion());
+        Assert.assertNull(response.getResourceUrl());
+        Assert.assertNull(response.getException());
+
+        Map<String, String> properties = engineAPI.getPropertiesCall().execute().body();
+        Assert.assertNotNull(properties);
+
     }
 }

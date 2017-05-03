@@ -16,11 +16,11 @@
  *  limitations under the License.
  */
 
-package org.alfresco.client.services.process.api;
+package org.alfresco.client.services.process.enterprise.api;
 
 import java.io.IOException;
 
-import org.alfresco.client.services.ActivitiAPITestCase;
+import org.alfresco.client.services.PSAPITestCase;
 import org.alfresco.client.services.process.enterprise.core.api.UserProfileAPI;
 import org.alfresco.client.services.process.enterprise.core.model.idm.UserRepresentation;
 import org.testng.Assert;
@@ -31,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ApiProfileTests extends ActivitiAPITestCase
+public class ApiProfileTests extends PSAPITestCase
 {
     @BeforeClass
     public void prepare() throws Exception

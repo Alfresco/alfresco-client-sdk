@@ -16,8 +16,9 @@
  *  limitations under the License.
  */
 
-package org.alfresco.client.services;
+package org.alfresco.client.services.process.activiti;
 
+import org.alfresco.client.services.AlfrescoAPITestCase;
 import org.alfresco.client.services.process.PSClient;
 
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -29,11 +30,11 @@ public abstract class ActivitiAPITestCase extends AlfrescoAPITestCase
     // ///////////////////////////////////////////////////////////////////////////
     // Endpoint must end with "/" like
     // https://activiti.alfresco.com/activiti-app/
-    public static final String TEST_ENDPOINT = "http://localhost:8080/activiti-app/";
+    public static final String TEST_ENDPOINT = "http://localhost:8080/activiti-rest/";
 
-    public static final String TEST_USERNAME = "admin@app.activiti.com";
+    public static final String TEST_USERNAME = "kermit";
 
-    public static final String TEST_PASSWORD = "admin";
+    public static final String TEST_PASSWORD = "kermit";
 
     // ///////////////////////////////////////////////////////////////////////////
     // VARIABLES

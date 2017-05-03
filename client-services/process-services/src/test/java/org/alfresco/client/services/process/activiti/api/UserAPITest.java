@@ -16,17 +16,17 @@
  *  limitations under the License.
  */
 
-package org.alfresco.client.services.process.enterprise.integration;
+package org.alfresco.client.services.process.activiti.api;
 
 import java.io.IOException;
 
-import org.alfresco.client.services.PSAPITestCase;
-import org.alfresco.client.services.process.enterprise.integration.api.BoxAPI;
+import org.alfresco.client.services.process.activiti.ActivitiAPITestCase;
+import org.alfresco.client.services.process.activiti.core.api.UsersAPI;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class BoxIntegrationTests extends PSAPITestCase
+public class UserAPITest extends ActivitiAPITestCase
 {
     @BeforeClass
     public void prepare() throws Exception
@@ -35,9 +35,11 @@ public class BoxIntegrationTests extends PSAPITestCase
     }
 
     @Test
-    public void boxIntegration() throws IOException
+    public void manageUsers() throws IOException
     {
-        BoxAPI box = client.getAPI(BoxAPI.class);
-        Assert.assertEquals(box.getBoxPluginStatus().execute().body(), Boolean.FALSE);
+        UsersAPI usersAPI = client.getAPI(UsersAPI.class);
+
+        Assert.assertNotNull(usersAPI.listUsers().execute().body());
+
     }
 }
