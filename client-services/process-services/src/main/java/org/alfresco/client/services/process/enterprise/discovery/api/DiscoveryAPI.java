@@ -75,4 +75,17 @@ public interface DiscoveryAPI
 
     @GET("api/enterprise/app-version")
     Observable<AppVersionRepresentation> getAppVersionObservable();
+
+    @GET("api/enterprise/system/properties")
+    Observable<SystemPropertiesRepresentation> getPropertiesObservable();
+
+    @GET("api/enterprise/system/properties/password-validation-constraints/{tenantId}")
+    Observable<PasswordValidationConstraints> getPasswordValidationConstraintsObservable(
+            @Path("tenantId") String tenantI);
+
+    @GET("api/enterprise/system/properties/involved-users-can-edit-forms/{tenantId}")
+    Observable<Boolean> involvedUsersCanEditFormsObservable(@Path("tenantId") String tenantId);
+
+    @GET("api/enterprise/system/properties/global-date-format/{tenantId}")
+    Observable<GlobalDateFormatRepresentation> getGlobalDateFormatObservable(@Path("tenantId") String tenantId);
 }

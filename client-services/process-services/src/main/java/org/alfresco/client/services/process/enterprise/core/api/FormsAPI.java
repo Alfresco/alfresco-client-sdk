@@ -27,6 +27,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import rx.Observable;
 
 public interface FormsAPI
 {
@@ -51,10 +52,10 @@ public interface FormsAPI
     Call<SubmittedFormRepresentation> getTaskSubmittedFromsCall(@Path("taskId") String taskId);
 
     @GET("api/enterprise/process-submitted-forms/{processId}")
-    Call<ResultList<SubmittedFormRepresentation>> getProcessSubmittedFroms(@Path("processId") String processId);
+    Call<ResultList<SubmittedFormRepresentation>> getProcessSubmittedFromsCall(@Path("processId") String processId);
 
     @GET("api/enterprise//submitted-forms/{submittedFormId]")
-    Call<SubmittedFormRepresentation> getSubmittedFrom(@Path("submittedFormId") String submittedFormId);
+    Call<SubmittedFormRepresentation> getSubmittedFromCall(@Path("submittedFormId") String submittedFormId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -81,4 +82,30 @@ public interface FormsAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
 
+    @GET("api/enterprise/forms")
+    Observable<ResultList<RuntimeFormRepresentation>> getFormsObservable(@Query("nameLike") String nameLike,
+            @Query("appId") Long appId, @Query("tenantId") Long tenantId, @Query("sort") String sort,
+            @Query("order") String order, @Query("start") Integer start, @Query("size") Integer size);
+
+    @GET("api/enterprise/forms/{formId}")
+    Observable<RuntimeFormRepresentation> getFormObservable(@Path("formId") Long formId);
+
+    @GET("api/enterprise/forms/{formId}/editorJson")
+    Observable<FormDefinitionRepresentation> getFormEditorJsonObservable(@Path("formId") Long formId);
+
+    // SUBMITTED FORMS
+    // ///////////////////////////////////////////////////////////////////////////
+    @GET("api/enterprise/form-submitted-forms/{formId}")
+    Observable<ResultList<SubmittedFormRepresentation>> getFormSubmittedFromsObservable(@Path("formId") Long formId,
+            @Query("submittedBy") Long submittedBy, @Query("start") Integer start, @Query("size") Integer size);
+
+    @GET("api/enterprise/task-submitted-form/{taskId}")
+    Observable<SubmittedFormRepresentation> getTaskSubmittedFromsObservable(@Path("taskId") String taskId);
+
+    @GET("api/enterprise/process-submitted-forms/{processId}")
+    Observable<ResultList<SubmittedFormRepresentation>> getProcessSubmittedFromsObservable(
+            @Path("processId") String processId);
+
+    @GET("api/enterprise//submitted-forms/{submittedFormId]")
+    Observable<SubmittedFormRepresentation> getSubmittedFromObservable(@Path("submittedFormId") String submittedFormId);
 }

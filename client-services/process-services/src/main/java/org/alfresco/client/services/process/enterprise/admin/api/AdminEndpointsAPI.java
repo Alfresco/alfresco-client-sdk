@@ -104,9 +104,6 @@ public interface AdminEndpointsAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
 
-    // ENDPOINTS
-    // ///////////////////////////////////////////////////////////////////
-
     @GET("api/enterprise/admin/endpoints")
     Observable<List<OptionRepresentation>> getEndpointConfigurationsObservable(@Query("tenantId") String tenantId);
 
@@ -130,7 +127,6 @@ public interface AdminEndpointsAPI
 
     // BASIC AUTHS
     // ///////////////////////////////////////////////////////////////////
-
     @GET("api/enterprise/admin/basic-auths")
     Observable<List<EndpointBasicAuthRepresentation>> getBasicAuthConfigurationsObservable(
             @Query("tenantId") String tenantId);

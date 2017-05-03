@@ -40,7 +40,7 @@ public interface ModelsAPI
             @Query("modelType") String modelType, @Query("sort") String sort, @Query("sort") String referenceId);
 
     @GET("api/enterprise/models-for-app-definition")
-    Call<ResultList<ModelRepresentation>> getModelsToIncludeInAppDefinition();
+    Call<ResultList<ModelRepresentation>> getModelsToIncludeInAppDefinitionCall();
 
     // LIFECYCLE
     // ///////////////////////////////////////////////////////////////////
@@ -72,7 +72,7 @@ public interface ModelsAPI
 
     @Multipart
     @POST("api/enterprise/process-models/import")
-    Call<ModelRepresentation> importProcessModel(@Part("file") RequestBody file);
+    Call<ModelRepresentation> importProcessModelCall(@Part("file") RequestBody file);
 
     // ACTIONS
     // ///////////////////////////////////////////////////////////////////
@@ -92,11 +92,11 @@ public interface ModelsAPI
 
     @Headers({ "Content-type: application/json" })
     @POST("api/enterprise/models/{modelId}/editor/json")
-    Call<ModelRepresentation> saveModel(@Path("modelId") String modelId, @Body Map<String, List<String>> values);
+    Call<ModelRepresentation> saveModelCall(@Path("modelId") String modelId, @Body Map<String, List<String>> values);
 
     @Headers({ "Content-type: application/json" })
     @POST("api/enterprise/models/{modelId}/editor/validate")
-    Call<List<ValidationErrorRepresentation>> validateModel(@Path("modelId") String modelId,
+    Call<List<ValidationErrorRepresentation>> validateModelCall(@Path("modelId") String modelId,
             @Body Map<String, List<String>> values);
 
     // HISTORY
@@ -112,11 +112,11 @@ public interface ModelsAPI
     // ///////////////////////////////////////////////////////////////////
     @Streaming
     @GET("api/enterprise/models/{processModelId}/bpmn20")
-    Call<RequestBody> getProcessModelBpmn20Xml(@Path("processModelId") String processModelId);
+    Call<RequestBody> getProcessModelBpmn20XmlCall(@Path("processModelId") String processModelId);
 
     @Streaming
     @GET("api/enterprise/models/{processModelId}/history/{processModelHistoryId}/bpmn20")
-    Call<RequestBody> getHistoricProcessModelBpmn20Xml(@Path("processModelId") String processModelId,
+    Call<RequestBody> getHistoricProcessModelBpmn20XmlCall(@Path("processModelId") String processModelId,
             @Path("processModelHistoryId") String processModelHistoryId);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -146,14 +146,15 @@ public interface ModelsAPI
 
     // LIST
     // ///////////////////////////////////////////////////////////////////
-
     @GET("api/enterprise/models")
     Observable<ResultList<ModelRepresentation>> getModelsObservable(@Query("filter") String filter,
             @Query("modelType") String modelType, @Query("sort") String sort, @Query("sort") String referenceId);
 
+    @GET("api/enterprise/models-for-app-definition")
+    Observable<ResultList<ModelRepresentation>> getModelsToIncludeInAppDefinitionObservable();
+
     // LIFECYCLE
     // ///////////////////////////////////////////////////////////////////
-
     @Headers({ "Content-type: application/json" })
     @POST("api/enterprise/models")
     Observable<ModelRepresentation> createModelObservable(@Body ModelRepresentation representation);
@@ -162,7 +163,6 @@ public interface ModelsAPI
     Observable<ModelRepresentation> getByIdObservable(@Path("modelId") String modelId);
 
     // Since 1.3
-
     @GET("api/enterprise/models/{modelId}")
     @Streaming
     Observable<ModelRepresentation> getModelObservable(@Path("modelId") String processInstanceId,
@@ -178,14 +178,15 @@ public interface ModelsAPI
             @Query("cascade") Boolean cascade, @Query("deleteRuntimeApp") Boolean deleteRuntimeApp);
 
     // Since 1.3
-
-    // Since 1.3
     @GET("api/enterprise/models/{modelId}/thumbnail")
     Observable<ResponseBody> getModelThumbnailObservable(@Path("modelId") String modelId);
 
+    @Multipart
+    @POST("api/enterprise/process-models/import")
+    Observable<ModelRepresentation> importProcessModelObservable(@Part("file") RequestBody file);
+
     // ACTIONS
     // ///////////////////////////////////////////////////////////////////
-
     @Headers({ "Content-type: application/json" })
     @POST("api/enterprise/models/{modelId}/clone")
     Observable<ModelRepresentation> duplicateModelObservable(@Path("modelId") String modelId,
@@ -198,18 +199,37 @@ public interface ModelsAPI
 
     // EDITOR
     // ///////////////////////////////////////////////////////////////////
-
     @GET("api/enterprise/models/{modelId}/editor/json")
     Observable<ResponseBody> getModelJSONObservable(@Path("modelId") String modelId);
 
+    @Headers({ "Content-type: application/json" })
+    @POST("api/enterprise/models/{modelId}/editor/json")
+    Observable<ModelRepresentation> saveModelObservable(@Path("modelId") String modelId,
+            @Body Map<String, List<String>> values);
+
+    @Headers({ "Content-type: application/json" })
+    @POST("api/enterprise/models/{modelId}/editor/validate")
+    Observable<List<ValidationErrorRepresentation>> validateModelObservable(@Path("modelId") String modelId,
+            @Body Map<String, List<String>> values);
+
     // HISTORY
     // ///////////////////////////////////////////////////////////////////
-
     @GET("api/enterprise/models/{modelId}/history")
     Observable<ResultList<ModelRepresentation>> getModelHistoryCollectionObservable(@Path("modelId") String modelId);
 
     @GET("api/enterprise/models/{modelId}/history/{modelHistoryId}")
     Observable<ModelRepresentation> getProcessModelHistoryObservable(@Path("modelId") String modelId,
             @Path("modelHistoryId") String modelHistoryId);
+
+    // MODELS BPMN
+    // ///////////////////////////////////////////////////////////////////
+    @Streaming
+    @GET("api/enterprise/models/{processModelId}/bpmn20")
+    Observable<RequestBody> getProcessModelBpmn20XmlObservable(@Path("processModelId") String processModelId);
+
+    @Streaming
+    @GET("api/enterprise/models/{processModelId}/history/{processModelHistoryId}/bpmn20")
+    Observable<RequestBody> getHistoricProcessModelBpmn20XmlObservable(@Path("processModelId") String processModelId,
+            @Path("processModelHistoryId") String processModelHistoryId);
 
 }

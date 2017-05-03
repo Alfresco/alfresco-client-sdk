@@ -128,7 +128,6 @@ public interface UserFiltersAPI
 
     // PROCESS FILTER
     // ///////////////////////////////////////////////////////////////////
-
     @GET("api/enterprise/filters/processes")
     Observable<ResultList<UserProcessInstanceFilterRepresentation>> getUserProcessInstanceFiltersObservable(
             @Query("appId") Long appId);

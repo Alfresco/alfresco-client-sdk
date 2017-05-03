@@ -27,6 +27,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.*;
+import rx.Observable;
 
 public interface AppDefinitionsAPI
 {
@@ -108,5 +109,59 @@ public interface AppDefinitionsAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
+
+    // ///////////////////////////////////////////////////////////////////
+    // GET
+    // ///////////////////////////////////////////////////////////////////
+    @GET("api/enterprise/app-definitions/{modelId}")
+    Observable<AppDefinitionRepresentation> getAppDefinitionObservable(@Path("modelId") String modelId);
+
+    // ///////////////////////////////////////////////////////////////////
+    // UPDATE
+    // ///////////////////////////////////////////////////////////////////
+    @Headers({ "Content-type: application/json" })
+    @PUT("api/enterprise/app-definitions/{modelId}")
+    Observable<AppDefinitionUpdateResultRepresentation> getAppDefinitionObservable(@Path("modelId") String modelId,
+            @Body AppDefinitionSaveRepresentation appDefinitionSaveRepresentation);
+
+    // ///////////////////////////////////////////////////////////////////
+    // DELETE
+    // ///////////////////////////////////////////////////////////////////
+    @DELETE("api/enterprise/app-definitions/{appDefinitionId}")
+    Observable<Void> deleteAppDefinitionObservable(@Path("appDefinitionId") String appDefinitionId);
+
+    // ///////////////////////////////////////////////////////////////////
+    // ACTIONS
+    // ///////////////////////////////////////////////////////////////////
+    @Streaming
+    @GET("api/enterprise/app-definitions/{modelId}/export")
+    Observable<ResponseBody> exportAppDefinitionObservable(@Path("modelId") String modelId);
+
+    @Multipart
+    @POST("api/enterprise/app-definitions/{modelId}/import")
+    Observable<AppDefinitionRepresentation> importAppDefinitionObservable(@Path("modelId") String modelId,
+            @Part("file") RequestBody file);
+
+    @Multipart
+    @POST("api/enterprise/app-definitions/import")
+    Observable<AppDefinitionRepresentation> importAppDefinitionObservable(@Part("file") RequestBody file,
+            @Query("renewIdmEntries") String renewIdmEntries);
+
+    // ///////////////////////////////////////////////////////////////////
+    // PUBLISH
+    // ///////////////////////////////////////////////////////////////////
+    @Multipart
+    @POST("api/enterprise/app-definitions/{modelId}/publish")
+    Observable<AppDefinitionUpdateResultRepresentation> publishAppDefinitionObservable(@Path("modelId") String modelId,
+            @Body AppDefinitionPublishRepresentation publishModel);
+
+    @Multipart
+    @POST("api/enterprise/app-definitions/{modelId}/publish-app")
+    Observable<AppDefinitionUpdateResultRepresentation> importAndPublishAppObservable(@Path("modelId") String modelId,
+            @Part("file") RequestBody file);
+
+    @Multipart
+    @POST("api/enterprise/app-definitions/publish-app")
+    Observable<AppDefinitionUpdateResultRepresentation> importAndPublishAppObservable(@Part("file") RequestBody file);
 
 }

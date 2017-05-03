@@ -71,4 +71,11 @@ public interface RuntimeAppDefinitionsAPI
 
     @GET("api/enterprise/runtime-app-definitions")
     Observable<ResultList<RuntimeAppDefinitionRepresentation>> getAppDefinitionsObservable();
+
+    @Headers({ "Content-type: application/json" })
+    @POST("api/enterprise/runtime-app-definitions")
+    Observable<Void> deployAppDefinitionsObservable(@Body RuntimeAppDefinitionSaveRepresentation saveObject);
+
+    @GET("api/enterprise/runtime-app-definitions/{appDefinitionId}")
+    Observable<RuntimeAppDefinitionRepresentation> getAppDefinitionObservable();
 }

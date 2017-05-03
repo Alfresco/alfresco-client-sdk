@@ -25,6 +25,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by jpascal on 11/12/2014.
@@ -62,5 +63,10 @@ public interface GoogleDriveAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
+    @GET("api/enterprise/integration/google-drive/confirm-auth-request")
+    Observable<ResponseBody> confirmAuthorisationObservable();
 
+    @GET("api/enterprise/integration/google-drive/files")
+    Observable<ResultList<GoogleDriveContent>> confirmAuthorisationObservable(@Query("filter") String filter,
+            @Query("parent") String parent, @Query("currentFolderOnly") Boolean currentFolderOnly);
 }

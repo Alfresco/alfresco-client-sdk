@@ -27,6 +27,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import rx.Observable;
 
 public interface DecisionsAPI
 {
@@ -73,5 +74,26 @@ public interface DecisionsAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
+
+    @GET("api/enterprise/decisions/audits/{auditTrailId}")
+    Observable<DecisionAuditRepresentation> getAuditTrailObservable(@Path("auditTrailId") Long auditTrailId);
+
+    @GET("api/enterprise/decisions/audits")
+    Observable<ResultList<DecisionAuditRepresentation>> getDecisionAuditTrailsObservable(
+            @Query("decisionKey") String decisionKey, @Query("dmnDeploymentId") Long dmnDeploymentId);
+
+    @GET("api/enterprise/decisions/decision-tables")
+    Observable<ResultList<RuntimeDecisionTableRepresentation>> getDecisionTablesObservable(
+            @Query("nameLike") String nameLike, @Query("keyLike") String keyLike,
+            @Query("tenantIdLike") String tenantIdLike, @Query("deploymentId") Long deploymentId,
+            @Query("sort") String sort, @Query("order") String order, @Query("start") Integer start,
+            @Query("size") Integer size);
+
+    @GET("api/enterprise/decisions/decision-tables/{decisionTableId}")
+    Observable<RuntimeDecisionTableRepresentation> getDecisionTableObservable(
+            @Path("decisionTableId") Long auditTrailId);
+
+    @GET("api/enterprise/decisions/decision-tables/{decisionTableId}")
+    Observable<ResponseBody> getDecisionTableEditorJsonObservable(@Path("decisionTableId") Long auditTrailId);
 
 }

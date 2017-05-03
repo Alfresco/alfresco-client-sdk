@@ -132,7 +132,6 @@ public interface AdminGroupsAPI
 
     // GROUPS
     // ///////////////////////////////////////////////////////////////////
-
     @GET("api/enterprise/admin/groups")
     Observable<List<LightGroupRepresentation>> getGroupsObservable(@Query("tenantId") String tenantId,
             @Query("functional") String functional, @Query("summary") String summary);
@@ -155,7 +154,6 @@ public interface AdminGroupsAPI
 
     // GROUPS CAPABILITIES
     // ///////////////////////////////////////////////////////////////////
-
     @GET("api/enterprise/admin/groups/{groupId}/potential-capabilities")
     Observable<List<String>> getCapabilitiesObservable(@Path("groupId") String groupId);
 
@@ -170,7 +168,6 @@ public interface AdminGroupsAPI
 
     // RELATED GROUPS
     // ///////////////////////////////////////////////////////////////////
-
     @GET("api/enterprise/admin/groups/{groupId}/related-groups")
     Observable<List<LightGroupRepresentation>> getRelatedGroupsObservable(@Path("groupId") String groupId);
 
@@ -185,13 +182,11 @@ public interface AdminGroupsAPI
 
     // GROUPS ACTIONS
     // ///////////////////////////////////////////////////////////////////
-
     @POST("api/enterprise/admin/groups/{groupId}/action/activate")
     Observable<Void> activateGroupObservable(@Path("groupId") String groupId);
 
     // MEMBERS
     // ///////////////////////////////////////////////////////////////////
-
     @POST("api/enterprise/admin/groups/{groupId}/add-all-users")
     Observable<Void> addAllUsersToGroupObservable(@Path("groupId") String groupId);
 

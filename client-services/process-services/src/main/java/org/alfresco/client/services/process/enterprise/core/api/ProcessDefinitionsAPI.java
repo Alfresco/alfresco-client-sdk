@@ -120,7 +120,12 @@ public interface ProcessDefinitionsAPI
 
     @GET("api/enterprise/process-definitions")
     Observable<ResultList<ProcessDefinitionRepresentation>> getProcessDefinitionsObservable(
-            @Query("appDefinitionId") Long appDefinitionId);
+            @Query("appDefinitionId") Long appDefinitionId, @Query("latest") Boolean latest,
+            @Query("deploymentId") String deploymentId);
+
+    @GET("api/enterprise/process-definitions/{processDefinitionId}/forms")
+    Observable<ResultList<RuntimeFormRepresentation>> getProcessDefinitionFormsObservable(
+            @Path("processDefinitionId") Long processDefinitionId);
 
     @GET("api/enterprise/process-definitions/{processDefinitionId}/start-form")
     Observable<FormDefinitionRepresentation> getProcessDefinitionStartFormObservable(
@@ -134,5 +139,37 @@ public interface ProcessDefinitionsAPI
     Observable<List<FormValueRepresentation>> getRestTableFieldValuesObservable(
             @Path("processDefinitionId") Long processDefinitionId, @Path("field") String field,
             @Path("column") String column);
+
+    // IDENTITY LINKS
+    // ///////////////////////////////////////////////////////////////////
+
+    @GET("api/enterprise/process-instances/{processDefinitionId}/identitylinks")
+    Observable<ResultList<IdentityLinkRepresentation>> getIdentityLinksObservable(
+            @Path("processDefinitionId") String processDefinitionId);
+
+    @Headers({ "Content-type: application/json" })
+    @POST("api/enterprise/process-instances/{processDefinitionId}/identitylinks")
+    Observable<IdentityLinkRepresentation> createIdentityLinkObservable(
+            @Path("processDefinitionId") String processDefinitionId, @Body IdentityLinkRepresentation representation);
+
+    @GET("api/enterprise/process-instances/{processDefinitionId}/identitylinks/{family}")
+    Observable<List<IdentityLinkRepresentation>> getIdentityLinksForFamilyObservable(
+            @Path("processDefinitionId") String processDefinitionId, @Path("family") String family);
+
+    @GET("api/enterprise/process-instances/{processDefinitionId}/identitylinks/{family}/{identityId}")
+    Observable<ResultList<IdentityLinkRepresentation>> getIdentityLinkTypeObservable(
+            @Path("processDefinitionId") String processDefinitionId, @Path("family") String family,
+            @Path("identityId") String identityId);
+
+    @DELETE("api/enterprise/process-instances/{processDefinitionId}/identitylinks/{family}/{identityId}")
+    Observable<Void> deleteIdentityLinkObservable(@Path("processDefinitionId") String processDefinitionId,
+            @Path("family") String family, @Path("identityId") String identityId);
+
+    // DECISION TABLES
+    // ///////////////////////////////////////////////////////////////////
+
+    @GET("api/enterprise/process-definitions/{processDefinitionId}/decision-tables")
+    Observable<ResultList<RuntimeDecisionTableRepresentation>> getProcessDefinitionDecisionTablesObservable(
+            @Path("processDefinitionId") Long processDefinitionId);
 
 }

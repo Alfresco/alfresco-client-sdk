@@ -55,7 +55,7 @@ public interface UserProfileAPI
     Call<UserRepresentation> changePasswordCall(@Body ChangePasswordRepresentation request);
 
     @GET("api/enterprise/profile/accounts/alfresco")
-    Call<ResultList<AlfrescoEndpointRepresentation>> getRepositories();
+    Call<ResultList<AlfrescoEndpointRepresentation>> getRepositoriesCall();
 
     @Headers({ "Content-type: application/json" })
     @POST("api/enterprise/idm/passwords")

@@ -26,6 +26,7 @@ import org.alfresco.client.services.process.enterprise.integration.model.represe
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import rx.Observable;
 
 /**
  * Created by jpascal on 11/12/2014.
@@ -33,17 +34,17 @@ import retrofit2.http.Path;
 public interface AlfrescoContentServicesAPI
 {
     @GET("api/enterprise/profile/accounts/alfresco")
-    Call<ResultList<AlfrescoEndpointRepresentation>> getRepositories();
+    Call<ResultList<AlfrescoEndpointRepresentation>> getRepositoriesCall();
 
     @GET("api/enterprise/integration/alfresco/{repositoryId}/sites")
-    Call<ResultList<AlfrescoSiteRepresenation>> getAllSites(@Path("repositoryId") String repositoryId);
+    Call<ResultList<AlfrescoSiteRepresenation>> getAllSitesCall(@Path("repositoryId") String repositoryId);
 
     @GET("api/enterprise/integration/alfresco/{repositoryId}/sites/{siteId}/content")
-    Call<ResultList<AlfrescoContentRepresentation>> getContentInSite(@Path("repositoryId") String repositoryId,
+    Call<ResultList<AlfrescoContentRepresentation>> getContentInSiteCall(@Path("repositoryId") String repositoryId,
             @Path("siteId") String siteId);
 
     @GET("api/enterprise/integration/alfresco/{repositoryId}/folders/{folderId}/content")
-    Call<ResultList<AlfrescoContentRepresentation>> getContentInFolder(@Path("repositoryId") String repositoryId,
+    Call<ResultList<AlfrescoContentRepresentation>> getContentInFolderCall(@Path("repositoryId") String repositoryId,
             @Path("siteId") String siteId);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -71,4 +72,17 @@ public interface AlfrescoContentServicesAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
 
+    @GET("api/enterprise/profile/accounts/alfresco")
+    Observable<ResultList<AlfrescoEndpointRepresentation>> getRepositoriesObservable();
+
+    @GET("api/enterprise/integration/alfresco/{repositoryId}/sites")
+    Observable<ResultList<AlfrescoSiteRepresenation>> getAllSitesObservable(@Path("repositoryId") String repositoryId);
+
+    @GET("api/enterprise/integration/alfresco/{repositoryId}/sites/{siteId}/content")
+    Observable<ResultList<AlfrescoContentRepresentation>> getContentInSiteObservable(
+            @Path("repositoryId") String repositoryId, @Path("siteId") String siteId);
+
+    @GET("api/enterprise/integration/alfresco/{repositoryId}/folders/{folderId}/content")
+    Observable<ResultList<AlfrescoContentRepresentation>> getContentInFolderObservable(
+            @Path("repositoryId") String repositoryId, @Path("siteId") String siteId);
 }

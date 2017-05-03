@@ -84,7 +84,6 @@ public interface AdminUsersAPI
 
     // USERS
     // ///////////////////////////////////////////////////////////////////
-
     @GET("api/enterprise/admin/users")
     Observable<List<LightTenantRepresentation>> getUsersObservable(@Query("filter") String filter,
             @Query("status") String status, @Query("accountType") String accountType, @Query("sort") String sort,

@@ -28,6 +28,7 @@ import org.alfresco.client.services.process.enterprise.editor.model.DataSourceRe
 
 import retrofit2.Call;
 import retrofit2.http.*;
+import rx.Observable;
 
 public interface EditorsAPI
 {
@@ -88,5 +89,39 @@ public interface EditorsAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
+    @GET("api/enterprise/editor/data-sources")
+    Observable<DataSourceRepresentation> getDataSourcesObservable(@Path("modelId") String modelId);
 
+    @GET("api/enterprise/editor/endpoints")
+    Observable<List<EndpointConfigurationRepresentation>> getEndpointConfigurationsObservable();
+
+    @GET("api/enterprise/editor/endpoints/{endpointConfigurationId}")
+    Observable<EndpointConfigurationRepresentation> getEndpointConfigurationsObservable(
+            @Path("endpointConfigurationId") String endpointConfigurationId);
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // FORM MODELS
+    // ///////////////////////////////////////////////////////////////////////////
+    @GET("api/enterprise/editor/form-models")
+    Observable<ResultList<FormRepresentation>> getFormsObservable();
+
+    @GET("api/enterprise/editor/form-models/values")
+    Observable<List<FormRepresentation>> getFormsObservable(@Query("formId") String[] formId);
+
+    @GET("api/enterprise/editor/form-models/{formId}")
+    Observable<FormRepresentation> getFormObservable(@Path("formId") Long formId);
+
+    @Headers({ "Content-type: application/json" })
+    @PUT("api/enterprise/editor/form-models/{formId}")
+    Observable<FormRepresentation> saveFormObservable(@Path("formId") Long formId,
+            @Body FormSaveRepresentation saveRepresentation);
+
+    @GET("api/enterprise/editor/form-models/{formId}/history/{formHistoryId}")
+    Observable<FormRepresentation> getFormHistoryObservable(@Path("formId") Long formId,
+            @Path("formHistoryId") Long formHistoryId);
+
+    @Headers({ "Content-type: application/json" })
+    @PUT("api/enterprise/editor/form-models/{formId}/validate")
+    Observable<FormRepresentation> validateObservable(@Path("formId") Long formId,
+            @Body FormSaveRepresentation saveRepresentation);
 }

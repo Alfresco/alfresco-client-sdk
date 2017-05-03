@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.core.model.editor.form.FormDefinitionRepresentation;
-import org.alfresco.client.services.process.enterprise.core.model.editor.form.OptionRepresentation;
 import org.alfresco.client.services.process.enterprise.core.model.editor.form.request.CompleteFormRepresentation;
 import org.alfresco.client.services.process.enterprise.core.model.runtime.*;
 import org.alfresco.client.services.process.enterprise.core.model.runtime.request.*;
@@ -94,16 +93,16 @@ public interface TasksAPI
 
     @Headers({ "Content-type: application/json" })
     @PUT("api/enterprise/tasks/{taskId}/action/delegate")
-    Call<Void> delegate(@Path("taskId") String taskId, @Body DelegateTaskRepresentation requestNode);
+    Call<Void> delegateCall(@Path("taskId") String taskId, @Body DelegateTaskRepresentation requestNode);
 
     @PUT("api/enterprise/tasks/{taskId}/action/resolve")
-    Call<Void> resolve(@Path("taskId") String taskId);
+    Call<Void> resolveCall(@Path("taskId") String taskId);
 
     @POST("api/enterprise/tasks/{taskId}/groups/{groupId}")
-    Call<Void> involveGroup(@Path("taskId") String taskId, @Path("groupId") String groupId);
+    Call<Void> involveGroupCall(@Path("taskId") String taskId, @Path("groupId") String groupId);
 
     @DELETE("api/enterprise/tasks/{taskId}/groups/{groupId}")
-    Call<Void> removeInvolvedGroup(@Path("taskId") String taskId, @Path("groupId") String groupId);
+    Call<Void> removeInvolvedGroupCall(@Path("taskId") String taskId, @Path("groupId") String groupId);
 
     // FORMS
     // ///////////////////////////////////////////////////////////////////
@@ -248,6 +247,11 @@ public interface TasksAPI
     Observable<ResultList<TaskRepresentation>> listTasksObservable(@Body QueryTasksRepresentation filter);
 
     @Headers({ "Content-type: application/json" })
+    @POST("api/enterprise/historic-tasks/query")
+    Observable<ResultList<TaskRepresentation>> listHistoricTasksObservable(
+            @Body HistoricTaskInstanceQueryRepresentation filter);
+
+    @Headers({ "Content-type: application/json" })
     @POST("api/enterprise/tasks/filter")
     Observable<ResultList<TaskRepresentation>> filterTasksObservable(@Body TaskFilterRequestRepresentation filter);
 
@@ -267,7 +271,6 @@ public interface TasksAPI
 
     // ACTIONS
     // ///////////////////////////////////////////////////////////////////
-
     @PUT("api/enterprise/tasks/{taskId}/action/complete")
     Observable<Void> completeTaskObservable(@Path("taskId") String taskId);
 
@@ -291,6 +294,7 @@ public interface TasksAPI
     @PUT("api/enterprise/tasks/{taskId}/action/unclaim")
     Observable<Void> unClaimTaskObservable(@Path("taskId") String taskId);
 
+    @Headers({ "Content-type: application/json" })
     @PUT("api/enterprise/tasks/{taskId}/action/attach-form")
     Observable<Void> attachFormObservable(@Path("taskId") String taskId,
             @Body AttachFormTaskRepresentation requestNode);
@@ -298,26 +302,43 @@ public interface TasksAPI
     @DELETE("api/enterprise/tasks/{taskId}/action/remove-form")
     Observable<Void> removeFormObservable(@Path("taskId") String taskId);
 
+    @Headers({ "Content-type: application/json" })
+    @PUT("api/enterprise/tasks/{taskId}/action/delegate")
+    Observable<Void> delegateObservable(@Path("taskId") String taskId, @Body DelegateTaskRepresentation requestNode);
+
+    @PUT("api/enterprise/tasks/{taskId}/action/resolve")
+    Observable<Void> resolveObservable(@Path("taskId") String taskId);
+
+    @POST("api/enterprise/tasks/{taskId}/groups/{groupId}")
+    Observable<Void> involveGroupObservable(@Path("taskId") String taskId, @Path("groupId") String groupId);
+
+    @DELETE("api/enterprise/tasks/{taskId}/groups/{groupId}")
+    Observable<Void> removeInvolvedGroupObservable(@Path("taskId") String taskId, @Path("groupId") String groupId);
+
     // FORMS
     // ///////////////////////////////////////////////////////////////////
-
-    @GET("api/enterprise/task-forms/{taskId}/form-values/{fieldId}")
-    Observable<List<OptionRepresentation>> getFormFieldValuesObservable(@Path("taskId") String taskId,
-            @Path("fieldId") String fieldId);
-
     @GET("api/enterprise/task-forms/{taskId}/")
     Observable<FormDefinitionRepresentation> getTaskFormObservable(@Path("taskId") String taskId);
 
+    @Headers({ "Content-type: application/json" })
     @POST("api/enterprise/task-forms/{taskId}")
     Observable<Void> completeTaskFormObservable(@Path("taskId") String taskId,
             @Body CompleteFormRepresentation request);
 
+    @GET("api/enterprise/task-forms/{taskId}/form-values/{field}")
+    Observable<List<FormValueRepresentation>> getRestFieldValuesObservable(@Path("taskId") String taskId,
+            @Path("field") String field);
+
+    @GET("api/enterprise/task-forms/{taskId}/form-values/{fieldId}/{column}")
+    Observable<List<FormValueRepresentation>> getRestFieldValuesObservable(@Path("taskId") String taskId,
+            @Path("fieldId") String fieldId, @Path("column") String column);
+
+    @Headers({ "Content-type: application/json" })
     @POST("api/enterprise/task-forms/{taskId}/save-form")
     Observable<Void> saveTaskFormObservable(@Path("taskId") String taskId, @Body SaveFormRepresentation request);
 
     // CHECKLIST
     // ///////////////////////////////////////////////////////////////////
-
     @GET("api/enterprise/tasks/{taskId}/checklist")
     Observable<ResultList<TaskRepresentation>> getChecklistObservable(@Path("taskId") String taskId);
 
@@ -329,7 +350,6 @@ public interface TasksAPI
 
     // COMMENTS
     // ///////////////////////////////////////////////////////////////////
-
     @GET("api/enterprise/tasks/{taskId}/comments")
     Observable<ResultList<CommentRepresentation>> getTaskCommentsObservable(@Path("taskId") String taskId);
 
@@ -340,7 +360,6 @@ public interface TasksAPI
 
     // CONTENTS
     // ///////////////////////////////////////////////////////////////////
-
     @GET("api/enterprise/tasks/{taskId}/content")
     Observable<ResultList<RelatedContentRepresentation>> getRelatedContentForTaskObservable(
             @Path("taskId") String taskId);
@@ -355,8 +374,62 @@ public interface TasksAPI
     Observable<RelatedContentRepresentation> createContentOnTaskObservable(@Path("taskId") String taskId,
             @Part("file") RequestBody resource, @Query("isRelatedContent") Boolean isRelatedContent);
 
+    @Headers({ "Content-type: application/json" })
     @POST("api/enterprise/tasks/{taskId}/content")
     Observable<RelatedContentRepresentation> linkRelatedContentOnTaskObservable(@Path("taskId") String taskId,
             @Body AddContentRelatedRepresentation representation);
+
+    // IDENTITY LINKS
+    // ///////////////////////////////////////////////////////////////////
+    @GET("api/enterprise/tasks/{taskId}/identitylinks")
+    Observable<ResultList<IdentityLinkRepresentation>> getIdentityLinksObservable(@Path("taskId") String taskId);
+
+    @Headers({ "Content-type: application/json" })
+    @POST("api/enterprise/tasks/{taskId}/identitylinks")
+    Observable<IdentityLinkRepresentation> createIdentityLinkObservable(@Path("taskId") String taskId,
+            @Body IdentityLinkRepresentation representation);
+
+    @GET("api/enterprise/tasks/{taskId}/identitylinks/{family}")
+    Observable<List<IdentityLinkRepresentation>> getIdentityLinksForFamilyObservable(@Path("taskId") String taskId,
+            @Path("family") String family);
+
+    @GET("api/enterprise/tasks/{taskId}/identitylinks/{family}/{identityId}/{type}")
+    Observable<ResultList<IdentityLinkRepresentation>> getIdentityLinkTypeObservable(@Path("taskId") String taskId,
+            @Path("family") String family, @Path("identityId") String identityId, @Path("type") String type);
+
+    @DELETE("api/enterprise/tasks/{taskId}/identitylinks/{family}/{identityId}/{type}")
+    Observable<Void> deleteIdentityLinkObservable(@Path("taskId") String taskId, @Path("family") String family,
+            @Path("identityId") String identityId, @Path("type") String type);
+
+    // AUDIT
+    // ///////////////////////////////////////////////////////////////////
+    @GET("api/enterprise/tasks/{taskId}/audit")
+    Observable<TaskAuditInfoRepresentation> getTaskAuditLogObservable(@Path("taskId") String taskId);
+
+    // VARIABLES
+    // ///////////////////////////////////////////////////////////////////
+    @GET("api/enterprise/tasks/{taskId}/variables")
+    Observable<List<RestVariable>> getVariablesObservable(@Path("taskId") String taskId, @Query("scope") String scope);
+
+    @Headers({ "Content-type: application/json" })
+    @POST("api/enterprise/tasks/{taskId}/variables")
+    Observable<Void> createTaskVariableObservable(@Path("taskId") String taskId,
+            @Body List<RestVariable> restVariables);
+
+    @DELETE("api/enterprise/tasks/{taskId}/variables")
+    Observable<Void> deleteAllLocalTaskVariablesObservable(@Path("taskId") String taskId);
+
+    @GET("api/enterprise/tasks/{taskId}/variables/{variableName}")
+    Observable<RestVariable> getVariableObservable(@Path("taskId") String taskId,
+            @Path("variableName") String variableName, @Query("scope") String scope);
+
+    @Headers({ "Content-type: application/json" })
+    @PUT("api/enterprise/tasks/{taskId}/variables/{variableName}")
+    Observable<RestVariable> updateVariableObservable(@Path("taskId") String taskId,
+            @Path("variableName") String variableName, @Body RestVariable restVariable);
+
+    @DELETE("api/enterprise/tasks/{taskId}/variables/{variableName}")
+    Observable<Void> deleteVariableObservable(@Path("taskId") String taskId, @Path("variableName") String variableName,
+            @Query("scope") String scope);
 
 }

@@ -94,7 +94,6 @@ public interface AdminTenantsAPI
 
     // TENANTS
     // ///////////////////////////////////////////////////////////////////
-
     @GET("api/enterprise/admin/tenants")
     Observable<List<LightTenantRepresentation>> getTenantsObservable();
 

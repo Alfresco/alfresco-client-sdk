@@ -27,6 +27,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by jpascal on 12/12/2014.
@@ -76,4 +77,22 @@ public interface RuntimeAppDeploymentsAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
 
+    @GET("api/enterprise/runtime-app-deployments")
+    Observable<ResultList<AppDeploymentRepresentation>> getRuntimeAppDeploymentsObservable(
+            @Query("nameLike") String nameLike, @Query("tenantId") Long tenantId, @Query("latest") Boolean latest,
+            @Query("sort") String sort, @Query("order") String order, @Query("start") Integer start,
+            @Query("size") Integer size);
+
+    @GET("api/enterprise/runtime-app-deployments")
+    Observable<AppDeploymentRepresentation> getRuntimeAppDeploymentByDeploymentObservable(
+            @Query("deploymentId") String deploymentId, @Query("dmnDeploymentId") Long dmnDeploymentId);
+
+    @GET("api/enterprise/runtime-app-deployments/{appDeploymentId}")
+    Observable<AppDeploymentRepresentation> getAppDeploymentObservable(@Path("appDeploymentId") Long appDeploymentId);
+
+    @DELETE("api/enterprise/runtime-app-deployments/{appDeploymentId}")
+    Observable<Void> deleteAppDeploymentObservable(@Path("appDeploymentId") Long appDeploymentId);
+
+    @GET("api/enterprise/export-app-deployment/{deploymentId}")
+    Observable<RequestBody> exportAppDefinitionObservable(@Path("deploymentId") String deploymentId);
 }
