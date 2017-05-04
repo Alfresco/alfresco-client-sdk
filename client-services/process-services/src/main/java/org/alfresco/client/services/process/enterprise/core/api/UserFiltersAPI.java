@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.core.api;
 
+import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.core.model.runtime.UserFilterOrderRepresentation;
 import org.alfresco.client.services.process.enterprise.core.model.runtime.UserProcessInstanceFilterRepresentation;
@@ -34,49 +36,49 @@ public interface UserFiltersAPI
 {
     // TASK FILTER
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/filters/tasks")
+    @GET(PROCESS_SERVICE_PATH + "/filters/tasks")
     Call<ResultList<UserTaskFilterRepresentation>> getUserTaskFiltersCall(@Query("appId") Long appId);
 
-    @GET("api/enterprise/filters/tasks/{userFilterId}")
+    @GET(PROCESS_SERVICE_PATH + "/filters/tasks/{userFilterId}")
     Call<UserTaskFilterRepresentation> getUserTaskFilterCall(@Path("userFilterId") Long userFilterId);
 
-    @POST("api/enterprise/filters/tasks")
+    @POST(PROCESS_SERVICE_PATH + "/filters/tasks")
     Call<UserTaskFilterRepresentation> createUserTaskFilterCall(
             @Body UserTaskFilterRepresentation userTaskFilterRepresentation);
 
-    @PUT("api/enterprise/filters/tasks/{userFilterId}")
+    @PUT(PROCESS_SERVICE_PATH + "/filters/tasks/{userFilterId}")
     Call<UserTaskFilterRepresentation> updateUserTaskFilterCall(@Path("userFilterId") Long userFilterId,
             @Body UserTaskFilterRepresentation userTaskFilterRepresentation);
 
-    @PUT("api/enterprise/filters/tasks")
+    @PUT(PROCESS_SERVICE_PATH + "/filters/tasks")
     Call<Void> orderUserTaskFiltersCall(@Body UserFilterOrderRepresentation filterOrderRepresentation);
 
-    @DELETE("api/enterprise/filters/tasks/{userFilterId}")
+    @DELETE(PROCESS_SERVICE_PATH + "/filters/tasks/{userFilterId}")
     Call<Void> deleteUserTaskFilterCall(@Path("userFilterId") Long userFilterId);
 
     // PROCESS FILTER
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/filters/processes")
+    @GET(PROCESS_SERVICE_PATH + "/filters/processes")
     Call<ResultList<UserProcessInstanceFilterRepresentation>> getUserProcessInstanceFiltersCall(
             @Query("appId") Long appId);
 
-    @GET("api/enterprise/filters/processes/{userFilterId}")
+    @GET(PROCESS_SERVICE_PATH + "/filters/processes/{userFilterId}")
     Call<UserProcessInstanceFilterRepresentation> getUserProcessInstanceFilterCall(
             @Path("userFilterId") Long userFilterId);
 
-    @POST("api/enterprise/filters/processes")
+    @POST(PROCESS_SERVICE_PATH + "/filters/processes")
     Call<UserProcessInstanceFilterRepresentation> createUserProcessInstanceFilterCall(
             @Body UserProcessInstanceFilterRepresentation userTaskFilterRepresentation);
 
-    @PUT("api/enterprise/filters/processes/{userFilterId}")
+    @PUT(PROCESS_SERVICE_PATH + "/filters/processes/{userFilterId}")
     Call<UserProcessInstanceFilterRepresentation> updateUserProcessInstanceFilterCall(
             @Path("userFilterId") Long userFilterId,
             @Body UserProcessInstanceFilterRepresentation userTaskFilterRepresentation);
 
-    @PUT("api/enterprise/filters/processes")
+    @PUT(PROCESS_SERVICE_PATH + "/filters/processes")
     Call<Void> orderUserProcessInstanceFiltersCall(@Body UserFilterOrderRepresentation filterOrderRepresentation);
 
-    @DELETE("api/enterprise/filters/processes/{userFilterId}")
+    @DELETE(PROCESS_SERVICE_PATH + "/filters/processes/{userFilterId}")
     Call<Void> deleteUserProcessInstanceFilterCall(@Path("userFilterId") Long userFilterId);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -106,50 +108,50 @@ public interface UserFiltersAPI
 
     // TASK FILTER
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/filters/tasks")
+    @GET(PROCESS_SERVICE_PATH + "/filters/tasks")
     Observable<ResultList<UserTaskFilterRepresentation>> getUserTaskFiltersObservable(@Query("appId") Long appId);
 
-    @GET("api/enterprise/filters/tasks/{userFilterId}")
+    @GET(PROCESS_SERVICE_PATH + "/filters/tasks/{userFilterId}")
     Observable<UserTaskFilterRepresentation> getUserTaskFilterObservable(@Path("userFilterId") Long userFilterId);
 
-    @POST("api/enterprise/filters/tasks")
+    @POST(PROCESS_SERVICE_PATH + "/filters/tasks")
     Observable<UserTaskFilterRepresentation> createUserTaskFilterObservable(
             @Body UserTaskFilterRepresentation userTaskFilterRepresentation);
 
-    @PUT("api/enterprise/filters/tasks/{userFilterId}")
+    @PUT(PROCESS_SERVICE_PATH + "/filters/tasks/{userFilterId}")
     Observable<UserTaskFilterRepresentation> updateUserTaskFilterObservable(@Path("userFilterId") Long userFilterId,
             @Body UserTaskFilterRepresentation userTaskFilterRepresentation);
 
-    @PUT("api/enterprise/filters/tasks")
+    @PUT(PROCESS_SERVICE_PATH + "/filters/tasks")
     Observable<Void> orderUserTaskFiltersObservable(@Body UserFilterOrderRepresentation filterOrderRepresentation);
 
-    @DELETE("api/enterprise/filters/tasks/{userFilterId}")
+    @DELETE(PROCESS_SERVICE_PATH + "/filters/tasks/{userFilterId}")
     Observable<Void> deleteUserTaskFilterObservable(@Path("userFilterId") Long userFilterId);
 
     // PROCESS FILTER
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/filters/processes")
+    @GET(PROCESS_SERVICE_PATH + "/filters/processes")
     Observable<ResultList<UserProcessInstanceFilterRepresentation>> getUserProcessInstanceFiltersObservable(
             @Query("appId") Long appId);
 
-    @GET("api/enterprise/filters/processes/{userFilterId}")
+    @GET(PROCESS_SERVICE_PATH + "/filters/processes/{userFilterId}")
     Observable<UserProcessInstanceFilterRepresentation> getUserProcessInstanceFilterObservable(
             @Path("userFilterId") Long userFilterId);
 
-    @POST("api/enterprise/filters/processes")
+    @POST(PROCESS_SERVICE_PATH + "/filters/processes")
     Observable<UserProcessInstanceFilterRepresentation> createUserProcessInstanceFilterObservable(
             @Body UserProcessInstanceFilterRepresentation userTaskFilterRepresentation);
 
-    @PUT("api/enterprise/filters/processes/{userFilterId}")
+    @PUT(PROCESS_SERVICE_PATH + "/filters/processes/{userFilterId}")
     Observable<UserProcessInstanceFilterRepresentation> updateUserProcessInstanceFilterObservable(
             @Path("userFilterId") Long userFilterId,
             @Body UserProcessInstanceFilterRepresentation userTaskFilterRepresentation);
 
-    @PUT("api/enterprise/filters/processes")
+    @PUT(PROCESS_SERVICE_PATH + "/filters/processes")
     Observable<Void> orderUserProcessInstanceFiltersObservable(
             @Body UserFilterOrderRepresentation filterOrderRepresentation);
 
-    @DELETE("api/enterprise/filters/processes/{userFilterId}")
+    @DELETE(PROCESS_SERVICE_PATH + "/filters/processes/{userFilterId}")
     Observable<Void> deleteUserProcessInstanceFilterObservable(@Path("userFilterId") Long userFilterId);
 
 }

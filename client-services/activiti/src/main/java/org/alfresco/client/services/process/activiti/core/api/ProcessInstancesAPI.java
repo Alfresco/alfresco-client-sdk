@@ -4,13 +4,13 @@ import static org.alfresco.client.services.process.activiti.core.ActivitiConstan
 
 import java.util.List;
 
+import org.alfresco.client.services.process.activiti.common.model.representation.ResultList;
 import org.alfresco.client.services.process.activiti.core.model.body.ProcessInstanceActionRequest;
 import org.alfresco.client.services.process.activiti.core.model.body.ProcessInstanceCreateRequest;
 import org.alfresco.client.services.process.activiti.core.model.body.ProcessInstanceQueryRequest;
 import org.alfresco.client.services.process.activiti.core.model.representation.ProcessInstanceResponse;
 import org.alfresco.client.services.process.activiti.core.model.representation.RestIdentityLink;
 import org.alfresco.client.services.process.activiti.core.model.representation.RestVariable;
-import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;

@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.core.api;
 
+import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.core.model.idm.ResetPasswordRepresentation;
 import org.alfresco.client.services.process.enterprise.core.model.idm.UserRepresentation;
@@ -36,29 +38,29 @@ import rx.Observable;
  */
 public interface UserProfileAPI
 {
-    @GET("api/enterprise/profile")
+    @GET(PROCESS_SERVICE_PATH + "/profile")
     Call<UserRepresentation> getProfileCall();
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/profile")
+    @POST(PROCESS_SERVICE_PATH + "/profile")
     Call<UserRepresentation> updateUserCall(@Body UpdateProfileRepresentation request);
 
-    @GET("api/enterprise/profile-picture")
+    @GET(PROCESS_SERVICE_PATH + "/profile-picture")
     Call<Void> getProfilePictureCall();
 
     @Multipart
-    @POST("api/enterprise/profile-picture")
+    @POST(PROCESS_SERVICE_PATH + "/profile-picture")
     Call<ResponseBody> uploadProfilePictureCall(@Part("file") RequestBody resource);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/profile-password")
+    @POST(PROCESS_SERVICE_PATH + "/profile-password")
     Call<UserRepresentation> changePasswordCall(@Body ChangePasswordRepresentation request);
 
-    @GET("api/enterprise/profile/accounts/alfresco")
+    @GET(PROCESS_SERVICE_PATH + "/profile/accounts/alfresco")
     Call<ResultList<AlfrescoEndpointRepresentation>> getRepositoriesCall();
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/idm/passwords")
+    @POST(PROCESS_SERVICE_PATH + "/idm/passwords")
     Call<Void> requestPasswordResetCall(@Body ResetPasswordRepresentation request);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -86,28 +88,28 @@ public interface UserProfileAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
 
-    @GET("api/enterprise/profile")
+    @GET(PROCESS_SERVICE_PATH + "/profile")
     Observable<UserRepresentation> getProfileObservable();
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/profile")
+    @POST(PROCESS_SERVICE_PATH + "/profile")
     Observable<UserRepresentation> updateUserObservable(@Body UpdateProfileRepresentation request);
 
-    @GET("api/enterprise/profile-picture")
+    @GET(PROCESS_SERVICE_PATH + "/profile-picture")
     Observable<Void> getProfilePictureObservable();
 
     @Multipart
-    @POST("api/enterprise/profile-picture")
+    @POST(PROCESS_SERVICE_PATH + "/profile-picture")
     Observable<ResponseBody> uploadProfilePictureObservable(@Part("file") RequestBody resource);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/profile-password")
+    @POST(PROCESS_SERVICE_PATH + "/profile-password")
     Observable<UserRepresentation> changePasswordObservable(@Body ChangePasswordRepresentation request);
 
-    @GET("api/enterprise/profile/accounts/alfresco")
+    @GET(PROCESS_SERVICE_PATH + "/profile/accounts/alfresco")
     Observable<ResultList<AlfrescoEndpointRepresentation>> getRepositoriesObservable();
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/idm/passwords")
+    @POST(PROCESS_SERVICE_PATH + "/idm/passwords")
     Observable<Void> requestPasswordResetObservable(@Body ResetPasswordRepresentation request);
 }

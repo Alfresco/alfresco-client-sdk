@@ -34,6 +34,8 @@ import org.testng.annotations.Test;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ApiTaskTests extends PSAPITestCase
@@ -113,6 +115,22 @@ public class ApiTaskTests extends PSAPITestCase
         Assert.assertNull(taskRep.getProcessInstanceStartUserId(), "Response has No Process Instance Name");
         Assert.assertNull(taskRep.isMemberOfCandidateGroup(), "Response has No Priority");
         Assert.assertNull(taskRep.isMemberOfCandidateUsers(), "Response has No Priority");
+
+        // Retrieve Task
+        client.getTasksAPI().getTaskCall("123").enqueue(new Callback<TaskRepresentation>()
+        {
+            @Override
+            public void onResponse(Call<TaskRepresentation> call, Response<TaskRepresentation> response)
+            {
+
+            }
+
+            @Override
+            public void onFailure(Call<TaskRepresentation> call, Throwable throwable)
+            {
+
+            }
+        });
 
         // ATTACH DOCUMENT
         File file = getResourceFile("/org/alfresco/client/services/process/tests/test.txt");

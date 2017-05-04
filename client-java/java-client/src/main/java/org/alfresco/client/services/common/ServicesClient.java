@@ -72,6 +72,11 @@ public abstract class ServicesClient<T>
         return restClient.retrofit.create(service);
     }
 
+    public APIRegistry getApiRegistry()
+    {
+        return null;
+    }
+
     // ///////////////////////////////////////////////////////////////////////////
     // AUTHENTICATION
     // ///////////////////////////////////////////////////////////////////////////

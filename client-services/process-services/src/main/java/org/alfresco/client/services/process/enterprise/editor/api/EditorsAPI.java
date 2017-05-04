@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.editor.api;
 
+import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+
 import java.util.List;
 
 import org.alfresco.client.services.process.enterprise.admin.model.representation.EndpointConfigurationRepresentation;
@@ -32,37 +34,37 @@ import rx.Observable;
 
 public interface EditorsAPI
 {
-    @GET("api/enterprise/editor/data-sources")
+    @GET(PROCESS_SERVICE_PATH + "/editor/data-sources")
     Call<DataSourceRepresentation> getDataSourcesCall(@Path("modelId") String modelId);
 
-    @GET("api/enterprise/editor/endpoints")
+    @GET(PROCESS_SERVICE_PATH + "/editor/endpoints")
     Call<List<EndpointConfigurationRepresentation>> getEndpointConfigurationsCall();
 
-    @GET("api/enterprise/editor/endpoints/{endpointConfigurationId}")
+    @GET(PROCESS_SERVICE_PATH + "/editor/endpoints/{endpointConfigurationId}")
     Call<EndpointConfigurationRepresentation> getEndpointConfigurationsCall(
             @Path("endpointConfigurationId") String endpointConfigurationId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // FORM MODELS
     // ///////////////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/editor/form-models")
+    @GET(PROCESS_SERVICE_PATH + "/editor/form-models")
     Call<ResultList<FormRepresentation>> getFormsCall();
 
-    @GET("api/enterprise/editor/form-models/values")
+    @GET(PROCESS_SERVICE_PATH + "/editor/form-models/values")
     Call<List<FormRepresentation>> getFormsCall(@Query("formId") String[] formId);
 
-    @GET("api/enterprise/editor/form-models/{formId}")
+    @GET(PROCESS_SERVICE_PATH + "/editor/form-models/{formId}")
     Call<FormRepresentation> getFormCall(@Path("formId") Long formId);
 
     @Headers({ "Content-type: application/json" })
-    @PUT("api/enterprise/editor/form-models/{formId}")
+    @PUT(PROCESS_SERVICE_PATH + "/editor/form-models/{formId}")
     Call<FormRepresentation> saveFormCall(@Path("formId") Long formId, @Body FormSaveRepresentation saveRepresentation);
 
-    @GET("api/enterprise/editor/form-models/{formId}/history/{formHistoryId}")
+    @GET(PROCESS_SERVICE_PATH + "/editor/form-models/{formId}/history/{formHistoryId}")
     Call<FormRepresentation> getFormHistoryCall(@Path("formId") Long formId, @Path("formHistoryId") Long formHistoryId);
 
     @Headers({ "Content-type: application/json" })
-    @PUT("api/enterprise/editor/form-models/{formId}/validate")
+    @PUT(PROCESS_SERVICE_PATH + "/editor/form-models/{formId}/validate")
     Call<FormRepresentation> validateCall(@Path("formId") Long formId, @Body FormSaveRepresentation saveRepresentation);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -89,39 +91,39 @@ public interface EditorsAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/editor/data-sources")
+    @GET(PROCESS_SERVICE_PATH + "/editor/data-sources")
     Observable<DataSourceRepresentation> getDataSourcesObservable(@Path("modelId") String modelId);
 
-    @GET("api/enterprise/editor/endpoints")
+    @GET(PROCESS_SERVICE_PATH + "/editor/endpoints")
     Observable<List<EndpointConfigurationRepresentation>> getEndpointConfigurationsObservable();
 
-    @GET("api/enterprise/editor/endpoints/{endpointConfigurationId}")
+    @GET(PROCESS_SERVICE_PATH + "/editor/endpoints/{endpointConfigurationId}")
     Observable<EndpointConfigurationRepresentation> getEndpointConfigurationsObservable(
             @Path("endpointConfigurationId") String endpointConfigurationId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // FORM MODELS
     // ///////////////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/editor/form-models")
+    @GET(PROCESS_SERVICE_PATH + "/editor/form-models")
     Observable<ResultList<FormRepresentation>> getFormsObservable();
 
-    @GET("api/enterprise/editor/form-models/values")
+    @GET(PROCESS_SERVICE_PATH + "/editor/form-models/values")
     Observable<List<FormRepresentation>> getFormsObservable(@Query("formId") String[] formId);
 
-    @GET("api/enterprise/editor/form-models/{formId}")
+    @GET(PROCESS_SERVICE_PATH + "/editor/form-models/{formId}")
     Observable<FormRepresentation> getFormObservable(@Path("formId") Long formId);
 
     @Headers({ "Content-type: application/json" })
-    @PUT("api/enterprise/editor/form-models/{formId}")
+    @PUT(PROCESS_SERVICE_PATH + "/editor/form-models/{formId}")
     Observable<FormRepresentation> saveFormObservable(@Path("formId") Long formId,
             @Body FormSaveRepresentation saveRepresentation);
 
-    @GET("api/enterprise/editor/form-models/{formId}/history/{formHistoryId}")
+    @GET(PROCESS_SERVICE_PATH + "/editor/form-models/{formId}/history/{formHistoryId}")
     Observable<FormRepresentation> getFormHistoryObservable(@Path("formId") Long formId,
             @Path("formHistoryId") Long formHistoryId);
 
     @Headers({ "Content-type: application/json" })
-    @PUT("api/enterprise/editor/form-models/{formId}/validate")
+    @PUT(PROCESS_SERVICE_PATH + "/editor/form-models/{formId}/validate")
     Observable<FormRepresentation> validateObservable(@Path("formId") Long formId,
             @Body FormSaveRepresentation saveRepresentation);
 }

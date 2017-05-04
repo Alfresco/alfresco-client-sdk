@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.integration.api;
 
+import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.integration.model.body.UserAccountCredentialsRepresentation;
 import org.alfresco.client.services.process.enterprise.integration.model.representation.BoxContent;
@@ -33,29 +35,29 @@ import rx.Observable;
  */
 public interface BoxAPI
 {
-    @GET("api/enterprise/integration/box/confirm-auth-request")
+    @GET(PROCESS_SERVICE_PATH + "/integration/box/confirm-auth-request")
     Call<ResponseBody> confirmAuthorisationCall(@Query("code") String authorizationCode);
 
-    @GET("api/enterprise/integration/box/files")
+    @GET(PROCESS_SERVICE_PATH + "/integration/box/files")
     Call<ResultList<BoxContent>> getFilesCall(@Query("filter") String filter, @Query("parent") String parent);
 
-    @GET("api/enterprise/integration/box/status")
+    @GET(PROCESS_SERVICE_PATH + "/integration/box/status")
     Call<Boolean> getBoxPluginStatus();
 
-    @GET("api/enterprise/integration/box/{userId}/account")
+    @GET(PROCESS_SERVICE_PATH + "/integration/box/{userId}/account")
     Call<BoxUserAccountCredentialsRepresentation> getRepositoryAccountCall(@Path("userId") Long userId);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/integration/box/{userId}/account")
+    @POST(PROCESS_SERVICE_PATH + "/integration/box/{userId}/account")
     Call<BoxUserAccountCredentialsRepresentation> createRepositoryAccountCall(@Path("userId") Long userId,
             @Body UserAccountCredentialsRepresentation credentials);
 
     @Headers({ "Content-type: application/json" })
-    @PUT("api/enterprise/integration/box/{userId}/account")
+    @PUT(PROCESS_SERVICE_PATH + "/integration/box/{userId}/account")
     Call<BoxUserAccountCredentialsRepresentation> updateRepositoryAccountCall(@Path("userId") Long userId,
             @Body UserAccountCredentialsRepresentation credentials);
 
-    @DELETE("api/enterprise/integration/box/{userId}/account")
+    @DELETE(PROCESS_SERVICE_PATH + "/integration/box/{userId}/account")
     Call<Void> deleteRepositoryAccountCall(@Path("userId") Long userId);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -82,29 +84,29 @@ public interface BoxAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/integration/box/confirm-auth-request")
+    @GET(PROCESS_SERVICE_PATH + "/integration/box/confirm-auth-request")
     Observable<ResponseBody> confirmAuthorisationObservable(@Query("code") String authorizationCode);
 
-    @GET("api/enterprise/integration/box/files")
+    @GET(PROCESS_SERVICE_PATH + "/integration/box/files")
     Observable<ResultList<BoxContent>> getFilesObservable(@Query("filter") String filter,
             @Query("parent") String parent);
 
-    @GET("api/enterprise/integration/box/status")
+    @GET(PROCESS_SERVICE_PATH + "/integration/box/status")
     Observable<Boolean> getBoxPluginStatusObservable();
 
-    @GET("api/enterprise/integration/box/{userId}/account")
+    @GET(PROCESS_SERVICE_PATH + "/integration/box/{userId}/account")
     Observable<BoxUserAccountCredentialsRepresentation> getRepositoryAccountObservable(@Path("userId") Long userId);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/integration/box/{userId}/account")
+    @POST(PROCESS_SERVICE_PATH + "/integration/box/{userId}/account")
     Observable<BoxUserAccountCredentialsRepresentation> createRepositoryAccountObservable(@Path("userId") Long userId,
             @Body UserAccountCredentialsRepresentation credentials);
 
     @Headers({ "Content-type: application/json" })
-    @PUT("api/enterprise/integration/box/{userId}/account")
+    @PUT(PROCESS_SERVICE_PATH + "/integration/box/{userId}/account")
     Observable<BoxUserAccountCredentialsRepresentation> updateRepositoryAccountObservable(@Path("userId") Long userId,
             @Body UserAccountCredentialsRepresentation credentials);
 
-    @DELETE("api/enterprise/integration/box/{userId}/account")
+    @DELETE(PROCESS_SERVICE_PATH + "/integration/box/{userId}/account")
     Observable<Void> deleteRepositoryAccountObservable(@Path("userId") Long userId);
 }

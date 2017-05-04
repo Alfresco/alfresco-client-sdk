@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.discovery.api;
 
+import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+
 import org.alfresco.client.services.process.enterprise.discovery.model.runtime.AppVersionRepresentation;
 import org.alfresco.client.services.process.enterprise.discovery.model.runtime.GlobalDateFormatRepresentation;
 import org.alfresco.client.services.process.enterprise.discovery.model.runtime.PasswordValidationConstraints;
@@ -33,19 +35,19 @@ import rx.Observable;
  */
 public interface DiscoveryAPI
 {
-    @GET("api/enterprise/app-version")
+    @GET(PROCESS_SERVICE_PATH + "/app-version")
     Call<AppVersionRepresentation> getAppVersionCall();
 
-    @GET("api/enterprise/system/properties")
+    @GET(PROCESS_SERVICE_PATH + "/system/properties")
     Call<SystemPropertiesRepresentation> getPropertiesCall();
 
-    @GET("api/enterprise/system/properties/password-validation-constraints/{tenantId}")
+    @GET(PROCESS_SERVICE_PATH + "/system/properties/password-validation-constraints/{tenantId}")
     Call<PasswordValidationConstraints> getPasswordValidationConstraintsCall(@Path("tenantId") String tenantI);
 
-    @GET("api/enterprise/system/properties/involved-users-can-edit-forms/{tenantId}")
+    @GET(PROCESS_SERVICE_PATH + "/system/properties/involved-users-can-edit-forms/{tenantId}")
     Call<Boolean> involvedUsersCanEditFormsCall(@Path("tenantId") String tenantId);
 
-    @GET("api/enterprise/system/properties/global-date-format/{tenantId}")
+    @GET(PROCESS_SERVICE_PATH + "/system/properties/global-date-format/{tenantId}")
     Call<GlobalDateFormatRepresentation> getGlobalDateFormatCall(@Path("tenantId") String tenantId);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -73,19 +75,19 @@ public interface DiscoveryAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
 
-    @GET("api/enterprise/app-version")
+    @GET(PROCESS_SERVICE_PATH + "/app-version")
     Observable<AppVersionRepresentation> getAppVersionObservable();
 
-    @GET("api/enterprise/system/properties")
+    @GET(PROCESS_SERVICE_PATH + "/system/properties")
     Observable<SystemPropertiesRepresentation> getPropertiesObservable();
 
-    @GET("api/enterprise/system/properties/password-validation-constraints/{tenantId}")
+    @GET(PROCESS_SERVICE_PATH + "/system/properties/password-validation-constraints/{tenantId}")
     Observable<PasswordValidationConstraints> getPasswordValidationConstraintsObservable(
             @Path("tenantId") String tenantI);
 
-    @GET("api/enterprise/system/properties/involved-users-can-edit-forms/{tenantId}")
+    @GET(PROCESS_SERVICE_PATH + "/system/properties/involved-users-can-edit-forms/{tenantId}")
     Observable<Boolean> involvedUsersCanEditFormsObservable(@Path("tenantId") String tenantId);
 
-    @GET("api/enterprise/system/properties/global-date-format/{tenantId}")
+    @GET(PROCESS_SERVICE_PATH + "/system/properties/global-date-format/{tenantId}")
     Observable<GlobalDateFormatRepresentation> getGlobalDateFormatObservable(@Path("tenantId") String tenantId);
 }

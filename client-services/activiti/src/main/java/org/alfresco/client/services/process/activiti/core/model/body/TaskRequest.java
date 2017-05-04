@@ -75,6 +75,32 @@ public class TaskRequest
     @SerializedName("formKeySet")
     public final Boolean formKeySet;
 
+    public TaskRequest(String name, String description, String owner, String assignee)
+    {
+        this.owner = owner;
+        this.assignee = assignee;
+        this.delegationState = null;
+        this.name = name;
+        this.description = description;
+        this.dueDate = null;
+        this.priority = null;
+        this.parentTaskId = null;
+        this.category = null;
+        this.tenantId = null;
+        this.formKey = null;
+        this.ownerSet = null;
+        this.assigneeSet = null;
+        this.delegationStateSet = null;
+        this.nameSet = null;
+        this.descriptionSet = null;
+        this.duedateSet = null;
+        this.prioritySet = null;
+        this.parentTaskIdSet = null;
+        this.categorySet = null;
+        this.tenantIdSet = null;
+        this.formKeySet = null;
+    }
+
     public TaskRequest(String owner, String assignee, String delegationState, String name, String description,
             Date dueDate, Integer priority, String parentTaskId, String category, String tenantId, String formKey,
             Boolean ownerSet, Boolean assigneeSet, Boolean delegationStateSet, Boolean nameSet, Boolean descriptionSet,

@@ -58,7 +58,7 @@ public class CSClient extends ServicesClient<CSClient> implements ContentService
     // ///////////////////////////////////////////////////////////////////////////
     // API REGISTRY
     // ///////////////////////////////////////////////////////////////////////////
-    public ContentServicesRegistry getCsAPIRegistry()
+    public ContentServicesRegistry getApiRegistry()
     {
         if (csAPIRegistry == null)
         {
@@ -191,7 +191,7 @@ public class CSClient extends ServicesClient<CSClient> implements ContentService
         public CSClient create(RestClient restClient, OkHttpClient okHttpClient)
         {
             CSClient client = new CSClient(new RestClient(endpoint, retrofit, username), okHttpClient);
-            client.getCsAPIRegistry();
+            client.getApiRegistry();
             return client;
         }
 

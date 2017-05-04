@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.core.api;
 
+import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.core.model.runtime.AppDeploymentRepresentation;
 
@@ -34,22 +36,22 @@ import rx.Observable;
  */
 public interface RuntimeAppDeploymentsAPI
 {
-    @GET("api/enterprise/runtime-app-deployments")
+    @GET(PROCESS_SERVICE_PATH + "/runtime-app-deployments")
     Call<ResultList<AppDeploymentRepresentation>> getRuntimeAppDeploymentsCall(@Query("nameLike") String nameLike,
             @Query("tenantId") Long tenantId, @Query("latest") Boolean latest, @Query("sort") String sort,
             @Query("order") String order, @Query("start") Integer start, @Query("size") Integer size);
 
-    @GET("api/enterprise/runtime-app-deployments")
+    @GET(PROCESS_SERVICE_PATH + "/runtime-app-deployments")
     Call<AppDeploymentRepresentation> getRuntimeAppDeploymentByDeploymentCall(
             @Query("deploymentId") String deploymentId, @Query("dmnDeploymentId") Long dmnDeploymentId);
 
-    @GET("api/enterprise/runtime-app-deployments/{appDeploymentId}")
+    @GET(PROCESS_SERVICE_PATH + "/runtime-app-deployments/{appDeploymentId}")
     Call<AppDeploymentRepresentation> getAppDeploymentCall(@Path("appDeploymentId") Long appDeploymentId);
 
-    @DELETE("api/enterprise/runtime-app-deployments/{appDeploymentId}")
+    @DELETE(PROCESS_SERVICE_PATH + "/runtime-app-deployments/{appDeploymentId}")
     Call<Void> deleteAppDeploymentCall(@Path("appDeploymentId") Long appDeploymentId);
 
-    @GET("api/enterprise/export-app-deployment/{deploymentId}")
+    @GET(PROCESS_SERVICE_PATH + "/export-app-deployment/{deploymentId}")
     Call<RequestBody> exportAppDefinitionCall(@Path("deploymentId") String deploymentId);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -77,22 +79,22 @@ public interface RuntimeAppDeploymentsAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
 
-    @GET("api/enterprise/runtime-app-deployments")
+    @GET(PROCESS_SERVICE_PATH + "/runtime-app-deployments")
     Observable<ResultList<AppDeploymentRepresentation>> getRuntimeAppDeploymentsObservable(
             @Query("nameLike") String nameLike, @Query("tenantId") Long tenantId, @Query("latest") Boolean latest,
             @Query("sort") String sort, @Query("order") String order, @Query("start") Integer start,
             @Query("size") Integer size);
 
-    @GET("api/enterprise/runtime-app-deployments")
+    @GET(PROCESS_SERVICE_PATH + "/runtime-app-deployments")
     Observable<AppDeploymentRepresentation> getRuntimeAppDeploymentByDeploymentObservable(
             @Query("deploymentId") String deploymentId, @Query("dmnDeploymentId") Long dmnDeploymentId);
 
-    @GET("api/enterprise/runtime-app-deployments/{appDeploymentId}")
+    @GET(PROCESS_SERVICE_PATH + "/runtime-app-deployments/{appDeploymentId}")
     Observable<AppDeploymentRepresentation> getAppDeploymentObservable(@Path("appDeploymentId") Long appDeploymentId);
 
-    @DELETE("api/enterprise/runtime-app-deployments/{appDeploymentId}")
+    @DELETE(PROCESS_SERVICE_PATH + "/runtime-app-deployments/{appDeploymentId}")
     Observable<Void> deleteAppDeploymentObservable(@Path("appDeploymentId") Long appDeploymentId);
 
-    @GET("api/enterprise/export-app-deployment/{deploymentId}")
+    @GET(PROCESS_SERVICE_PATH + "/export-app-deployment/{deploymentId}")
     Observable<RequestBody> exportAppDefinitionObservable(@Path("deploymentId") String deploymentId);
 }

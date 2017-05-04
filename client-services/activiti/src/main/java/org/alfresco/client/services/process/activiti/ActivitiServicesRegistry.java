@@ -12,7 +12,7 @@ public interface ActivitiServicesRegistry extends APIRegistry
 
     DeploymentsAPI getDeploymentsAPI();
 
-    EngineAPI geEngineAPI();
+    EngineAPI getEngineAPI();
 
     ExecutionsAPI getExecutionsAPI();
 

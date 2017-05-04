@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.core.api;
 
+import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+
 import org.alfresco.client.services.process.enterprise.core.model.runtime.RelatedContentRepresentation;
 import org.alfresco.client.services.process.enterprise.core.model.runtime.request.AddContentRelatedRepresentation;
 
@@ -33,25 +35,25 @@ import rx.Observable;
 public interface ContentsAPI
 {
 
-    @GET("api/enterprise/content/{contentId}")
+    @GET(PROCESS_SERVICE_PATH + "/content/{contentId}")
     Call<RelatedContentRepresentation> getContentCall(@Path("contentId") String contentId);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/content")
+    @POST(PROCESS_SERVICE_PATH + "/content")
     Call<RelatedContentRepresentation> createTemporaryRelatedContentCall(
             @Body AddContentRelatedRepresentation representation);
 
     @Multipart
-    @POST("api/enterprise/content/raw")
+    @POST(PROCESS_SERVICE_PATH + "/content/raw")
     Call<RelatedContentRepresentation> createTemporaryRawRelatedContentCall(@Part("file") RequestBody body);
 
-    @DELETE("api/enterprise/content/{contentId}")
+    @DELETE(PROCESS_SERVICE_PATH + "/content/{contentId}")
     Call<Void> deleteContentCall(@Path("contentId") String contentId);
 
-    @GET("api/enterprise/content/{contentId}/raw")
+    @GET(PROCESS_SERVICE_PATH + "/content/{contentId}/raw")
     Call<ResponseBody> getRawContentCall(@Path("contentId") String contentId);
 
-    @GET("api/enterprise/content/{contentId}/rendition/{renditionType}")
+    @GET(PROCESS_SERVICE_PATH + "/content/{contentId}/rendition/{renditionType}")
     Call<ResponseBody> getContentRenditionCall(@Path("contentId") String contentId,
             @Path("renditionType") String renditionType);
 
@@ -80,25 +82,25 @@ public interface ContentsAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
 
-    @GET("api/enterprise/content/{contentId}")
+    @GET(PROCESS_SERVICE_PATH + "/content/{contentId}")
     Observable<RelatedContentRepresentation> getContentObservable(@Path("contentId") String contentId);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/content")
+    @POST(PROCESS_SERVICE_PATH + "/content")
     Observable<RelatedContentRepresentation> createTemporaryRelatedContentObservable(
             @Body AddContentRelatedRepresentation representation);
 
     @Multipart
-    @POST("api/enterprise/content/raw")
+    @POST(PROCESS_SERVICE_PATH + "/content/raw")
     Observable<RelatedContentRepresentation> createTemporaryRawRelatedContentObservable(@Part("file") RequestBody body);
 
-    @DELETE("api/enterprise/content/{contentId}")
+    @DELETE(PROCESS_SERVICE_PATH + "/content/{contentId}")
     Observable<Void> deleteContentObservable(@Path("contentId") String contentId);
 
-    @GET("api/enterprise/content/{contentId}/raw")
+    @GET(PROCESS_SERVICE_PATH + "/content/{contentId}/raw")
     Observable<ResponseBody> getRawContentObservable(@Path("contentId") String contentId);
 
-    @GET("api/enterprise/content/{contentId}/rendition/{renditionType}")
+    @GET(PROCESS_SERVICE_PATH + "/content/{contentId}/rendition/{renditionType}")
     Observable<ResponseBody> getContentRenditionObservable(@Path("contentId") String contentId,
             @Path("renditionType") String renditionType);
 

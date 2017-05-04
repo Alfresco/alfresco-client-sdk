@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.core.api;
 
+import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.core.model.runtime.RuntimeAppDefinitionRepresentation;
 import org.alfresco.client.services.process.enterprise.core.model.runtime.RuntimeAppDefinitionSaveRepresentation;
@@ -34,14 +36,14 @@ import rx.Observable;
  */
 public interface RuntimeAppDefinitionsAPI
 {
-    @GET("api/enterprise/runtime-app-definitions")
+    @GET(PROCESS_SERVICE_PATH + "/runtime-app-definitions")
     Call<ResultList<RuntimeAppDefinitionRepresentation>> getAppDefinitionsCall();
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/runtime-app-definitions")
+    @POST(PROCESS_SERVICE_PATH + "/runtime-app-definitions")
     Call<Void> deployAppDefinitionsCall(@Body RuntimeAppDefinitionSaveRepresentation saveObject);
 
-    @GET("api/enterprise/runtime-app-definitions/{appDefinitionId}")
+    @GET(PROCESS_SERVICE_PATH + "/runtime-app-definitions/{appDefinitionId}")
     Call<RuntimeAppDefinitionRepresentation> getAppDefinitionCall();
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -69,13 +71,13 @@ public interface RuntimeAppDefinitionsAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
 
-    @GET("api/enterprise/runtime-app-definitions")
+    @GET(PROCESS_SERVICE_PATH + "/runtime-app-definitions")
     Observable<ResultList<RuntimeAppDefinitionRepresentation>> getAppDefinitionsObservable();
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/runtime-app-definitions")
+    @POST(PROCESS_SERVICE_PATH + "/runtime-app-definitions")
     Observable<Void> deployAppDefinitionsObservable(@Body RuntimeAppDefinitionSaveRepresentation saveObject);
 
-    @GET("api/enterprise/runtime-app-definitions/{appDefinitionId}")
+    @GET(PROCESS_SERVICE_PATH + "/runtime-app-definitions/{appDefinitionId}")
     Observable<RuntimeAppDefinitionRepresentation> getAppDefinitionObservable();
 }

@@ -55,7 +55,7 @@ public class ActivitiClient extends ServicesClient<ActivitiClient> implements Ac
     // ///////////////////////////////////////////////////////////////////////////
     // API REGISTRY
     // ///////////////////////////////////////////////////////////////////////////
-    public ActivitiAPIRegistry getPSAPIRegistry()
+    public ActivitiAPIRegistry getApiRegistry()
     {
         if (activitiApiRegistry == null)
         {
@@ -77,9 +77,9 @@ public class ActivitiClient extends ServicesClient<ActivitiClient> implements Ac
     }
 
     @Override
-    public EngineAPI geEngineAPI()
+    public EngineAPI getEngineAPI()
     {
-        return activitiApiRegistry.geEngineAPI();
+        return activitiApiRegistry.getEngineAPI();
     }
 
     @Override
@@ -164,7 +164,7 @@ public class ActivitiClient extends ServicesClient<ActivitiClient> implements Ac
         public ActivitiClient create(RestClient restClient, OkHttpClient okHttpClient)
         {
             ActivitiClient client = new ActivitiClient(new RestClient(endpoint, retrofit, username), okHttpClient);
-            client.getPSAPIRegistry();
+            client.getApiRegistry();
             return client;
         }
 
@@ -174,6 +174,7 @@ public class ActivitiClient extends ServicesClient<ActivitiClient> implements Ac
             GsonBuilder builder = new GsonBuilder().setDateFormat(ISO8601Utils.DATE_ISO_FORMAT);
 
             registerDefaultConfig(builder);
+
 
             return builder;
         }
@@ -193,7 +194,7 @@ public class ActivitiClient extends ServicesClient<ActivitiClient> implements Ac
     // ///////////////////////////////////////////////////////////////////////////
     public static GsonBuilder registerDefaultConfig(GsonBuilder builder)
     {
-
+        ActivitiGsonBuilder.registerActivitiConfig(builder);
         return builder;
     }
 }

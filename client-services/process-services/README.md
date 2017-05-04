@@ -76,31 +76,31 @@ UserGroupAPI sserGroupAPI = client.getUserGroupAPI();
 
 ```
 
-### Retrieve RM Site (Root Folder) Information
+### Retrieve Task by Id
 
 **Synchronuously**
 ```java
-Response<RMSiteRepresentation> response = client.getGsSitesAPI().getRMSiteCall().execute();
+Response<TaskRepresentation> response = client.getTasksAPI().getTaskCall("123").execute();
 ```
 
 **Asynchronuously**
 ```java
- client.getGsSitesAPI().getRMSiteCall().enqueue(new Callback<RMSiteRepresentation>() {
-            @Override
-            public void onResponse(Call<RMSiteRepresentation> call, Response<RMSiteRepresentation> response)
-                //TODO When response is correct
-            }
-
-            @Override
-            public void onFailure(Call<RMSiteRepresentation> call, Throwable t)
-                //TODO When request has failed
-            }
-        });
+ client.getTasksAPI().getTaskCall("123").enqueue(new Callback<TaskRepresentation>() {
+             @Override
+             public void onResponse(Call<TaskRepresentation> call, Response<TaskRepresentation> response) {
+                 
+             }
+ 
+             @Override
+             public void onFailure(Call<TaskRepresentation> call, Throwable throwable) {
+ 
+             }
+         });
 ```
 
 **RxJava**
 ```java
-nodesAPI.getRMSiteObservable().subscribe(root -> Assert.assertEquals(root.getName(), "RM Site"));
+client.getTasksAPI().getTaskObservable("123").subscribe(root -> Assert.assertEquals(root.getName(), "Task"));
 ```
 
 ### Create, Edit & Delete Folder
@@ -138,4 +138,4 @@ Tests can be executed with a fresh install on localhost:8080 with user admin/adm
 
 Want to manage other tests ?
 
-Replace all TEST_X in [Client API: PSAPITestCase](src/test/java/org/alfresco/client/services/PSAPITestCase.java)
+Replace all TEST_X in [Client API: PSAPITestCase](src/test/java/org/alfresco/client/services/process/enterprise/PSAPITestCase.java)

@@ -61,7 +61,7 @@ public class ActivitiAPIRegistry extends AbstractAPIRegistry implements Activiti
     }
 
     @Override
-    public EngineAPI geEngineAPI()
+    public EngineAPI getEngineAPI()
     {
         return engineAPI = (engineAPI == null) ? getAPI(EngineAPI.class) : engineAPI;
     }

@@ -28,6 +28,8 @@ import org.alfresco.client.services.governance.GSAPIRegistry;
 import org.alfresco.client.services.governance.GSClient;
 import org.alfresco.client.services.process.PSAPIRegistry;
 import org.alfresco.client.services.process.PSClient;
+import org.alfresco.client.services.process.activiti.ActivitiAPIRegistry;
+import org.alfresco.client.services.process.activiti.ActivitiClient;
 
 public class AlfrescoClient
 {
@@ -41,6 +43,8 @@ public class AlfrescoClient
 
     protected GSClient gsClient;
 
+    protected ActivitiClient aClient;
+
     // ///////////////////////////////////////////////////////////////////////////
     // CONSTRUCTOR
     // ///////////////////////////////////////////////////////////////////////////
@@ -52,11 +56,12 @@ public class AlfrescoClient
         }
     }
 
-    private AlfrescoClient(CSClient csClient, GSClient gsClient, PSClient psClient)
+    private AlfrescoClient(CSClient csClient, GSClient gsClient, PSClient psClient, ActivitiClient aClient)
     {
         this.csClient = csClient;
         this.gsClient = gsClient;
         this.psClient = psClient;
+        this.aClient = aClient;
     }
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -64,17 +69,22 @@ public class AlfrescoClient
     // ///////////////////////////////////////////////////////////////////////////
     public ContentServicesRegistry getContentServices()
     {
-        return csClient != null ? csClient.getCsAPIRegistry() : null;
+        return csClient != null ? csClient.getApiRegistry() : null;
     }
 
     public GSAPIRegistry getGovernanceServices()
     {
-        return gsClient != null ? gsClient.getGSAPIRegistry() : null;
+        return gsClient != null ? gsClient.getApiRegistry() : null;
     }
 
     public PSAPIRegistry getProcessServices()
     {
-        return psClient != null ? psClient.getPSAPIRegistry() : null;
+        return psClient != null ? psClient.getApiRegistry() : null;
+    }
+
+    public ActivitiAPIRegistry getActivitiServices()
+    {
+        return aClient != null ? aClient.getApiRegistry() : null;
     }
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -85,11 +95,11 @@ public class AlfrescoClient
         // ///////////////////////////////////////////////////////////////////////////
         // MEMBERS
         // ///////////////////////////////////////////////////////////////////////////
-        protected HashMap<ServicesEnum, ServicesClient.Builder> builderHashMap = new HashMap<>(3);
+        protected HashMap<ServicesEnum, ServicesClient.Builder> builderHashMap = new HashMap<>(4);
 
-        protected HashMap<ServicesEnum, String> endpointHashMap = new HashMap<>(3);
+        protected HashMap<ServicesEnum, String> endpointHashMap = new HashMap<>(4);
 
-        protected ArrayList<ServicesEnum> services = new ArrayList<>(3);
+        protected ArrayList<ServicesEnum> services = new ArrayList<>(4);
 
         protected String endpoint, username, password;
 
@@ -160,14 +170,17 @@ public class AlfrescoClient
             CSClient.Builder csClient;
             PSClient.Builder psClient;
             GSClient.Builder gsClient;
+            ActivitiClient.Builder aClient;
 
             // Create Content Services
             csClient = (CSClient.Builder) generate(ServicesEnum.CONTENT_SERVICES);
             psClient = (PSClient.Builder) generate(ServicesEnum.PROCESS_SERVICES);
             gsClient = (GSClient.Builder) generate(ServicesEnum.GOVERNANCE_SERVICES);
+            aClient = (ActivitiClient.Builder) generate(ServicesEnum.ACTIVITI);
 
             return new AlfrescoClient((csClient != null) ? csClient.build() : null,
-                    (gsClient != null) ? gsClient.build() : null, (psClient != null) ? psClient.build() : null);
+                    (gsClient != null) ? gsClient.build() : null, (psClient != null) ? psClient.build() : null,
+                    (aClient != null) ? aClient.build() : null);
         }
 
         public ServicesClient.Builder generate(ServicesEnum servicesEnum)
@@ -199,6 +212,9 @@ public class AlfrescoClient
                     break;
                 case PROCESS_SERVICES:
                     clientBuilder = new PSClient.Builder();
+                    break;
+                case ACTIVITI:
+                    clientBuilder = new ActivitiClient.Builder();
                     break;
             }
 

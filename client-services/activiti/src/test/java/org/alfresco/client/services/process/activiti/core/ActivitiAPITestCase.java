@@ -16,10 +16,10 @@
  *  limitations under the License.
  */
 
-package org.alfresco.client.services.process.activiti;
+package org.alfresco.client.services.process.activiti.core;
 
 import org.alfresco.client.services.AlfrescoAPITestCase;
-import org.alfresco.client.services.process.PSClient;
+import org.alfresco.client.services.process.activiti.ActivitiClient;
 
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -39,20 +39,20 @@ public abstract class ActivitiAPITestCase extends AlfrescoAPITestCase
     // ///////////////////////////////////////////////////////////////////////////
     // VARIABLES
     // ///////////////////////////////////////////////////////////////////////////
-    protected PSClient client;
+    protected ActivitiClient client;
 
     // ///////////////////////////////////////////////////////////////////////////
     // ALFRESCO CLIENT UTILS
     // ///////////////////////////////////////////////////////////////////////////
     public void prepareDefaultClient()
     {
-        client = new PSClient.Builder().connect(TEST_ENDPOINT, TEST_USERNAME, TEST_PASSWORD)
+        client = new ActivitiClient.Builder().connect(TEST_ENDPOINT, TEST_USERNAME, TEST_PASSWORD)
                 .httpLogging(HttpLoggingInterceptor.Level.BODY).build();
     }
 
-    public PSClient prepareClient(String endpoint, String username, String password)
+    public ActivitiClient prepareClient(String endpoint, String username, String password)
     {
-        return new PSClient.Builder().connect(endpoint, username, password)
+        return new ActivitiClient.Builder().connect(endpoint, username, password)
                 .httpLogging(HttpLoggingInterceptor.Level.BODY).build();
     }
 

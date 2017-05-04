@@ -2,11 +2,11 @@ package org.alfresco.client.services.process.activiti.core.api;
 
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
+import org.alfresco.client.services.process.activiti.common.model.representation.ResultList;
 import org.alfresco.client.services.process.activiti.core.model.body.GroupRequest;
 import org.alfresco.client.services.process.activiti.core.model.body.MembershipRequest;
 import org.alfresco.client.services.process.activiti.core.model.representation.GroupResponse;
 import org.alfresco.client.services.process.activiti.core.model.representation.MembershipResponse;
-import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 
 import retrofit2.Call;
 import retrofit2.http.*;

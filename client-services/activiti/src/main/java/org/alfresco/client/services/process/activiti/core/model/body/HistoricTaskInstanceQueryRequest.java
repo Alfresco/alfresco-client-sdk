@@ -3,7 +3,7 @@ package org.alfresco.client.services.process.activiti.core.model.body;
 import java.util.Date;
 import java.util.List;
 
-import org.alfresco.client.services.process.enterprise.core.model.runtime.QueryVariable;
+import org.alfresco.client.services.process.activiti.core.model.representation.QueryVariable;
 
 import com.google.gson.annotations.SerializedName;
 

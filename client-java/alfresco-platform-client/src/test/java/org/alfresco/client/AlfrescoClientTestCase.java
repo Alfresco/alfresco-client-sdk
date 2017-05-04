@@ -48,6 +48,13 @@ public class AlfrescoClientTestCase
 
     public static final String PS_PASSWORD = "admin";
 
+    // Endpoint must end with "/" like https://localhost:8080/alfresco/
+    public static final String ACTIVITI_ENDPOINT = "http://localhost:8080/activiti-rest/";
+
+    public static final String ACTIVITI_USERNAME = "admin";
+
+    public static final String ACTIVITI_PASSWORD = "test";
+
     // ///////////////////////////////////////////////////////////////////////////
     // VARIABLES
     // ///////////////////////////////////////////////////////////////////////////
@@ -65,7 +72,7 @@ public class AlfrescoClientTestCase
         logger.info(message);
     }
 
-    @Test
+    @Test(enabled = false)
     public void createCSClientTest() throws IOException
     {
         // Connect to Alfresco CS
@@ -108,14 +115,14 @@ public class AlfrescoClientTestCase
         Assert.assertNull(client.getProcessServices());
     }
 
-    @Test
+    @Test(enabled = false)
     public void createPSCSClientTest() throws IOException
     {
         // Connect to Alfresco CS + PS with same user
         AlfrescoClient client = new AlfrescoClient.Builder()
-                .addServiceClientBuilder(new CSClient.Builder().connect("http://cmis.alfresco.com", "admin", "admin"))
-                .addServiceClientBuilder(new PSClient.Builder().connect("http://localhost:8080/activiti-app",
-                        "admin@app.activiti.com", "admin"))
+                .connectTo("http://cmis.alfresco.com", ServicesEnum.CONTENT_SERVICES)
+                .connectTo("http://localhost:8080/activiti-app", ServicesEnum.CONTENT_SERVICES)
+                .withUser("admin", "admin")
                 .build();
 
         Assert.assertNotNull(client);

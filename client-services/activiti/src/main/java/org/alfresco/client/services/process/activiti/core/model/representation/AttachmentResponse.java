@@ -1,4 +1,4 @@
-package org.alfresco.client.services.process.activiti.core.model.body;
+package org.alfresco.client.services.process.activiti.core.model.representation;
 
 import java.util.Date;
 import java.util.Objects;

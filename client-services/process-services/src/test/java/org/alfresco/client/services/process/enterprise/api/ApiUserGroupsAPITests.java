@@ -16,17 +16,18 @@
  *  limitations under the License.
  */
 
-package org.alfresco.client.services.process.activiti.api;
+package org.alfresco.client.services.process.enterprise.api;
 
 import java.io.IOException;
 
-import org.alfresco.client.services.process.activiti.ActivitiAPITestCase;
-import org.alfresco.client.services.process.activiti.core.api.UsersAPI;
+import org.alfresco.client.services.PSAPITestCase;
+import org.alfresco.client.services.process.enterprise.core.api.UsersGroupsAPI;
+import org.alfresco.client.services.process.enterprise.core.model.idm.UserRepresentation;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class UserAPITest extends ActivitiAPITestCase
+public class ApiUserGroupsAPITests extends PSAPITestCase
 {
     @BeforeClass
     public void prepare() throws Exception
@@ -37,9 +38,8 @@ public class UserAPITest extends ActivitiAPITestCase
     @Test
     public void manageUsers() throws IOException
     {
-        UsersAPI usersAPI = client.getAPI(UsersAPI.class);
-
-        Assert.assertNotNull(usersAPI.listUsers().execute().body());
-
+        UsersGroupsAPI usersGroupsAPI = client.getAPI(UsersGroupsAPI.class);
+        UserRepresentation user = usersGroupsAPI.getUserCall(TEST_USERNAME).execute().body();
+        Assert.assertNotNull(user);
     }
 }

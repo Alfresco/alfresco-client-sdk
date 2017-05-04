@@ -60,7 +60,7 @@ public class PSClient extends ServicesClient<PSClient> implements ProcessService
     // ///////////////////////////////////////////////////////////////////////////
     // API REGISTRY
     // ///////////////////////////////////////////////////////////////////////////
-    public PSAPIRegistry getPSAPIRegistry()
+    public PSAPIRegistry getApiRegistry()
     {
         if (psapiRegistry == null)
         {
@@ -168,7 +168,7 @@ public class PSClient extends ServicesClient<PSClient> implements ProcessService
         public PSClient create(RestClient restClient, OkHttpClient okHttpClient)
         {
             PSClient client = new PSClient(new RestClient(endpoint, retrofit, username), okHttpClient);
-            client.getPSAPIRegistry();
+            client.getApiRegistry();
             return client;
         }
 

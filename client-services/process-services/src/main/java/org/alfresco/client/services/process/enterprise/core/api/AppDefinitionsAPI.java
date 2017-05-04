@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.core.api;
 
+import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+
 import org.alfresco.client.services.process.enterprise.core.model.editor.AppDefinitionPublishRepresentation;
 import org.alfresco.client.services.process.enterprise.core.model.editor.AppDefinitionRepresentation;
 import org.alfresco.client.services.process.enterprise.core.model.editor.AppDefinitionSaveRepresentation;
@@ -34,37 +36,37 @@ public interface AppDefinitionsAPI
     // ///////////////////////////////////////////////////////////////////
     // GET
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/app-definitions/{modelId}")
+    @GET(PROCESS_SERVICE_PATH + "/app-definitions/{modelId}")
     Call<AppDefinitionRepresentation> getAppDefinitionCall(@Path("modelId") String modelId);
 
     // ///////////////////////////////////////////////////////////////////
     // UPDATE
     // ///////////////////////////////////////////////////////////////////
     @Headers({ "Content-type: application/json" })
-    @PUT("api/enterprise/app-definitions/{modelId}")
+    @PUT(PROCESS_SERVICE_PATH + "/app-definitions/{modelId}")
     Call<AppDefinitionUpdateResultRepresentation> getAppDefinitionCall(@Path("modelId") String modelId,
             @Body AppDefinitionSaveRepresentation appDefinitionSaveRepresentation);
 
     // ///////////////////////////////////////////////////////////////////
     // DELETE
     // ///////////////////////////////////////////////////////////////////
-    @DELETE("api/enterprise/app-definitions/{appDefinitionId}")
+    @DELETE(PROCESS_SERVICE_PATH + "/app-definitions/{appDefinitionId}")
     Call<Void> deleteAppDefinitionCall(@Path("appDefinitionId") String appDefinitionId);
 
     // ///////////////////////////////////////////////////////////////////
     // ACTIONS
     // ///////////////////////////////////////////////////////////////////
     @Streaming
-    @GET("api/enterprise/app-definitions/{modelId}/export")
+    @GET(PROCESS_SERVICE_PATH + "/app-definitions/{modelId}/export")
     Call<ResponseBody> exportAppDefinitionCall(@Path("modelId") String modelId);
 
     @Multipart
-    @POST("api/enterprise/app-definitions/{modelId}/import")
+    @POST(PROCESS_SERVICE_PATH + "/app-definitions/{modelId}/import")
     Call<AppDefinitionRepresentation> importAppDefinitionCall(@Path("modelId") String modelId,
             @Part("file") RequestBody file);
 
     @Multipart
-    @POST("api/enterprise/app-definitions/import")
+    @POST(PROCESS_SERVICE_PATH + "/app-definitions/import")
     Call<AppDefinitionRepresentation> importAppDefinitionCall(@Part("file") RequestBody file,
             @Query("renewIdmEntries") String renewIdmEntries);
 
@@ -72,17 +74,17 @@ public interface AppDefinitionsAPI
     // PUBLISH
     // ///////////////////////////////////////////////////////////////////
     @Multipart
-    @POST("api/enterprise/app-definitions/{modelId}/publish")
+    @POST(PROCESS_SERVICE_PATH + "/app-definitions/{modelId}/publish")
     Call<AppDefinitionUpdateResultRepresentation> publishAppDefinitionCall(@Path("modelId") String modelId,
             @Body AppDefinitionPublishRepresentation publishModel);
 
     @Multipart
-    @POST("api/enterprise/app-definitions/{modelId}/publish-app")
+    @POST(PROCESS_SERVICE_PATH + "/app-definitions/{modelId}/publish-app")
     Call<AppDefinitionUpdateResultRepresentation> importAndPublishAppCall(@Path("modelId") String modelId,
             @Part("file") RequestBody file);
 
     @Multipart
-    @POST("api/enterprise/app-definitions/publish-app")
+    @POST(PROCESS_SERVICE_PATH + "/app-definitions/publish-app")
     Call<AppDefinitionUpdateResultRepresentation> importAndPublishAppCall(@Part("file") RequestBody file);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -113,37 +115,37 @@ public interface AppDefinitionsAPI
     // ///////////////////////////////////////////////////////////////////
     // GET
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/app-definitions/{modelId}")
+    @GET(PROCESS_SERVICE_PATH + "/app-definitions/{modelId}")
     Observable<AppDefinitionRepresentation> getAppDefinitionObservable(@Path("modelId") String modelId);
 
     // ///////////////////////////////////////////////////////////////////
     // UPDATE
     // ///////////////////////////////////////////////////////////////////
     @Headers({ "Content-type: application/json" })
-    @PUT("api/enterprise/app-definitions/{modelId}")
+    @PUT(PROCESS_SERVICE_PATH + "/app-definitions/{modelId}")
     Observable<AppDefinitionUpdateResultRepresentation> getAppDefinitionObservable(@Path("modelId") String modelId,
             @Body AppDefinitionSaveRepresentation appDefinitionSaveRepresentation);
 
     // ///////////////////////////////////////////////////////////////////
     // DELETE
     // ///////////////////////////////////////////////////////////////////
-    @DELETE("api/enterprise/app-definitions/{appDefinitionId}")
+    @DELETE(PROCESS_SERVICE_PATH + "/app-definitions/{appDefinitionId}")
     Observable<Void> deleteAppDefinitionObservable(@Path("appDefinitionId") String appDefinitionId);
 
     // ///////////////////////////////////////////////////////////////////
     // ACTIONS
     // ///////////////////////////////////////////////////////////////////
     @Streaming
-    @GET("api/enterprise/app-definitions/{modelId}/export")
+    @GET(PROCESS_SERVICE_PATH + "/app-definitions/{modelId}/export")
     Observable<ResponseBody> exportAppDefinitionObservable(@Path("modelId") String modelId);
 
     @Multipart
-    @POST("api/enterprise/app-definitions/{modelId}/import")
+    @POST(PROCESS_SERVICE_PATH + "/app-definitions/{modelId}/import")
     Observable<AppDefinitionRepresentation> importAppDefinitionObservable(@Path("modelId") String modelId,
             @Part("file") RequestBody file);
 
     @Multipart
-    @POST("api/enterprise/app-definitions/import")
+    @POST(PROCESS_SERVICE_PATH + "/app-definitions/import")
     Observable<AppDefinitionRepresentation> importAppDefinitionObservable(@Part("file") RequestBody file,
             @Query("renewIdmEntries") String renewIdmEntries);
 
@@ -151,17 +153,17 @@ public interface AppDefinitionsAPI
     // PUBLISH
     // ///////////////////////////////////////////////////////////////////
     @Multipart
-    @POST("api/enterprise/app-definitions/{modelId}/publish")
+    @POST(PROCESS_SERVICE_PATH + "/app-definitions/{modelId}/publish")
     Observable<AppDefinitionUpdateResultRepresentation> publishAppDefinitionObservable(@Path("modelId") String modelId,
             @Body AppDefinitionPublishRepresentation publishModel);
 
     @Multipart
-    @POST("api/enterprise/app-definitions/{modelId}/publish-app")
+    @POST(PROCESS_SERVICE_PATH + "/app-definitions/{modelId}/publish-app")
     Observable<AppDefinitionUpdateResultRepresentation> importAndPublishAppObservable(@Path("modelId") String modelId,
             @Part("file") RequestBody file);
 
     @Multipart
-    @POST("api/enterprise/app-definitions/publish-app")
+    @POST(PROCESS_SERVICE_PATH + "/app-definitions/publish-app")
     Observable<AppDefinitionUpdateResultRepresentation> importAndPublishAppObservable(@Part("file") RequestBody file);
 
 }

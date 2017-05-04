@@ -408,6 +408,11 @@
                 <artifactId>java-platform-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.alfresco.client</groupId>
+                <artifactId>activiti</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- RETROFIT & OKHTTP -->
             <dependency>

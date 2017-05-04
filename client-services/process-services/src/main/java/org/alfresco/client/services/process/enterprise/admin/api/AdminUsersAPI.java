@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.admin.api;
 
+import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+
 import java.util.List;
 
 import org.alfresco.client.services.process.enterprise.admin.model.body.BulkUserUpdateRepresentation;
@@ -35,25 +37,25 @@ public interface AdminUsersAPI
 {
     // USERS
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/admin/users")
+    @GET(PROCESS_SERVICE_PATH + "/admin/users")
     Call<List<LightTenantRepresentation>> getUsersCall(@Query("filter") String filter, @Query("status") String status,
             @Query("accountType") String accountType, @Query("sort") String sort, @Query("company") String company,
             @Query("start") String start, @Query("page") String page, @Query("size") String size,
             @Query("groupId") String groupId, @Query("tenantId") String tenantId, @Query("summary") Boolean summary);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/admin/users")
+    @POST(PROCESS_SERVICE_PATH + "/admin/users")
     Call<UserRepresentation> bulkUpdateUsersCall(@Body BulkUserUpdateRepresentation userRepresentation);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/admin/users")
+    @POST(PROCESS_SERVICE_PATH + "/admin/users")
     Call<UserRepresentation> createNewUserCall(@Body UserRepresentation userRepresentation);
 
-    @GET("api/enterprise/admin/users/{userId}")
+    @GET(PROCESS_SERVICE_PATH + "/admin/users/{userId}")
     Call<UserRepresentation> getUserCall(@Path("userId") String userId, @Query("summary") Boolean summary);
 
     @Headers({ "Content-type: application/json" })
-    @PUT("api/enterprise/admin/users/{userId}")
+    @PUT(PROCESS_SERVICE_PATH + "/admin/users/{userId}")
     Call<UserRepresentation> updateUserDetailsCall(@Path("userId") String tenantId,
             @Body UserRepresentation userRepresentation);
 
@@ -84,7 +86,7 @@ public interface AdminUsersAPI
 
     // USERS
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/admin/users")
+    @GET(PROCESS_SERVICE_PATH + "/admin/users")
     Observable<List<LightTenantRepresentation>> getUsersObservable(@Query("filter") String filter,
             @Query("status") String status, @Query("accountType") String accountType, @Query("sort") String sort,
             @Query("company") String company, @Query("start") String start, @Query("page") String page,
@@ -92,18 +94,18 @@ public interface AdminUsersAPI
             @Query("summary") Boolean summary);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/admin/users")
+    @POST(PROCESS_SERVICE_PATH + "/admin/users")
     Observable<UserRepresentation> bulkUpdateUsersObservable(@Body BulkUserUpdateRepresentation userRepresentation);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/admin/users")
+    @POST(PROCESS_SERVICE_PATH + "/admin/users")
     Observable<UserRepresentation> createNewUserObservable(@Body UserRepresentation userRepresentation);
 
-    @GET("api/enterprise/admin/users/{userId}")
+    @GET(PROCESS_SERVICE_PATH + "/admin/users/{userId}")
     Observable<UserRepresentation> getUserObservable(@Path("userId") String userId, @Query("summary") Boolean summary);
 
     @Headers({ "Content-type: application/json" })
-    @PUT("api/enterprise/admin/users/{userId}")
+    @PUT(PROCESS_SERVICE_PATH + "/admin/users/{userId}")
     Observable<UserRepresentation> updateUserDetailsObservable(@Path("userId") String tenantId,
             @Body UserRepresentation userRepresentation);
 

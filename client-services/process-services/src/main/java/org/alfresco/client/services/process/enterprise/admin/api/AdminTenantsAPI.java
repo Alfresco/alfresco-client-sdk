@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.admin.api;
 
+import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+
 import java.util.List;
 
 import org.alfresco.client.services.process.enterprise.admin.model.body.CreateTenantRepresentation;
@@ -38,33 +40,33 @@ public interface AdminTenantsAPI
 {
     // TENANTS
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/admin/tenants")
+    @GET(PROCESS_SERVICE_PATH + "/admin/tenants")
     Call<List<LightTenantRepresentation>> getTenantsCall();
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/admin/tenants")
+    @POST(PROCESS_SERVICE_PATH + "/admin/tenants")
     Call<LightTenantRepresentation> createTenantCall(@Body CreateTenantRepresentation createTenantRepresentation);
 
-    @GET("api/enterprise/admin/tenants/{tenantId}")
+    @GET(PROCESS_SERVICE_PATH + "/admin/tenants/{tenantId}")
     Call<LightTenantRepresentation> getTenantCall(@Path("tenantId") String tenantId);
 
     @Headers({ "Content-type: application/json" })
-    @PUT("api/enterprise/admin/tenants/{tenantId}")
+    @PUT(PROCESS_SERVICE_PATH + "/admin/tenants/{tenantId}")
     Call<Void> updateTenantCall(@Path("tenantId") String tenantId,
             @Body CreateTenantRepresentation createTenantRepresentation);
 
-    @DELETE("api/enterprise/admin/tenants/{tenantId}")
+    @DELETE(PROCESS_SERVICE_PATH + "/admin/tenants/{tenantId}")
     Call<Void> deleteTenantCall(@Path("tenantId") String tenantId);
 
-    @GET("api/enterprise/admin/tenants/{tenantId}/logo")
+    @GET(PROCESS_SERVICE_PATH + "/admin/tenants/{tenantId}/logo")
     Call<ResponseBody> getTenantLogoCall(@Path("tenantId") String tenantId);
 
     @Multipart
-    @POST("api/enterprise/admin/tenants/{tenantId}/logo")
+    @POST(PROCESS_SERVICE_PATH + "/admin/tenants/{tenantId}/logo")
     Call<ImageUploadRepresentation> uploadTenantLogoCall(@Path("tenantId") String tenantId,
             @Part("file") RequestBody body);
 
-    @GET("api/enterprise/admin/tenants/{tenantId}/events")
+    @GET(PROCESS_SERVICE_PATH + "/admin/tenants/{tenantId}/events")
     Call<List<TenantEvent>> getTenantEventsCall(@Path("tenantId") String tenantId);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -94,33 +96,33 @@ public interface AdminTenantsAPI
 
     // TENANTS
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/admin/tenants")
+    @GET(PROCESS_SERVICE_PATH + "/admin/tenants")
     Observable<List<LightTenantRepresentation>> getTenantsObservable();
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/admin/tenants")
+    @POST(PROCESS_SERVICE_PATH + "/admin/tenants")
     Observable<LightTenantRepresentation> createTenantObservable(
             @Body CreateTenantRepresentation createTenantRepresentation);
 
-    @GET("api/enterprise/admin/tenants/{tenantId}")
+    @GET(PROCESS_SERVICE_PATH + "/admin/tenants/{tenantId}")
     Observable<LightTenantRepresentation> getTenantObservable(@Path("tenantId") String tenantId);
 
     @Headers({ "Content-type: application/json" })
-    @PUT("api/enterprise/admin/tenants/{tenantId}")
+    @PUT(PROCESS_SERVICE_PATH + "/admin/tenants/{tenantId}")
     Observable<Void> updateTenantObservable(@Path("tenantId") String tenantId,
             @Body CreateTenantRepresentation createTenantRepresentation);
 
-    @DELETE("api/enterprise/admin/tenants/{tenantId}")
+    @DELETE(PROCESS_SERVICE_PATH + "/admin/tenants/{tenantId}")
     Observable<Void> deleteTenantObservable(@Path("tenantId") String tenantId);
 
-    @GET("api/enterprise/admin/tenants/{tenantId}/logo")
+    @GET(PROCESS_SERVICE_PATH + "/admin/tenants/{tenantId}/logo")
     Observable<ResponseBody> getTenantLogoObservable(@Path("tenantId") String tenantId);
 
     @Multipart
-    @POST("api/enterprise/admin/tenants/{tenantId}/logo")
+    @POST(PROCESS_SERVICE_PATH + "/admin/tenants/{tenantId}/logo")
     Observable<ImageUploadRepresentation> uploadTenantLogoObservable(@Path("tenantId") String tenantId,
             @Part("file") RequestBody body);
 
-    @GET("api/enterprise/admin/tenants/{tenantId}/events")
+    @GET(PROCESS_SERVICE_PATH + "/admin/tenants/{tenantId}/events")
     Observable<List<TenantEvent>> getTenantEventsObservable(@Path("tenantId") String tenantId);
 }

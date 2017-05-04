@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.core.api;
 
+import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+
 import java.util.List;
 
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
@@ -37,116 +39,116 @@ import rx.Observable;
 public interface ProcessInstancesAPI
 {
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/historic-process-instances/query")
+    @POST(PROCESS_SERVICE_PATH + "/historic-process-instances/query")
     Call<ResultList<ProcessInstanceRepresentation>> getHistoricProcessInstancesCall(
             @Body HistoricProcessInstanceQueryRepresentation filter);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}")
     Call<ProcessInstanceRepresentation> getProcessInstanceCall(@Path("processInstanceId") String processInstanceId);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/process-instances/query")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/query")
     Call<ResultList<ProcessInstanceRepresentation>> getProcessInstancesCall(@Body ProcessesRequestRepresentation body);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/process-instances/filter")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/filter")
     Call<ResultList<ProcessInstanceRepresentation>> filterProcessInstancesCall(
             @Body ProcessInstanceFilterRequestRepresentation body);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/process-instances")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances")
     Call<ProcessInstanceRepresentation> startNewProcessInstanceCall(@Body CreateProcessInstanceRepresentation request);
 
-    @DELETE("api/enterprise/process-instances/{processInstanceId}")
+    @DELETE(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}")
     Call<Void> deleteProcessInstanceCall(@Path("processInstanceId") String processInstanceId);
 
     // ACTIONS
     // ///////////////////////////////////////////////////////////////////
-    @PUT("api/enterprise/process-instances/{processInstanceId}/activate")
+    @PUT(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/activate")
     Call<ProcessInstanceRepresentation> activateProcessInstanceCall(
             @Path("processInstanceId") String processInstanceId);
 
-    @PUT("api/enterprise/process-instances/{processInstanceId}/suspend")
+    @PUT(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/suspend")
     Call<ProcessInstanceRepresentation> suspendProcessInstanceCall(@Path("processInstanceId") String processInstanceId);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/audit-log")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/audit-log")
     Call<ProcessInstanceAuditInfoRepresentation> getProcessInstanceAuditLogCall(
             @Path("processInstanceId") String processInstanceId);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/decision-tasks")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/decision-tasks")
     Call<ResultList<DecisionTaskRepresentation>> getHistoricProcessInstanceDecisionTasksCall(
             @Path("processInstanceId") String processInstanceId);
 
     @Streaming
-    @GET("api/enterprise/process-instances/{processInstanceId}/diagram")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/diagram")
     Call<RequestBody> getProcessInstanceDiagramCall(@Path("processInstanceId") String processInstanceId);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/historic-variables")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/historic-variables")
     Call<List<ProcessInstanceVariableRepresentation>> getHistoricProcessInstanceVariablesCall(
             @Path("processInstanceId") String processInstanceId);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/start-form")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/start-form")
     Call<FormDefinitionRepresentation> getProcessInstanceStartFormCall(
             @Path("processInstanceId") String processInstanceId);
 
     // COMMENTS
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/process-instances/{processInstanceId}/comments")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/comments")
     Call<ResultList<CommentRepresentation>> getProcessInstanceCommentsCall(
             @Path("processInstanceId") String processInstanceId);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/process-instances/{processInstanceId}/comments")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/comments")
     Call<CommentRepresentation> addProcessInstanceCommentCall(@Path("processInstanceId") String processInstanceId,
             @Body CommentRepresentation request);
 
     // CONTENTS
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/process-instances/{processInstanceId}/content")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/content")
     Call<ResultList<RelatedContentRepresentation>> getRelatedContentForProcessInstanceCall(
             @Path("processInstanceId") String processInstanceId);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/field-content")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/field-content")
     Call<ResultList<ProcessContentRepresentation>> getProcessInstanceContentCall(
             @Path("processInstanceId") String processInstanceId);
 
     @Multipart
-    @POST("api/enterprise/process-instances/{processInstanceId}/raw-content?isRelatedContent=true")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/raw-content?isRelatedContent=true")
     Call<RelatedContentRepresentation> createRelatedContentOnProcessInstanceCall(
             @Path("processInstanceId") String processInstanceId, @Part("file") RequestBody resource);
 
     @Multipart
-    @POST("api/enterprise/process-instances/{processInstanceId}/raw-content")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/raw-content")
     Call<RelatedContentRepresentation> createRelatedContentOnProcessInstanceCall(
             @Path("processInstanceId") String processInstanceId, @Part("file") RequestBody resource,
             @Query("isRelatedContent") Boolean isRelatedContent);
 
-    @POST("api/enterprise/process-instances/{processInstanceId}/content")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/content")
     Call<RelatedContentRepresentation> linkRelatedContentOnProcessInstanceCall(
             @Path("processInstanceId") String processInstanceId, @Body AddContentRelatedRepresentation representation);
 
     // IDENTITY LINKS
     // ///////////////////////////////////////////////////////////////////
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/identitylinks")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/identitylinks")
     Call<ResultList<IdentityLinkRepresentation>> getIdentityLinksCall(
             @Path("processInstanceId") String processInstanceId);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/process-instances/{processInstanceId}/identitylinks")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/identitylinks")
     Call<IdentityLinkRepresentation> createIdentityLinkCall(@Path("processInstanceId") String processInstanceId,
             @Body IdentityLinkRepresentation representation);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/identitylinks/{family}")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/identitylinks/{family}")
     Call<List<IdentityLinkRepresentation>> getIdentityLinksForFamilyCall(
             @Path("processInstanceId") String processInstanceId, @Path("family") String family);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/identitylinks/{family}/{identityId}/{type}")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/identitylinks/{family}/{identityId}/{type}")
     Call<ResultList<IdentityLinkRepresentation>> getIdentityLinkTypeCall(
             @Path("processInstanceId") String processInstanceId, @Path("family") String family,
             @Path("identityId") String identityId, @Path("type") String type);
 
-    @DELETE("api/enterprise/process-instances/{processInstanceId}/identitylinks/{family}/{identityId}/{type}")
+    @DELETE(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/identitylinks/{family}/{identityId}/{type}")
     Call<Void> deleteIdentityLinkCall(@Path("processInstanceId") String processInstanceId,
             @Path("family") String family,
             @Path("identityId") String identityId, @Path("type") String type);
@@ -157,29 +159,29 @@ public interface ProcessInstancesAPI
 
     // VARIABLES
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/process-instances/{processInstanceId}/variables")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/variables")
     Call<List<RestVariable>> getProcessInstanceVariablesCall(@Path("processInstanceId") String processInstanceId,
             @Query("scope") String scope);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/process-instances/{processInstanceId}/variables")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/variables")
     Call<List<RestVariable>> createProcessInstanceVariablesCall(@Path("processInstanceId") String processInstanceId,
             @Body List<RestVariable> restVariables);
 
-    @PUT("api/enterprise/process-instances/{processInstanceId}/variables")
+    @PUT(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/variables")
     Call<List<RestVariable>> createOrUpdateProcessInstanceVariablesCall(@Path("processInstanceId") String taskId,
             @Body List<RestVariable> restVariables);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/variables/{variableName}")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/variables/{variableName}")
     Call<RestVariable> getProcessInstanceVariableCall(@Path("processInstanceId") String processInstanceId,
             @Path("variableName") String variableName, @Query("scope") String scope);
 
     @Headers({ "Content-type: application/json" })
-    @PUT("api/enterprise/process-instances/{processInstanceId}/variables/{variableName}")
+    @PUT(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/variables/{variableName}")
     Call<RestVariable> updateProcessInstanceVariableCall(@Path("processInstanceId") String processInstanceId,
             @Path("variableName") String variableName, @Body RestVariable restVariable);
 
-    @DELETE("api/enterprise/process-instances/{processInstanceId}/variables/{variableName}")
+    @DELETE(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/variables/{variableName}")
     Call<Void> deleteProcessInstanceVariableCall(@Path("processInstanceId") String processInstanceId,
             @Path("variableName") String variableName);
 
@@ -209,120 +211,120 @@ public interface ProcessInstancesAPI
     // ///////////////////////////////////////////////////////////////////////////
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/historic-process-instances/query")
+    @POST(PROCESS_SERVICE_PATH + "/historic-process-instances/query")
     Observable<ResultList<ProcessInstanceRepresentation>> getHistoricProcessInstancesObservable(
             @Body HistoricProcessInstanceQueryRepresentation filter);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}")
     Observable<ProcessInstanceRepresentation> getProcessInstanceObservable(
             @Path("processInstanceId") String processInstanceId);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/process-instances/query")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/query")
     Observable<ResultList<ProcessInstanceRepresentation>> getProcessInstancesObservable(
             @Body ProcessesRequestRepresentation body);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/process-instances/filter")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/filter")
     Observable<ResultList<ProcessInstanceRepresentation>> filterProcessInstancesObservable(
             @Body ProcessInstanceFilterRequestRepresentation body);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/process-instances")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances")
     Observable<ProcessInstanceRepresentation> startNewProcessInstanceObservable(
             @Body CreateProcessInstanceRepresentation request);
 
-    @DELETE("api/enterprise/process-instances/{processInstanceId}")
+    @DELETE(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}")
     Observable<Void> deleteProcessInstanceObservable(@Path("processInstanceId") String processInstanceId);
 
     // ACTIONS
     // ///////////////////////////////////////////////////////////////////
-    @PUT("api/enterprise/process-instances/{processInstanceId}/activate")
+    @PUT(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/activate")
     Observable<ProcessInstanceRepresentation> activateProcessInstanceObservable(
             @Path("processInstanceId") String processInstanceId);
 
-    @PUT("api/enterprise/process-instances/{processInstanceId}/suspend")
+    @PUT(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/suspend")
     Observable<ProcessInstanceRepresentation> suspendProcessInstanceObservable(
             @Path("processInstanceId") String processInstanceId);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/audit-log")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/audit-log")
     Observable<ProcessInstanceAuditInfoRepresentation> getProcessInstanceAuditLogObservable(
             @Path("processInstanceId") String processInstanceId);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/decision-tasks")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/decision-tasks")
     Observable<ResultList<DecisionTaskRepresentation>> getHistoricProcessInstanceDecisionTasksObservable(
             @Path("processInstanceId") String processInstanceId);
 
     @Streaming
-    @GET("api/enterprise/process-instances/{processInstanceId}/diagram")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/diagram")
     Observable<RequestBody> getProcessInstanceDiagramObservable(@Path("processInstanceId") String processInstanceId);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/historic-variables")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/historic-variables")
     Observable<List<ProcessInstanceVariableRepresentation>> getHistoricProcessInstanceVariablesObservable(
             @Path("processInstanceId") String processInstanceId);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/start-form")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/start-form")
     Observable<FormDefinitionRepresentation> getProcessInstanceStartFormObservable(
             @Path("processInstanceId") String processInstanceId);
 
     // COMMENTS
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/process-instances/{processInstanceId}/comments")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/comments")
     Observable<ResultList<CommentRepresentation>> getProcessInstanceCommentsObservable(
             @Path("processInstanceId") String processInstanceId);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/process-instances/{processInstanceId}/comments")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/comments")
     Observable<CommentRepresentation> addProcessInstanceCommentObservable(
             @Path("processInstanceId") String processInstanceId, @Body CommentRepresentation request);
 
     // CONTENTS
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/process-instances/{processInstanceId}/content")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/content")
     Observable<ResultList<RelatedContentRepresentation>> getRelatedContentForProcessInstanceObservable(
             @Path("processInstanceId") String processInstanceId);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/field-content")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/field-content")
     Observable<ResultList<ProcessContentRepresentation>> getProcessInstanceContentObservable(
             @Path("processInstanceId") String processInstanceId);
 
     @Multipart
-    @POST("api/enterprise/process-instances/{processInstanceId}/raw-content?isRelatedContent=true")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/raw-content?isRelatedContent=true")
     Observable<RelatedContentRepresentation> createRelatedContentOnProcessInstanceObservable(
             @Path("processInstanceId") String processInstanceId, @Part("file") RequestBody resource);
 
     @Multipart
-    @POST("api/enterprise/process-instances/{processInstanceId}/raw-content")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/raw-content")
     Observable<RelatedContentRepresentation> createRelatedContentOnProcessInstanceObservable(
             @Path("processInstanceId") String processInstanceId, @Part("file") RequestBody resource,
             @Query("isRelatedContent") Boolean isRelatedContent);
 
-    @POST("api/enterprise/process-instances/{processInstanceId}/content")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/content")
     Observable<RelatedContentRepresentation> linkRelatedContentOnProcessInstanceObservable(
             @Path("processInstanceId") String processInstanceId, @Body AddContentRelatedRepresentation representation);
 
     // IDENTITY LINKS
     // ///////////////////////////////////////////////////////////////////
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/identitylinks")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/identitylinks")
     Observable<ResultList<IdentityLinkRepresentation>> getIdentityLinksObservable(
             @Path("processInstanceId") String processInstanceId);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/process-instances/{processInstanceId}/identitylinks")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/identitylinks")
     Observable<IdentityLinkRepresentation> createIdentityLinkObservable(
             @Path("processInstanceId") String processInstanceId, @Body IdentityLinkRepresentation representation);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/identitylinks/{family}")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/identitylinks/{family}")
     Observable<List<IdentityLinkRepresentation>> getIdentityLinksForFamilyObservable(
             @Path("processInstanceId") String processInstanceId, @Path("family") String family);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/identitylinks/{family}/{identityId}/{type}")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/identitylinks/{family}/{identityId}/{type}")
     Observable<ResultList<IdentityLinkRepresentation>> getIdentityLinkTypeObservable(
             @Path("processInstanceId") String processInstanceId, @Path("family") String family,
             @Path("identityId") String identityId, @Path("type") String type);
 
-    @DELETE("api/enterprise/process-instances/{processInstanceId}/identitylinks/{family}/{identityId}/{type}")
+    @DELETE(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/identitylinks/{family}/{identityId}/{type}")
     Observable<Void> deleteIdentityLinkObservable(@Path("processInstanceId") String processInstanceId,
             @Path("family") String family, @Path("identityId") String identityId, @Path("type") String type);
 
@@ -332,30 +334,30 @@ public interface ProcessInstancesAPI
 
     // VARIABLES
     // ///////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/process-instances/{processInstanceId}/variables")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/variables")
     Observable<List<RestVariable>> getProcessInstanceVariablesObservable(
             @Path("processInstanceId") String processInstanceId, @Query("scope") String scope);
 
     @Headers({ "Content-type: application/json" })
-    @POST("api/enterprise/process-instances/{processInstanceId}/variables")
+    @POST(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/variables")
     Observable<List<RestVariable>> createProcessInstanceVariablesObservable(
             @Path("processInstanceId") String processInstanceId, @Body List<RestVariable> restVariables);
 
-    @PUT("api/enterprise/process-instances/{processInstanceId}/variables")
+    @PUT(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/variables")
     Observable<List<RestVariable>> createOrUpdateProcessInstanceVariablesObservable(
             @Path("processInstanceId") String taskId, @Body List<RestVariable> restVariables);
 
-    @GET("api/enterprise/process-instances/{processInstanceId}/variables/{variableName}")
+    @GET(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/variables/{variableName}")
     Observable<RestVariable> getProcessInstanceVariableObservable(@Path("processInstanceId") String processInstanceId,
             @Path("variableName") String variableName, @Query("scope") String scope);
 
     @Headers({ "Content-type: application/json" })
-    @PUT("api/enterprise/process-instances/{processInstanceId}/variables/{variableName}")
+    @PUT(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/variables/{variableName}")
     Observable<RestVariable> updateProcessInstanceVariableObservable(
             @Path("processInstanceId") String processInstanceId, @Path("variableName") String variableName,
             @Body RestVariable restVariable);
 
-    @DELETE("api/enterprise/process-instances/{processInstanceId}/variables/{variableName}")
+    @DELETE(PROCESS_SERVICE_PATH + "/process-instances/{processInstanceId}/variables/{variableName}")
     Observable<Void> deleteProcessInstanceVariableObservable(@Path("processInstanceId") String processInstanceId,
             @Path("variableName") String variableName);
 

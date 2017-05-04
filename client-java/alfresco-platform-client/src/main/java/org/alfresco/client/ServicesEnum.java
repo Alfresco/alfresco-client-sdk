@@ -7,11 +7,15 @@ import com.google.gson.annotations.SerializedName;
  */
 public enum ServicesEnum
 {
+
+    @SerializedName("ACTIVITI") ACTIVITI("ACTIVITI"),
+
     @SerializedName("CONTENT_SERVICES") CONTENT_SERVICES("CONTENT_SERVICES"),
 
     @SerializedName("PROCESS_SERVICES") PROCESS_SERVICES("PROCESS_SERVICES"),
 
     @SerializedName("GOVERNANCE_SERVICES") GOVERNANCE_SERVICES("GOVERNANCE_SERVICES");
+
 
     private String value;
 

@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.core.api;
 
+import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.core.model.editor.form.FormDefinitionRepresentation;
 import org.alfresco.client.services.process.enterprise.core.model.runtime.RuntimeFormRepresentation;
@@ -31,30 +33,30 @@ import rx.Observable;
 
 public interface FormsAPI
 {
-    @GET("api/enterprise/forms")
+    @GET(PROCESS_SERVICE_PATH + "/forms")
     Call<ResultList<RuntimeFormRepresentation>> getFormsCall(@Query("nameLike") String nameLike,
             @Query("appId") Long appId, @Query("tenantId") Long tenantId, @Query("sort") String sort,
             @Query("order") String order, @Query("start") Integer start, @Query("size") Integer size);
 
-    @GET("api/enterprise/forms/{formId}")
+    @GET(PROCESS_SERVICE_PATH + "/forms/{formId}")
     Call<RuntimeFormRepresentation> getFormCall(@Path("formId") Long formId);
 
-    @GET("api/enterprise/forms/{formId}/editorJson")
+    @GET(PROCESS_SERVICE_PATH + "/forms/{formId}/editorJson")
     Call<FormDefinitionRepresentation> getFormEditorJsonCall(@Path("formId") Long formId);
 
     // SUBMITTED FORMS
     // ///////////////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/form-submitted-forms/{formId}")
+    @GET(PROCESS_SERVICE_PATH + "/form-submitted-forms/{formId}")
     Call<ResultList<SubmittedFormRepresentation>> getFormSubmittedFromsCall(@Path("formId") Long formId,
             @Query("submittedBy") Long submittedBy, @Query("start") Integer start, @Query("size") Integer size);
 
-    @GET("api/enterprise/task-submitted-form/{taskId}")
+    @GET(PROCESS_SERVICE_PATH + "/task-submitted-form/{taskId}")
     Call<SubmittedFormRepresentation> getTaskSubmittedFromsCall(@Path("taskId") String taskId);
 
-    @GET("api/enterprise/process-submitted-forms/{processId}")
+    @GET(PROCESS_SERVICE_PATH + "/process-submitted-forms/{processId}")
     Call<ResultList<SubmittedFormRepresentation>> getProcessSubmittedFromsCall(@Path("processId") String processId);
 
-    @GET("api/enterprise//submitted-forms/{submittedFormId]")
+    @GET(PROCESS_SERVICE_PATH + "//submitted-forms/{submittedFormId]")
     Call<SubmittedFormRepresentation> getSubmittedFromCall(@Path("submittedFormId") String submittedFormId);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -82,30 +84,30 @@ public interface FormsAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
 
-    @GET("api/enterprise/forms")
+    @GET(PROCESS_SERVICE_PATH + "/forms")
     Observable<ResultList<RuntimeFormRepresentation>> getFormsObservable(@Query("nameLike") String nameLike,
             @Query("appId") Long appId, @Query("tenantId") Long tenantId, @Query("sort") String sort,
             @Query("order") String order, @Query("start") Integer start, @Query("size") Integer size);
 
-    @GET("api/enterprise/forms/{formId}")
+    @GET(PROCESS_SERVICE_PATH + "/forms/{formId}")
     Observable<RuntimeFormRepresentation> getFormObservable(@Path("formId") Long formId);
 
-    @GET("api/enterprise/forms/{formId}/editorJson")
+    @GET(PROCESS_SERVICE_PATH + "/forms/{formId}/editorJson")
     Observable<FormDefinitionRepresentation> getFormEditorJsonObservable(@Path("formId") Long formId);
 
     // SUBMITTED FORMS
     // ///////////////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/form-submitted-forms/{formId}")
+    @GET(PROCESS_SERVICE_PATH + "/form-submitted-forms/{formId}")
     Observable<ResultList<SubmittedFormRepresentation>> getFormSubmittedFromsObservable(@Path("formId") Long formId,
             @Query("submittedBy") Long submittedBy, @Query("start") Integer start, @Query("size") Integer size);
 
-    @GET("api/enterprise/task-submitted-form/{taskId}")
+    @GET(PROCESS_SERVICE_PATH + "/task-submitted-form/{taskId}")
     Observable<SubmittedFormRepresentation> getTaskSubmittedFromsObservable(@Path("taskId") String taskId);
 
-    @GET("api/enterprise/process-submitted-forms/{processId}")
+    @GET(PROCESS_SERVICE_PATH + "/process-submitted-forms/{processId}")
     Observable<ResultList<SubmittedFormRepresentation>> getProcessSubmittedFromsObservable(
             @Path("processId") String processId);
 
-    @GET("api/enterprise//submitted-forms/{submittedFormId]")
+    @GET(PROCESS_SERVICE_PATH + "//submitted-forms/{submittedFormId]")
     Observable<SubmittedFormRepresentation> getSubmittedFromObservable(@Path("submittedFormId") String submittedFormId);
 }

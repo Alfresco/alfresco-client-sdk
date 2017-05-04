@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.integration.api;
 
+import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.integration.model.representation.GoogleDriveContent;
 
@@ -32,10 +34,10 @@ import rx.Observable;
  */
 public interface GoogleDriveAPI
 {
-    @GET("api/enterprise/integration/google-drive/confirm-auth-request")
+    @GET(PROCESS_SERVICE_PATH + "/integration/google-drive/confirm-auth-request")
     Call<ResponseBody> confirmAuthorisationCall();
 
-    @GET("api/enterprise/integration/google-drive/files")
+    @GET(PROCESS_SERVICE_PATH + "/integration/google-drive/files")
     Call<ResultList<GoogleDriveContent>> confirmAuthorisationCall(@Query("filter") String filter,
             @Query("parent") String parent, @Query("currentFolderOnly") Boolean currentFolderOnly);
 
@@ -63,10 +65,10 @@ public interface GoogleDriveAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
-    @GET("api/enterprise/integration/google-drive/confirm-auth-request")
+    @GET(PROCESS_SERVICE_PATH + "/integration/google-drive/confirm-auth-request")
     Observable<ResponseBody> confirmAuthorisationObservable();
 
-    @GET("api/enterprise/integration/google-drive/files")
+    @GET(PROCESS_SERVICE_PATH + "/integration/google-drive/files")
     Observable<ResultList<GoogleDriveContent>> confirmAuthorisationObservable(@Query("filter") String filter,
             @Query("parent") String parent, @Query("currentFolderOnly") Boolean currentFolderOnly);
 }

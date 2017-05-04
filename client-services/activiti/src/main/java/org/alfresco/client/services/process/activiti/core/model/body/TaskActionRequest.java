@@ -11,6 +11,14 @@ import com.google.gson.annotations.SerializedName;
  */
 public class TaskActionRequest
 {
+    public static final String ACTION_COMPLETE = "complete";
+
+    public static final String ACTION_CLAIM = "claim";
+
+    public static final String ACTION_DELEGATE = "delegate";
+
+    public static final String ACTION_RESOLVE = "resolve";
+
     @SerializedName("action")
     public final String action;
 
@@ -22,6 +30,14 @@ public class TaskActionRequest
 
     @SerializedName("transientVariables")
     public final List<RestVariable> transientVariables;
+
+    public TaskActionRequest(String action)
+    {
+        this.action = action;
+        this.assignee = null;
+        this.variables = null;
+        this.transientVariables = null;
+    }
 
     public TaskActionRequest(String action, String assignee, List<RestVariable> variables,
             List<RestVariable> transientVariables)

@@ -4,9 +4,9 @@ import static org.alfresco.client.services.process.activiti.core.ActivitiConstan
 
 import java.util.List;
 
+import org.alfresco.client.services.process.activiti.common.model.representation.ResultList;
 import org.alfresco.client.services.process.activiti.core.model.representation.DeploymentResourceResponse;
 import org.alfresco.client.services.process.activiti.core.model.representation.DeploymentResponse;
-import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -103,11 +103,14 @@ public interface DeploymentsAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments")
-    Call<ResultList<DeploymentResourceResponse>> getDeploymentsCall(@Query("name") String name,
+    Call<ResultList<DeploymentResponse>> getDeploymentsCall(@Query("name") String name,
             @Query("nameLike") String nameLike, @Query("category") String category,
             @Query("categoryNotEquals") String categoryNotEquals, @Query("tenantId") String tenantId,
             @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") String withoutTenantId,
             @Query("sort") String sort);
+
+    @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments")
+    Call<ResultList<DeploymentResponse>> getDeploymentsCall();
 
     /**
      * Create a new deployment The request body should contain data of type
@@ -118,7 +121,7 @@ public interface DeploymentsAPI
      * (form-field) can be passed in the request body with name tenantId. The
      * value of this field will be used as the id of the tenant this deployment
      * is done in.
-     * 
+     *
      * @param tenantId (optional)
      * @return DeploymentResponse
      */

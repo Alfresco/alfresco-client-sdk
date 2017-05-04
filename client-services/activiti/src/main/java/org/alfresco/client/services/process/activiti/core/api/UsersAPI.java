@@ -4,11 +4,11 @@ import static org.alfresco.client.services.process.activiti.core.ActivitiConstan
 
 import java.util.List;
 
+import org.alfresco.client.services.process.activiti.common.model.representation.ResultList;
 import org.alfresco.client.services.process.activiti.core.model.body.UserInfoRequest;
 import org.alfresco.client.services.process.activiti.core.model.body.UserRequest;
 import org.alfresco.client.services.process.activiti.core.model.representation.UserInfoResponse;
 import org.alfresco.client.services.process.activiti.core.model.representation.UserResponse;
-import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;

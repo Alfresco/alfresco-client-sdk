@@ -5,9 +5,9 @@ import static org.alfresco.client.services.process.activiti.core.ActivitiConstan
 import java.util.List;
 import java.util.Map;
 
+import org.alfresco.client.services.process.activiti.common.model.representation.ResultList;
 import org.alfresco.client.services.process.activiti.core.model.body.*;
 import org.alfresco.client.services.process.activiti.core.model.representation.*;
-import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -40,9 +40,9 @@ public interface TasksAPI
      * @param taskId The id of the task to create the attachment for. (required)
      * @return AttachmentResponse
      */
-    @Multipart
+    @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/attachments")
-    Call<AttachmentResponse> createAttachmentCall(@Path("taskId") String taskId, @Part("filedata") RequestBody file);
+    Call<AttachmentResponse> createAttachmentCall(@Path("taskId") String taskId, @Body AttachmentRequest request);
 
     @Multipart
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/attachments")
@@ -57,7 +57,7 @@ public interface TasksAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks")
-    Call<TaskResponse> createTaskCallCall(@Body TaskRequest body);
+    Call<TaskResponse> createTaskCall(@Body TaskRequest body);
 
     /**
      * Create a new comment on a task
@@ -321,8 +321,8 @@ public interface TasksAPI
      * @param body (optional)
      * @return DataResponse
      */
-    @GET(ACTIVITI_SERVICE_PATH + "/query/tasks")
-    Call<ResultList<TaskResponse>> getQueryResultCall(@Path("taskId") String taskId, @Body TaskQueryRequest body);
+    @POST(ACTIVITI_SERVICE_PATH + "/query/tasks")
+    Call<ResultList<TaskResponse>> getQueryResultCall(@Body TaskQueryRequest body);
 
     /**
      * Get list of sub tasks for a task
@@ -508,6 +508,9 @@ public interface TasksAPI
             @Query("includeProcessVariables") String includeProcessVariables, @Query("tenantId") String tenantId,
             @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") String withoutTenantId,
             @Query("candidateOrAssigned") String candidateOrAssigned, @Query("category") String category);
+
+    @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks")
+    Call<ResultList<TaskResponse>> getTasksCall();
 
     /**
      * Get all comments on a task
@@ -909,9 +912,8 @@ public interface TasksAPI
      * @param body (optional)
      * @return DataResponse
      */
-    @GET(ACTIVITI_SERVICE_PATH + "/query/tasks")
-    Observable<ResultList<TaskResponse>> getQueryResultObservable(@Path("taskId") String taskId,
-            @Body TaskQueryRequest body);
+    @POST(ACTIVITI_SERVICE_PATH + "/query/tasks")
+    Observable<ResultList<TaskResponse>> getQueryResultObservable(@Body TaskQueryRequest body);
 
     /**
      * Get list of sub tasks for a task

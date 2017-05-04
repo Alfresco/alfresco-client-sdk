@@ -5,9 +5,9 @@ import static org.alfresco.client.services.process.activiti.core.ActivitiConstan
 import java.util.List;
 import java.util.Map;
 
+import org.alfresco.client.services.process.activiti.common.model.representation.ResultList;
 import org.alfresco.client.services.process.activiti.core.model.representation.TableMetaData;
 import org.alfresco.client.services.process.activiti.core.model.representation.TableResponse;
-import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

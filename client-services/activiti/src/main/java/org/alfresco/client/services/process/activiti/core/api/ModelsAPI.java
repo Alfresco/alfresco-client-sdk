@@ -2,9 +2,9 @@ package org.alfresco.client.services.process.activiti.core.api;
 
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
+import org.alfresco.client.services.process.activiti.common.model.representation.ResultList;
 import org.alfresco.client.services.process.activiti.core.model.body.ModelRequest;
 import org.alfresco.client.services.process.activiti.core.model.representation.ModelResponse;
-import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 
 import retrofit2.Call;
 import retrofit2.http.*;
