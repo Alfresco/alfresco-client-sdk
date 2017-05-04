@@ -19,5 +19,6 @@
         <module>content-services</module>
         <module>governance-services</module>
         <module>process-services</module>
+        <module>activiti</module>
     </modules>
 </project>

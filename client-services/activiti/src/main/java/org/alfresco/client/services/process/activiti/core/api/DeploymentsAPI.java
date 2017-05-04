@@ -11,6 +11,7 @@ import org.alfresco.client.services.process.enterprise.common.model.representati
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.*;
+import rx.Observable;
 
 /**
  * Created by jpascal on 03/05/2017.
@@ -102,7 +103,7 @@ public interface DeploymentsAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments")
-    Call<ResultList<DeploymentResourceResponse>> getDeployments(@Query("name") String name,
+    Call<ResultList<DeploymentResourceResponse>> getDeploymentsCall(@Query("name") String name,
             @Query("nameLike") String nameLike, @Query("category") String category,
             @Query("categoryNotEquals") String categoryNotEquals, @Query("tenantId") String tenantId,
             @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") String withoutTenantId,
@@ -149,4 +150,115 @@ public interface DeploymentsAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Delete a deployment
+     *
+     * @param deploymentId The id of the deployment to delete. (required)
+     * @param cascade (optional)
+     */
+    @DELETE(ACTIVITI_SERVICE_PATH + "/repository/deployments{deploymentId}")
+    Observable<Void> deleteDeploymentObservable(@Path("deploymentId") String deploymentId,
+            @Query("cascade") Boolean cascade);
+
+    /**
+     * Get a deployment
+     *
+     * @param deploymentId The id of the deployment to get. (required)
+     * @return DeploymentResponse
+     */
+    @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments{deploymentId}")
+    Observable<DeploymentResponse> getDeploymentObservable(@Path("deploymentId") String deploymentId);
+
+    /**
+     * Get a deployment resource
+     *
+     * @param deploymentId The id of the deployment the requested resource is
+     *            part of. (required)
+     * @param resourceId The id of the resource the requested resource is part
+     *            of. (required)
+     * @return DeploymentResourceResponse
+     */
+    @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments/{deploymentId}/resources/{resourceId}")
+    Observable<DeploymentResourceResponse> getDeploymentResourceObservable(@Path("deploymentId") String deploymentId,
+            @Path("resourceId") String resourceId);
+
+    /**
+     * Get a deployment resource content The response body will contain the
+     * binary resource-content for the requested resource. The response
+     * content-type will be the same as the type returned in the resources
+     * mimeType property. Also, a content-disposition header is set, allowing
+     * browsers to download the file instead of displaying it.
+     *
+     * @param deploymentId The id of the deployment the requested resource is
+     *            part of. (required)
+     * @param resourceId The id of the resource to get the data for. Make sure
+     *            you URL-encode the resourceId in case it contains forward
+     *            slashes. Eg: use diagrams%2Fmy-process.bpmn20.xml instead of
+     *            diagrams/Fmy-process.bpmn20.xml. (required)
+     * @return RequestBody
+     */
+    @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments/{deploymentId}/resourcedata/{resourceId}")
+    Observable<RequestBody> getDeploymentResourceDataObservable(@Path("deploymentId") String deploymentId,
+            @Path("resourceId") String resourceId);
+
+    /**
+     * List resources in a deployment The dataUrl property in the resulting JSON
+     * for a single resource contains the actual URL to use for retrieving the
+     * binary resource.
+     *
+     * @param deploymentId The id of the deployment to get the resources for.
+     *            (required)
+     * @return List&lt;DeploymentResourceResponse&gt;
+     */
+    @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments/{deploymentId}/resources")
+    Observable<List<DeploymentResourceResponse>> getDeploymentResourcesObservable(
+            @Path("deploymentId") String deploymentId);
+
+    /**
+     * List of Deployments
+     *
+     * @param name Only return deployments with the given name. (optional)
+     * @param nameLike Only return deployments with a name like the given name.
+     *            (optional)
+     * @param category Only return deployments with the given category.
+     *            (optional)
+     * @param categoryNotEquals Only return deployments which don?t have the
+     *            given category. (optional)
+     * @param tenantId Only return deployments with the given tenantId.
+     *            (optional)
+     * @param tenantIdLike Only return deployments with a tenantId like the
+     *            given value. (optional)
+     * @param withoutTenantId If true, only returns deployments without a
+     *            tenantId set. If false, the withoutTenantId parameter is
+     *            ignored. (optional)
+     * @param sort Property to sort on, to be used together with the order.
+     *            (optional)
+     * @return DataResponse
+     */
+    @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments")
+    Observable<ResultList<DeploymentResourceResponse>> getDeploymentsObservable(@Query("name") String name,
+            @Query("nameLike") String nameLike, @Query("category") String category,
+            @Query("categoryNotEquals") String categoryNotEquals, @Query("tenantId") String tenantId,
+            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") String withoutTenantId,
+            @Query("sort") String sort);
+
+    /**
+     * Create a new deployment The request body should contain data of type
+     * multipart/form-data. There should be exactly one file in the request, any
+     * additional files will be ignored. If multiple resources need to be
+     * deployed in a single deployment, compress the resources in a zip and make
+     * sure the file-name ends with .bar or .zip. An additional parameter
+     * (form-field) can be passed in the request body with name tenantId. The
+     * value of this field will be used as the id of the tenant this deployment
+     * is done in.
+     *
+     * @param tenantId (optional)
+     * @return DeploymentResponse
+     */
+    @Multipart
+    @POST(ACTIVITI_SERVICE_PATH + "/repository/deployments")
+    Observable<DeploymentResponse> uploadDeploymentObservable(@Part("file") RequestBody file,
+            @Query("tenantId") String tenantId);
+
 }

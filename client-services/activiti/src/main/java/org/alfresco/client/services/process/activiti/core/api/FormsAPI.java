@@ -2,34 +2,42 @@ package org.alfresco.client.services.process.activiti.core.api;
 
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
-import java.util.Map;
-
-import org.alfresco.client.services.process.activiti.core.model.representation.ProcessEngineInfoResponse;
+import org.alfresco.client.services.process.activiti.core.model.body.SubmitFormRequest;
+import org.alfresco.client.services.process.activiti.core.model.representation.FormDataResponse;
+import org.alfresco.client.services.process.activiti.core.model.representation.ProcessInstanceResponse;
 
 import retrofit2.Call;
-import retrofit2.http.GET;
+import retrofit2.http.*;
+import rx.Observable;
 
 /**
  * Created by jpascal on 03/05/2017.
  */
-public interface EngineAPI
+public interface FormsAPI
 {
 
     /**
-     * Get engine info
+     * Get form data
      *
-     * @return ProcessEngineInfoResponse
+     * @param taskId The task id corresponding to the form data that needs to be
+     *            retrieved. (optional)
+     * @param processDefinitionId The process definition id corresponding to the
+     *            start event form data that needs to be retrieved. (optional)
+     * @return FormDataResponse
      */
-    @GET(ACTIVITI_SERVICE_PATH + "/management/engine")
-    Call<ProcessEngineInfoResponse> getEngineInfoCall();
+    @GET(ACTIVITI_SERVICE_PATH + "/form/form-data")
+    Call<FormDataResponse> getFormDataCall(@Query("taskId") String taskId,
+            @Query("processDefinitionId") String processDefinitionId);
 
     /**
-     * Get engine properties
+     * Submit task form data
      *
-     * @return Map&lt;String, String&gt;
+     * @param body (optional)
+     * @return ProcessInstanceResponse
      */
-    @GET(ACTIVITI_SERVICE_PATH + "/management/properties")
-    Call<Map<String, String>> getPropertiesCall();
+    @Headers({ "Content-type: application/json" })
+    @POST(ACTIVITI_SERVICE_PATH + "/form/form-data")
+    Call<ProcessInstanceResponse> getPropertiesCall(@Body SubmitFormRequest body);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -55,4 +63,27 @@ public interface EngineAPI
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Get form data
+     *
+     * @param taskId The task id corresponding to the form data that needs to be
+     *            retrieved. (optional)
+     * @param processDefinitionId The process definition id corresponding to the
+     *            start event form data that needs to be retrieved. (optional)
+     * @return FormDataResponse
+     */
+    @GET(ACTIVITI_SERVICE_PATH + "/form/form-data")
+    Observable<FormDataResponse> getFormDataObservable(@Query("taskId") String taskId,
+            @Query("processDefinitionId") String processDefinitionId);
+
+    /**
+     * Submit task form data
+     *
+     * @param body (optional)
+     * @return ProcessInstanceResponse
+     */
+    @Headers({ "Content-type: application/json" })
+    @POST(ACTIVITI_SERVICE_PATH + "/form/form-data")
+    Observable<ProcessInstanceResponse> getPropertiesObservable(@Body SubmitFormRequest body);
 }
