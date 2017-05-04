@@ -26,6 +26,7 @@ If you are a developer trying to interact with more than one Alfresco Services h
     * **[Alfresco Content Services Client](client-services/content-services)** set of APIs to interact with Content Services Public API 1.0 (CS 5.2+)
     * **[Alfresco Governance Services Client](client-services/governance-services)** set of APIs to interact with Governance Services Public API 1.0 (GS 2.6+)
     * **[Alfresco Process Services Client](client-services/process-services)** set of APIs to interact with Alfresco Process Services Public API (PS 1.5+)
+    * **[Alfresco Activiti](client-services/activiti)** set of APIs to interact with Activiti REST API (Activiti 5.20)
 - **Client Samples**
     * **[Client Samples Java](samples/client-samples-java)** Sample simple project using different java technique: java7, java8, RxJava...
     * **[Client Samples Command Line Tool](samples/client-samples-cli)** Illustrate how to use Client API as command Line tool.
