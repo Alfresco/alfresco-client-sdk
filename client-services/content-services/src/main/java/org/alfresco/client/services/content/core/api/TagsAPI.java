@@ -18,11 +18,12 @@
 
 package org.alfresco.client.services.content.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
 import org.alfresco.client.services.content.core.model.body.TagBody;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
 import org.alfresco.client.services.content.core.model.representation.TagRepresentation;
 
 import retrofit2.Call;
@@ -41,7 +42,7 @@ public interface TagsAPI
      * @return ResultPaging<TagRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
-    Call<ResultPaging<TagRepresentation>> listTagsForNodeCall(@Path("nodeId") String nodeId);
+    Call<ResultPaging<TagRepresentation>> listTagsForNodeCall(@Path(NODE_ID) String nodeId);
 
     /**
      * Get tags Returns a list of tags for node **nodeId**.
@@ -62,10 +63,9 @@ public interface TagsAPI
      * @return ResultPaging<TagRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
-    Call<ResultPaging<TagRepresentation>> listTagsForNodeCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<TagRepresentation>> listTagsForNodeCall(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LISTING
@@ -96,9 +96,8 @@ public interface TagsAPI
      * @return ResultPaging<TagRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/tags")
-    Call<ResultPaging<TagRepresentation>> listTagsCall(@Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<TagRepresentation>> listTagsCall(@Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -125,7 +124,7 @@ public interface TagsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
-    Call<TagRepresentation> createTagForNodeCall(@Path("nodeId") String nodeId, @Body TagBody tagBody);
+    Call<TagRepresentation> createTagForNodeCall(@Path(NODE_ID) String nodeId, @Body TagBody tagBody);
 
     /**
      * Add a tag Adds a tag to the node **nodeId**. You specify the tag in a
@@ -157,8 +156,8 @@ public interface TagsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
-    Call<TagRepresentation> createTagForNodeCall(@Path("nodeId") String nodeId, @Body TagBody tagBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<TagRepresentation> createTagForNodeCall(@Path(NODE_ID) String nodeId, @Body TagBody tagBody,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Add tags Adds a tag to the node **nodeId**. You specify the tag in a JSON
@@ -182,7 +181,7 @@ public interface TagsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
-    Call<ResultPaging<TagRepresentation>> createTagsForNodeCall(@Path("nodeId") String nodeId, @Body TagBody[] tagBody);
+    Call<ResultPaging<TagRepresentation>> createTagsForNodeCall(@Path(NODE_ID) String nodeId, @Body TagBody[] tagBody);
 
     /**
      * Add tags Adds a tag to the node **nodeId**. You specify the tag in a JSON
@@ -214,8 +213,8 @@ public interface TagsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
-    Call<ResultPaging<TagRepresentation>> createTagsForNodeCall(@Path("nodeId") String nodeId, @Body TagBody[] tagBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<TagRepresentation>> createTagsForNodeCall(@Path(NODE_ID) String nodeId, @Body TagBody[] tagBody,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO
@@ -227,7 +226,7 @@ public interface TagsAPI
      * @return TagRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/tags/{tagId}")
-    Call<TagRepresentation> getTagCall(@Path("tagId") String tagId);
+    Call<TagRepresentation> getTagCall(@Path(TAG_ID) String tagId);
 
     /**
      * Get a tag Return a specific tag with **tagId**.
@@ -244,8 +243,7 @@ public interface TagsAPI
      * @return TagRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/tags/{tagId}")
-    Call<TagRepresentation> getTagCall(@Path("tagId") String tagId,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<TagRepresentation> getTagCall(@Path(TAG_ID) String tagId, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // EDIT
@@ -259,8 +257,8 @@ public interface TagsAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/tags/{tagId}")
-    Call<TagRepresentation> updateTagCall(@Path("tagId") String tagId, @Body TagBody tagBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<TagRepresentation> updateTagCall(@Path(TAG_ID) String tagId, @Body TagBody tagBody,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -272,7 +270,7 @@ public interface TagsAPI
      * @param tagId The identifier of a tag. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags/{tagId}")
-    Call<Void> deleteTagFromNodeCall(@Path("nodeId") String nodeId, @Path("tagId") String tagId);
+    Call<Void> deleteTagFromNodeCall(@Path(NODE_ID) String nodeId, @Path(TAG_ID) String tagId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -310,7 +308,7 @@ public interface TagsAPI
      * @return ResultPaging<TagRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
-    Observable<ResultPaging<TagRepresentation>> ListTagsForNodeObservable(@Path("nodeId") String nodeId);
+    Observable<ResultPaging<TagRepresentation>> ListTagsForNodeObservable(@Path(NODE_ID) String nodeId);
 
     /**
      * Get tags Returns a list of tags for node **nodeId**.
@@ -331,10 +329,9 @@ public interface TagsAPI
      * @return ResultPaging<TagRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
-    Observable<ResultPaging<TagRepresentation>> ListTagsForNodeObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<TagRepresentation>> ListTagsForNodeObservable(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LISTING
@@ -366,10 +363,8 @@ public interface TagsAPI
      * @return ResultPaging<TagRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/tags")
-    Observable<ResultPaging<TagRepresentation>> listTagsObservable(
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<TagRepresentation>> listTagsObservable(@Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -405,8 +400,8 @@ public interface TagsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
-    Observable<TagRepresentation> createTagForNodeObservable(@Path("nodeId") String nodeId, @Body TagBody tagBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<TagRepresentation> createTagForNodeObservable(@Path(NODE_ID) String nodeId, @Body TagBody tagBody,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Add a tag Adds a tag to the node **nodeId**. You specify the tag in a
@@ -430,7 +425,7 @@ public interface TagsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
-    Observable<TagRepresentation> createTagForNodeObservable(@Path("nodeId") String nodeId, @Body TagBody tagBody);
+    Observable<TagRepresentation> createTagForNodeObservable(@Path(NODE_ID) String nodeId, @Body TagBody tagBody);
 
     /**
      * Add tags Adds a tag to the node **nodeId**. You specify the tag in a JSON
@@ -462,8 +457,8 @@ public interface TagsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
-    Observable<ResultPaging<TagRepresentation>> createTagsForNodeObservable(@Path("nodeId") String nodeId,
-            @Body TagBody[] tagBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<TagRepresentation>> createTagsForNodeObservable(@Path(NODE_ID) String nodeId,
+            @Body TagBody[] tagBody, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Add tags Adds a tag to the node **nodeId**. You specify the tag in a JSON
@@ -487,7 +482,7 @@ public interface TagsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags")
-    Observable<ResultPaging<TagRepresentation>> createTagsForNodeObservable(@Path("nodeId") String nodeId,
+    Observable<ResultPaging<TagRepresentation>> createTagsForNodeObservable(@Path(NODE_ID) String nodeId,
             @Body TagBody[] tagBody);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -501,7 +496,7 @@ public interface TagsAPI
      * @return TagRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/tags/{tagId}")
-    Observable<TagRepresentation> getTagObservable(@Path("tagId") String tagId);
+    Observable<TagRepresentation> getTagObservable(@Path(TAG_ID) String tagId);
 
     /**
      * Get a tag Return a specific tag with **tagId**.
@@ -518,8 +513,7 @@ public interface TagsAPI
      * @return TagRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/tags/{tagId}")
-    Observable<TagRepresentation> getTagObservable(@Path("tagId") String tagId,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<TagRepresentation> getTagObservable(@Path(TAG_ID) String tagId, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // EDIT
@@ -534,8 +528,8 @@ public interface TagsAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/tags/{tagId}")
-    Observable<TagRepresentation> updateTagObservable(@Path("tagId") String tagId, @Body TagBody tagBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<TagRepresentation> updateTagObservable(@Path(TAG_ID) String tagId, @Body TagBody tagBody,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -548,6 +542,6 @@ public interface TagsAPI
      * @param tagId The identifier of a tag. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/tags/{tagId}")
-    Observable<Void> deleteTagFromNodeObservable(@Path("nodeId") String nodeId, @Path("tagId") String tagId);
+    Observable<Void> deleteTagFromNodeObservable(@Path(NODE_ID) String nodeId, @Path(TAG_ID) String tagId);
 
 }

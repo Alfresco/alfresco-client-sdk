@@ -24,10 +24,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.alfresco.client.services.CSAPITestCase;
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.api.CommentsAPI;
 import org.alfresco.client.services.content.core.model.body.CommentBody;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
 import org.alfresco.client.services.content.core.model.representation.CommentRepresentation;
 import org.alfresco.client.services.content.core.model.representation.NodeRepresentation;
 import org.testng.Assert;

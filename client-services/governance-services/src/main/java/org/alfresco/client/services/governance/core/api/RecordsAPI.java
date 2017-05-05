@@ -18,12 +18,13 @@
 
 package org.alfresco.client.services.governance.core.api;
 
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
 import java.util.Date;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
 import org.alfresco.client.services.content.core.CoreConstant;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
 import org.alfresco.client.services.governance.core.GovernanceConstant;
 import org.alfresco.client.services.governance.core.model.body.RMNodeBodyUpdate;
 import org.alfresco.client.services.governance.core.model.body.RecordBodyFile;
@@ -47,7 +48,7 @@ public interface RecordsAPI
      * @return RecordRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/records/{recordId}")
-    Call<RecordRepresentation> getRecordCall(@Path("recordId") String recordId);
+    Call<RecordRepresentation> getRecordCall(@Path(RECORD_ID) String recordId);
 
     /**
      * Get a record Get information for record **recordId** Besides mandatory
@@ -69,9 +70,8 @@ public interface RecordsAPI
      * @return RecordRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/records/{recordId}")
-    Call<RecordRepresentation> getRecordCall(@Path("recordId") String recordId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RecordRepresentation> getRecordCall(@Path(RECORD_ID) String recordId, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // GET CONTENT
@@ -84,7 +84,7 @@ public interface RecordsAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/records/{recordId}/content")
-    Call<ResponseBody> getRecordContentCall(@Path("recordId") String recordId);
+    Call<ResponseBody> getRecordContentCall(@Path(RECORD_ID) String recordId);
 
     /**
      * Get record content Gets the content of the record with identifier
@@ -107,8 +107,8 @@ public interface RecordsAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/records/{recordId}/content")
-    Call<ResponseBody> getRecordContentCall(@Path("recordId") String recordId, @Query("attachment") Boolean attachment,
-            @Header("If-Modified-Since") Date ifModifiedSince);
+    Call<ResponseBody> getRecordContentCall(@Path(RECORD_ID) String recordId, @Query(ATTACHMENT) Boolean attachment,
+            @Header(IF_MODIFIED_SINCE) Date ifModifiedSince);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -125,7 +125,7 @@ public interface RecordsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/records/{recordId}")
-    Call<RecordRepresentation> fileRecordCall(@Path("recordId") String recordId, @Body RecordBodyFile nodeBodyFile);
+    Call<RecordRepresentation> fileRecordCall(@Path(RECORD_ID) String recordId, @Body RecordBodyFile nodeBodyFile);
 
     /**
      * File a record Files the record **recordId** in the target record folder.
@@ -151,9 +151,8 @@ public interface RecordsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/records/{recordId}")
-    Call<RecordRepresentation> fileRecordCall(@Path("recordId") String recordId, @Body RecordBodyFile nodeBodyFile,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RecordRepresentation> fileRecordCall(@Path(RECORD_ID) String recordId, @Body RecordBodyFile nodeBodyFile,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -176,7 +175,7 @@ public interface RecordsAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/records/{recordId}")
-    Call<RecordRepresentation> updateRecordCall(@Path("recordId") String recordId,
+    Call<RecordRepresentation> updateRecordCall(@Path(RECORD_ID) String recordId,
             @Body RMNodeBodyUpdate recordBodyUpdate);
 
     /**
@@ -209,9 +208,9 @@ public interface RecordsAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/records/{recordId}")
-    Call<RecordRepresentation> updateRecordCall(@Path("recordId") String recordId,
-            @Body RMNodeBodyUpdate recordBodyUpdate, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RecordRepresentation> updateRecordCall(@Path(RECORD_ID) String recordId,
+            @Body RMNodeBodyUpdate recordBodyUpdate, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -222,7 +221,7 @@ public interface RecordsAPI
      * @param recordId The identifier of a record. (required)
      */
     @DELETE(GovernanceConstant.GS_PUBLIC_API_V1 + "/records/{recordId}")
-    Call<Void> deleteRecordCall(@Path("recordId") String recordId);
+    Call<Void> deleteRecordCall(@Path(RECORD_ID) String recordId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -259,7 +258,7 @@ public interface RecordsAPI
      * @return RecordRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/records/{recordId}")
-    Observable<RecordRepresentation> getRecordObservable(@Path("recordId") String recordId);
+    Observable<RecordRepresentation> getRecordObservable(@Path(RECORD_ID) String recordId);
 
     /**
      * Get a record Get information for record **recordId** Besides mandatory
@@ -281,9 +280,8 @@ public interface RecordsAPI
      * @return RecordRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/records/{recordId}")
-    Observable<RecordRepresentation> getRecordObservable(@Path("recordId") String recordId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<RecordRepresentation> getRecordObservable(@Path(RECORD_ID) String recordId,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // GET CONTENT
@@ -296,7 +294,7 @@ public interface RecordsAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/records/{recordId}/content")
-    Observable<ResponseBody> getRecordContentObservable(@Path("recordId") String recordId);
+    Observable<ResponseBody> getRecordContentObservable(@Path(RECORD_ID) String recordId);
 
     /**
      * Get record content Gets the content of the record with identifier
@@ -319,8 +317,8 @@ public interface RecordsAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/records/{recordId}/content")
-    Observable<ResponseBody> getRecordContentObservable(@Path("recordId") String recordId,
-            @Query("attachment") Boolean attachment, @Header("If-Modified-Since") Date ifModifiedSince);
+    Observable<ResponseBody> getRecordContentObservable(@Path(RECORD_ID) String recordId,
+            @Query(ATTACHMENT) Boolean attachment, @Header(IF_MODIFIED_SINCE) Date ifModifiedSince);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -337,7 +335,7 @@ public interface RecordsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/records/{recordId}")
-    Observable<RecordRepresentation> fileRecordObservable(@Path("recordId") String recordId,
+    Observable<RecordRepresentation> fileRecordObservable(@Path(RECORD_ID) String recordId,
             @Body RecordBodyFile nodeBodyFile);
 
     /**
@@ -364,9 +362,8 @@ public interface RecordsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/records/{recordId}")
-    Observable<RecordRepresentation> fileRecordObservable(@Path("recordId") String recordId,
-            @Body RecordBodyFile nodeBodyFile, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<RecordRepresentation> fileRecordObservable(@Path(RECORD_ID) String recordId,
+            @Body RecordBodyFile nodeBodyFile, @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -389,7 +386,7 @@ public interface RecordsAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/records/{recordId}")
-    Observable<RecordRepresentation> updateRecordObservable(@Path("recordId") String recordId,
+    Observable<RecordRepresentation> updateRecordObservable(@Path(RECORD_ID) String recordId,
             @Body RMNodeBodyUpdate recordBodyUpdate);
 
     /**
@@ -422,9 +419,9 @@ public interface RecordsAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/records/{recordId}")
-    Observable<RecordRepresentation> updateRecordObservable(@Path("recordId") String recordId,
-            @Body RMNodeBodyUpdate recordBodyUpdate, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<RecordRepresentation> updateRecordObservable(@Path(RECORD_ID) String recordId,
+            @Body RMNodeBodyUpdate recordBodyUpdate, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -435,5 +432,5 @@ public interface RecordsAPI
      * @param recordId The identifier of a record. (required)
      */
     @DELETE(GovernanceConstant.GS_PUBLIC_API_V1 + "/records/{recordId}")
-    Observable<Void> deleteRecordObservable(@Path("recordId") String recordId);
+    Observable<Void> deleteRecordObservable(@Path(RECORD_ID) String recordId);
 }

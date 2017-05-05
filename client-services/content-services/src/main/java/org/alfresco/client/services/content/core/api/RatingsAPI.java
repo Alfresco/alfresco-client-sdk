@@ -18,11 +18,12 @@
 
 package org.alfresco.client.services.content.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
 import org.alfresco.client.services.content.core.model.body.RatingBody;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
 import org.alfresco.client.services.content.core.model.representation.RatingRepresentation;
 
 import retrofit2.Call;
@@ -45,7 +46,7 @@ public interface RatingsAPI
      * @return ResultPaging<RatingRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings")
-    Call<ResultPaging<RatingRepresentation>> listRatingsCall(@Path("nodeId") String nodeId);
+    Call<ResultPaging<RatingRepresentation>> listRatingsCall(@Path(NODE_ID) String nodeId);
 
     /**
      * Get ratings Get the ratings for node **nodeId**.
@@ -66,10 +67,9 @@ public interface RatingsAPI
      * @return RatingPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings")
-    Call<ResultPaging<RatingRepresentation>> listRatingsCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<RatingRepresentation>> listRatingsCall(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -88,7 +88,7 @@ public interface RatingsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings")
-    Call<RatingRepresentation> rateNodeCall(@Path("nodeId") String nodeId, @Body RatingBody ratingBody);
+    Call<RatingRepresentation> rateNodeCall(@Path(NODE_ID) String nodeId, @Body RatingBody ratingBody);
 
     /**
      * Rate Rate the node with identifier **nodeId**
@@ -112,8 +112,8 @@ public interface RatingsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings")
-    Call<RatingRepresentation> rateNodeCall(@Path("nodeId") String nodeId, @Body RatingBody ratingBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RatingRepresentation> rateNodeCall(@Path(NODE_ID) String nodeId, @Body RatingBody ratingBody,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // GET
@@ -126,7 +126,7 @@ public interface RatingsAPI
      * @return RatingEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings/{ratingId}")
-    Call<RatingRepresentation> getRatingCall(@Path("nodeId") String nodeId, @Path("ratingId") String ratingId);
+    Call<RatingRepresentation> getRatingCall(@Path(NODE_ID) String nodeId, @Path(RATING_ID) String ratingId);
 
     /**
      * Get a rating Get the specific rating **ratingId** on node **nodeId**.
@@ -144,7 +144,7 @@ public interface RatingsAPI
      * @return RatingEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings/{ratingId}")
-    Call<RatingRepresentation> getRatingCall(@Path("nodeId") String nodeId, @Path("ratingId") String ratingId,
+    Call<RatingRepresentation> getRatingCall(@Path(NODE_ID) String nodeId, @Path(RATING_ID) String ratingId,
             String fields);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -157,7 +157,7 @@ public interface RatingsAPI
      * @param ratingId The identifier of a rating. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings/{ratingId}")
-    Call<Void> deleteRatingCall(@Path("nodeId") String nodeId, @Path("ratingId") String ratingId);
+    Call<Void> deleteRatingCall(@Path(NODE_ID) String nodeId, @Path(RATING_ID) String ratingId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -195,7 +195,7 @@ public interface RatingsAPI
      * @return ResultPaging<RatingRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings")
-    Observable<ResultPaging<RatingRepresentation>> listRatingsObservable(@Path("nodeId") String nodeId);
+    Observable<ResultPaging<RatingRepresentation>> listRatingsObservable(@Path(NODE_ID) String nodeId);
 
     /**
      * Get ratings Get the ratings for node **nodeId**.
@@ -216,10 +216,9 @@ public interface RatingsAPI
      * @return RatingPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings")
-    Observable<ResultPaging<RatingRepresentation>> listRatingsObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<RatingRepresentation>> listRatingsObservable(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -239,7 +238,7 @@ public interface RatingsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings")
-    Observable<RatingRepresentation> rateNodeObservable(@Path("nodeId") String nodeId, @Body RatingBody ratingBody);
+    Observable<RatingRepresentation> rateNodeObservable(@Path(NODE_ID) String nodeId, @Body RatingBody ratingBody);
 
     /**
      * Rate Rate the node with identifier **nodeId**
@@ -263,8 +262,8 @@ public interface RatingsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings")
-    Observable<RatingRepresentation> rateNodeObservable(@Path("nodeId") String nodeId, @Body RatingBody ratingBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<RatingRepresentation> rateNodeObservable(@Path(NODE_ID) String nodeId, @Body RatingBody ratingBody,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // GET
@@ -278,8 +277,8 @@ public interface RatingsAPI
      * @return RatingEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings/{ratingId}")
-    Observable<RatingRepresentation> getRatingObservable(@Path("nodeId") String nodeId,
-            @Path("ratingId") String ratingId);
+    Observable<RatingRepresentation> getRatingObservable(@Path(NODE_ID) String nodeId,
+            @Path(RATING_ID) String ratingId);
 
     /**
      * Get a rating Get the specific rating **ratingId** on node **nodeId**.
@@ -297,8 +296,8 @@ public interface RatingsAPI
      * @return RatingEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings/{ratingId}")
-    Observable<RatingRepresentation> getRatingObservable(@Path("nodeId") String nodeId,
-            @Path("ratingId") String ratingId, String fields);
+    Observable<RatingRepresentation> getRatingObservable(@Path(NODE_ID) String nodeId, @Path(RATING_ID) String ratingId,
+            String fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -311,6 +310,6 @@ public interface RatingsAPI
      * @param ratingId The identifier of a rating. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/ratings/{ratingId}")
-    Observable<Void> deleteRatingObservable(@Path("nodeId") String nodeId, @Path("ratingId") String ratingId);
+    Observable<Void> deleteRatingObservable(@Path(NODE_ID) String nodeId, @Path(RATING_ID) String ratingId);
 
 }

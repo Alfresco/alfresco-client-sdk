@@ -19,6 +19,7 @@
 package org.alfresco.client.services.process.enterprise.integration.api;
 
 import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+import static org.alfresco.client.services.process.enterprise.common.constant.RequestConstant.*;
 
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.integration.model.representation.AlfrescoContentRepresentation;
@@ -44,15 +45,15 @@ public interface AlfrescoContentServicesCloudAPI
     Call<ResultList<AlfrescoNetworkRepresenation>> getAllNetworksCall();
 
     @GET(PROCESS_SERVICE_PATH + "/integration/alfresco-cloud/networks/{networkId}/sites")
-    Call<ResultList<AlfrescoSiteRepresenation>> getAllSitesCall(@Path("networkId") String networkId);
+    Call<ResultList<AlfrescoSiteRepresenation>> getAllSitesCall(@Path(NETWORK_ID) String networkId);
 
     @GET(PROCESS_SERVICE_PATH + "/integration/alfresco-cloud/networks/{networkId}/sites/{siteId}/content")
-    Call<ResultList<AlfrescoContentRepresentation>> getContentInSiteCall(@Path("networkId") String networkId,
-            @Path("siteId") String siteId);
+    Call<ResultList<AlfrescoContentRepresentation>> getContentInSiteCall(@Path(NETWORK_ID) String networkId,
+            @Path(SITE_ID) String siteId);
 
     @GET(PROCESS_SERVICE_PATH + "/integration/alfresco-cloud/networks/{networkId}/folders/{folderId}/content")
-    Call<ResultList<AlfrescoContentRepresentation>> getContentInFolderCall(@Path("repositoryId") String repositoryId,
-            @Path("folderId") String folderId);
+    Call<ResultList<AlfrescoContentRepresentation>> getContentInFolderCall(@Path(REPOSITORY_ID) String repositoryId,
+            @Path(FOLDER_ID) String folderId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -85,13 +86,13 @@ public interface AlfrescoContentServicesCloudAPI
     Observable<ResultList<AlfrescoNetworkRepresenation>> getAllNetworksObservable();
 
     @GET(PROCESS_SERVICE_PATH + "/integration/alfresco-cloud/networks/{networkId}/sites")
-    Observable<ResultList<AlfrescoSiteRepresenation>> getAllSitesObservable(@Path("networkId") String networkId);
+    Observable<ResultList<AlfrescoSiteRepresenation>> getAllSitesObservable(@Path(NETWORK_ID) String networkId);
 
     @GET(PROCESS_SERVICE_PATH + "/integration/alfresco-cloud/networks/{networkId}/sites/{siteId}/content")
     Observable<ResultList<AlfrescoContentRepresentation>> getContentInSiteObservable(
-            @Path("networkId") String networkId, @Path("siteId") String siteId);
+            @Path(NETWORK_ID) String networkId, @Path(SITE_ID) String siteId);
 
     @GET(PROCESS_SERVICE_PATH + "/integration/alfresco-cloud/networks/{networkId}/folders/{folderId}/content")
     Observable<ResultList<AlfrescoContentRepresentation>> getContentInFolderObservable(
-            @Path("repositoryId") String repositoryId, @Path("folderId") String folderId);
+            @Path(REPOSITORY_ID) String repositoryId, @Path(FOLDER_ID) String folderId);
 }

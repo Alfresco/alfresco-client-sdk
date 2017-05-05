@@ -18,10 +18,11 @@
 
 package org.alfresco.client.services.content.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
 import org.alfresco.client.services.content.core.model.representation.PreferenceRepresentation;
 
 import retrofit2.Call;
@@ -46,7 +47,7 @@ public interface PreferencesAPI
      * @return ResultPaging<PreferenceRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/preferences")
-    Call<ResultPaging<PreferenceRepresentation>> listPreferencesCall(@Path("personId") String personId);
+    Call<ResultPaging<PreferenceRepresentation>> listPreferencesCall(@Path(PERSON_ID) String personId);
 
     /**
      * Get preferences Returns a list of preferences for person **personId**.
@@ -71,10 +72,9 @@ public interface PreferencesAPI
      * @return ResultPaging<PreferenceRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/preferences")
-    Call<ResultPaging<PreferenceRepresentation>> listPreferencesCall(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<PreferenceRepresentation>> listPreferencesCall(@Path(PERSON_ID) String personId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Get a preference Returns a specific preference for person **personId**.
@@ -86,8 +86,8 @@ public interface PreferencesAPI
      * @return PreferenceEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/preferences/{preferenceName}")
-    Call<PreferenceRepresentation> getPreferenceCall(@Path("personId") String personId,
-            @Path("preferenceName") String preferenceName);
+    Call<PreferenceRepresentation> getPreferenceCall(@Path(PERSON_ID) String personId,
+            @Path(PREFERENCE_NAME) String preferenceName);
 
     /**
      * Get a preference Returns a specific preference for person **personId**.
@@ -107,8 +107,8 @@ public interface PreferencesAPI
      * @return PreferenceRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/preferences/{preferenceName}")
-    Call<PreferenceRepresentation> getPreferenceCall(@Path("personId") String personId,
-            @Path("preferenceName") String preferenceName, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<PreferenceRepresentation> getPreferenceCall(@Path(PERSON_ID) String personId,
+            @Path(PREFERENCE_NAME) String preferenceName, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -150,7 +150,7 @@ public interface PreferencesAPI
      * @return ResultPaging<PreferenceRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/preferences")
-    Observable<ResultPaging<PreferenceRepresentation>> listPreferencesObservable(@Path("personId") String personId);
+    Observable<ResultPaging<PreferenceRepresentation>> listPreferencesObservable(@Path(PERSON_ID) String personId);
 
     /**
      * Get preferences Returns a list of preferences for person **personId**.
@@ -175,10 +175,9 @@ public interface PreferencesAPI
      * @return ResultPaging<PreferenceRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/preferences")
-    Observable<ResultPaging<PreferenceRepresentation>> listPreferencesObservable(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<PreferenceRepresentation>> listPreferencesObservable(@Path(PERSON_ID) String personId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Get a preference Returns a specific preference for person **personId**.
@@ -190,8 +189,8 @@ public interface PreferencesAPI
      * @return PreferenceEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/preferences/{preferenceName}")
-    Observable<PreferenceRepresentation> getPreferenceObservable(@Path("personId") String personId,
-            @Path("preferenceName") String preferenceName);
+    Observable<PreferenceRepresentation> getPreferenceObservable(@Path(PERSON_ID) String personId,
+            @Path(PREFERENCE_NAME) String preferenceName);
 
     /**
      * Get a preference Returns a specific preference for person **personId**.
@@ -211,7 +210,7 @@ public interface PreferencesAPI
      * @return PreferenceRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/preferences/{preferenceName}")
-    Observable<PreferenceRepresentation> getPreferenceObservable(@Path("personId") String personId,
-            @Path("preferenceName") String preferenceName, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<PreferenceRepresentation> getPreferenceObservable(@Path(PERSON_ID) String personId,
+            @Path(PREFERENCE_NAME) String preferenceName, @Query(FIELDS) FieldsParam fields);
 
 }

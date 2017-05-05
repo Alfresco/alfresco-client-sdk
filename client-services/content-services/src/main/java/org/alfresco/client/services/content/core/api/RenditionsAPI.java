@@ -18,6 +18,8 @@
 
 package org.alfresco.client.services.content.core.api;
 
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
 import java.util.Date;
 
 import org.alfresco.client.services.common.model.representation.ResultPaging;
@@ -47,7 +49,7 @@ public interface RenditionsAPI
      * @return RenditionPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions")
-    Call<ResultPaging<RenditionRepresentation>> listRenditionsCall(@Path("nodeId") String nodeId);
+    Call<ResultPaging<RenditionRepresentation>> listRenditionsCall(@Path(NODE_ID) String nodeId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -64,7 +66,7 @@ public interface RenditionsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions")
-    Call<Void> createRenditionCall(@Path("nodeId") String nodeId, @Body RenditionBodyCreate renditionBodyCreate);
+    Call<Void> createRenditionCall(@Path(NODE_ID) String nodeId, @Body RenditionBodyCreate renditionBodyCreate);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO
@@ -79,8 +81,8 @@ public interface RenditionsAPI
      * @return RenditionRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions/{renditionId}")
-    Call<RenditionRepresentation> getRenditionCall(@Path("nodeId") String nodeId,
-            @Path("renditionId") String renditionId);
+    Call<RenditionRepresentation> getRenditionCall(@Path(NODE_ID) String nodeId,
+            @Path(RENDITION_ID) String renditionId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CONTENT
@@ -95,7 +97,7 @@ public interface RenditionsAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions/{renditionId}/content")
-    Call<ResponseBody> getRenditionContentCall(@Path("nodeId") String nodeId, @Path("renditionId") String renditionId);
+    Call<ResponseBody> getRenditionContentCall(@Path(NODE_ID) String nodeId, @Path(RENDITION_ID) String renditionId);
 
     /**
      * Get rendition content Returns the rendition content for file node with
@@ -120,8 +122,8 @@ public interface RenditionsAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions/{renditionId}/content")
-    Call<ResponseBody> getRenditionContentCall(@Path("nodeId") String nodeId, @Path("renditionId") String renditionId,
-            @Query("attachment") Boolean attachment, @Header("If-Modified-Since") Date ifModifiedSince);
+    Call<ResponseBody> getRenditionContentCall(@Path(NODE_ID) String nodeId, @Path(RENDITION_ID) String renditionId,
+            @Query(ATTACHMENT) Boolean attachment, @Header(IF_MODIFIED_SINCE) Date ifModifiedSince);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -163,7 +165,7 @@ public interface RenditionsAPI
      * @return RenditionPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions")
-    Observable<ResultPaging<RenditionRepresentation>> listRenditionsObservable(@Path("nodeId") String nodeId);
+    Observable<ResultPaging<RenditionRepresentation>> listRenditionsObservable(@Path(NODE_ID) String nodeId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -181,7 +183,7 @@ public interface RenditionsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions")
-    Observable<Void> createRenditionObservable(@Path("nodeId") String nodeId,
+    Observable<Void> createRenditionObservable(@Path(NODE_ID) String nodeId,
             @Body RenditionBodyCreate renditionBodyCreate);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -198,8 +200,8 @@ public interface RenditionsAPI
      * @return RenditionRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions/{renditionId}")
-    Observable<RenditionRepresentation> getRenditionObservable(@Path("nodeId") String nodeId,
-            @Path("renditionId") String renditionId);
+    Observable<RenditionRepresentation> getRenditionObservable(@Path(NODE_ID) String nodeId,
+            @Path(RENDITION_ID) String renditionId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CONTENT
@@ -215,8 +217,8 @@ public interface RenditionsAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions/{renditionId}/content")
-    Observable<ResponseBody> getRenditionContentObservable(@Path("nodeId") String nodeId,
-            @Path("renditionId") String renditionId);
+    Observable<ResponseBody> getRenditionContentObservable(@Path(NODE_ID) String nodeId,
+            @Path(RENDITION_ID) String renditionId);
 
     /**
      * Get rendition content Returns the rendition content for file node with
@@ -241,7 +243,7 @@ public interface RenditionsAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/renditions/{renditionId}/content")
-    Observable<ResponseBody> getRenditionContentObservable(@Path("nodeId") String nodeId,
-            @Path("renditionId") String renditionId, @Query("attachment") Boolean attachment,
-            @Header("If-Modified-Since") Date ifModifiedSince);
+    Observable<ResponseBody> getRenditionContentObservable(@Path(NODE_ID) String nodeId,
+            @Path(RENDITION_ID) String renditionId, @Query(ATTACHMENT) Boolean attachment,
+            @Header(IF_MODIFIED_SINCE) Date ifModifiedSince);
 }

@@ -19,6 +19,7 @@
 package org.alfresco.client.services.process.enterprise.admin.api;
 
 import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+import static org.alfresco.client.services.process.enterprise.common.constant.RequestConstant.*;
 
 import java.util.List;
 
@@ -38,10 +39,10 @@ public interface AdminUsersAPI
     // USERS
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/admin/users")
-    Call<List<LightTenantRepresentation>> getUsersCall(@Query("filter") String filter, @Query("status") String status,
-            @Query("accountType") String accountType, @Query("sort") String sort, @Query("company") String company,
-            @Query("start") String start, @Query("page") String page, @Query("size") String size,
-            @Query("groupId") String groupId, @Query("tenantId") String tenantId, @Query("summary") Boolean summary);
+    Call<List<LightTenantRepresentation>> getUsersCall(@Query(FILTER) String filter, @Query(STATUS) String status,
+            @Query(ACCOUNT_TYPE) String accountType, @Query(SORT) String sort, @Query(COMPANY) String company,
+            @Query(START) String start, @Query(PAGE) String page, @Query(SIZE) String size,
+            @Query(GROUP_ID) String groupId, @Query(TENANT_ID) String tenantId, @Query(SUMMARY) Boolean summary);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/admin/users")
@@ -52,11 +53,11 @@ public interface AdminUsersAPI
     Call<UserRepresentation> createNewUserCall(@Body UserRepresentation userRepresentation);
 
     @GET(PROCESS_SERVICE_PATH + "/admin/users/{userId}")
-    Call<UserRepresentation> getUserCall(@Path("userId") String userId, @Query("summary") Boolean summary);
+    Call<UserRepresentation> getUserCall(@Path(USER_ID) String userId, @Query(SUMMARY) Boolean summary);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/admin/users/{userId}")
-    Call<UserRepresentation> updateUserDetailsCall(@Path("userId") String tenantId,
+    Call<UserRepresentation> updateUserDetailsCall(@Path(USER_ID) String tenantId,
             @Body UserRepresentation userRepresentation);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -87,11 +88,11 @@ public interface AdminUsersAPI
     // USERS
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/admin/users")
-    Observable<List<LightTenantRepresentation>> getUsersObservable(@Query("filter") String filter,
-            @Query("status") String status, @Query("accountType") String accountType, @Query("sort") String sort,
-            @Query("company") String company, @Query("start") String start, @Query("page") String page,
-            @Query("size") String size, @Query("groupId") String groupId, @Query("tenantId") String tenantId,
-            @Query("summary") Boolean summary);
+    Observable<List<LightTenantRepresentation>> getUsersObservable(@Query(FILTER) String filter,
+            @Query(STATUS) String status, @Query(ACCOUNT_TYPE) String accountType, @Query(SORT) String sort,
+            @Query(COMPANY) String company, @Query(START) String start, @Query(PAGE) String page,
+            @Query(SIZE) String size, @Query(GROUP_ID) String groupId, @Query(TENANT_ID) String tenantId,
+            @Query(SUMMARY) Boolean summary);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/admin/users")
@@ -102,11 +103,11 @@ public interface AdminUsersAPI
     Observable<UserRepresentation> createNewUserObservable(@Body UserRepresentation userRepresentation);
 
     @GET(PROCESS_SERVICE_PATH + "/admin/users/{userId}")
-    Observable<UserRepresentation> getUserObservable(@Path("userId") String userId, @Query("summary") Boolean summary);
+    Observable<UserRepresentation> getUserObservable(@Path(USER_ID) String userId, @Query(SUMMARY) Boolean summary);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/admin/users/{userId}")
-    Observable<UserRepresentation> updateUserDetailsObservable(@Path("userId") String tenantId,
+    Observable<UserRepresentation> updateUserDetailsObservable(@Path(USER_ID) String tenantId,
             @Body UserRepresentation userRepresentation);
 
 }

@@ -18,11 +18,12 @@
 
 package org.alfresco.client.services.content.search.deserializer;
 
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
 import org.alfresco.client.services.common.model.representation.PaginationRepresentation;
 import org.alfresco.client.services.content.search.model.ResultSetContext;
 import org.alfresco.client.services.content.search.model.ResultSetRepresentation;
@@ -48,18 +49,14 @@ public class ResultSetPagingDeserializer<T> implements JsonDeserializer<ResultSe
         JsonObject contextInfo = null;
         JsonObject pagination = null;
         JsonArray entries = null;
-        if (je.getAsJsonObject().has(PublicAPIConstant.LIST_VALUE))
+        if (je.getAsJsonObject().has(LIST))
         {
-            pagination = je.getAsJsonObject().get(PublicAPIConstant.LIST_VALUE).getAsJsonObject()
-                    .get(PublicAPIConstant.PAGINATION_VALUE).getAsJsonObject();
-            entries = je.getAsJsonObject().get(PublicAPIConstant.LIST_VALUE).getAsJsonObject()
-                    .get(PublicAPIConstant.ENTRIES_VALUE).getAsJsonArray();
+            pagination = je.getAsJsonObject().get(LIST).getAsJsonObject().get(PAGINATION).getAsJsonObject();
+            entries = je.getAsJsonObject().get(LIST).getAsJsonObject().get(ENTRIES).getAsJsonArray();
 
-            if (je.getAsJsonObject().get(PublicAPIConstant.LIST_VALUE).getAsJsonObject()
-                    .has(PublicAPIConstant.CONTEXT_VALUE))
+            if (je.getAsJsonObject().get(LIST).getAsJsonObject().has(CONTEXT))
             {
-                contextInfo = je.getAsJsonObject().get(PublicAPIConstant.LIST_VALUE).getAsJsonObject()
-                        .get(PublicAPIConstant.CONTEXT_VALUE).getAsJsonObject();
+                contextInfo = je.getAsJsonObject().get(LIST).getAsJsonObject().get(CONTEXT).getAsJsonObject();
             }
         }
 

@@ -21,8 +21,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.alfresco.client.services.process.enterprise.common.constant.RequestConstant;
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
-import org.alfresco.client.services.process.enterprise.constant.RequestConstant;
 
 import com.google.gson.*;
 

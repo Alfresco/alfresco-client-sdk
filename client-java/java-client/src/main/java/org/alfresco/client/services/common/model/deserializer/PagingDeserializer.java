@@ -18,11 +18,12 @@
 
 package org.alfresco.client.services.common.model.deserializer;
 
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
 import org.alfresco.client.services.common.model.representation.PaginationRepresentation;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 
@@ -46,12 +47,10 @@ public class PagingDeserializer<T> implements JsonDeserializer<ResultPaging<T>>
     {
         JsonObject pagination = null;
         JsonArray entries = null;
-        if (je.getAsJsonObject().has(PublicAPIConstant.LIST_VALUE))
+        if (je.getAsJsonObject().has(LIST))
         {
-            pagination = je.getAsJsonObject().get(PublicAPIConstant.LIST_VALUE).getAsJsonObject()
-                    .get(PublicAPIConstant.PAGINATION_VALUE).getAsJsonObject();
-            entries = je.getAsJsonObject().get(PublicAPIConstant.LIST_VALUE).getAsJsonObject()
-                    .get(PublicAPIConstant.ENTRIES_VALUE).getAsJsonArray();
+            pagination = je.getAsJsonObject().get(LIST).getAsJsonObject().get(PAGINATION).getAsJsonObject();
+            entries = je.getAsJsonObject().get(LIST).getAsJsonObject().get(ENTRIES).getAsJsonArray();
         }
 
         final List<T> result = new ArrayList<>();

@@ -4,13 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
+import org.alfresco.client.services.common.model.parameters.OrderByParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.CSClient;
 import org.alfresco.client.services.content.core.api.*;
 import org.alfresco.client.services.content.core.model.ContentModel;
 import org.alfresco.client.services.content.core.model.body.*;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
-import org.alfresco.client.services.content.core.model.parameters.OrderByParam;
 import org.alfresco.client.services.content.core.model.representation.*;
 import org.alfresco.client.services.content.search.api.SearchAPI;
 import org.alfresco.client.services.content.search.body.*;

@@ -18,12 +18,13 @@
 
 package org.alfresco.client.services.content.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.OrderByParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
 import org.alfresco.client.services.content.core.model.body.*;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.OrderByParam;
 import org.alfresco.client.services.content.core.model.representation.*;
 
 import retrofit2.Call;
@@ -101,12 +102,9 @@ public interface SitesAPI
      * @return SitePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites")
-    Call<ResultPaging<SiteRepresentation>> listSitesCall(@Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.RELATIONS_VALUE) int relations,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where);
+    Call<ResultPaging<SiteRepresentation>> listSitesCall(@Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy, @Query(RELATIONS) int relations,
+            @Query(FIELDS) FieldsParam fields, @Query(WHERE) String where);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO
@@ -124,7 +122,7 @@ public interface SitesAPI
      * @return SiteRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
-    Call<SiteRepresentation> getSiteCall(@Path("siteId") String siteId);
+    Call<SiteRepresentation> getSiteCall(@Path(SITE_ID) String siteId);
 
     /**
      * Get a site Returns information for site **siteId**. You can use the
@@ -149,9 +147,8 @@ public interface SitesAPI
      * @return SiteRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
-    Call<SiteRepresentation> getSiteCall(@Path("siteId") String siteId,
-            @Query(PublicAPIConstant.RELATIONS_VALUE) int relations,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<SiteRepresentation> getSiteCall(@Path(SITE_ID) String siteId, @Query(RELATIONS) int relations,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -205,9 +202,8 @@ public interface SitesAPI
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/sites")
     Call<SiteRepresentation> createSiteCall(@Body SiteBodyCreate siteBodyCreate,
-            @Query(PublicAPIConstant.SKIP_CONFIGURATION_VALUE) int skipConfiguration,
-            @Query(PublicAPIConstant.SKIP_ADD_TO_FAVORITES_VALUE) int skipAddToFavorites,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(SKIP_CONFIGURATION) int skipConfiguration, @Query(SKIP_ADD_TO_FAVORITES) int skipAddToFavorites,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -224,7 +220,7 @@ public interface SitesAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
-    Call<SiteRepresentation> updateSiteCall(@Path("siteId") String siteId, @Body SiteBodyUpdate siteBodyUpdate);
+    Call<SiteRepresentation> updateSiteCall(@Path(SITE_ID) String siteId, @Body SiteBodyUpdate siteBodyUpdate);
 
     /**
      * **Note:** this endpoint is available in Alfresco 5.2 and newer versions.
@@ -246,8 +242,8 @@ public interface SitesAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
-    Call<SiteRepresentation> updateSiteCall(@Path("siteId") String siteId, @Body SiteBodyUpdate siteBodyUpdate,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<SiteRepresentation> updateSiteCall(@Path(SITE_ID) String siteId, @Body SiteBodyUpdate siteBodyUpdate,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -258,7 +254,7 @@ public interface SitesAPI
      * @param siteId The identifier of a site. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
-    Call<Void> deleteSiteCall(@Path("siteId") String siteId);
+    Call<Void> deleteSiteCall(@Path(SITE_ID) String siteId);
 
     /**
      * Delete a site Deletes the site with **siteId**.
@@ -268,7 +264,7 @@ public interface SitesAPI
      *            deleted i.e. bypass the trashcan. (optional, default to false)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
-    Call<Void> deleteSiteCall(@Path("siteId") String siteId, @Query("permanent") Boolean permanent);
+    Call<Void> deleteSiteCall(@Path(SITE_ID) String siteId, @Query(PERMANENT) Boolean permanent);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CONTAINERS
@@ -281,7 +277,7 @@ public interface SitesAPI
      * @return SiteContainerPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/containers")
-    Call<ResultPaging<SiteContainerRepresentation>> listSiteContainersCall(@Path("siteId") String siteId);
+    Call<ResultPaging<SiteContainerRepresentation>> listSiteContainersCall(@Path(SITE_ID) String siteId);
 
     /**
      * Get containers Returns a list of containers information for site
@@ -303,10 +299,9 @@ public interface SitesAPI
      * @return SiteContainerPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites")
-    Call<ResultPaging<SiteContainerRepresentation>> listSiteContainersCall(@Path("siteId") String siteId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<SiteContainerRepresentation>> listSiteContainersCall(@Path(SITE_ID) String siteId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Get a container Returns information on the container **containerId** in
@@ -317,8 +312,8 @@ public interface SitesAPI
      * @return SiteContainerEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/containers/{containerId}")
-    Call<SiteContainerRepresentation> getSiteContainerCall(@Path("siteId") String siteId,
-            @Path("containerId") String containerId);
+    Call<SiteContainerRepresentation> getSiteContainerCall(@Path(SITE_ID) String siteId,
+            @Path(CONTAINER_ID) String containerId);
 
     /**
      * Get a container Returns information on the container **containerId** in
@@ -337,8 +332,8 @@ public interface SitesAPI
      * @return SiteContainerEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/containers/{containerId}")
-    Call<SiteContainerRepresentation> getSiteContainerCall(@Path("siteId") String siteId,
-            @Path("containerId") String containerId, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<SiteContainerRepresentation> getSiteContainerCall(@Path(SITE_ID) String siteId,
+            @Path(CONTAINER_ID) String containerId, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // MEMBERSHIP
@@ -350,7 +345,7 @@ public interface SitesAPI
      * @return SiteMemberPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members")
-    Call<ResultPaging<SiteMemberRepresentation>> listSiteMembershipsCall(@Path("siteId") String siteId);
+    Call<ResultPaging<SiteMemberRepresentation>> listSiteMembershipsCall(@Path(SITE_ID) String siteId);
 
     /**
      * Get members Returns a list of site memberships for site **siteId**.
@@ -371,10 +366,9 @@ public interface SitesAPI
      * @return SiteMemberPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members")
-    Call<ResultPaging<SiteMemberRepresentation>> listSiteMembershipsCall(@Path("siteId") String siteId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<SiteMemberRepresentation>> listSiteMembershipsCall(@Path(SITE_ID) String siteId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Add a person Adds person **personId** as a member of site **siteId**. You
@@ -388,9 +382,9 @@ public interface SitesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members")
-    Call<SiteMemberRepresentation> createSiteMembershipCall(@Path("siteId") String siteId,
+    Call<SiteMemberRepresentation> createSiteMembershipCall(@Path(SITE_ID) String siteId,
             @Body SiteMembershipBodyCreate siteMembershipBodyCreate,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Get a site member Returns site membership information for person
@@ -403,8 +397,8 @@ public interface SitesAPI
      * @return SiteMemberEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members/{personId}")
-    Call<SiteMemberRepresentation> getSiteMembershipCall(@Path("siteId") String siteId,
-            @Path("personId") String personId);
+    Call<SiteMemberRepresentation> getSiteMembershipCall(@Path(SITE_ID) String siteId,
+            @Path(PERSON_ID) String personId);
 
     /**
      * Update a site member Update the membership of person **personId** in site
@@ -420,9 +414,9 @@ public interface SitesAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members/{personId}")
-    Call<SiteMemberRepresentation> updateSiteMembershipCall(@Path("siteId") String siteId,
-            @Path("personId") String personId, @Body SiteMembershipBodyUpdate siteMemberRoleBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<SiteMemberRepresentation> updateSiteMembershipCall(@Path(SITE_ID) String siteId,
+            @Path(PERSON_ID) String personId, @Body SiteMembershipBodyUpdate siteMemberRoleBody,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Delete a site member Removes person **personId** as a member of site
@@ -433,7 +427,7 @@ public interface SitesAPI
      * @param personId The identifier of a person. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members/{personId}")
-    Call<Void> deleteSiteMembershipCall(@Path("siteId") String siteId, @Path("personId") String personId);
+    Call<Void> deleteSiteMembershipCall(@Path(SITE_ID) String siteId, @Path(PERSON_ID) String personId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LISTING PERSON SITE MEMBERSHIP
@@ -455,7 +449,7 @@ public interface SitesAPI
      * @return SiteRolePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/sites")
-    Call<ResultPaging<SiteRoleRepresentation>> listSiteMembershipsForPersonCall(@Path("personId") String personId);
+    Call<ResultPaging<SiteRoleRepresentation>> listSiteMembershipsForPersonCall(@Path(PERSON_ID) String personId);
 
     /**
      * List site memberships Gets a list of site membership information for
@@ -498,12 +492,10 @@ public interface SitesAPI
      * @return SiteRolePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/sites")
-    Call<ResultPaging<SiteRoleRepresentation>> listSiteMembershipsForPersonCall(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy, @Query("relations") String relations,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where);
+    Call<ResultPaging<SiteRoleRepresentation>> listSiteMembershipsForPersonCall(@Path(PERSON_ID) String personId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(ORDER_BY) OrderByParam orderBy, @Query(RELATIONS) String relations,
+            @Query(FIELDS) FieldsParam fields, @Query(WHERE) String where);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO PERSON SITE MEMBERSHIP
@@ -520,8 +512,8 @@ public interface SitesAPI
      * @return SiteRoleRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/sites/{siteId}")
-    Call<SiteRoleRepresentation> getSiteMembershipForPersonCall(@Path("personId") String personId,
-            @Path("siteId") String siteId);
+    Call<SiteRoleRepresentation> getSiteMembershipForPersonCall(@Path(PERSON_ID) String personId,
+            @Path(SITE_ID) String siteId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE PERSON SITE MEMBERSHIP
@@ -537,7 +529,7 @@ public interface SitesAPI
      * @return ApiResponse&lt;Void&gt;
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/sites/{siteId}")
-    Call<Void> deleteSiteMembershipForPersonCall(@Path("personId") String personId, @Path("siteId") String siteId);
+    Call<Void> deleteSiteMembershipForPersonCall(@Path(PERSON_ID) String personId, @Path(SITE_ID) String siteId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // SITE MEMBERSHIP REQUEST
@@ -555,7 +547,7 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests")
     Call<ResultPaging<SiteMembershipRequestRepresentation>> listSiteMembershipRequestsForPersonCall(
-            @Path("personId") String personId);
+            @Path(PERSON_ID) String personId);
 
     /**
      * Get site membership requests Returns the current site membership requests
@@ -580,9 +572,8 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests")
     Call<ResultPaging<SiteMembershipRequestRepresentation>> listSiteMembershipRequestsForPersonCall(
-            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(PERSON_ID) String personId, @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // SITE MEMBERSHIP REQUEST
     // CREATE
@@ -620,8 +611,8 @@ public interface SitesAPI
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests")
     Call<SiteMembershipRequestRepresentation> createSiteMembershipRequestForPersonCall(
-            @Path("personId") String personId, @Body SiteMembershipRequestBodyCreate siteMembershipBodyCreate,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(PERSON_ID) String personId, @Body SiteMembershipRequestBodyCreate siteMembershipBodyCreate,
+            @Query(FIELDS) FieldsParam fields);
 
     // SITE MEMBERSHIP REQUEST FOR A SPECIFIC SITE
     // INFO
@@ -637,8 +628,8 @@ public interface SitesAPI
      * @return SiteMembershipRequestRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests/{siteId}")
-    Call<SiteMembershipRequestRepresentation> getSiteMembershipRequestForPersonCall(@Path("personId") String personId,
-            @Path("siteId") String siteId);
+    Call<SiteMembershipRequestRepresentation> getSiteMembershipRequestForPersonCall(@Path(PERSON_ID) String personId,
+            @Path(SITE_ID) String siteId);
 
     /**
      * Get a site membership body Returns the site membership body for site
@@ -659,8 +650,8 @@ public interface SitesAPI
      * @return SiteMembershipRequestRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests/{siteId}")
-    Call<SiteMembershipRequestRepresentation> getSiteMembershipRequestsForPersonCall(@Path("personId") String personId,
-            @Path("siteId") String siteId, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<SiteMembershipRequestRepresentation> getSiteMembershipRequestsForPersonCall(@Path(PERSON_ID) String personId,
+            @Path(SITE_ID) String siteId, @Query(FIELDS) FieldsParam fields);
 
     // SITE MEMBERSHIP REQUEST FOR A SPECIFIC SITE
     // UPDATE
@@ -680,9 +671,9 @@ public interface SitesAPI
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests/{siteId}")
     Call<SiteMembershipRequestRepresentation> updateSiteMembershipRequestForPersonCall(
-            @Path("personId") String personId, @Path("siteId") String siteId,
+            @Path(PERSON_ID) String personId, @Path(SITE_ID) String siteId,
             @Body SiteMembershipRequestBodyUpdate siteMembershipRequestBodyUpdate,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(FIELDS) FieldsParam fields);
 
     // SITE MEMBERSHIP REQUEST FOR A SPECIFIC SITE
     // CANCEL
@@ -697,7 +688,7 @@ public interface SitesAPI
      * @param siteId The identifier of a site. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests/{siteId}")
-    Call<Void> deleteSiteMembershipRequestCall(@Path("personId") String personId, @Path("siteId") String siteId);
+    Call<Void> deleteSiteMembershipRequestCall(@Path(PERSON_ID) String personId, @Path(SITE_ID) String siteId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -793,12 +784,9 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites")
     Observable<ResultPaging<SiteRepresentation>> listSitesObservable(
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.RELATIONS_VALUE) int relations,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where);
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(ORDER_BY) OrderByParam orderBy, @Query(RELATIONS) int relations, @Query(FIELDS) FieldsParam fields,
+            @Query(WHERE) String where);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO
@@ -817,7 +805,7 @@ public interface SitesAPI
      * @return SiteRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
-    Observable<SiteRepresentation> getSiteObservable(@Path("siteId") String siteId);
+    Observable<SiteRepresentation> getSiteObservable(@Path(SITE_ID) String siteId);
 
     /**
      * Get a site Returns information for site **siteId**. You can use the
@@ -842,9 +830,8 @@ public interface SitesAPI
      * @return SiteRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
-    Observable<SiteRepresentation> getSiteObservable(@Path("siteId") String siteId,
-            @Query(PublicAPIConstant.RELATIONS_VALUE) int relations,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<SiteRepresentation> getSiteObservable(@Path(SITE_ID) String siteId, @Query(RELATIONS) int relations,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -899,9 +886,8 @@ public interface SitesAPI
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/sites")
     Observable<SiteRepresentation> createSiteObservable(@Body SiteBodyCreate siteBodyCreate,
-            @Query(PublicAPIConstant.SKIP_CONFIGURATION_VALUE) int skipConfiguration,
-            @Query(PublicAPIConstant.SKIP_ADD_TO_FAVORITES_VALUE) int skipAddToFavorites,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(SKIP_CONFIGURATION) int skipConfiguration, @Query(SKIP_ADD_TO_FAVORITES) int skipAddToFavorites,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -919,7 +905,7 @@ public interface SitesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
-    Observable<SiteRepresentation> updateSiteObservable(@Path("siteId") String siteId,
+    Observable<SiteRepresentation> updateSiteObservable(@Path(SITE_ID) String siteId,
             @Body SiteBodyUpdate siteBodyUpdate);
 
     /**
@@ -942,8 +928,8 @@ public interface SitesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
-    Observable<SiteRepresentation> updateSiteObservable(@Path("siteId") String siteId,
-            @Body SiteBodyUpdate siteBodyUpdate, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<SiteRepresentation> updateSiteObservable(@Path(SITE_ID) String siteId,
+            @Body SiteBodyUpdate siteBodyUpdate, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -955,7 +941,7 @@ public interface SitesAPI
      * @param siteId The identifier of a site. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
-    Observable<Void> deleteSiteObservable(@Path("siteId") String siteId);
+    Observable<Void> deleteSiteObservable(@Path(SITE_ID) String siteId);
 
     /**
      * Delete a site Deletes the site with **siteId**.
@@ -965,7 +951,7 @@ public interface SitesAPI
      *            deleted i.e. bypass the trashcan. (optional, default to false)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}")
-    Observable<Void> deleteSiteObservable(@Path("siteId") String siteId, @Query("permanent") Boolean permanent);
+    Observable<Void> deleteSiteObservable(@Path(SITE_ID) String siteId, @Query(PERMANENT) Boolean permanent);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CONTAINERS
@@ -979,7 +965,7 @@ public interface SitesAPI
      * @return SiteContainerPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/containers")
-    Observable<ResultPaging<SiteContainerRepresentation>> listSiteContainersObservable(@Path("siteId") String siteId);
+    Observable<ResultPaging<SiteContainerRepresentation>> listSiteContainersObservable(@Path(SITE_ID) String siteId);
 
     /**
      * Get containers Returns a list of containers information for site
@@ -1001,10 +987,9 @@ public interface SitesAPI
      * @return SiteContainerPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites")
-    Observable<ResultPaging<SiteContainerRepresentation>> listSiteContainersObservable(@Path("siteId") String siteId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<SiteContainerRepresentation>> listSiteContainersObservable(@Path(SITE_ID) String siteId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Get a container Returns information on the container **containerId** in
@@ -1015,8 +1000,8 @@ public interface SitesAPI
      * @return SiteContainerEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/containers/{containerId}")
-    Observable<SiteContainerRepresentation> getSiteContainerObservable(@Path("siteId") String siteId,
-            @Path("containerId") String containerId);
+    Observable<SiteContainerRepresentation> getSiteContainerObservable(@Path(SITE_ID) String siteId,
+            @Path(CONTAINER_ID) String containerId);
 
     /**
      * Get a container Returns information on the container **containerId** in
@@ -1035,8 +1020,8 @@ public interface SitesAPI
      * @return SiteContainerEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/containers/{containerId}")
-    Observable<SiteContainerRepresentation> getSiteContainerObservable(@Path("siteId") String siteId,
-            @Path("containerId") String containerId, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<SiteContainerRepresentation> getSiteContainerObservable(@Path(SITE_ID) String siteId,
+            @Path(CONTAINER_ID) String containerId, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // MEMBERSHIP
@@ -1049,7 +1034,7 @@ public interface SitesAPI
      * @return SiteMemberPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members")
-    Observable<ResultPaging<SiteMemberRepresentation>> listSiteMembershipsObservable(@Path("siteId") String siteId);
+    Observable<ResultPaging<SiteMemberRepresentation>> listSiteMembershipsObservable(@Path(SITE_ID) String siteId);
 
     /**
      * Get members Returns a list of site memberships for site **siteId**.
@@ -1070,10 +1055,9 @@ public interface SitesAPI
      * @return SiteMemberPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members")
-    Observable<ResultPaging<SiteMemberRepresentation>> listSiteMembershipsObservable(@Path("siteId") String siteId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<SiteMemberRepresentation>> listSiteMembershipsObservable(@Path(SITE_ID) String siteId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Add a person Adds person **personId** as a member of site **siteId**. You
@@ -1087,9 +1071,9 @@ public interface SitesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members")
-    Observable<SiteMemberRepresentation> createSiteMembershipObservable(@Path("siteId") String siteId,
+    Observable<SiteMemberRepresentation> createSiteMembershipObservable(@Path(SITE_ID) String siteId,
             @Body SiteMembershipBodyCreate siteMembershipBodyCreate,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Get a site member Returns site membership information for person
@@ -1102,8 +1086,8 @@ public interface SitesAPI
      * @return SiteMemberEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members/{personId}")
-    Observable<SiteMemberRepresentation> getSiteMembershipObservable(@Path("siteId") String siteId,
-            @Path("personId") String personId);
+    Observable<SiteMemberRepresentation> getSiteMembershipObservable(@Path(SITE_ID) String siteId,
+            @Path(PERSON_ID) String personId);
 
     /**
      * Update a site member Update the membership of person **personId** in site
@@ -1119,9 +1103,9 @@ public interface SitesAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members/{personId}")
-    Observable<SiteMemberRepresentation> updateSiteMembershipObservable(@Path("siteId") String siteId,
-            @Path("personId") String personId, @Body SiteMembershipBodyUpdate siteMemberRoleBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<SiteMemberRepresentation> updateSiteMembershipObservable(@Path(SITE_ID) String siteId,
+            @Path(PERSON_ID) String personId, @Body SiteMembershipBodyUpdate siteMemberRoleBody,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Delete a site member Removes person **personId** as a member of site
@@ -1132,7 +1116,7 @@ public interface SitesAPI
      * @param personId The identifier of a person. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/sites/{siteId}/members/{personId}")
-    Observable<Void> deleteSiteMembershipObservable(@Path("siteId") String siteId, @Path("personId") String personId);
+    Observable<Void> deleteSiteMembershipObservable(@Path(SITE_ID) String siteId, @Path(PERSON_ID) String personId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LISTING PERSON SITE MEMBERSHIP
@@ -1156,7 +1140,7 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/sites")
     Observable<ResultPaging<SiteRoleRepresentation>> listSiteMembershipsForPersonObservable(
-            @Path("personId") String personId);
+            @Path(PERSON_ID) String personId);
 
     /**
      * List site memberships Gets a list of site membership information for
@@ -1200,11 +1184,9 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/sites")
     Observable<ResultPaging<SiteRoleRepresentation>> listSiteMembershipsForPersonObservable(
-            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy, @Query("relations") String relations,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where);
+            @Path(PERSON_ID) String personId, @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(ORDER_BY) OrderByParam orderBy, @Query(RELATIONS) String relations,
+            @Query(FIELDS) FieldsParam fields, @Query(WHERE) String where);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO PERSON SITE MEMBERSHIP
@@ -1221,8 +1203,8 @@ public interface SitesAPI
      * @return SiteRoleRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/sites/{siteId}")
-    Observable<SiteRoleRepresentation> getSiteMembershipForPersonObservable(@Path("personId") String personId,
-            @Path("siteId") String siteId);
+    Observable<SiteRoleRepresentation> getSiteMembershipForPersonObservable(@Path(PERSON_ID) String personId,
+            @Path(SITE_ID) String siteId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE PERSON SITE MEMBERSHIP
@@ -1238,8 +1220,8 @@ public interface SitesAPI
      * @return ApiResponse&lt;Void&gt;
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/sites/{siteId}")
-    Observable<Void> deleteSiteMembershipForPersonObservable(@Path("personId") String personId,
-            @Path("siteId") String siteId);
+    Observable<Void> deleteSiteMembershipForPersonObservable(@Path(PERSON_ID) String personId,
+            @Path(SITE_ID) String siteId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // SITE MEMBERSHIP REQUEST
@@ -1257,7 +1239,7 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests")
     Observable<ResultPaging<SiteMembershipRequestRepresentation>> listSiteMembershipRequestsForPersonObservable(
-            @Path("personId") String personId);
+            @Path(PERSON_ID) String personId);
 
     /**
      * Get site membership requests Returns the current site membership requests
@@ -1282,9 +1264,8 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests")
     Observable<ResultPaging<SiteMembershipRequestRepresentation>> listSiteMembershipRequestsForPersonObservable(
-            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(PERSON_ID) String personId, @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // SITE MEMBERSHIP REQUEST
     // CREATE
@@ -1322,8 +1303,8 @@ public interface SitesAPI
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests")
     Observable<SiteMembershipRequestRepresentation> createSiteMembershipRequestForPersonObservable(
-            @Path("personId") String personId, @Body SiteMembershipRequestBodyCreate siteMembershipBodyCreate,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(PERSON_ID) String personId, @Body SiteMembershipRequestBodyCreate siteMembershipBodyCreate,
+            @Query(FIELDS) FieldsParam fields);
 
     // SITE MEMBERSHIP REQUEST FOR A SPECIFIC SITE
     // INFO
@@ -1340,7 +1321,7 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests/{siteId}")
     Observable<SiteMembershipRequestRepresentation> getSiteMembershipRequestForPersonObservable(
-            @Path("personId") String personId, @Path("siteId") String siteId);
+            @Path(PERSON_ID) String personId, @Path(SITE_ID) String siteId);
 
     /**
      * Get a site membership body Returns the site membership body for site
@@ -1362,8 +1343,7 @@ public interface SitesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests/{siteId}")
     Observable<SiteMembershipRequestRepresentation> getSiteMembershipRequestForPersonObservable(
-            @Path("personId") String personId, @Path("siteId") String siteId,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(PERSON_ID) String personId, @Path(SITE_ID) String siteId, @Query(FIELDS) FieldsParam fields);
 
     // SITE MEMBERSHIP REQUEST FOR A SPECIFIC SITE
     // UPDATE
@@ -1383,9 +1363,9 @@ public interface SitesAPI
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests/{siteId}")
     Observable<SiteMembershipRequestRepresentation> updateSiteMembershipRequestForPersonObservable(
-            @Path("personId") String personId, @Path("siteId") String siteId,
+            @Path(PERSON_ID) String personId, @Path(SITE_ID) String siteId,
             @Body SiteMembershipRequestBodyUpdate siteMembershipRequestBodyUpdate,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(FIELDS) FieldsParam fields);
 
     // SITE MEMBERSHIP REQUEST FOR A SPECIFIC SITE
     // CANCEL
@@ -1400,6 +1380,6 @@ public interface SitesAPI
      * @param siteId The identifier of a site. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/site-membership-requests/{siteId}")
-    Observable<Void> deleteSiteMembershipRequestObservable(@Path("personId") String personId,
-            @Path("siteId") String siteId);
+    Observable<Void> deleteSiteMembershipRequestObservable(@Path(PERSON_ID) String personId,
+            @Path(SITE_ID) String siteId);
 }

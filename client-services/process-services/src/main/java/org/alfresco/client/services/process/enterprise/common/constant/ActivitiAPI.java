@@ -16,12 +16,12 @@
  *  limitations under the License.
  */
 
-package org.alfresco.client.services.process.enterprise.constant;
+package org.alfresco.client.services.process.enterprise.common.constant;
 
 /**
  * Created by jpascal on 23/03/2015.
  */
-public class ActivitiAPI
+public interface ActivitiAPI
 {
-    public static String SERVER_URL_ENDPOINT = "https://activiti.alfresco.com/activiti-app";
+    String SERVER_URL_ENDPOINT = "https://activiti.alfresco.com/activiti-app";
 }

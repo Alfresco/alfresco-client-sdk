@@ -1,10 +1,11 @@
 package org.alfresco.client.services.governance.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
+import org.alfresco.client.services.common.model.parameters.OrderByParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
-import org.alfresco.client.services.content.core.model.parameters.OrderByParam;
 import org.alfresco.client.services.governance.core.GovernanceConstant;
 import org.alfresco.client.services.governance.core.model.body.RMNodeBodyCreate;
 import org.alfresco.client.services.governance.core.model.body.UnfiledContainerBodyUpdate;
@@ -33,7 +34,7 @@ public interface UnfiledContainersAPI
      * @return UnfiledContainerEntry
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}")
-    Call<UnfiledContainerRepresentation> getUnfiledContainerCall(@Path("unfiledContainerId") String unfiledContainerId);
+    Call<UnfiledContainerRepresentation> getUnfiledContainerCall(@Path(UNFILED_CONTAINER_ID) String unfiledContainerId);
 
     /**
      * Get the unfiled records container Get information for unfiled records
@@ -57,10 +58,9 @@ public interface UnfiledContainersAPI
      * @return UnfiledContainerEntry
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}")
-    Call<UnfiledContainerRepresentation> getUnfiledContainerCall(@Path("unfiledContainerId") String unfiledContainerId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<UnfiledContainerRepresentation> getUnfiledContainerCall(@Path(UNFILED_CONTAINER_ID) String unfiledContainerId,
+            @Query(INCLUDE) IncludeParam include, @Query(RELATIVE_PATH) String relativePath,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -85,7 +85,7 @@ public interface UnfiledContainersAPI
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}")
     Call<UnfiledContainerRepresentation> updateUnfiledContainerCall(
-            @Path("unfiledContainerId") String unfiledContainerId,
+            @Path(UNFILED_CONTAINER_ID) String unfiledContainerId,
             @Body UnfiledContainerBodyUpdate unfiledContainerBodyUpdate);
 
     /**
@@ -120,10 +120,9 @@ public interface UnfiledContainersAPI
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}")
     Call<UnfiledContainerRepresentation> updateUnfiledContainerCall(
-            @Path("unfiledContainerId") String unfiledContainerId,
+            @Path(UNFILED_CONTAINER_ID) String unfiledContainerId,
             @Body UnfiledRecordFolderBodyUpdate unfiledContainerBodyUpdate,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CHILDREN LISTING
@@ -140,7 +139,7 @@ public interface UnfiledContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}/children")
     Call<ResultPaging<RMNodeRepresentation>> listUnfiledContainerChildrenCall(
-            @Path("unfiledContainerId") String unfiledContainerId);
+            @Path(UNFILED_CONTAINER_ID) String unfiledContainerId);
 
     /**
      * List unfiled record container&#39;s children Returns a list of records or
@@ -166,10 +165,8 @@ public interface UnfiledContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}/children")
     Call<ResultPaging<RMNodeRepresentation>> listUnfiledContainerChildrenCall(
-            @Path("unfiledContainerId") String unfiledContainerId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
+            @Path(UNFILED_CONTAINER_ID) String unfiledContainerId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy);
 
     /**
      * List unfiled record container&#39;s children Returns a list of records or
@@ -217,15 +214,10 @@ public interface UnfiledContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}/children")
     Call<ResultPaging<RMNodeRepresentation>> listUnfiledContainerChildrenCall(
-            @Path("unfiledContainerId") String unfiledContainerId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(UNFILED_CONTAINER_ID) String unfiledContainerId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy, @Query(WHERE) String where,
+            @Query(INCLUDE) IncludeParam include, @Query(RELATIVE_PATH) String relativePath,
+            @Query(INCLUDE_SOURCE) Boolean includeSource, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CHILDREN CREATION
@@ -291,7 +283,7 @@ public interface UnfiledContainersAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}/children")
-    Call<RMNodeRepresentation> createUnfiledContainerChildrenCall(@Path("unfiledContainerId") String unfiledContainerId,
+    Call<RMNodeRepresentation> createUnfiledContainerChildrenCall(@Path(UNFILED_CONTAINER_ID) String unfiledContainerId,
             @Body RMNodeBodyCreate nodeBodyCreate);
 
     /**
@@ -370,10 +362,9 @@ public interface UnfiledContainersAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}/children")
-    Call<RMNodeRepresentation> createUnfiledContainerChildrenCall(@Path("unfiledContainerId") String unfiledContainerId,
-            @Body RMNodeBodyCreate nodeBodyCreate, @Query(PublicAPIConstant.AUTO_RENAME_VALUE) boolean autoRename,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RMNodeRepresentation> createUnfiledContainerChildrenCall(@Path(UNFILED_CONTAINER_ID) String unfiledContainerId,
+            @Body RMNodeBodyCreate nodeBodyCreate, @Query(AUTO_RENAME) boolean autoRename,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // FIXME Support batch creation
 
@@ -415,7 +406,7 @@ public interface UnfiledContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}")
     Observable<UnfiledContainerRepresentation> getUnfiledContainerObservable(
-            @Path("unfiledContainerId") String unfiledContainerId);
+            @Path(UNFILED_CONTAINER_ID) String unfiledContainerId);
 
     /**
      * Get the unfiled records container Get information for unfiled records
@@ -440,10 +431,8 @@ public interface UnfiledContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}")
     Observable<UnfiledContainerRepresentation> getUnfiledContainerObservable(
-            @Path("unfiledContainerId") String unfiledContainerId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(UNFILED_CONTAINER_ID) String unfiledContainerId, @Query(INCLUDE) IncludeParam include,
+            @Query(RELATIVE_PATH) String relativePath, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -468,7 +457,7 @@ public interface UnfiledContainersAPI
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}")
     Observable<UnfiledContainerRepresentation> updateUnfiledContainerObservable(
-            @Path("unfiledContainerId") String unfiledContainerId,
+            @Path(UNFILED_CONTAINER_ID) String unfiledContainerId,
             @Body UnfiledContainerBodyUpdate unfiledContainerBodyUpdate);
 
     /**
@@ -503,10 +492,9 @@ public interface UnfiledContainersAPI
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}")
     Observable<UnfiledContainerRepresentation> updateUnfiledContainerObservable(
-            @Path("unfiledContainerId") String unfiledContainerId,
+            @Path(UNFILED_CONTAINER_ID) String unfiledContainerId,
             @Body UnfiledRecordFolderBodyUpdate unfiledContainerBodyUpdate,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CHILDREN LISTING
@@ -523,7 +511,7 @@ public interface UnfiledContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}/children")
     Observable<ResultPaging<RMNodeRepresentation>> listUnfiledContainerChildrenObservable(
-            @Path("unfiledContainerId") String unfiledContainerId);
+            @Path(UNFILED_CONTAINER_ID) String unfiledContainerId);
 
     /**
      * List unfiled record container&#39;s children Returns a list of records or
@@ -549,10 +537,8 @@ public interface UnfiledContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}/children")
     Observable<ResultPaging<RMNodeRepresentation>> listUnfiledContainerChildrenObservable(
-            @Path("unfiledContainerId") String unfiledContainerId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
+            @Path(UNFILED_CONTAINER_ID) String unfiledContainerId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy);
 
     /**
      * List unfiled record container&#39;s children Returns a list of records or
@@ -600,15 +586,10 @@ public interface UnfiledContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}/children")
     Observable<ResultPaging<RMNodeRepresentation>> listUnfiledContainerChildrenObservable(
-            @Path("unfiledContainerId") String unfiledContainerId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(UNFILED_CONTAINER_ID) String unfiledContainerId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy, @Query(WHERE) String where,
+            @Query(INCLUDE) IncludeParam include, @Query(RELATIVE_PATH) String relativePath,
+            @Query(INCLUDE_SOURCE) Boolean includeSource, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CHILDREN CREATION
@@ -675,7 +656,7 @@ public interface UnfiledContainersAPI
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}/children")
     Observable<RMNodeRepresentation> createUnfiledContainerChildrenObservable(
-            @Path("unfiledContainerId") String unfiledContainerId, @Body RMNodeBodyCreate nodeBodyCreate);
+            @Path(UNFILED_CONTAINER_ID) String unfiledContainerId, @Body RMNodeBodyCreate nodeBodyCreate);
 
     /**
      * Create a record or an unfiled record folder Create a record or an unfiled
@@ -754,10 +735,9 @@ public interface UnfiledContainersAPI
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-containers/{unfiledContainerId}/children")
     Observable<RMNodeRepresentation> createUnfiledContainerChildrenObservable(
-            @Path("unfiledContainerId") String unfiledContainerId, @Body RMNodeBodyCreate nodeBodyCreate,
-            @Query(PublicAPIConstant.AUTO_RENAME_VALUE) boolean autoRename,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(UNFILED_CONTAINER_ID) String unfiledContainerId, @Body RMNodeBodyCreate nodeBodyCreate,
+            @Query(AUTO_RENAME) boolean autoRename, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // FIXME Support batch creation
 }

@@ -18,12 +18,13 @@
 
 package org.alfresco.client.services.governance.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
+import org.alfresco.client.services.common.model.parameters.OrderByParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.model.body.NodeBodyCreate;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
-import org.alfresco.client.services.content.core.model.parameters.OrderByParam;
 import org.alfresco.client.services.governance.core.GovernanceConstant;
 import org.alfresco.client.services.governance.core.model.body.RMNodeBodyUpdate;
 import org.alfresco.client.services.governance.core.model.representation.RMNodeRepresentation;
@@ -47,7 +48,7 @@ public interface RecordCategoriesAPI
      * @return RecordCategoryRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}")
-    Call<RecordCategoryRepresentation> getRecordCategoryCall(@Path("recordCategoryId") String recordCategoryId);
+    Call<RecordCategoryRepresentation> getRecordCategoryCall(@Path(RECORD_CATEGORY_ID) String recordCategoryId);
 
     /**
      * Get a record category Get information for record category
@@ -73,10 +74,9 @@ public interface RecordCategoriesAPI
      * @return RecordCategoryRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}")
-    Call<RecordCategoryRepresentation> getRecordCategoryCall(@Path("recordCategoryId") String recordCategoryId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RecordCategoryRepresentation> getRecordCategoryCall(@Path(RECORD_CATEGORY_ID) String recordCategoryId,
+            @Query(INCLUDE) IncludeParam include, @Query(RELATIVE_PATH) String relativePath,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -101,7 +101,7 @@ public interface RecordCategoriesAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}")
-    Call<RecordCategoryRepresentation> updateRecordCategoryCall(@Path("recordCategoryId") String recordCategoryId,
+    Call<RecordCategoryRepresentation> updateRecordCategoryCall(@Path(RECORD_CATEGORY_ID) String recordCategoryId,
             @Body RMNodeBodyUpdate recordCategoryBodyUpdate);
 
     /**
@@ -136,10 +136,9 @@ public interface RecordCategoriesAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}")
-    Call<RecordCategoryRepresentation> updateRecordCategoryCall(@Path("recordCategoryId") String recordCategoryId,
+    Call<RecordCategoryRepresentation> updateRecordCategoryCall(@Path(RECORD_CATEGORY_ID) String recordCategoryId,
             @Body RMNodeBodyUpdate recordCategoryBodyUpdate,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -150,7 +149,7 @@ public interface RecordCategoriesAPI
      * @param recordCategoryId The identifier of a record category. (required)
      */
     @DELETE(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}")
-    Call<Void> deleteRecordCategoryCall(@Path("recordCategoryId") String recordCategoryId);
+    Call<Void> deleteRecordCategoryCall(@Path(RECORD_CATEGORY_ID) String recordCategoryId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CHILDREN LISTING
@@ -169,7 +168,7 @@ public interface RecordCategoriesAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}/children")
     Call<ResultPaging<RMNodeRepresentation>> listRecordCategoryChildrenCall(
-            @Path("recordCategoryId") String recordCategoryId);
+            @Path(RECORD_CATEGORY_ID) String recordCategoryId);
 
     /**
      * List record category&#39;s children Returns a list of record categories
@@ -197,10 +196,8 @@ public interface RecordCategoriesAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}/children")
     Call<ResultPaging<RMNodeRepresentation>> listRecordCategoryChildrenCall(
-            @Path("recordCategoryId") String recordCategoryId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
+            @Path(RECORD_CATEGORY_ID) String recordCategoryId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy);
 
     /**
      * List record category&#39;s children Returns a list of record categories
@@ -255,15 +252,10 @@ public interface RecordCategoriesAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}/children")
     Call<ResultPaging<RMNodeRepresentation>> listRecordCategoryChildrenCall(
-            @Path("recordCategoryId") String recordCategoryId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(RECORD_CATEGORY_ID) String recordCategoryId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy, @Query(WHERE) String where,
+            @Query(INCLUDE) IncludeParam include, @Query(RELATIVE_PATH) String relativePath,
+            @Query(INCLUDE_SOURCE) Boolean includeSource, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CHILDREN CREATION
@@ -322,7 +314,7 @@ public interface RecordCategoriesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}/children")
-    Call<RMNodeRepresentation> createRecordCategoryChildCall(@Path("recordCategoryId") String recordCategoryId,
+    Call<RMNodeRepresentation> createRecordCategoryChildCall(@Path(RECORD_CATEGORY_ID) String recordCategoryId,
             @Body NodeBodyCreate nodeBodyCreate);
 
     /**
@@ -393,10 +385,9 @@ public interface RecordCategoriesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}/children")
-    Call<RMNodeRepresentation> createRecordCategoryChildCall(@Path("recordCategoryId") String recordCategoryId,
-            @Body NodeBodyCreate nodeBodyCreate, @Query(PublicAPIConstant.AUTO_RENAME_VALUE) boolean autoRename,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RMNodeRepresentation> createRecordCategoryChildCall(@Path(RECORD_CATEGORY_ID) String recordCategoryId,
+            @Body NodeBodyCreate nodeBodyCreate, @Query(AUTO_RENAME) boolean autoRename,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -436,7 +427,7 @@ public interface RecordCategoriesAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}")
     Observable<RecordCategoryRepresentation> getRecordCategoryObservable(
-            @Path("recordCategoryId") String recordCategoryId);
+            @Path(RECORD_CATEGORY_ID) String recordCategoryId);
 
     /**
      * Get a record category Get information for record category
@@ -463,10 +454,8 @@ public interface RecordCategoriesAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}")
     Observable<RecordCategoryRepresentation> getRecordCategoryObservable(
-            @Path("recordCategoryId") String recordCategoryId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(RECORD_CATEGORY_ID) String recordCategoryId, @Query(INCLUDE) IncludeParam include,
+            @Query(RELATIVE_PATH) String relativePath, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -492,7 +481,7 @@ public interface RecordCategoriesAPI
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}")
     Observable<RecordCategoryRepresentation> updateRecordCategoryObservable(
-            @Path("recordCategoryId") String recordCategoryId, @Body RMNodeBodyUpdate recordCategoryBodyUpdate);
+            @Path(RECORD_CATEGORY_ID) String recordCategoryId, @Body RMNodeBodyUpdate recordCategoryBodyUpdate);
 
     /**
      * Update a record category Updates record category **recordCategoryId**.
@@ -527,9 +516,8 @@ public interface RecordCategoriesAPI
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}")
     Observable<RecordCategoryRepresentation> updateRecordCategoryObservable(
-            @Path("recordCategoryId") String recordCategoryId, @Body RMNodeBodyUpdate recordCategoryBodyUpdate,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(RECORD_CATEGORY_ID) String recordCategoryId, @Body RMNodeBodyUpdate recordCategoryBodyUpdate,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -540,7 +528,7 @@ public interface RecordCategoriesAPI
      * @param recordCategoryId The identifier of a record category. (required)
      */
     @DELETE(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}")
-    Observable<Void> deleteRecordCategoryObservable(@Path("recordCategoryId") String recordCategoryId);
+    Observable<Void> deleteRecordCategoryObservable(@Path(RECORD_CATEGORY_ID) String recordCategoryId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CHILDREN LISTING
@@ -559,7 +547,7 @@ public interface RecordCategoriesAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}/children")
     Observable<ResultPaging<RMNodeRepresentation>> listRecordCategoryChildrenObservable(
-            @Path("recordCategoryId") String recordCategoryId);
+            @Path(RECORD_CATEGORY_ID) String recordCategoryId);
 
     /**
      * List record category&#39;s children Returns a list of record categories
@@ -587,10 +575,8 @@ public interface RecordCategoriesAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}/children")
     Observable<ResultPaging<RMNodeRepresentation>> listRecordCategoryChildrenObservable(
-            @Path("recordCategoryId") String recordCategoryId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
+            @Path(RECORD_CATEGORY_ID) String recordCategoryId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy);
 
     /**
      * List record category&#39;s children Returns a list of record categories
@@ -645,15 +631,10 @@ public interface RecordCategoriesAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}/children")
     Observable<ResultPaging<RMNodeRepresentation>> listRecordCategoryChildrenObservable(
-            @Path("recordCategoryId") String recordCategoryId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(RECORD_CATEGORY_ID) String recordCategoryId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy, @Query(WHERE) String where,
+            @Query(INCLUDE) IncludeParam include, @Query(RELATIVE_PATH) String relativePath,
+            @Query(INCLUDE_SOURCE) Boolean includeSource, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CHILDREN CREATION
@@ -713,7 +694,7 @@ public interface RecordCategoriesAPI
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}/children")
     Observable<RMNodeRepresentation> createRecordCategoryChildObservable(
-            @Path("recordCategoryId") String recordCategoryId, @Body NodeBodyCreate nodeBodyCreate);
+            @Path(RECORD_CATEGORY_ID) String recordCategoryId, @Body NodeBodyCreate nodeBodyCreate);
 
     /**
      * Create a record category or a record folder Create a record category or a
@@ -784,9 +765,8 @@ public interface RecordCategoriesAPI
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-categories/{recordCategoryId}/children")
     Observable<RMNodeRepresentation> createRecordCategoryChildObservable(
-            @Path("recordCategoryId") String recordCategoryId, @Body NodeBodyCreate nodeBodyCreate,
-            @Query(PublicAPIConstant.AUTO_RENAME_VALUE) boolean autoRename,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(RECORD_CATEGORY_ID) String recordCategoryId, @Body NodeBodyCreate nodeBodyCreate,
+            @Query(AUTO_RENAME) boolean autoRename, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
 }

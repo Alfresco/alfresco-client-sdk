@@ -109,7 +109,7 @@ Response<TaskResponse> response = client.getTasksAPI().getTaskCall("123").execut
 client.getTasksAPI().getTaskObservable("123").subscribe(root -> Assert.assertEquals(root.getName(), "Task"));
 ```
 
-### Create, Edit & Delete Folder
+### Task Actions
 ```java
     // CREATE STANDALONE TASK
     TaskResponse task = tasksAPI.createTaskCall(new TaskRequest("Task 1", "Description 1", "kermit", "kermit")).execute().body();

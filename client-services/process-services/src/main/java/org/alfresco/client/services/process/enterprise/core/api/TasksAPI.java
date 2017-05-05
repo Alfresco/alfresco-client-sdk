@@ -19,6 +19,7 @@
 package org.alfresco.client.services.process.enterprise.core.api;
 
 import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+import static org.alfresco.client.services.process.enterprise.common.constant.RequestConstant.*;
 
 import java.util.List;
 
@@ -51,173 +52,172 @@ public interface TasksAPI
     Call<ResultList<TaskRepresentation>> filterTasksCall(@Body TaskFilterRequestRepresentation filter);
 
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}")
-    Call<TaskRepresentation> getTaskCall(@Path("taskId") String taskId);
+    Call<TaskRepresentation> getTaskCall(@Path(TASK_ID) String taskId);
 
     @POST(PROCESS_SERVICE_PATH + "/tasks")
     Call<TaskRepresentation> createNewTaskCall(@Body TaskRepresentation task);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}")
-    Call<TaskRepresentation> updateTaskCall(@Path("taskId") String taskId, @Body UpdateTaskRepresentation request);
+    Call<TaskRepresentation> updateTaskCall(@Path(TASK_ID) String taskId, @Body UpdateTaskRepresentation request);
 
     @DELETE(PROCESS_SERVICE_PATH + "/tasks/{taskId}")
-    Call<Void> deleteTaskCall(@Path("taskId") String taskId);
+    Call<Void> deleteTaskCall(@Path(TASK_ID) String taskId);
 
     // ACTIONS
     // ///////////////////////////////////////////////////////////////////
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/complete")
-    Call<Void> completeTaskCall(@Path("taskId") String taskId);
+    Call<Void> completeTaskCall(@Path(TASK_ID) String taskId);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/involve")
-    Call<Void> involveUserCall(@Path("taskId") String taskId, @Body InvolveTaskRepresentation request);
+    Call<Void> involveUserCall(@Path(TASK_ID) String taskId, @Body InvolveTaskRepresentation request);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/remove-involved")
-    Call<Void> removeInvolvedUserCall(@Path("taskId") String taskId, @Body InvolveTaskRepresentation request);
+    Call<Void> removeInvolvedUserCall(@Path(TASK_ID) String taskId, @Body InvolveTaskRepresentation request);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/assign")
-    Call<TaskRepresentation> assignTaskCall(@Path("taskId") String taskId, @Body AssignTaskRepresentation request);
+    Call<TaskRepresentation> assignTaskCall(@Path(TASK_ID) String taskId, @Body AssignTaskRepresentation request);
 
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/claim")
-    Call<Void> claimTaskCall(@Path("taskId") String taskId);
+    Call<Void> claimTaskCall(@Path(TASK_ID) String taskId);
 
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/unclaim")
-    Call<Void> unClaimTaskCall(@Path("taskId") String taskId);
+    Call<Void> unClaimTaskCall(@Path(TASK_ID) String taskId);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/attach-form")
-    Call<Void> attachFormCall(@Path("taskId") String taskId, @Body AttachFormTaskRepresentation requestNode);
+    Call<Void> attachFormCall(@Path(TASK_ID) String taskId, @Body AttachFormTaskRepresentation requestNode);
 
     @DELETE(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/remove-form")
-    Call<Void> removeFormCall(@Path("taskId") String taskId);
+    Call<Void> removeFormCall(@Path(TASK_ID) String taskId);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/delegate")
-    Call<Void> delegateCall(@Path("taskId") String taskId, @Body DelegateTaskRepresentation requestNode);
+    Call<Void> delegateCall(@Path(TASK_ID) String taskId, @Body DelegateTaskRepresentation requestNode);
 
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/resolve")
-    Call<Void> resolveCall(@Path("taskId") String taskId);
+    Call<Void> resolveCall(@Path(TASK_ID) String taskId);
 
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/groups/{groupId}")
-    Call<Void> involveGroupCall(@Path("taskId") String taskId, @Path("groupId") String groupId);
+    Call<Void> involveGroupCall(@Path(TASK_ID) String taskId, @Path(GROUP_ID) String groupId);
 
     @DELETE(PROCESS_SERVICE_PATH + "/tasks/{taskId}/groups/{groupId}")
-    Call<Void> removeInvolvedGroupCall(@Path("taskId") String taskId, @Path("groupId") String groupId);
+    Call<Void> removeInvolvedGroupCall(@Path(TASK_ID) String taskId, @Path(GROUP_ID) String groupId);
 
     // FORMS
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/task-forms/{taskId}/")
-    Call<FormDefinitionRepresentation> getTaskFormCall(@Path("taskId") String taskId);
+    Call<FormDefinitionRepresentation> getTaskFormCall(@Path(TASK_ID) String taskId);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/task-forms/{taskId}")
-    Call<Void> completeTaskFormCall(@Path("taskId") String taskId, @Body CompleteFormRepresentation request);
+    Call<Void> completeTaskFormCall(@Path(TASK_ID) String taskId, @Body CompleteFormRepresentation request);
 
     @GET(PROCESS_SERVICE_PATH + "/task-forms/{taskId}/form-values/{field}")
-    Call<List<FormValueRepresentation>> getRestFieldValuesCall(@Path("taskId") String taskId,
-            @Path("field") String field);
+    Call<List<FormValueRepresentation>> getRestFieldValuesCall(@Path(TASK_ID) String taskId, @Path(FIELD) String field);
 
     @GET(PROCESS_SERVICE_PATH + "/task-forms/{taskId}/form-values/{fieldId}/{column}")
-    Call<List<FormValueRepresentation>> getRestFieldValuesCall(@Path("taskId") String taskId,
-            @Path("fieldId") String fieldId, @Path("column") String column);
+    Call<List<FormValueRepresentation>> getRestFieldValuesCall(@Path(TASK_ID) String taskId,
+            @Path(FIELD_ID) String fieldId, @Path("column") String column);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/task-forms/{taskId}/save-form")
-    Call<Void> saveTaskFormCall(@Path("taskId") String taskId, @Body SaveFormRepresentation request);
+    Call<Void> saveTaskFormCall(@Path(TASK_ID) String taskId, @Body SaveFormRepresentation request);
 
     // CHECKLIST
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/checklist")
-    Call<ResultList<TaskRepresentation>> getChecklistCall(@Path("taskId") String taskId);
+    Call<ResultList<TaskRepresentation>> getChecklistCall(@Path(TASK_ID) String taskId);
 
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/checklist")
-    Call<TaskRepresentation> addSubtaskCall(@Path("taskId") String taskId, @Body TaskRepresentation task);
+    Call<TaskRepresentation> addSubtaskCall(@Path(TASK_ID) String taskId, @Body TaskRepresentation task);
 
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/checklist")
-    Call<Void> orderChecklistCall(@Path("taskId") String taskId, @Body ChecklistOrderRepresentation task);
+    Call<Void> orderChecklistCall(@Path(TASK_ID) String taskId, @Body ChecklistOrderRepresentation task);
 
     // COMMENTS
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/comments")
-    Call<ResultList<CommentRepresentation>> getTaskCommentsCall(@Path("taskId") String taskId);
+    Call<ResultList<CommentRepresentation>> getTaskCommentsCall(@Path(TASK_ID) String taskId);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/comments")
-    Call<CommentRepresentation> addTaskCommentCall(@Path("taskId") String taskId, @Body CommentRepresentation request);
+    Call<CommentRepresentation> addTaskCommentCall(@Path(TASK_ID) String taskId, @Body CommentRepresentation request);
 
     // CONTENTS
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/content")
-    Call<ResultList<RelatedContentRepresentation>> getRelatedContentForTaskCall(@Path("taskId") String taskId);
+    Call<ResultList<RelatedContentRepresentation>> getRelatedContentForTaskCall(@Path(TASK_ID) String taskId);
 
     @Multipart
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/raw-content?isRelatedContent=true")
-    Call<RelatedContentRepresentation> createRelatedContentOnTaskCall(@Path("taskId") String taskId,
+    Call<RelatedContentRepresentation> createRelatedContentOnTaskCall(@Path(TASK_ID) String taskId,
             @Part("file") RequestBody resource);
 
     @Multipart
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/raw-content")
-    Call<RelatedContentRepresentation> createContentOnTaskCall(@Path("taskId") String taskId,
+    Call<RelatedContentRepresentation> createContentOnTaskCall(@Path(TASK_ID) String taskId,
             @Part("file") RequestBody resource, @Query("isRelatedContent") Boolean isRelatedContent);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/content")
-    Call<RelatedContentRepresentation> linkRelatedContentOnTaskCall(@Path("taskId") String taskId,
+    Call<RelatedContentRepresentation> linkRelatedContentOnTaskCall(@Path(TASK_ID) String taskId,
             @Body AddContentRelatedRepresentation representation);
 
     // IDENTITY LINKS
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/identitylinks")
-    Call<ResultList<IdentityLinkRepresentation>> getIdentityLinksCall(@Path("taskId") String taskId);
+    Call<ResultList<IdentityLinkRepresentation>> getIdentityLinksCall(@Path(TASK_ID) String taskId);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/identitylinks")
-    Call<IdentityLinkRepresentation> createIdentityLinkCall(@Path("taskId") String taskId,
+    Call<IdentityLinkRepresentation> createIdentityLinkCall(@Path(TASK_ID) String taskId,
             @Body IdentityLinkRepresentation representation);
 
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/identitylinks/{family}")
-    Call<List<IdentityLinkRepresentation>> getIdentityLinksForFamilyCall(@Path("taskId") String taskId,
-            @Path("family") String family);
+    Call<List<IdentityLinkRepresentation>> getIdentityLinksForFamilyCall(@Path(TASK_ID) String taskId,
+            @Path(FAMILY) String family);
 
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/identitylinks/{family}/{identityId}/{type}")
-    Call<ResultList<IdentityLinkRepresentation>> getIdentityLinkTypeCall(@Path("taskId") String taskId,
-            @Path("family") String family, @Path("identityId") String identityId, @Path("type") String type);
+    Call<ResultList<IdentityLinkRepresentation>> getIdentityLinkTypeCall(@Path(TASK_ID) String taskId,
+            @Path(FAMILY) String family, @Path(IDENTITY_ID) String identityId, @Path(TYPE) String type);
 
     @DELETE(PROCESS_SERVICE_PATH + "/tasks/{taskId}/identitylinks/{family}/{identityId}/{type}")
-    Call<Void> deleteIdentityLinkCall(@Path("taskId") String taskId, @Path("family") String family,
-            @Path("identityId") String identityId, @Path("type") String type);
+    Call<Void> deleteIdentityLinkCall(@Path(TASK_ID) String taskId, @Path(FAMILY) String family,
+            @Path(IDENTITY_ID) String identityId, @Path(TYPE) String type);
 
     // AUDIT
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/audit")
-    Call<TaskAuditInfoRepresentation> getTaskAuditLogCall(@Path("taskId") String taskId);
+    Call<TaskAuditInfoRepresentation> getTaskAuditLogCall(@Path(TASK_ID) String taskId);
 
     // VARIABLES
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/variables")
-    Call<List<RestVariable>> getVariablesCall(@Path("taskId") String taskId, @Query("scope") String scope);
+    Call<List<RestVariable>> getVariablesCall(@Path(TASK_ID) String taskId, @Query(SCOPE) String scope);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/variables")
-    Call<Void> createTaskVariableCall(@Path("taskId") String taskId, @Body List<RestVariable> restVariables);
+    Call<Void> createTaskVariableCall(@Path(TASK_ID) String taskId, @Body List<RestVariable> restVariables);
 
     @DELETE(PROCESS_SERVICE_PATH + "/tasks/{taskId}/variables")
-    Call<Void> deleteAllLocalTaskVariablesCall(@Path("taskId") String taskId);
+    Call<Void> deleteAllLocalTaskVariablesCall(@Path(TASK_ID) String taskId);
 
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/variables/{variableName}")
-    Call<RestVariable> getVariableCall(@Path("taskId") String taskId, @Path("variableName") String variableName,
-            @Query("scope") String scope);
+    Call<RestVariable> getVariableCall(@Path(TASK_ID) String taskId, @Path(VARIABLE_NAME) String variableName,
+            @Query(SCOPE) String scope);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/variables/{variableName}")
-    Call<RestVariable> updateVariableCall(@Path("taskId") String taskId, @Path("variableName") String variableName,
+    Call<RestVariable> updateVariableCall(@Path(TASK_ID) String taskId, @Path(VARIABLE_NAME) String variableName,
             @Body RestVariable restVariable);
 
     @DELETE(PROCESS_SERVICE_PATH + "/tasks/{taskId}/variables/{variableName}")
-    Call<Void> deleteVariableCall(@Path("taskId") String taskId, @Path("variableName") String variableName,
-            @Query("scope") String scope);
+    Call<Void> deleteVariableCall(@Path(TASK_ID) String taskId, @Path(VARIABLE_NAME) String variableName,
+            @Query(SCOPE) String scope);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -258,180 +258,180 @@ public interface TasksAPI
     Observable<ResultList<TaskRepresentation>> filterTasksObservable(@Body TaskFilterRequestRepresentation filter);
 
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}")
-    Observable<TaskRepresentation> getTaskObservable(@Path("taskId") String taskId);
+    Observable<TaskRepresentation> getTaskObservable(@Path(TASK_ID) String taskId);
 
     @POST(PROCESS_SERVICE_PATH + "/tasks")
     Observable<TaskRepresentation> createNewTaskObservable(@Body TaskRepresentation task);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}")
-    Observable<TaskRepresentation> updateTaskObservable(@Path("taskId") String taskId,
+    Observable<TaskRepresentation> updateTaskObservable(@Path(TASK_ID) String taskId,
             @Body UpdateTaskRepresentation request);
 
     @DELETE(PROCESS_SERVICE_PATH + "/tasks/{taskId}")
-    Observable<Void> deleteTaskObservable(@Path("taskId") String taskId);
+    Observable<Void> deleteTaskObservable(@Path(TASK_ID) String taskId);
 
     // ACTIONS
     // ///////////////////////////////////////////////////////////////////
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/complete")
-    Observable<Void> completeTaskObservable(@Path("taskId") String taskId);
+    Observable<Void> completeTaskObservable(@Path(TASK_ID) String taskId);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/involve")
-    Observable<Void> involveUserObservable(@Path("taskId") String taskId, @Body InvolveTaskRepresentation request);
+    Observable<Void> involveUserObservable(@Path(TASK_ID) String taskId, @Body InvolveTaskRepresentation request);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/remove-involved")
-    Observable<Void> removeInvolvedUserObservable(@Path("taskId") String taskId,
+    Observable<Void> removeInvolvedUserObservable(@Path(TASK_ID) String taskId,
             @Body InvolveTaskRepresentation request);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/assign")
-    Observable<TaskRepresentation> assignTaskObservable(@Path("taskId") String taskId,
+    Observable<TaskRepresentation> assignTaskObservable(@Path(TASK_ID) String taskId,
             @Body AssignTaskRepresentation request);
 
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/claim")
-    Observable<Void> claimTaskObservable(@Path("taskId") String taskId);
+    Observable<Void> claimTaskObservable(@Path(TASK_ID) String taskId);
 
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/unclaim")
-    Observable<Void> unClaimTaskObservable(@Path("taskId") String taskId);
+    Observable<Void> unClaimTaskObservable(@Path(TASK_ID) String taskId);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/attach-form")
-    Observable<Void> attachFormObservable(@Path("taskId") String taskId,
+    Observable<Void> attachFormObservable(@Path(TASK_ID) String taskId,
             @Body AttachFormTaskRepresentation requestNode);
 
     @DELETE(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/remove-form")
-    Observable<Void> removeFormObservable(@Path("taskId") String taskId);
+    Observable<Void> removeFormObservable(@Path(TASK_ID) String taskId);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/delegate")
-    Observable<Void> delegateObservable(@Path("taskId") String taskId, @Body DelegateTaskRepresentation requestNode);
+    Observable<Void> delegateObservable(@Path(TASK_ID) String taskId, @Body DelegateTaskRepresentation requestNode);
 
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/action/resolve")
-    Observable<Void> resolveObservable(@Path("taskId") String taskId);
+    Observable<Void> resolveObservable(@Path(TASK_ID) String taskId);
 
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/groups/{groupId}")
-    Observable<Void> involveGroupObservable(@Path("taskId") String taskId, @Path("groupId") String groupId);
+    Observable<Void> involveGroupObservable(@Path(TASK_ID) String taskId, @Path(GROUP_ID) String groupId);
 
     @DELETE(PROCESS_SERVICE_PATH + "/tasks/{taskId}/groups/{groupId}")
-    Observable<Void> removeInvolvedGroupObservable(@Path("taskId") String taskId, @Path("groupId") String groupId);
+    Observable<Void> removeInvolvedGroupObservable(@Path(TASK_ID) String taskId, @Path(GROUP_ID) String groupId);
 
     // FORMS
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/task-forms/{taskId}/")
-    Observable<FormDefinitionRepresentation> getTaskFormObservable(@Path("taskId") String taskId);
+    Observable<FormDefinitionRepresentation> getTaskFormObservable(@Path(TASK_ID) String taskId);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/task-forms/{taskId}")
-    Observable<Void> completeTaskFormObservable(@Path("taskId") String taskId,
+    Observable<Void> completeTaskFormObservable(@Path(TASK_ID) String taskId,
             @Body CompleteFormRepresentation request);
 
     @GET(PROCESS_SERVICE_PATH + "/task-forms/{taskId}/form-values/{field}")
-    Observable<List<FormValueRepresentation>> getRestFieldValuesObservable(@Path("taskId") String taskId,
-            @Path("field") String field);
+    Observable<List<FormValueRepresentation>> getRestFieldValuesObservable(@Path(TASK_ID) String taskId,
+            @Path(FIELD) String field);
 
     @GET(PROCESS_SERVICE_PATH + "/task-forms/{taskId}/form-values/{fieldId}/{column}")
-    Observable<List<FormValueRepresentation>> getRestFieldValuesObservable(@Path("taskId") String taskId,
-            @Path("fieldId") String fieldId, @Path("column") String column);
+    Observable<List<FormValueRepresentation>> getRestFieldValuesObservable(@Path(TASK_ID) String taskId,
+            @Path(FIELD_ID) String fieldId, @Path("column") String column);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/task-forms/{taskId}/save-form")
-    Observable<Void> saveTaskFormObservable(@Path("taskId") String taskId, @Body SaveFormRepresentation request);
+    Observable<Void> saveTaskFormObservable(@Path(TASK_ID) String taskId, @Body SaveFormRepresentation request);
 
     // CHECKLIST
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/checklist")
-    Observable<ResultList<TaskRepresentation>> getChecklistObservable(@Path("taskId") String taskId);
+    Observable<ResultList<TaskRepresentation>> getChecklistObservable(@Path(TASK_ID) String taskId);
 
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/checklist")
-    Observable<TaskRepresentation> addSubtaskObservable(@Path("taskId") String taskId, @Body TaskRepresentation task);
+    Observable<TaskRepresentation> addSubtaskObservable(@Path(TASK_ID) String taskId, @Body TaskRepresentation task);
 
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/checklist")
-    Observable<Void> orderChecklistObservable(@Path("taskId") String taskId, @Body ChecklistOrderRepresentation task);
+    Observable<Void> orderChecklistObservable(@Path(TASK_ID) String taskId, @Body ChecklistOrderRepresentation task);
 
     // COMMENTS
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/comments")
-    Observable<ResultList<CommentRepresentation>> getTaskCommentsObservable(@Path("taskId") String taskId);
+    Observable<ResultList<CommentRepresentation>> getTaskCommentsObservable(@Path(TASK_ID) String taskId);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/comments")
-    Observable<CommentRepresentation> addTaskCommentObservable(@Path("taskId") String taskId,
+    Observable<CommentRepresentation> addTaskCommentObservable(@Path(TASK_ID) String taskId,
             @Body CommentRepresentation request);
 
     // CONTENTS
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/content")
     Observable<ResultList<RelatedContentRepresentation>> getRelatedContentForTaskObservable(
-            @Path("taskId") String taskId);
+            @Path(TASK_ID) String taskId);
 
     @Multipart
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/raw-content?isRelatedContent=true")
-    Observable<RelatedContentRepresentation> createRelatedContentOnTaskObservable(@Path("taskId") String taskId,
+    Observable<RelatedContentRepresentation> createRelatedContentOnTaskObservable(@Path(TASK_ID) String taskId,
             @Part("file") RequestBody resource);
 
     @Multipart
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/raw-content")
-    Observable<RelatedContentRepresentation> createContentOnTaskObservable(@Path("taskId") String taskId,
+    Observable<RelatedContentRepresentation> createContentOnTaskObservable(@Path(TASK_ID) String taskId,
             @Part("file") RequestBody resource, @Query("isRelatedContent") Boolean isRelatedContent);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/content")
-    Observable<RelatedContentRepresentation> linkRelatedContentOnTaskObservable(@Path("taskId") String taskId,
+    Observable<RelatedContentRepresentation> linkRelatedContentOnTaskObservable(@Path(TASK_ID) String taskId,
             @Body AddContentRelatedRepresentation representation);
 
     // IDENTITY LINKS
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/identitylinks")
-    Observable<ResultList<IdentityLinkRepresentation>> getIdentityLinksObservable(@Path("taskId") String taskId);
+    Observable<ResultList<IdentityLinkRepresentation>> getIdentityLinksObservable(@Path(TASK_ID) String taskId);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/identitylinks")
-    Observable<IdentityLinkRepresentation> createIdentityLinkObservable(@Path("taskId") String taskId,
+    Observable<IdentityLinkRepresentation> createIdentityLinkObservable(@Path(TASK_ID) String taskId,
             @Body IdentityLinkRepresentation representation);
 
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/identitylinks/{family}")
-    Observable<List<IdentityLinkRepresentation>> getIdentityLinksForFamilyObservable(@Path("taskId") String taskId,
-            @Path("family") String family);
+    Observable<List<IdentityLinkRepresentation>> getIdentityLinksForFamilyObservable(@Path(TASK_ID) String taskId,
+            @Path(FAMILY) String family);
 
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/identitylinks/{family}/{identityId}/{type}")
-    Observable<ResultList<IdentityLinkRepresentation>> getIdentityLinkTypeObservable(@Path("taskId") String taskId,
-            @Path("family") String family, @Path("identityId") String identityId, @Path("type") String type);
+    Observable<ResultList<IdentityLinkRepresentation>> getIdentityLinkTypeObservable(@Path(TASK_ID) String taskId,
+            @Path(FAMILY) String family, @Path(IDENTITY_ID) String identityId, @Path(TYPE) String type);
 
     @DELETE(PROCESS_SERVICE_PATH + "/tasks/{taskId}/identitylinks/{family}/{identityId}/{type}")
-    Observable<Void> deleteIdentityLinkObservable(@Path("taskId") String taskId, @Path("family") String family,
-            @Path("identityId") String identityId, @Path("type") String type);
+    Observable<Void> deleteIdentityLinkObservable(@Path(TASK_ID) String taskId, @Path(FAMILY) String family,
+            @Path(IDENTITY_ID) String identityId, @Path(TYPE) String type);
 
     // AUDIT
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/audit")
-    Observable<TaskAuditInfoRepresentation> getTaskAuditLogObservable(@Path("taskId") String taskId);
+    Observable<TaskAuditInfoRepresentation> getTaskAuditLogObservable(@Path(TASK_ID) String taskId);
 
     // VARIABLES
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/variables")
-    Observable<List<RestVariable>> getVariablesObservable(@Path("taskId") String taskId, @Query("scope") String scope);
+    Observable<List<RestVariable>> getVariablesObservable(@Path(TASK_ID) String taskId, @Query(SCOPE) String scope);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/tasks/{taskId}/variables")
-    Observable<Void> createTaskVariableObservable(@Path("taskId") String taskId,
+    Observable<Void> createTaskVariableObservable(@Path(TASK_ID) String taskId,
             @Body List<RestVariable> restVariables);
 
     @DELETE(PROCESS_SERVICE_PATH + "/tasks/{taskId}/variables")
-    Observable<Void> deleteAllLocalTaskVariablesObservable(@Path("taskId") String taskId);
+    Observable<Void> deleteAllLocalTaskVariablesObservable(@Path(TASK_ID) String taskId);
 
     @GET(PROCESS_SERVICE_PATH + "/tasks/{taskId}/variables/{variableName}")
-    Observable<RestVariable> getVariableObservable(@Path("taskId") String taskId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Observable<RestVariable> getVariableObservable(@Path(TASK_ID) String taskId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     @Headers({ "Content-type: application/json" })
     @PUT(PROCESS_SERVICE_PATH + "/tasks/{taskId}/variables/{variableName}")
-    Observable<RestVariable> updateVariableObservable(@Path("taskId") String taskId,
-            @Path("variableName") String variableName, @Body RestVariable restVariable);
+    Observable<RestVariable> updateVariableObservable(@Path(TASK_ID) String taskId,
+            @Path(VARIABLE_NAME) String variableName, @Body RestVariable restVariable);
 
     @DELETE(PROCESS_SERVICE_PATH + "/tasks/{taskId}/variables/{variableName}")
-    Observable<Void> deleteVariableObservable(@Path("taskId") String taskId, @Path("variableName") String variableName,
-            @Query("scope") String scope);
+    Observable<Void> deleteVariableObservable(@Path(TASK_ID) String taskId, @Path(VARIABLE_NAME) String variableName,
+            @Query(SCOPE) String scope);
 
 }

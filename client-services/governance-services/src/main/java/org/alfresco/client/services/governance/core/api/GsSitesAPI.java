@@ -18,8 +18,10 @@
 
 package org.alfresco.client.services.governance.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
+import static org.alfresco.client.services.common.constant.ApiConstant.FIELDS;
+import static org.alfresco.client.services.common.constant.ApiConstant.SKIP_ADD_TO_FAVORITES;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
 import org.alfresco.client.services.governance.core.GovernanceConstant;
 import org.alfresco.client.services.governance.core.model.body.RMSiteBodyCreate;
 import org.alfresco.client.services.governance.core.model.body.RMSiteBodyUpdate;
@@ -58,7 +60,7 @@ public interface GsSitesAPI
      * @return RMSiteRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/gs-sites/rm")
-    Call<RMSiteRepresentation> getRMSiteCall(@Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RMSiteRepresentation> getRMSiteCall(@Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -105,7 +107,7 @@ public interface GsSitesAPI
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/gs-sites")
     Call<RMSiteRepresentation> createRMSiteCall(@Body RMSiteBodyCreate siteBodyCreate,
-            @Query("skipAddToFavorites") boolean skipAddToFavorites);
+            @Query(SKIP_ADD_TO_FAVORITES) boolean skipAddToFavorites);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -145,7 +147,7 @@ public interface GsSitesAPI
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/gs-sites/rm")
     Call<RMSiteRepresentation> updateRMSiteCall(@Body RMSiteBodyUpdate siteBodyUpdate,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -205,7 +207,7 @@ public interface GsSitesAPI
      * @return RMSiteRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/gs-sites/rm")
-    Observable<RMSiteRepresentation> getRMSiteObservable(@Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<RMSiteRepresentation> getRMSiteObservable(@Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -252,7 +254,7 @@ public interface GsSitesAPI
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/gs-sites")
     Observable<RMSiteRepresentation> createRMSiteObservable(@Body RMSiteBodyCreate siteBodyCreate,
-            @Query("skipAddToFavorites") boolean skipAddToFavorites);
+            @Query(SKIP_ADD_TO_FAVORITES) boolean skipAddToFavorites);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -292,7 +294,7 @@ public interface GsSitesAPI
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/gs-sites/rm")
     Observable<RMSiteRepresentation> updateRMSiteObservable(@Body RMSiteBodyUpdate siteBodyUpdate,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE

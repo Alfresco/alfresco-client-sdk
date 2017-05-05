@@ -18,11 +18,12 @@
 
 package org.alfresco.client.services.content.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
 import org.alfresco.client.services.content.core.model.body.FavoriteBodyCreate;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
 import org.alfresco.client.services.content.core.model.representation.CommentRepresentation;
 import org.alfresco.client.services.content.core.model.representation.FavoriteRepresentation;
 
@@ -58,7 +59,7 @@ public interface FavoritesAPI
      * @return FavoritePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites")
-    Call<ResultPaging<FavoriteRepresentation>> listFavoritesCall(@Path("personId") String personId);
+    Call<ResultPaging<FavoriteRepresentation>> listFavoritesCall(@Path(PERSON_ID) String personId);
 
     /**
      * Get favorites Returns a list of favorites for person **personId**. You
@@ -97,11 +98,9 @@ public interface FavoritesAPI
      * @return FavoritePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites")
-    Call<ResultPaging<FavoriteRepresentation>> listFavoritesCall(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<FavoriteRepresentation>> listFavoritesCall(@Path(PERSON_ID) String personId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems, @Query(WHERE) String where,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO
@@ -116,7 +115,7 @@ public interface FavoritesAPI
      * @return FavoriteRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites/{favoriteId}")
-    Call<FavoriteRepresentation> getFavoriteCall(@Path("personId") String personId,
+    Call<FavoriteRepresentation> getFavoriteCall(@Path(PERSON_ID) String personId,
             @Path("favoriteId") String favoriteId);
 
     /**
@@ -137,8 +136,8 @@ public interface FavoritesAPI
      * @return FavoriteRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites/{favoriteId}")
-    Call<FavoriteRepresentation> getFavoriteCall(@Path("personId") String personId,
-            @Path("favoriteId") String favoriteId, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<FavoriteRepresentation> getFavoriteCall(@Path(PERSON_ID) String personId,
+            @Path("favoriteId") String favoriteId, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -176,8 +175,8 @@ public interface FavoritesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites")
-    Call<FavoriteRepresentation> createFavoriteCall(@Path("personId") String personId,
-            @Body FavoriteBodyCreate favoriteBodyCreate, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<FavoriteRepresentation> createFavoriteCall(@Path(PERSON_ID) String personId,
+            @Body FavoriteBodyCreate favoriteBodyCreate, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -191,7 +190,7 @@ public interface FavoritesAPI
      * @param favoriteId The identifier of a favorite. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites/{favoriteId}")
-    Call<Void> deleteFavoriteCall(@Path("personId") String personId, @Path("favoriteId") String favoriteId);
+    Call<Void> deleteFavoriteCall(@Path(PERSON_ID) String personId, @Path("favoriteId") String favoriteId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -245,7 +244,7 @@ public interface FavoritesAPI
      * @return FavoritePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites")
-    Observable<ResultPaging<CommentRepresentation>> listFavoritesObservable(@Path("personId") String personId);
+    Observable<ResultPaging<CommentRepresentation>> listFavoritesObservable(@Path(PERSON_ID) String personId);
 
     /**
      * Get favorites Returns a list of favorites for person **personId**. You
@@ -284,11 +283,9 @@ public interface FavoritesAPI
      * @return FavoritePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites")
-    Observable<ResultPaging<FavoriteRepresentation>> listFavoritesObservable(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<FavoriteRepresentation>> listFavoritesObservable(@Path(PERSON_ID) String personId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems, @Query(WHERE) String where,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO
@@ -303,7 +300,7 @@ public interface FavoritesAPI
      * @return FavoriteRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites/{favoriteId}")
-    Observable<FavoriteRepresentation> getFavoriteObservable(@Path("personId") String personId,
+    Observable<FavoriteRepresentation> getFavoriteObservable(@Path(PERSON_ID) String personId,
             @Path("favoriteId") String favoriteId);
 
     /**
@@ -324,8 +321,8 @@ public interface FavoritesAPI
      * @return FavoriteRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites/{favoriteId}")
-    Observable<FavoriteRepresentation> getFavoriteObservable(@Path("personId") String personId,
-            @Path("favoriteId") String favoriteId, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<FavoriteRepresentation> getFavoriteObservable(@Path(PERSON_ID) String personId,
+            @Path("favoriteId") String favoriteId, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -363,8 +360,8 @@ public interface FavoritesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites")
-    Observable<FavoriteRepresentation> createFavoriteObservable(@Path("personId") String personId,
-            @Body FavoriteBodyCreate favoriteBodyCreate, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<FavoriteRepresentation> createFavoriteObservable(@Path(PERSON_ID) String personId,
+            @Body FavoriteBodyCreate favoriteBodyCreate, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -379,5 +376,5 @@ public interface FavoritesAPI
      * @param favoriteId The identifier of a favorite. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/favorites/{favoriteId}")
-    Observable<Void> deleteFavoriteObservable(@Path("personId") String personId, @Path("favoriteId") String favoriteId);
+    Observable<Void> deleteFavoriteObservable(@Path(PERSON_ID) String personId, @Path("favoriteId") String favoriteId);
 }

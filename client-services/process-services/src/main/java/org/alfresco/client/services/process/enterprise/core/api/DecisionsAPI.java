@@ -19,6 +19,7 @@
 package org.alfresco.client.services.process.enterprise.core.api;
 
 import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+import static org.alfresco.client.services.process.enterprise.common.constant.RequestConstant.*;
 
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.core.model.runtime.DecisionAuditRepresentation;
@@ -34,23 +35,23 @@ import rx.Observable;
 public interface DecisionsAPI
 {
     @GET(PROCESS_SERVICE_PATH + "/decisions/audits/{auditTrailId}")
-    Call<DecisionAuditRepresentation> getAuditTrailCall(@Path("auditTrailId") Long auditTrailId);
+    Call<DecisionAuditRepresentation> getAuditTrailCall(@Path(AUDIT_TRAIL_ID) Long auditTrailId);
 
     @GET(PROCESS_SERVICE_PATH + "/decisions/audits")
-    Call<ResultList<DecisionAuditRepresentation>> getDecisionAuditTrailsCall(@Query("decisionKey") String decisionKey,
+    Call<ResultList<DecisionAuditRepresentation>> getDecisionAuditTrailsCall(@Query(DECISION_KEY) String decisionKey,
             @Query("dmnDeploymentId") Long dmnDeploymentId);
 
     @GET(PROCESS_SERVICE_PATH + "/decisions/decision-tables")
-    Call<ResultList<RuntimeDecisionTableRepresentation>> getDecisionTablesCall(@Query("nameLike") String nameLike,
-            @Query("keyLike") String keyLike, @Query("tenantIdLike") String tenantIdLike,
-            @Query("deploymentId") Long deploymentId, @Query("sort") String sort, @Query("order") String order,
-            @Query("start") Integer start, @Query("size") Integer size);
+    Call<ResultList<RuntimeDecisionTableRepresentation>> getDecisionTablesCall(@Query(NAME_LIKE) String nameLike,
+            @Query(KEY_LIKE) String keyLike, @Query(TENANT_ID_LIKE) String tenantIdLike,
+            @Query(DEPLOYMENT_ID) Long deploymentId, @Query(SORT) String sort, @Query(ORDER) String order,
+            @Query(START) Integer start, @Query("size") Integer size);
 
     @GET(PROCESS_SERVICE_PATH + "/decisions/decision-tables/{decisionTableId}")
-    Call<RuntimeDecisionTableRepresentation> getDecisionTableCall(@Path("decisionTableId") Long auditTrailId);
+    Call<RuntimeDecisionTableRepresentation> getDecisionTableCall(@Path(DECISION_TABLE_ID) Long auditTrailId);
 
     @GET(PROCESS_SERVICE_PATH + "/decisions/decision-tables/{decisionTableId}")
-    Call<ResponseBody> getDecisionTableEditorJsonCall(@Path("decisionTableId") Long auditTrailId);
+    Call<ResponseBody> getDecisionTableEditorJsonCall(@Path(DECISION_TABLE_ID) Long auditTrailId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -78,24 +79,24 @@ public interface DecisionsAPI
     // ///////////////////////////////////////////////////////////////////////////
 
     @GET(PROCESS_SERVICE_PATH + "/decisions/audits/{auditTrailId}")
-    Observable<DecisionAuditRepresentation> getAuditTrailObservable(@Path("auditTrailId") Long auditTrailId);
+    Observable<DecisionAuditRepresentation> getAuditTrailObservable(@Path(AUDIT_TRAIL_ID) Long auditTrailId);
 
     @GET(PROCESS_SERVICE_PATH + "/decisions/audits")
     Observable<ResultList<DecisionAuditRepresentation>> getDecisionAuditTrailsObservable(
-            @Query("decisionKey") String decisionKey, @Query("dmnDeploymentId") Long dmnDeploymentId);
+            @Query(DECISION_KEY) String decisionKey, @Query("dmnDeploymentId") Long dmnDeploymentId);
 
     @GET(PROCESS_SERVICE_PATH + "/decisions/decision-tables")
     Observable<ResultList<RuntimeDecisionTableRepresentation>> getDecisionTablesObservable(
-            @Query("nameLike") String nameLike, @Query("keyLike") String keyLike,
-            @Query("tenantIdLike") String tenantIdLike, @Query("deploymentId") Long deploymentId,
-            @Query("sort") String sort, @Query("order") String order, @Query("start") Integer start,
+            @Query(NAME_LIKE) String nameLike, @Query(KEY_LIKE) String keyLike,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(DEPLOYMENT_ID) Long deploymentId,
+            @Query(SORT) String sort, @Query(ORDER) String order, @Query(START) Integer start,
             @Query("size") Integer size);
 
     @GET(PROCESS_SERVICE_PATH + "/decisions/decision-tables/{decisionTableId}")
     Observable<RuntimeDecisionTableRepresentation> getDecisionTableObservable(
-            @Path("decisionTableId") Long auditTrailId);
+            @Path(DECISION_TABLE_ID) Long auditTrailId);
 
     @GET(PROCESS_SERVICE_PATH + "/decisions/decision-tables/{decisionTableId}")
-    Observable<ResponseBody> getDecisionTableEditorJsonObservable(@Path("decisionTableId") Long auditTrailId);
+    Observable<ResponseBody> getDecisionTableEditorJsonObservable(@Path(DECISION_TABLE_ID) Long auditTrailId);
 
 }

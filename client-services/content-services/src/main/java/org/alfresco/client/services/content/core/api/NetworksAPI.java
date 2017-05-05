@@ -18,10 +18,11 @@
 
 package org.alfresco.client.services.content.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
 import org.alfresco.client.services.content.core.model.representation.PersonNetworkRepresentation;
 
 import retrofit2.Call;
@@ -42,7 +43,7 @@ public interface NetworksAPI
      * @return PersonNetworkRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/networks/{networkId}/networks")
-    Call<PersonNetworkRepresentation> getNetworkCall(@Path("networkId") String networkId);
+    Call<PersonNetworkRepresentation> getNetworkCall(@Path(NETWORK_ID) String networkId);
 
     /**
      * Get a network Returns information for a network **networkId**.
@@ -59,8 +60,8 @@ public interface NetworksAPI
      * @return PersonNetworkEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/networks/{networkId}/networks")
-    Call<PersonNetworkRepresentation> getNetworkCall(@Path("networkId") String networkId,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<PersonNetworkRepresentation> getNetworkCall(@Path(NETWORK_ID) String networkId,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LIST PERSON NETWORK
@@ -74,7 +75,7 @@ public interface NetworksAPI
      * @return ResultPaging<PersonNetworkRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks")
-    Call<ResultPaging<PersonNetworkRepresentation>> listNetworksForPersonCall(@Path("personId") String personId);
+    Call<ResultPaging<PersonNetworkRepresentation>> listNetworksForPersonCall(@Path(PERSON_ID) String personId);
 
     /**
      * Get network membership Gets a list of network memberships for person
@@ -97,10 +98,9 @@ public interface NetworksAPI
      * @return ResultPaging<PersonNetworkRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks")
-    Call<ResultPaging<PersonNetworkRepresentation>> listNetworksForPersonCall(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<PersonNetworkRepresentation>> listNetworksForPersonCall(@Path(PERSON_ID) String personId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO PERSON NETWORK
@@ -116,8 +116,8 @@ public interface NetworksAPI
      * @return PersonNetworkEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks/{networkId}")
-    Call<PersonNetworkRepresentation> getNetworkForPersonCall(@Path("personId") String personId,
-            @Path("networkId") String networkId);
+    Call<PersonNetworkRepresentation> getNetworkForPersonCall(@Path(PERSON_ID) String personId,
+            @Path(NETWORK_ID) String networkId);
 
     /**
      * Get network information Returns network information on a single network
@@ -138,8 +138,8 @@ public interface NetworksAPI
      * @return PersonNetworkEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks/{networkId}")
-    Call<PersonNetworkRepresentation> getNetworkForPersonCall(@Path("personId") String personId,
-            @Path("networkId") String networkId, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<PersonNetworkRepresentation> getNetworkForPersonCall(@Path(PERSON_ID) String personId,
+            @Path(NETWORK_ID) String networkId, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -177,7 +177,7 @@ public interface NetworksAPI
      * @return PersonNetworkRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/networks/{networkId}/networks")
-    Observable<PersonNetworkRepresentation> getNetworkObservable(@Path("networkId") String networkId);
+    Observable<PersonNetworkRepresentation> getNetworkObservable(@Path(NETWORK_ID) String networkId);
 
     /**
      * Get a network Returns information for a network **networkId**.
@@ -194,8 +194,8 @@ public interface NetworksAPI
      * @return PersonNetworkRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/networks/{networkId}/networks")
-    Observable<PersonNetworkRepresentation> getNetworkObservable(@Path("networkId") String networkId,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<PersonNetworkRepresentation> getNetworkObservable(@Path(NETWORK_ID) String networkId,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LIST PERSON NETWORK
@@ -210,7 +210,7 @@ public interface NetworksAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks")
     Observable<ResultPaging<PersonNetworkRepresentation>> listNetworksForPersonObservable(
-            @Path("personId") String personId);
+            @Path(PERSON_ID) String personId);
 
     /**
      * Get network membership Gets a list of network memberships for person
@@ -234,9 +234,8 @@ public interface NetworksAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks")
     Observable<ResultPaging<PersonNetworkRepresentation>> listNetworksForPersonObservable(
-            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(PERSON_ID) String personId, @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO PERSON NETWORK
@@ -253,8 +252,8 @@ public interface NetworksAPI
      * @return PersonNetworkRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks/{networkId}")
-    Observable<PersonNetworkRepresentation> getNetworkForPersonObservable(@Path("personId") String personId,
-            @Path("networkId") String networkId);
+    Observable<PersonNetworkRepresentation> getNetworkForPersonObservable(@Path(PERSON_ID) String personId,
+            @Path(NETWORK_ID) String networkId);
 
     /**
      * Get network information Returns network information on a single network
@@ -275,6 +274,6 @@ public interface NetworksAPI
      * @return PersonNetworkRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/networks/{networkId}")
-    Observable<PersonNetworkRepresentation> getNetworkForPersonObservable(@Path("personId") String personId,
-            @Path("networkId") String networkId, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<PersonNetworkRepresentation> getNetworkForPersonObservable(@Path(PERSON_ID) String personId,
+            @Path(NETWORK_ID) String networkId, @Query(FIELDS) FieldsParam fields);
 }

@@ -18,9 +18,10 @@
 
 package org.alfresco.client.services.common.model.deserializer;
 
+import static org.alfresco.client.services.common.constant.ApiConstant.ENTRY;
+
 import java.lang.reflect.Type;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
 import org.alfresco.client.services.common.utils.ISO8601Utils;
 
 import com.google.gson.*;
@@ -34,9 +35,9 @@ public class EntryDeserializer<T> implements JsonDeserializer<T>
     public T deserialize(JsonElement je, Type type, JsonDeserializationContext jdc) throws JsonParseException
     {
         JsonElement entry = je;
-        if (je.getAsJsonObject().has(PublicAPIConstant.ENTRY_VALUE))
+        if (je.getAsJsonObject().has(ENTRY))
         {
-            entry = je.getAsJsonObject().get(PublicAPIConstant.ENTRY_VALUE);
+            entry = je.getAsJsonObject().get(ENTRY);
         }
         return new GsonBuilder().setDateFormat(ISO8601Utils.DATE_ISO_FORMAT).create().fromJson(entry, type);
     }

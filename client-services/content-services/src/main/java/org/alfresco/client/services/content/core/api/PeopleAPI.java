@@ -18,13 +18,14 @@
 
 package org.alfresco.client.services.content.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.OrderByParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
 import org.alfresco.client.services.content.core.model.body.PersonBodyCreate;
 import org.alfresco.client.services.content.core.model.body.PersonBodyUpdate;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.OrderByParam;
 import org.alfresco.client.services.content.core.model.representation.PersonRepresentation;
 
 import retrofit2.Call;
@@ -78,11 +79,9 @@ public interface PeopleAPI
      * @return PeoplePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people")
-    Call<ResultPaging<PersonRepresentation>> listPeopleCall(
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<PersonRepresentation>> listPeopleCall(@Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO PERSON
@@ -96,7 +95,7 @@ public interface PeopleAPI
      * @return PersonRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}")
-    Call<PersonRepresentation> getPersonCall(@Path("personId") String personId);
+    Call<PersonRepresentation> getPersonCall(@Path(PERSON_ID) String personId);
 
     /**
      * Get a person Gets information for the person **personId**. You can use
@@ -115,8 +114,7 @@ public interface PeopleAPI
      * @return PersonRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}")
-    Call<PersonRepresentation> getPersonCall(@Path("personId") String personId,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<PersonRepresentation> getPersonCall(@Path(PERSON_ID) String personId, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE PERSON
@@ -148,7 +146,7 @@ public interface PeopleAPI
      */
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/people")
     Call<PersonRepresentation> createPersonCall(@Body() PersonBodyCreate personBodyCreate,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE PERSON
@@ -172,8 +170,8 @@ public interface PeopleAPI
      * @return PersonEntry
      */
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}")
-    Call<PersonRepresentation> updatePersonCall(@Path("personId") String personId,
-            @Body() PersonBodyUpdate personBodyUpdate, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<PersonRepresentation> updatePersonCall(@Path(PERSON_ID) String personId,
+            @Body() PersonBodyUpdate personBodyUpdate, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -245,11 +243,9 @@ public interface PeopleAPI
      * @return PeoplePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people")
-    Observable<ResultPaging<PersonRepresentation>> listPeopleObservable(
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<PersonRepresentation>> listPeopleObservable(@Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO PERSON
@@ -264,7 +260,7 @@ public interface PeopleAPI
      * @return PersonRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}")
-    Observable<PersonRepresentation> getPersonObservable(@Path("personId") String personId);
+    Observable<PersonRepresentation> getPersonObservable(@Path(PERSON_ID) String personId);
 
     /**
      * Get a person Gets information for the person **personId**. You can use
@@ -283,8 +279,8 @@ public interface PeopleAPI
      * @return PersonRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}")
-    Observable<PersonRepresentation> getPersonObservable(@Path("personId") String personId,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<PersonRepresentation> getPersonObservable(@Path(PERSON_ID) String personId,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE PERSON
@@ -317,7 +313,7 @@ public interface PeopleAPI
      */
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/people")
     Observable<PersonRepresentation> createPersonObservable(@Body() PersonBodyCreate personBodyCreate,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE PERSON
@@ -342,6 +338,6 @@ public interface PeopleAPI
      * @return PersonEntry
      */
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}")
-    Observable<PersonRepresentation> updatePersonObservable(@Path("personId") String personId,
-            @Body() PersonBodyUpdate personBodyUpdate, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<PersonRepresentation> updatePersonObservable(@Path(PERSON_ID) String personId,
+            @Body() PersonBodyUpdate personBodyUpdate, @Query(FIELDS) FieldsParam fields);
 }

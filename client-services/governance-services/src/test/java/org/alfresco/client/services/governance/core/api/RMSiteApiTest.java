@@ -16,7 +16,7 @@
  *   limitations under the License.
  */
 
-package org.alfresco.client.services.governance.api;
+package org.alfresco.client.services.governance.core.api;
 
 import java.io.IOException;
 
@@ -44,7 +44,7 @@ public class RMSiteApiTest extends GSAPITestCase
     @Test(enabled = true)
     public void rmsiteLifecycle() throws IOException
     {
-        GSAPIRegistry gsRegistry = client.getGSAPIRegistry();
+        GSAPIRegistry gsRegistry = client.getApiRegistry();
 
         // Delete preventively
         gsRegistry.getGsSitesAPI().deleteRMSiteCall().execute();

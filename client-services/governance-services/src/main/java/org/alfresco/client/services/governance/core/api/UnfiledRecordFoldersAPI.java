@@ -1,10 +1,11 @@
 package org.alfresco.client.services.governance.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
+import org.alfresco.client.services.common.model.parameters.OrderByParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
-import org.alfresco.client.services.content.core.model.parameters.OrderByParam;
 import org.alfresco.client.services.governance.core.GovernanceConstant;
 import org.alfresco.client.services.governance.core.model.body.RMNodeBodyCreate;
 import org.alfresco.client.services.governance.core.model.body.RMNodeBodyUpdate;
@@ -31,7 +32,7 @@ public interface UnfiledRecordFoldersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}")
     Call<UnfiledRecordFolderRepresentation> getUnfiledRecordFolderCall(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId);
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId);
 
     /**
      * Get the unfiled record folder Get information for unfiled record folder
@@ -59,10 +60,8 @@ public interface UnfiledRecordFoldersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}")
     Call<UnfiledRecordFolderRepresentation> getUnfiledRecordFolderCall(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId, @Query(INCLUDE) IncludeParam include,
+            @Query(RELATIVE_PATH) String relativePath, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -90,7 +89,7 @@ public interface UnfiledRecordFoldersAPI
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}")
     Call<UnfiledRecordFolderRepresentation> updateUnfiledRecordFolderCall(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId,
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId,
             @Body RMNodeBodyUpdate unfiledRecordFolderBodyUpdate);
 
     /**
@@ -128,10 +127,9 @@ public interface UnfiledRecordFoldersAPI
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}")
     Call<UnfiledRecordFolderRepresentation> updateUnfiledRecordFolderCall(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId,
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId,
             @Body RMNodeBodyUpdate unfiledRecordFolderBodyUpdate,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(INCLUDE_SOURCE) Boolean includeSource, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -144,7 +142,7 @@ public interface UnfiledRecordFoldersAPI
      *            (required)
      */
     @DELETE(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}")
-    Call<Void> deleteUnfiledRecordFolderCall(@Path("unfiledRecordFolderId") String unfiledRecordFolderId);
+    Call<Void> deleteUnfiledRecordFolderCall(@Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CHILDREN LISTING
@@ -161,7 +159,7 @@ public interface UnfiledRecordFoldersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}/children")
     Call<ResultPaging<RMNodeRepresentation>> listUnfiledRecordFolderChildrenCall(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId);
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId);
 
     /**
      * List unfiled record folder&#39;s children Returns a list of records or
@@ -187,10 +185,8 @@ public interface UnfiledRecordFoldersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}/children")
     Call<ResultPaging<RMNodeRepresentation>> listUnfiledRecordFolderChildrenCall(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy);
 
     /**
      * List unfiled record folder&#39;s children Returns a list of records or
@@ -242,15 +238,10 @@ public interface UnfiledRecordFoldersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}/children")
     Call<ResultPaging<RMNodeRepresentation>> listUnfiledRecordFolderChildrenCall(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy, @Query(WHERE) String where,
+            @Query(INCLUDE) IncludeParam include, @Query(RELATIVE_PATH) String relativePath,
+            @Query(INCLUDE_SOURCE) Boolean includeSource, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CHILDREN CREATION
@@ -317,7 +308,7 @@ public interface UnfiledRecordFoldersAPI
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}/children")
     Call<RMNodeRepresentation> createUnfiledRecordFolderChildrenCall(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId, @Body RMNodeBodyCreate nodeBodyCreate);
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId, @Body RMNodeBodyCreate nodeBodyCreate);
 
     /**
      * Create a record or an unfiled record folder Create a record or an unfiled
@@ -396,10 +387,9 @@ public interface UnfiledRecordFoldersAPI
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}/children")
     Call<RMNodeRepresentation> createUnfiledRecordFolderChildrenCall(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId, @Body RMNodeBodyCreate nodeBodyCreate,
-            @Query(PublicAPIConstant.AUTO_RENAME_VALUE) boolean autoRename,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId, @Body RMNodeBodyCreate nodeBodyCreate,
+            @Query(AUTO_RENAME) boolean autoRename, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -440,7 +430,7 @@ public interface UnfiledRecordFoldersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}")
     Observable<UnfiledRecordFolderRepresentation> getUnfiledRecordFolderObservable(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId);
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId);
 
     /**
      * Get the unfiled record folder Get information for unfiled record folder
@@ -468,10 +458,8 @@ public interface UnfiledRecordFoldersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}")
     Observable<UnfiledRecordFolderRepresentation> getUnfiledRecordFolderObservable(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId, @Query(INCLUDE) IncludeParam include,
+            @Query(RELATIVE_PATH) String relativePath, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -499,7 +487,7 @@ public interface UnfiledRecordFoldersAPI
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}")
     Observable<UnfiledRecordFolderRepresentation> updateUnfiledRecordFolderObservable(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId,
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId,
             @Body RMNodeBodyUpdate unfiledRecordFolderBodyUpdate);
 
     /**
@@ -537,10 +525,9 @@ public interface UnfiledRecordFoldersAPI
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}")
     Observable<UnfiledRecordFolderRepresentation> updateUnfiledRecordFolderObservable(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId,
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId,
             @Body RMNodeBodyUpdate unfiledRecordFolderBodyUpdate,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(INCLUDE_SOURCE) Boolean includeSource, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -553,7 +540,7 @@ public interface UnfiledRecordFoldersAPI
      *            (required)
      */
     @DELETE(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}")
-    Observable<Void> deleteUnfiledRecordFolderObservable(@Path("unfiledRecordFolderId") String unfiledRecordFolderId);
+    Observable<Void> deleteUnfiledRecordFolderObservable(@Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CHILDREN LISTING
@@ -570,7 +557,7 @@ public interface UnfiledRecordFoldersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}/children")
     Observable<ResultPaging<RMNodeRepresentation>> listUnfiledRecordFolderChildrenObservable(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId);
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId);
 
     /**
      * List unfiled record folder&#39;s children Returns a list of records or
@@ -596,10 +583,8 @@ public interface UnfiledRecordFoldersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}/children")
     Observable<ResultPaging<RMNodeRepresentation>> listUnfiledRecordFolderChildrenObservable(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy);
 
     /**
      * List unfiled record folder&#39;s children Returns a list of records or
@@ -651,15 +636,10 @@ public interface UnfiledRecordFoldersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}/children")
     Observable<ResultPaging<RMNodeRepresentation>> listUnfiledRecordFolderChildrenObservable(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy, @Query(WHERE) String where,
+            @Query(INCLUDE) IncludeParam include, @Query(RELATIVE_PATH) String relativePath,
+            @Query(INCLUDE_SOURCE) Boolean includeSource, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CHILDREN CREATION
@@ -726,7 +706,7 @@ public interface UnfiledRecordFoldersAPI
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}/children")
     Observable<RMNodeRepresentation> createUnfiledRecordFolderChildrenObservable(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId, @Body RMNodeBodyCreate nodeBodyCreate);
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId, @Body RMNodeBodyCreate nodeBodyCreate);
 
     /**
      * Create a record or an unfiled record folder Create a record or an unfiled
@@ -805,8 +785,7 @@ public interface UnfiledRecordFoldersAPI
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/unfiled-record-folders/{unfiledRecordFolderId}/children")
     Observable<RMNodeRepresentation> createUnfiledRecordFolderChildrenObservable(
-            @Path("unfiledRecordFolderId") String unfiledRecordFolderId, @Body RMNodeBodyCreate nodeBodyCreate,
-            @Query(PublicAPIConstant.AUTO_RENAME_VALUE) boolean autoRename,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(UNFILED_RECORD_FOLDER_ID) String unfiledRecordFolderId, @Body RMNodeBodyCreate nodeBodyCreate,
+            @Query(AUTO_RENAME) boolean autoRename, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 }

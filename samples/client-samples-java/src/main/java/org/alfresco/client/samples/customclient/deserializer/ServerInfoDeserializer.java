@@ -1,8 +1,9 @@
 package org.alfresco.client.samples.customclient.deserializer;
 
+import static org.alfresco.client.services.common.constant.ApiConstant.DATA;
+
 import java.lang.reflect.Type;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
 import org.alfresco.client.services.common.utils.ISO8601Utils;
 import org.alfresco.client.services.content.core.model.representation.ServerInfoRepresentation;
 
@@ -18,9 +19,9 @@ public class ServerInfoDeserializer implements JsonDeserializer<ServerInfoRepres
             throws JsonParseException
     {
         JsonElement entry = je;
-        if (je.getAsJsonObject().has(PublicAPIConstant.DATA_VALUE))
+        if (je.getAsJsonObject().has(DATA))
         {
-            entry = je.getAsJsonObject().get(PublicAPIConstant.DATA_VALUE);
+            entry = je.getAsJsonObject().get(DATA);
         }
         return new GsonBuilder().setDateFormat(ISO8601Utils.DATE_ISO_FORMAT).create().fromJson(entry, type);
     }

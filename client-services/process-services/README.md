@@ -103,7 +103,7 @@ Response<TaskRepresentation> response = client.getTasksAPI().getTaskCall("123").
 client.getTasksAPI().getTaskObservable("123").subscribe(root -> Assert.assertEquals(root.getName(), "Task"));
 ```
 
-### Create, Edit & Delete Folder
+### Task Actions
 ```java
     // CREATE STANDALONE TASK
     TaskRepresentation representation = new TaskRepresentation();

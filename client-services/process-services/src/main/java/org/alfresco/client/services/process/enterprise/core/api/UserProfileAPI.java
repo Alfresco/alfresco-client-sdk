@@ -19,6 +19,7 @@
 package org.alfresco.client.services.process.enterprise.core.api;
 
 import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+import static org.alfresco.client.services.process.enterprise.common.constant.RequestConstant.FILE;
 
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.core.model.idm.ResetPasswordRepresentation;
@@ -50,7 +51,7 @@ public interface UserProfileAPI
 
     @Multipart
     @POST(PROCESS_SERVICE_PATH + "/profile-picture")
-    Call<ResponseBody> uploadProfilePictureCall(@Part("file") RequestBody resource);
+    Call<ResponseBody> uploadProfilePictureCall(@Part(FILE) RequestBody resource);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/profile-password")
@@ -100,7 +101,7 @@ public interface UserProfileAPI
 
     @Multipart
     @POST(PROCESS_SERVICE_PATH + "/profile-picture")
-    Observable<ResponseBody> uploadProfilePictureObservable(@Part("file") RequestBody resource);
+    Observable<ResponseBody> uploadProfilePictureObservable(@Part(FILE) RequestBody resource);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/profile-password")

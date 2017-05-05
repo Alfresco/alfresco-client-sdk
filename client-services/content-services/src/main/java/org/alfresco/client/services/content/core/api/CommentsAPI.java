@@ -18,13 +18,14 @@
 
 package org.alfresco.client.services.content.core.api;
 
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
 import java.util.List;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
 import org.alfresco.client.services.content.core.model.body.CommentBody;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
 import org.alfresco.client.services.content.core.model.representation.CommentRepresentation;
 
 import retrofit2.Call;
@@ -44,7 +45,7 @@ public interface CommentsAPI
      * @return Call
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments")
-    Call<ResultPaging<CommentRepresentation>> listCommentsCall(@Path("nodeId") String nodeId);
+    Call<ResultPaging<CommentRepresentation>> listCommentsCall(@Path(NODE_ID) String nodeId);
 
     /**
      * Get comments Returns a list of comments for the node identified by
@@ -66,10 +67,9 @@ public interface CommentsAPI
      * @return Call
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments")
-    Call<ResultPaging<CommentRepresentation>> listCommentsCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<CommentRepresentation>> listCommentsCall(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -98,7 +98,7 @@ public interface CommentsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments")
-    Call<CommentRepresentation> createCommentCall(@Path("nodeId") String nodeId, @Body CommentBody commentBody);
+    Call<CommentRepresentation> createCommentCall(@Path(NODE_ID) String nodeId, @Body CommentBody commentBody);
 
     /**
      * Add a comment Creates a comment on node **nodeId**. You specify the
@@ -132,8 +132,8 @@ public interface CommentsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments")
-    Call<CommentRepresentation> createCommentCall(@Path("nodeId") String nodeId, @Body CommentBody commentBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<CommentRepresentation> createCommentCall(@Path(NODE_ID) String nodeId, @Body CommentBody commentBody,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Add a comment Creates a comment on node **nodeId**. You specify the
@@ -159,8 +159,8 @@ public interface CommentsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments")
-    Call<CommentRepresentation> createCommentsCall(@Path("nodeId") String nodeId, @Body List<CommentBody> commentBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<CommentRepresentation> createCommentsCall(@Path(NODE_ID) String nodeId, @Body List<CommentBody> commentBody,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // EDIT
@@ -177,7 +177,7 @@ public interface CommentsAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments/{commentId}")
-    Call<CommentRepresentation> updateCommentCall(@Path("nodeId") String nodeId, @Path("commentId") String commentId,
+    Call<CommentRepresentation> updateCommentCall(@Path(NODE_ID) String nodeId, @Path(COMMENT_ID) String commentId,
             @Body CommentBody commentBody);
 
     /**
@@ -200,8 +200,8 @@ public interface CommentsAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments/{commentId}")
-    Call<CommentRepresentation> updateCommentCall(@Path("nodeId") String nodeId, @Path("commentId") String commentId,
-            @Body CommentBody commentBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<CommentRepresentation> updateCommentCall(@Path(NODE_ID) String nodeId, @Path(COMMENT_ID) String commentId,
+            @Body CommentBody commentBody, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -213,7 +213,7 @@ public interface CommentsAPI
      * @param commentId The identifier of a comment. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments/{commentId}")
-    Call<Void> deleteCommentCall(@Path("nodeId") String nodeId, @Path("commentId") String commentId);
+    Call<Void> deleteCommentCall(@Path(NODE_ID) String nodeId, @Path(COMMENT_ID) String commentId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -252,7 +252,7 @@ public interface CommentsAPI
      * @return Call
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments")
-    Observable<ResultPaging<CommentRepresentation>> listCommentsObservable(@Path("nodeId") String nodeId);
+    Observable<ResultPaging<CommentRepresentation>> listCommentsObservable(@Path(NODE_ID) String nodeId);
 
     /**
      * Get comments Returns a list of comments for the node identified by
@@ -274,10 +274,9 @@ public interface CommentsAPI
      * @return Call
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments")
-    Observable<ResultPaging<CommentRepresentation>> listCommentsObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<CommentRepresentation>> listCommentsObservable(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -307,7 +306,7 @@ public interface CommentsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments")
-    Observable<CommentRepresentation> createCommentObservable(@Path("nodeId") String nodeId,
+    Observable<CommentRepresentation> createCommentObservable(@Path(NODE_ID) String nodeId,
             @Body CommentBody commentBody);
 
     /**
@@ -342,8 +341,8 @@ public interface CommentsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments")
-    Observable<CommentRepresentation> createCommentObservable(@Path("nodeId") String nodeId,
-            @Body CommentBody commentBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<CommentRepresentation> createCommentObservable(@Path(NODE_ID) String nodeId,
+            @Body CommentBody commentBody, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Add a comment Creates a comment on node **nodeId**. You specify the
@@ -369,8 +368,8 @@ public interface CommentsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments")
-    Observable<CommentRepresentation> createCommentsObservable(@Path("nodeId") String nodeId,
-            @Body List<CommentBody> commentBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<CommentRepresentation> createCommentsObservable(@Path(NODE_ID) String nodeId,
+            @Body List<CommentBody> commentBody, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // EDIT
@@ -387,8 +386,8 @@ public interface CommentsAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments/{commentId}")
-    Observable<CommentRepresentation> updateCommentObservable(@Path("nodeId") String nodeId,
-            @Path("commentId") String commentId, @Body CommentBody commentBody);
+    Observable<CommentRepresentation> updateCommentObservable(@Path(NODE_ID) String nodeId,
+            @Path(COMMENT_ID) String commentId, @Body CommentBody commentBody);
 
     /**
      * Update a comment Updates an existing comment **commentId** on node
@@ -410,9 +409,8 @@ public interface CommentsAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments/{commentId}")
-    Observable<CommentRepresentation> updateCommentObservable(@Path("nodeId") String nodeId,
-            @Path("commentId") String commentId, @Body CommentBody commentBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<CommentRepresentation> updateCommentObservable(@Path(NODE_ID) String nodeId,
+            @Path(COMMENT_ID) String commentId, @Body CommentBody commentBody, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -425,6 +423,6 @@ public interface CommentsAPI
      * @param commentId The identifier of a comment. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/comments/{commentId}")
-    Observable<Void> deleteCommentObservable(@Path("nodeId") String nodeId, @Path("commentId") String commentId);
+    Observable<Void> deleteCommentObservable(@Path(NODE_ID) String nodeId, @Path(COMMENT_ID) String commentId);
 
 }

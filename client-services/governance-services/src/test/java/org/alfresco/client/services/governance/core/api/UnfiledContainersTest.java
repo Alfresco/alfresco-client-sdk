@@ -16,7 +16,7 @@
  *   limitations under the License.
  */
 
-package org.alfresco.client.services.governance.api;
+package org.alfresco.client.services.governance.core.api;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -27,8 +27,6 @@ import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.model.ContentModel;
 import org.alfresco.client.services.content.core.model.body.NodeBodyCreate;
 import org.alfresco.client.services.governance.GSAPIRegistry;
-import org.alfresco.client.services.governance.core.api.FilePlansAPI;
-import org.alfresco.client.services.governance.core.api.UnfiledContainersAPI;
 import org.alfresco.client.services.governance.core.model.RMSiteCompliance;
 import org.alfresco.client.services.governance.core.model.RecordsManagementModel;
 import org.alfresco.client.services.governance.core.model.body.RMNodeBodyCreate;
@@ -50,7 +48,7 @@ public class UnfiledContainersTest extends GSAPITestCase
     @Test(enabled = true)
     public void recordContainerLifeCycle() throws IOException
     {
-        GSAPIRegistry gsRegistry = client.getGSAPIRegistry();
+        GSAPIRegistry gsRegistry = client.getApiRegistry();
 
         // Delete preventively
         gsRegistry.getGsSitesAPI().deleteRMSiteCall().execute();

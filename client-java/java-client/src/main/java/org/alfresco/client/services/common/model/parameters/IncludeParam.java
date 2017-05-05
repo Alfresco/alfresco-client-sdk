@@ -1,4 +1,4 @@
-package org.alfresco.client.services.content.core.model.parameters;
+package org.alfresco.client.services.common.model.parameters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +7,11 @@ import java.util.List;
  * Utility class to transform list of string to comma-separated value as
  * required by API
  */
-public class FieldsParam
+public class IncludeParam
 {
     private List<String> fieldValues = new ArrayList<>(0);
 
-    public FieldsParam(List<String> fieldValues)
+    public IncludeParam(List<String> fieldValues)
     {
         this.fieldValues = fieldValues;
     }

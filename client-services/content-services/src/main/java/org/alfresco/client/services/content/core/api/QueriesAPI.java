@@ -18,12 +18,13 @@
 
 package org.alfresco.client.services.content.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
+import org.alfresco.client.services.common.model.parameters.OrderByParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
-import org.alfresco.client.services.content.core.model.parameters.OrderByParam;
 import org.alfresco.client.services.content.core.model.representation.NodeRepresentation;
 import org.alfresco.client.services.content.core.model.representation.PersonRepresentation;
 import org.alfresco.client.services.content.core.model.representation.SiteRepresentation;
@@ -49,7 +50,7 @@ public interface QueriesAPI
      * @return ResultPaging<PersonRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/people")
-    Call<ResultPaging<PersonRepresentation>> findPeopleCall(@Query("term") String term);
+    Call<ResultPaging<PersonRepresentation>> findPeopleCall(@Query(TERM) String term);
 
     /**
      * Live search for people Returns a list of people that match the given
@@ -76,11 +77,9 @@ public interface QueriesAPI
      * @return ResultPaging<PersonRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/people")
-    Call<ResultPaging<PersonRepresentation>> findPeopleCall(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<PersonRepresentation>> findPeopleCall(@Query(TERM) String term,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(ORDER_BY) OrderByParam orderBy, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // SEARCH SITE
@@ -95,7 +94,7 @@ public interface QueriesAPI
      * @return ResultPaging<SiteRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/sites")
-    Call<ResultPaging<SiteRepresentation>> findSitesCall(@Query("term") String term);
+    Call<ResultPaging<SiteRepresentation>> findSitesCall(@Query(TERM) String term);
 
     /**
      * Live search for sites Returns a list of sites that match the given search
@@ -121,11 +120,9 @@ public interface QueriesAPI
      * @return NodePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/sites")
-    Call<ResultPaging<SiteRepresentation>> findSitesCall(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<SiteRepresentation>> findSitesCall(@Query(TERM) String term, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // SEARCH NODE
@@ -145,7 +142,7 @@ public interface QueriesAPI
      * @return NodePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/nodes")
-    Call<ResultPaging<NodeRepresentation>> findNodesCall(@Query("term") String term);
+    Call<ResultPaging<NodeRepresentation>> findNodesCall(@Query(TERM) String term);
 
     /**
      * Live search for nodes Returns a list of nodes that match the given search
@@ -168,10 +165,8 @@ public interface QueriesAPI
      * @return NodePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/nodes")
-    Call<ResultPaging<NodeRepresentation>> findNodesCall(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
+    Call<ResultPaging<NodeRepresentation>> findNodesCall(@Query(TERM) String term, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy);
 
     /**
      * Live search for nodes Returns a list of nodes that match the given search
@@ -209,12 +204,10 @@ public interface QueriesAPI
      * @return NodePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/nodes")
-    Call<ResultPaging<NodeRepresentation>> findNodesCall(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems, @Query("rootNodeId") String rootNodeId,
-            @Query("nodeType") String nodeType, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<NodeRepresentation>> findNodesCall(@Query(TERM) String term, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query("rootNodeId") String rootNodeId,
+            @Query("nodeType") String nodeType, @Query(INCLUDE) IncludeParam include,
+            @Query(ORDER_BY) OrderByParam orderBy, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -256,7 +249,7 @@ public interface QueriesAPI
      * @return ResultPaging<PersonRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/people")
-    Observable<ResultPaging<PersonRepresentation>> findPeopleObservable(@Query("term") String term);
+    Observable<ResultPaging<PersonRepresentation>> findPeopleObservable(@Query(TERM) String term);
 
     /**
      * Live search for people Returns a list of people that match the given
@@ -283,11 +276,9 @@ public interface QueriesAPI
      * @return ResultPaging<PersonRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/people")
-    Observable<ResultPaging<PersonRepresentation>> findPeopleObservable(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<PersonRepresentation>> findPeopleObservable(@Query(TERM) String term,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(ORDER_BY) OrderByParam orderBy, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // SEARCH SITE
@@ -303,7 +294,7 @@ public interface QueriesAPI
      * @return ResultPaging<SiteRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/sites")
-    Observable<ResultPaging<SiteRepresentation>> findSitesObservable(@Query("term") String term);
+    Observable<ResultPaging<SiteRepresentation>> findSitesObservable(@Query(TERM) String term);
 
     /**
      * Live search for sites Returns a list of sites that match the given search
@@ -329,11 +320,9 @@ public interface QueriesAPI
      * @return NodePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/sites")
-    Observable<ResultPaging<SiteRepresentation>> findSitesObservable(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<SiteRepresentation>> findSitesObservable(@Query(TERM) String term,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(ORDER_BY) OrderByParam orderBy, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // SEARCH NODE
@@ -354,7 +343,7 @@ public interface QueriesAPI
      * @return NodePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/nodes")
-    Observable<ResultPaging<NodeRepresentation>> findNodesObservable(@Query("term") String term);
+    Observable<ResultPaging<NodeRepresentation>> findNodesObservable(@Query(TERM) String term);
 
     /**
      * Live search for nodes Returns a list of nodes that match the given search
@@ -377,10 +366,9 @@ public interface QueriesAPI
      * @return NodePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/nodes")
-    Observable<ResultPaging<NodeRepresentation>> findNodesObservable(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
+    Observable<ResultPaging<NodeRepresentation>> findNodesObservable(@Query(TERM) String term,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(ORDER_BY) OrderByParam orderBy);
 
     /**
      * Live search for nodes Returns a list of nodes that match the given search
@@ -418,11 +406,10 @@ public interface QueriesAPI
      * @return NodePaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/queries/nodes")
-    Observable<ResultPaging<NodeRepresentation>> findNodesObservable(@Query("term") String term,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems, @Query("rootNodeId") String rootNodeId,
-            @Query("nodeType") String nodeType, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<NodeRepresentation>> findNodesObservable(@Query(TERM) String term,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query("rootNodeId") String rootNodeId, @Query("nodeType") String nodeType,
+            @Query(INCLUDE) IncludeParam include, @Query(ORDER_BY) OrderByParam orderBy,
+            @Query(FIELDS) FieldsParam fields);
 
 }

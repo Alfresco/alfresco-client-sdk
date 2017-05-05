@@ -18,12 +18,13 @@
 
 package org.alfresco.client.services.governance.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
+import org.alfresco.client.services.common.model.parameters.OrderByParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.model.body.NodeBodyUpdate;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
-import org.alfresco.client.services.content.core.model.parameters.OrderByParam;
 import org.alfresco.client.services.governance.core.GovernanceConstant;
 import org.alfresco.client.services.governance.core.model.representation.TransferContainerRepresentation;
 import org.alfresco.client.services.governance.core.model.representation.TransferRepresentation;
@@ -48,7 +49,7 @@ public interface TransferContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/transfer-containers/{transferContainerId}")
     Call<TransferContainerRepresentation> getTransferContainerCall(
-            @Path("transferContainerId") String transferContainerId);
+            @Path(TRANSFER_CONTAINER_ID) String transferContainerId);
 
     /**
      * Get a transfer container Get information for transfer container
@@ -73,9 +74,8 @@ public interface TransferContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/transfer-containers/{transferContainerId}")
     Call<TransferContainerRepresentation> getTransferContainerCall(
-            @Path("transferContainerId") String transferContainerId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(TRANSFER_CONTAINER_ID) String transferContainerId, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -99,7 +99,7 @@ public interface TransferContainersAPI
     @Headers({ "Content-type: application/json" })
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/transfer-containers/{transferContainerId}")
     Call<TransferContainerRepresentation> updateTransferContainerCall(
-            @Path("transferContainerId") String transferContainerId, @Body NodeBodyUpdate nodeBodyUpdate);
+            @Path(TRANSFER_CONTAINER_ID) String transferContainerId, @Body NodeBodyUpdate nodeBodyUpdate);
 
     /**
      * Update transfer container Updates the transfer container
@@ -132,9 +132,8 @@ public interface TransferContainersAPI
     @Headers({ "Content-type: application/json" })
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/transfer-containers/{transferContainerId}")
     Call<TransferContainerRepresentation> updateTransferContainerCall(
-            @Path("transferContainerId") String transferContainerId, @Body NodeBodyUpdate nodeBodyUpdate,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(TRANSFER_CONTAINER_ID) String transferContainerId, @Body NodeBodyUpdate nodeBodyUpdate,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LIST CHILDREN
@@ -153,7 +152,7 @@ public interface TransferContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/transfer-containers/{transferContainerId}/children")
     Call<ResultPaging<TransferRepresentation>> listTransfersCall(
-            @Path("transferContainerId") String transferContainerId);
+            @Path(TRANSFER_CONTAINER_ID) String transferContainerId);
 
     /**
      * List transfer container&#39;s children Returns a list of transfers.
@@ -197,13 +196,10 @@ public interface TransferContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/transfer-containers/{transferContainerId}/children")
     Call<ResultPaging<TransferRepresentation>> listTransfersCall(
-            @Path("transferContainerId") String transferContainerId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(TRANSFER_CONTAINER_ID) String transferContainerId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy,
+            @Query(INCLUDE) IncludeParam include, @Query(INCLUDE_SOURCE) Boolean includeSource,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -243,7 +239,7 @@ public interface TransferContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/transfer-containers/{transferContainerId}")
     Observable<TransferContainerRepresentation> getTransferContainerObservable(
-            @Path("transferContainerId") String transferContainerId);
+            @Path(TRANSFER_CONTAINER_ID) String transferContainerId);
 
     /**
      * Get a transfer container Get information for transfer container
@@ -268,9 +264,8 @@ public interface TransferContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/transfer-containers/{transferContainerId}")
     Observable<TransferContainerRepresentation> getTransferContainerObservable(
-            @Path("transferContainerId") String transferContainerId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(TRANSFER_CONTAINER_ID) String transferContainerId, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -294,7 +289,7 @@ public interface TransferContainersAPI
     @Headers({ "Content-type: application/json" })
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/transfer-containers/{transferContainerId}")
     Observable<TransferContainerRepresentation> updateTransferContainerObservable(
-            @Path("transferContainerId") String transferContainerId, @Body NodeBodyUpdate nodeBodyUpdate);
+            @Path(TRANSFER_CONTAINER_ID) String transferContainerId, @Body NodeBodyUpdate nodeBodyUpdate);
 
     /**
      * Update transfer container Updates the transfer container
@@ -327,9 +322,8 @@ public interface TransferContainersAPI
     @Headers({ "Content-type: application/json" })
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/transfer-containers/{transferContainerId}")
     Observable<TransferContainerRepresentation> updateTransferContainerObservable(
-            @Path("transferContainerId") String transferContainerId, @Body NodeBodyUpdate nodeBodyUpdate,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(TRANSFER_CONTAINER_ID) String transferContainerId, @Body NodeBodyUpdate nodeBodyUpdate,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LIST CHILDREN
@@ -348,7 +342,7 @@ public interface TransferContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/transfer-containers/{transferContainerId}/children")
     Observable<ResultPaging<TransferRepresentation>> listTransfersObservable(
-            @Path("transferContainerId") String transferContainerId);
+            @Path(TRANSFER_CONTAINER_ID) String transferContainerId);
 
     /**
      * List transfer container&#39;s children Returns a list of transfers.
@@ -392,12 +386,9 @@ public interface TransferContainersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/transfer-containers/{transferContainerId}/children")
     Observable<ResultPaging<TransferRepresentation>> listTransfersObservable(
-            @Path("transferContainerId") String transferContainerId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(TRANSFER_CONTAINER_ID) String transferContainerId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy,
+            @Query(INCLUDE) IncludeParam include, @Query(INCLUDE_SOURCE) Boolean includeSource,
+            @Query(FIELDS) FieldsParam fields);
 
 }

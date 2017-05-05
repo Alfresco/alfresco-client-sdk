@@ -1,4 +1,4 @@
-package org.alfresco.client.services.content.core.model.parameters;
+package org.alfresco.client.services.common.model.parameters;
 
 import java.util.ArrayList;
 import java.util.List;

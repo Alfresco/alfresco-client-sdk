@@ -18,8 +18,8 @@
 
 package org.alfresco.client.services.process.enterprise.core.model.runtime;
 
+import org.alfresco.client.services.process.enterprise.common.constant.RequestConstant;
 import org.alfresco.client.services.process.enterprise.common.model.representation.PagingRequestRepresentation;
-import org.alfresco.client.services.process.enterprise.constant.RequestConstant;
 
 /**
  * Created by jpascal on 12/12/2014.

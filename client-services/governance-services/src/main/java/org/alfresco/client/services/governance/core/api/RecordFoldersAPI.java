@@ -18,13 +18,14 @@
 
 package org.alfresco.client.services.governance.core.api;
 
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
 import java.util.Map;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
+import org.alfresco.client.services.common.model.parameters.OrderByParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
-import org.alfresco.client.services.content.core.model.parameters.OrderByParam;
 import org.alfresco.client.services.governance.core.GovernanceConstant;
 import org.alfresco.client.services.governance.core.model.body.RMNodeBodyCreate;
 import org.alfresco.client.services.governance.core.model.body.RMNodeBodyUpdate;
@@ -50,7 +51,7 @@ public interface RecordFoldersAPI
      * @return RecordRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}")
-    Call<RecordFolderRepresentation> getRecordFolderCall(@Path("recordFolderId") String recordFolderId);
+    Call<RecordFolderRepresentation> getRecordFolderCall(@Path(RECORD_FOLDER_ID) String recordFolderId);
 
     /**
      * Get a record folder Get information for record folder **recordFolderId**
@@ -73,9 +74,8 @@ public interface RecordFoldersAPI
      * @return RecordRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}")
-    Call<RecordFolderRepresentation> getRecordFolderCall(@Path("recordFolderId") String recordFolderId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RecordFolderRepresentation> getRecordFolderCall(@Path(RECORD_FOLDER_ID) String recordFolderId,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -101,7 +101,7 @@ public interface RecordFoldersAPI
 
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}")
-    Call<RecordFolderRepresentation> updateRecordFolderCall(@Path("recordFolderId") String recordFolderId,
+    Call<RecordFolderRepresentation> updateRecordFolderCall(@Path(RECORD_FOLDER_ID) String recordFolderId,
             @Body RMNodeBodyUpdate recordFolderBodyUpdate);
 
     /**
@@ -137,9 +137,9 @@ public interface RecordFoldersAPI
 
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}")
-    Call<RecordFolderRepresentation> updateRecordFolderCall(@Path("recordFolderId") String recordFolderId,
-            @Body RMNodeBodyUpdate recordFolderBodyUpdate, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RecordFolderRepresentation> updateRecordFolderCall(@Path(RECORD_FOLDER_ID) String recordFolderId,
+            @Body RMNodeBodyUpdate recordFolderBodyUpdate, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -150,7 +150,7 @@ public interface RecordFoldersAPI
      * @param recordFolderId The identifier of a record folder. (required)
      */
     @DELETE(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}")
-    Call<Void> deleteRecordFolderCall(@Path("recordFolderId") String recordFolderId);
+    Call<Void> deleteRecordFolderCall(@Path(RECORD_FOLDER_ID) String recordFolderId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LIST RECORDS
@@ -169,7 +169,7 @@ public interface RecordFoldersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}/records")
     Call<ResultPaging<RecordRepresentation>> listRecordFolderChildrenCall(
-            @Path("recordFolderId") String recordFolderId);
+            @Path(RECORD_FOLDER_ID) String recordFolderId);
 
     /**
      * List records Returns a list of records. Minimal information for each
@@ -218,14 +218,10 @@ public interface RecordFoldersAPI
      * @return RecordFolderAssociationPaging
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}/records")
-    Call<ResultPaging<RecordRepresentation>> listRecordFolderChildrenCall(@Path("recordFolderId") String recordFolderId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<RecordRepresentation>> listRecordFolderChildrenCall(@Path(RECORD_FOLDER_ID) String recordFolderId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(ORDER_BY) OrderByParam orderBy, @Query(WHERE) String where, @Query(INCLUDE) IncludeParam include,
+            @Query(INCLUDE_SOURCE) Boolean includeSource, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE A RECORD
@@ -279,7 +275,7 @@ public interface RecordFoldersAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}/records")
-    Call<RecordRepresentation> createRecordFolderChildCall(@Path("recordFolderId") String recordFolderId,
+    Call<RecordRepresentation> createRecordFolderChildCall(@Path(RECORD_FOLDER_ID) String recordFolderId,
             @Body RMNodeBodyCreate recordBodyCreate);
 
     /**
@@ -343,9 +339,9 @@ public interface RecordFoldersAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}/records")
-    Call<RecordRepresentation> createRecordFolderChildCall(@Path("recordFolderId") String recordFolderId,
-            @Body RMNodeBodyCreate recordBodyCreate, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RecordRepresentation> createRecordFolderChildCall(@Path(RECORD_FOLDER_ID) String recordFolderId,
+            @Body RMNodeBodyCreate recordBodyCreate, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Create a record Create a record as a primary child of **recordFolderId**.
@@ -406,20 +402,19 @@ public interface RecordFoldersAPI
      */
     @Multipart
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}/records")
-    Call<RecordRepresentation> createRecordFolderChildCall(@Path("recordFolderId") String recordFolderId,
-            @Part("filedata") RequestBody file, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RecordRepresentation> createRecordFolderChildCall(@Path(RECORD_FOLDER_ID) String recordFolderId,
+            @Part(FILEDATA) RequestBody file, @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     @Multipart
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}/records")
-    Call<RecordRepresentation> createRecordFolderChildCall(@Path("recordFolderId") String recordFolderId,
+    Call<RecordRepresentation> createRecordFolderChildCall(@Path(RECORD_FOLDER_ID) String recordFolderId,
             @PartMap() Map<String, RequestBody> partMap);
 
     @Multipart
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}/records")
-    Call<RecordRepresentation> createRecordFolderChildCall(@Path("recordFolderId") String recordFolderId,
-            @PartMap() Map<String, RequestBody> partMap, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RecordRepresentation> createRecordFolderChildCall(@Path(RECORD_FOLDER_ID) String recordFolderId,
+            @PartMap() Map<String, RequestBody> partMap, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -458,7 +453,7 @@ public interface RecordFoldersAPI
      * @return RecordRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}")
-    Observable<RecordFolderRepresentation> getRecordFolderObservable(@Path("recordFolderId") String recordFolderId);
+    Observable<RecordFolderRepresentation> getRecordFolderObservable(@Path(RECORD_FOLDER_ID) String recordFolderId);
 
     /**
      * Get a record folder Get information for record folder **recordFolderId**
@@ -481,9 +476,8 @@ public interface RecordFoldersAPI
      * @return RecordRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}")
-    Observable<RecordFolderRepresentation> getRecordFolderObservable(@Path("recordFolderId") String recordFolderId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<RecordFolderRepresentation> getRecordFolderObservable(@Path(RECORD_FOLDER_ID) String recordFolderId,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -509,7 +503,7 @@ public interface RecordFoldersAPI
 
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}")
-    Observable<RecordFolderRepresentation> updateRecordFolderObservable(@Path("recordFolderId") String recordFolderId,
+    Observable<RecordFolderRepresentation> updateRecordFolderObservable(@Path(RECORD_FOLDER_ID) String recordFolderId,
             @Body RMNodeBodyUpdate recordFolderBodyUpdate);
 
     /**
@@ -545,9 +539,9 @@ public interface RecordFoldersAPI
 
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}")
-    Observable<RecordFolderRepresentation> updateRecordFolderObservable(@Path("recordFolderId") String recordFolderId,
-            @Body RMNodeBodyUpdate recordFolderBodyUpdate, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<RecordFolderRepresentation> updateRecordFolderObservable(@Path(RECORD_FOLDER_ID) String recordFolderId,
+            @Body RMNodeBodyUpdate recordFolderBodyUpdate, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -558,7 +552,7 @@ public interface RecordFoldersAPI
      * @param recordFolderId The identifier of a record folder. (required)
      */
     @DELETE(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}")
-    Observable<Void> deleteRecordFolderObservable(@Path("recordFolderId") String recordFolderId);
+    Observable<Void> deleteRecordFolderObservable(@Path(RECORD_FOLDER_ID) String recordFolderId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LIST RECORDS
@@ -577,7 +571,7 @@ public interface RecordFoldersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}/records")
     Observable<ResultPaging<RecordRepresentation>> listRecordFolderChildrenObservable(
-            @Path("recordFolderId") String recordFolderId);
+            @Path(RECORD_FOLDER_ID) String recordFolderId);
 
     /**
      * List records Returns a list of records. Minimal information for each
@@ -627,13 +621,10 @@ public interface RecordFoldersAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}/records")
     Observable<ResultPaging<RecordRepresentation>> listRecordFolderChildrenObservable(
-            @Path("recordFolderId") String recordFolderId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(RECORD_FOLDER_ID) String recordFolderId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy, @Query(WHERE) String where,
+            @Query(INCLUDE) IncludeParam include, @Query(INCLUDE_SOURCE) Boolean includeSource,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE A RECORD
@@ -687,7 +678,7 @@ public interface RecordFoldersAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}/records")
-    Observable<RecordRepresentation> createRecordFolderChildObservable(@Path("recordFolderId") String recordFolderId,
+    Observable<RecordRepresentation> createRecordFolderChildObservable(@Path(RECORD_FOLDER_ID) String recordFolderId,
             @Body RMNodeBodyCreate recordBodyCreate);
 
     /**
@@ -751,9 +742,9 @@ public interface RecordFoldersAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}/records")
-    Observable<RecordRepresentation> createRecordFolderChildObservable(@Path("recordFolderId") String recordFolderId,
-            @Body RMNodeBodyCreate recordBodyCreate, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<RecordRepresentation> createRecordFolderChildObservable(@Path(RECORD_FOLDER_ID) String recordFolderId,
+            @Body RMNodeBodyCreate recordBodyCreate, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Create a record Create a record as a primary child of **recordFolderId**.
@@ -814,18 +805,17 @@ public interface RecordFoldersAPI
      */
     @Multipart
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}/records")
-    Observable<RecordRepresentation> createRecordFolderChildObservable(@Path("recordFolderId") String recordFolderId,
-            @Part("filedata") RequestBody file, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<RecordRepresentation> createRecordFolderChildObservable(@Path(RECORD_FOLDER_ID) String recordFolderId,
+            @Part(FILEDATA) RequestBody file, @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     @Multipart
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}/records")
-    Observable<RecordRepresentation> createRecordFolderChildObservable(@Path("recordFolderId") String recordFolderId,
+    Observable<RecordRepresentation> createRecordFolderChildObservable(@Path(RECORD_FOLDER_ID) String recordFolderId,
             @PartMap() Map<String, RequestBody> partMap);
 
     @Multipart
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/record-folders/{recordFolderId}/records")
-    Observable<RecordRepresentation> createRecordFolderChildObservable(@Path("recordFolderId") String recordFolderId,
-            @PartMap() Map<String, RequestBody> partMap, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<RecordRepresentation> createRecordFolderChildObservable(@Path(RECORD_FOLDER_ID) String recordFolderId,
+            @PartMap() Map<String, RequestBody> partMap, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 }

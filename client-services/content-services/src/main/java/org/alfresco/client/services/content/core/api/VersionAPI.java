@@ -18,14 +18,15 @@
 
 package org.alfresco.client.services.content.core.api;
 
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
 import java.util.Date;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
 import org.alfresco.client.services.content.core.model.body.RevertBody;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
 import org.alfresco.client.services.content.core.model.representation.VersionRepresentation;
 
 import okhttp3.ResponseBody;
@@ -49,7 +50,7 @@ public interface VersionAPI
      * @return VersionPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions")
-    Call<ResultPaging<VersionRepresentation>> listVersionHistoryCall(@Path("nodeId") String nodeId);
+    Call<ResultPaging<VersionRepresentation>> listVersionHistoryCall(@Path(NODE_ID) String nodeId);
 
     /**
      * List version history **Note:** this endpoint is available in Alfresco 5.2
@@ -77,11 +78,9 @@ public interface VersionAPI
      * @return VersionPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions")
-    Call<ResultPaging<VersionRepresentation>> listVersionHistoryCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<VersionRepresentation>> listVersionHistoryCall(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // GET INFO
@@ -97,8 +96,8 @@ public interface VersionAPI
      * @return VersionPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}")
-    Call<ResultPaging<VersionRepresentation>> getVersionCall(@Path("nodeId") String nodeId,
-            @Path("versionId") String versionId);
+    Call<ResultPaging<VersionRepresentation>> getVersionCall(@Path(NODE_ID) String nodeId,
+            @Path(VERSION_ID) String versionId);
 
     /**
      * List version history **Note:** this endpoint is available in Alfresco 5.2
@@ -126,11 +125,10 @@ public interface VersionAPI
      * @return VersionPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}")
-    Call<ResultPaging<VersionRepresentation>> getVersionCall(@Path("nodeId") String nodeId,
-            @Path("versionId") String versionId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<VersionRepresentation>> getVersionCall(@Path(NODE_ID) String nodeId,
+            @Path(VERSION_ID) String versionId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // GET CONTENT
@@ -145,7 +143,7 @@ public interface VersionAPI
      *            the version history of a node. (required)
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/content")
-    Call<ResponseBody> getVersionContentCall(@Path("nodeId") String nodeId, @Path("versionId") String versionId);
+    Call<ResponseBody> getVersionContentCall(@Path(NODE_ID) String nodeId, @Path(VERSION_ID) String versionId);
 
     /**
      * Get version content **Note:** this endpoint is available in Alfresco 5.2
@@ -170,8 +168,8 @@ public interface VersionAPI
      *            (optional)
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/content")
-    Call<ResponseBody> getVersionContentCall(@Path("nodeId") String nodeId, @Path("versionId") String versionId,
-            @Query("attachment") Boolean attachment, @Header("If-Modified-Since") Date ifModifiedSince);
+    Call<ResponseBody> getVersionContentCall(@Path(NODE_ID) String nodeId, @Path(VERSION_ID) String versionId,
+            @Query(ATTACHMENT) Boolean attachment, @Header(IF_MODIFIED_SINCE) Date ifModifiedSince);
 
     // ///////////////////////////////////////////////////////////////////////////
     // REVERT
@@ -190,7 +188,7 @@ public interface VersionAPI
      *            should be a major version, or not.
      */
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/revert")
-    Call<VersionRepresentation> revertVersionCall(@Path("nodeId") String nodeId, @Path("versionId") String versionId,
+    Call<VersionRepresentation> revertVersionCall(@Path(NODE_ID) String nodeId, @Path(VERSION_ID) String versionId,
             @Body RevertBody revertBody);
 
     /**
@@ -215,8 +213,8 @@ public interface VersionAPI
      *            **fields** parameter. (optional)
      */
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/revert")
-    Call<VersionRepresentation> revertVersionCall(@Path("nodeId") String nodeId, @Path("versionId") String versionId,
-            @Body RevertBody revertBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<VersionRepresentation> revertVersionCall(@Path(NODE_ID) String nodeId, @Path(VERSION_ID) String versionId,
+            @Body RevertBody revertBody, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -240,8 +238,8 @@ public interface VersionAPI
      *            the version history of a node. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}")
-    Call<ResultPaging<VersionRepresentation>> deleteVersionCall(@Path("nodeId") String nodeId,
-            @Path("versionId") String versionId);
+    Call<ResultPaging<VersionRepresentation>> deleteVersionCall(@Path(NODE_ID) String nodeId,
+            @Path(VERSION_ID) String versionId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -283,7 +281,7 @@ public interface VersionAPI
      * @return VersionPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions")
-    Observable<ResultPaging<VersionRepresentation>> listVersionHistoryObservable(@Path("nodeId") String nodeId);
+    Observable<ResultPaging<VersionRepresentation>> listVersionHistoryObservable(@Path(NODE_ID) String nodeId);
 
     /**
      * List version history **Note:** this endpoint is available in Alfresco 5.2
@@ -311,11 +309,9 @@ public interface VersionAPI
      * @return VersionPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions")
-    Observable<ResultPaging<VersionRepresentation>> listVersionHistoryObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<VersionRepresentation>> listVersionHistoryObservable(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // GET INFO
@@ -332,8 +328,8 @@ public interface VersionAPI
      * @return VersionPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}")
-    Observable<ResultPaging<VersionRepresentation>> getVersionObservable(@Path("nodeId") String nodeId,
-            @Path("versionId") String versionId);
+    Observable<ResultPaging<VersionRepresentation>> getVersionObservable(@Path(NODE_ID) String nodeId,
+            @Path(VERSION_ID) String versionId);
 
     /**
      * List version history **Note:** this endpoint is available in Alfresco 5.2
@@ -361,11 +357,10 @@ public interface VersionAPI
      * @return VersionPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}")
-    Observable<ResultPaging<VersionRepresentation>> getVersionObservable(@Path("nodeId") String nodeId,
-            @Path("versionId") String versionId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<VersionRepresentation>> getVersionObservable(@Path(NODE_ID) String nodeId,
+            @Path(VERSION_ID) String versionId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // GET CONTENT
@@ -381,8 +376,8 @@ public interface VersionAPI
      *            the version history of a node. (required)
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/content")
-    Observable<ResponseBody> getVersionContentObservable(@Path("nodeId") String nodeId,
-            @Path("versionId") String versionId);
+    Observable<ResponseBody> getVersionContentObservable(@Path(NODE_ID) String nodeId,
+            @Path(VERSION_ID) String versionId);
 
     /**
      * Get version content **Note:** this endpoint is available in Alfresco 5.2
@@ -407,9 +402,9 @@ public interface VersionAPI
      *            (optional)
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/content")
-    Observable<ResponseBody> getVersionContentObservable(@Path("nodeId") String nodeId,
-            @Path("versionId") String versionId, @Query("attachment") Boolean attachment,
-            @Header("If-Modified-Since") Date ifModifiedSince);
+    Observable<ResponseBody> getVersionContentObservable(@Path(NODE_ID) String nodeId,
+            @Path(VERSION_ID) String versionId, @Query(ATTACHMENT) Boolean attachment,
+            @Header(IF_MODIFIED_SINCE) Date ifModifiedSince);
 
     // ///////////////////////////////////////////////////////////////////////////
     // REVERT
@@ -429,8 +424,8 @@ public interface VersionAPI
      *            should be a major version, or not.
      */
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/revert")
-    Observable<VersionRepresentation> revertVersionObservable(@Path("nodeId") String nodeId,
-            @Path("versionId") String versionId, @Body RevertBody revertBody);
+    Observable<VersionRepresentation> revertVersionObservable(@Path(NODE_ID) String nodeId,
+            @Path(VERSION_ID) String versionId, @Body RevertBody revertBody);
 
     /**
      * **Note:** this endpoint is available in Alfresco 5.2 and newer versions.
@@ -454,9 +449,8 @@ public interface VersionAPI
      *            **fields** parameter. (optional)
      */
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}/revert")
-    Observable<VersionRepresentation> revertVersionObservable(@Path("nodeId") String nodeId,
-            @Path("versionId") String versionId, @Body RevertBody revertBody,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<VersionRepresentation> revertVersionObservable(@Path(NODE_ID) String nodeId,
+            @Path(VERSION_ID) String versionId, @Body RevertBody revertBody, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -481,7 +475,7 @@ public interface VersionAPI
      *            the version history of a node. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/versions/{versionId}")
-    Observable<ResultPaging<VersionRepresentation>> deleteVersionObservable(@Path("nodeId") String nodeId,
-            @Path("versionId") String versionId);
+    Observable<ResultPaging<VersionRepresentation>> deleteVersionObservable(@Path(NODE_ID) String nodeId,
+            @Path(VERSION_ID) String versionId);
 
 }

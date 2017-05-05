@@ -16,7 +16,7 @@
  *   limitations under the License.
  */
 
-package org.alfresco.client.services.governance.api;
+package org.alfresco.client.services.governance.core.api;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,11 +25,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.alfresco.client.services.GSAPITestCase;
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
 import org.alfresco.client.services.content.core.model.ContentModel;
 import org.alfresco.client.services.content.core.model.body.NodeBodyCreate;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
 import org.alfresco.client.services.governance.GSAPIRegistry;
-import org.alfresco.client.services.governance.core.api.FilePlansAPI;
 import org.alfresco.client.services.governance.core.model.RMSiteCompliance;
 import org.alfresco.client.services.governance.core.model.RecordsManagementModel;
 import org.alfresco.client.services.governance.core.model.body.RMNodeBodyCreate;
@@ -59,7 +58,7 @@ public class RecordsApiTest extends GSAPITestCase
     @Test(enabled = true)
     public void recordsLifeCycle() throws IOException
     {
-        GSAPIRegistry gsRegistry = client.getGSAPIRegistry();
+        GSAPIRegistry gsRegistry = client.getApiRegistry();
 
         // Delete preventively
         gsRegistry.getGsSitesAPI().deleteRMSiteCall().execute();

@@ -18,13 +18,14 @@
 
 package org.alfresco.client.services.content.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
 import org.alfresco.client.services.content.core.model.body.GroupBodyCreate;
 import org.alfresco.client.services.content.core.model.body.GroupBodyUpdate;
 import org.alfresco.client.services.content.core.model.body.GroupMemberBodyAdd;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
 import org.alfresco.client.services.content.core.model.representation.GroupMemberRepresentation;
 import org.alfresco.client.services.content.core.model.representation.GroupRepresentation;
 
@@ -79,9 +80,8 @@ public interface GroupsAPI
      * @return GroupPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups")
-    Call<ResultPaging<GroupRepresentation>> listGroupsCall(@Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<GroupRepresentation>> listGroupsCall(@Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // GROUP INFO
@@ -94,7 +94,7 @@ public interface GroupsAPI
      * @return ApiResponse&lt;GroupEntry&gt;
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}")
-    Call<GroupRepresentation> getGroupCall(@Path("groupId") String groupId);
+    Call<GroupRepresentation> getGroupCall(@Path(GROUP_ID) String groupId);
 
     /**
      * Get group details **Note:** this endpoint is available in Alfresco 5.2
@@ -112,8 +112,7 @@ public interface GroupsAPI
      * @return ApiResponse&lt;GroupEntry&gt;
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}")
-    Call<GroupRepresentation> getGroupCall(@Path("groupId") String groupId,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<GroupRepresentation> getGroupCall(@Path(GROUP_ID) String groupId, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE GROUP
@@ -137,8 +136,7 @@ public interface GroupsAPI
      * @return GroupEntry
      */
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/groups")
-    Call<GroupRepresentation> addGroupCall(@Body() GroupBodyCreate groupBodyCreate,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<GroupRepresentation> addGroupCall(@Body() GroupBodyCreate groupBodyCreate, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE GROUP
@@ -161,8 +159,8 @@ public interface GroupsAPI
      * @return GroupEntry
      */
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}")
-    Call<GroupRepresentation> updateGroupCall(@Path("groupId") String groupId, @Body() GroupBodyUpdate groupBodyUpdate,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<GroupRepresentation> updateGroupCall(@Path(GROUP_ID) String groupId, @Body() GroupBodyUpdate groupBodyUpdate,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE GROUP
@@ -178,7 +176,7 @@ public interface GroupsAPI
      * @param groupId The identifier of a group. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}")
-    Call<Void> deleteGroupCall(@Path("groupId") String groupId);
+    Call<Void> deleteGroupCall(@Path(GROUP_ID) String groupId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LIST PARENT GROUP
@@ -197,7 +195,7 @@ public interface GroupsAPI
      * @return GroupPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/parents")
-    Call<ResultPaging<GroupRepresentation>> listGroupParentsCall(@Path("groupId") String groupId);
+    Call<ResultPaging<GroupRepresentation>> listGroupParentsCall(@Path(GROUP_ID) String groupId);
 
     /**
      * List parents of a group **Note:** this endpoint is available in Alfresco
@@ -225,10 +223,9 @@ public interface GroupsAPI
      * @return GroupPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/parents")
-    Call<ResultPaging<GroupRepresentation>> listGroupParentsCall(@Path("groupId") String groupId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<GroupRepresentation>> listGroupParentsCall(@Path(GROUP_ID) String groupId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LIST GROUP MEMBERS
@@ -246,7 +243,7 @@ public interface GroupsAPI
      * @return GroupMemberPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/members")
-    Call<ResultPaging<GroupMemberRepresentation>> listGroupMembersCall(@Path("groupId") String groupId);
+    Call<ResultPaging<GroupMemberRepresentation>> listGroupMembersCall(@Path(GROUP_ID) String groupId);
 
     /**
      * List members of a group **Note:** this endpoint is available in Alfresco
@@ -273,10 +270,9 @@ public interface GroupsAPI
      * @return GroupMemberPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/members")
-    Call<ResultPaging<GroupMemberRepresentation>> listGroupMembersCall(@Path("groupId") String groupId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<GroupMemberRepresentation>> listGroupMembersCall(@Path(GROUP_ID) String groupId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // GET GROUP MEMBER
@@ -291,8 +287,8 @@ public interface GroupsAPI
      * @return GroupMemberEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/members/{groupMemberId}")
-    Call<GroupRepresentation> getGroupMemberCall(@Path("groupId") String groupId,
-            @Path("groupMemberId") String groupMemberId);
+    Call<GroupRepresentation> getGroupMemberCall(@Path(GROUP_ID) String groupId,
+            @Path(GROUP_MEMBER_ID) String groupMemberId);
 
     /**
      * Get a group member **Note:** this endpoint is available in Alfresco 5.2
@@ -312,8 +308,8 @@ public interface GroupsAPI
      * @return GroupMemberEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/members/{groupMemberId}")
-    Call<GroupRepresentation> getGroupMemberCall(@Path("groupId") String groupId,
-            @Path("groupMemberId") String groupMemberId, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<GroupRepresentation> getGroupMemberCall(@Path(GROUP_ID) String groupId,
+            @Path(GROUP_MEMBER_ID) String groupMemberId, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ADD GROUP MEMBER
@@ -339,8 +335,8 @@ public interface GroupsAPI
      * @return GroupMemberEntry
      */
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/members")
-    Call<GroupMemberRepresentation> addGroupMemberCall(@Path("groupId") String groupId,
-            @Body() GroupMemberBodyAdd groupMemberBodyAdd, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<GroupMemberRepresentation> addGroupMemberCall(@Path(GROUP_ID) String groupId,
+            @Body() GroupMemberBodyAdd groupMemberBodyAdd, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE GROUP MEMBER
@@ -358,7 +354,7 @@ public interface GroupsAPI
      * @return ApiResponse&lt;Void&gt;
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/members/{groupMemberId}")
-    Call<Void> deleteGroupMemberCall(@Path("groupId") String groupId, @Path("groupMemberId") String groupMemberId);
+    Call<Void> deleteGroupMemberCall(@Path(GROUP_ID) String groupId, @Path(GROUP_MEMBER_ID) String groupMemberId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LIST GROUP MEMBERSHIP
@@ -376,7 +372,7 @@ public interface GroupsAPI
      * @return ApiResponse&lt;GroupPaging&gt;
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/groups")
-    Call<ResultPaging<GroupRepresentation>> listGroupsCall(@Path("personId") String personId);
+    Call<ResultPaging<GroupRepresentation>> listGroupsCall(@Path(PERSON_ID) String personId);
 
     /**
      * List group memberships Gets a list of group membership information for
@@ -403,10 +399,9 @@ public interface GroupsAPI
      * @return ApiResponse&lt;GroupPaging&gt;
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/groups")
-    Call<ResultPaging<GroupRepresentation>> listGroupsCall(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<GroupRepresentation>> listGroupsCall(@Path(PERSON_ID) String personId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -479,10 +474,8 @@ public interface GroupsAPI
      * @return GroupPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups")
-    Observable<ResultPaging<GroupRepresentation>> listGroupsObservable(
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<GroupRepresentation>> listGroupsObservable(@Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // GROUP INFO
@@ -496,7 +489,7 @@ public interface GroupsAPI
      * @return ApiResponse&lt;GroupEntry&gt;
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}")
-    Observable<GroupRepresentation> getGroupObservable(@Path("groupId") String groupId);
+    Observable<GroupRepresentation> getGroupObservable(@Path(GROUP_ID) String groupId);
 
     /**
      * Get group details **Note:** this endpoint is available in Alfresco 5.2
@@ -514,8 +507,8 @@ public interface GroupsAPI
      * @return ApiResponse&lt;GroupEntry&gt;
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}")
-    Observable<GroupRepresentation> getGroupObservable(@Path("groupId") String groupId,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<GroupRepresentation> getGroupObservable(@Path(GROUP_ID) String groupId,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE GROUP
@@ -541,7 +534,7 @@ public interface GroupsAPI
      */
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/groups")
     Observable<GroupRepresentation> addGroupObservable(@Body() GroupBodyCreate groupBodyCreate,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE GROUP
@@ -565,8 +558,8 @@ public interface GroupsAPI
      * @return GroupEntry
      */
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}")
-    Observable<GroupRepresentation> updateGroupObservable(@Path("groupId") String groupId,
-            @Body() GroupBodyUpdate groupBodyUpdate, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<GroupRepresentation> updateGroupObservable(@Path(GROUP_ID) String groupId,
+            @Body() GroupBodyUpdate groupBodyUpdate, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE GROUP
@@ -583,7 +576,7 @@ public interface GroupsAPI
      * @param groupId The identifier of a group. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}")
-    Observable<Void> deleteGroupObservable(@Path("groupId") String groupId);
+    Observable<Void> deleteGroupObservable(@Path(GROUP_ID) String groupId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LIST PARENT GROUP
@@ -603,7 +596,7 @@ public interface GroupsAPI
      * @return GroupPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/parents")
-    Observable<ResultPaging<GroupRepresentation>> listGroupParentsObservable(@Path("groupId") String groupId);
+    Observable<ResultPaging<GroupRepresentation>> listGroupParentsObservable(@Path(GROUP_ID) String groupId);
 
     /**
      * List parents of a group **Note:** this endpoint is available in Alfresco
@@ -631,10 +624,9 @@ public interface GroupsAPI
      * @return GroupPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/parents")
-    Observable<ResultPaging<GroupRepresentation>> listGroupParentsObservable(@Path("groupId") String groupId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<GroupRepresentation>> listGroupParentsObservable(@Path(GROUP_ID) String groupId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LIST GROUP MEMBERS
@@ -653,7 +645,7 @@ public interface GroupsAPI
      * @return GroupMemberPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/members")
-    Observable<ResultPaging<GroupMemberRepresentation>> listGroupMembersObservable(@Path("groupId") String groupId);
+    Observable<ResultPaging<GroupMemberRepresentation>> listGroupMembersObservable(@Path(GROUP_ID) String groupId);
 
     /**
      * List members of a group **Note:** this endpoint is available in Alfresco
@@ -680,10 +672,9 @@ public interface GroupsAPI
      * @return GroupMemberPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/members")
-    Observable<ResultPaging<GroupMemberRepresentation>> listGroupMembersObservable(@Path("groupId") String groupId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<GroupMemberRepresentation>> listGroupMembersObservable(@Path(GROUP_ID) String groupId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // GET GROUP MEMBER
@@ -699,8 +690,8 @@ public interface GroupsAPI
      * @return GroupMemberEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/members/{groupMemberId}")
-    Observable<GroupRepresentation> getGroupMemberObservable(@Path("groupId") String groupId,
-            @Path("groupMemberId") String groupMemberId);
+    Observable<GroupRepresentation> getGroupMemberObservable(@Path(GROUP_ID) String groupId,
+            @Path(GROUP_MEMBER_ID) String groupMemberId);
 
     /**
      * Get a group member **Note:** this endpoint is available in Alfresco 5.2
@@ -720,8 +711,8 @@ public interface GroupsAPI
      * @return GroupMemberEntry
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/members/{groupMemberId}")
-    Observable<GroupRepresentation> getGroupMemberObservable(@Path("groupId") String groupId,
-            @Path("groupMemberId") String groupMemberId, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<GroupRepresentation> getGroupMemberObservable(@Path(GROUP_ID) String groupId,
+            @Path(GROUP_MEMBER_ID) String groupMemberId, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ADD GROUP MEMBER
@@ -748,8 +739,8 @@ public interface GroupsAPI
      * @return GroupMemberEntry
      */
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/members")
-    Observable<GroupMemberRepresentation> addGroupMemberObservable(@Path("groupId") String groupId,
-            @Body() GroupMemberBodyAdd groupMemberBodyAdd, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<GroupMemberRepresentation> addGroupMemberObservable(@Path(GROUP_ID) String groupId,
+            @Body() GroupMemberBodyAdd groupMemberBodyAdd, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE GROUP MEMBER
@@ -768,8 +759,8 @@ public interface GroupsAPI
      * @return ApiResponse&lt;Void&gt;
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/groups/{groupId}/members/{groupMemberId}")
-    Observable<Void> deleteGroupMemberObservable(@Path("groupId") String groupId,
-            @Path("groupMemberId") String groupMemberId);
+    Observable<Void> deleteGroupMemberObservable(@Path(GROUP_ID) String groupId,
+            @Path(GROUP_MEMBER_ID) String groupMemberId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LIST GROUP MEMBERSHIP
@@ -788,7 +779,7 @@ public interface GroupsAPI
      * @return ApiResponse&lt;GroupPaging&gt;
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/groups")
-    Observable<ResultPaging<GroupRepresentation>> listGroupsObservable(@Path("personId") String personId);
+    Observable<ResultPaging<GroupRepresentation>> listGroupsObservable(@Path(PERSON_ID) String personId);
 
     /**
      * List group memberships Gets a list of group membership information for
@@ -815,8 +806,7 @@ public interface GroupsAPI
      * @return ApiResponse&lt;GroupPaging&gt;
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/groups")
-    Observable<ResultPaging<GroupRepresentation>> listGroupsObservable(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<GroupRepresentation>> listGroupsObservable(@Path(PERSON_ID) String personId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(FIELDS) FieldsParam fields);
 }

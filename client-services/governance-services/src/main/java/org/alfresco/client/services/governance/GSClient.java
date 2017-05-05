@@ -55,7 +55,7 @@ public class GSClient extends ServicesClient<GSClient> implements GovernanceServ
     // ///////////////////////////////////////////////////////////////////////////
     // API REGISTRY
     // ///////////////////////////////////////////////////////////////////////////
-    public GSAPIRegistry getGSAPIRegistry()
+    public GSAPIRegistry getApiRegistry()
     {
         if (GSAPIRegistry == null)
         {
@@ -134,7 +134,7 @@ public class GSClient extends ServicesClient<GSClient> implements GovernanceServ
         public GSClient create(RestClient restClient, OkHttpClient okHttpClient)
         {
             GSClient client = new GSClient(new RestClient(endpoint, retrofit, username), okHttpClient);
-            client.getGSAPIRegistry();
+            client.getApiRegistry();
             return client;
         }
 

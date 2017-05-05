@@ -18,16 +18,17 @@
 
 package org.alfresco.client.services.content.core.api;
 
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
 import java.util.Date;
 import java.util.Map;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
+import org.alfresco.client.services.common.model.parameters.OrderByParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
 import org.alfresco.client.services.content.core.model.body.*;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
-import org.alfresco.client.services.content.core.model.parameters.OrderByParam;
 import org.alfresco.client.services.content.core.model.representation.AssociationRepresentation;
 import org.alfresco.client.services.content.core.model.representation.ChildAssociationRepresentation;
 import org.alfresco.client.services.content.core.model.representation.NodeRepresentation;
@@ -40,6 +41,7 @@ import rx.Observable;
 
 public interface NodesAPI
 {
+
     String FOLDER_ROOT = "-root-";
 
     String FOLDER_MY = "-my-";
@@ -57,7 +59,7 @@ public interface NodesAPI
      * @return NodeRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}")
-    Call<NodeRepresentation> getNodeCall(@Path("nodeId") String nodeId);
+    Call<NodeRepresentation> getNodeCall(@Path(NODE_ID) String nodeId);
 
     /**
      * Get a node Get information for the node with identifier **nodeId**.
@@ -81,10 +83,8 @@ public interface NodesAPI
      * @return NodeRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}")
-    Call<NodeRepresentation> getNodeCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<NodeRepresentation> getNodeCall(@Path(NODE_ID) String nodeId, @Query(INCLUDE) IncludeParam include,
+            @Query(RELATIVE_PATH) String relativePath, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LISTING
@@ -103,7 +103,7 @@ public interface NodesAPI
      * @return ResultPaging<NodeRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Call<ResultPaging<NodeRepresentation>> listNodeChildrenCall(@Path("nodeId") String nodeId);
+    Call<ResultPaging<NodeRepresentation>> listNodeChildrenCall(@Path(NODE_ID) String nodeId);
 
     /**
      * Get node children Returns the children of the parent node with identifier
@@ -134,10 +134,9 @@ public interface NodesAPI
      * @return ResultPaging<NodeRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Call<ResultPaging<NodeRepresentation>> listNodeChildrenCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
+    Call<ResultPaging<NodeRepresentation>> listNodeChildrenCall(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(ORDER_BY) OrderByParam orderBy);
 
     /**
      * Get node children Returns the children of the parent node with identifier
@@ -195,15 +194,11 @@ public interface NodesAPI
      * @return ResultPaging<NodeRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Call<ResultPaging<NodeRepresentation>> listNodeChildrenCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<NodeRepresentation>> listNodeChildrenCall(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(ORDER_BY) OrderByParam orderBy, @Query(WHERE) String where, @Query(INCLUDE) IncludeParam include,
+            @Query(RELATIVE_PATH) String relativePath, @Query(INCLUDE_SOURCE) Boolean includeSource,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -295,7 +290,7 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Call<NodeRepresentation> createNodeCall(@Path("nodeId") String nodeId, @Body NodeBodyCreate nodeBody);
+    Call<NodeRepresentation> createNodeCall(@Path(NODE_ID) String nodeId, @Body NodeBodyCreate nodeBody);
 
     /**
      * Create a node Creates a node as a (primary) child of the node with
@@ -398,10 +393,9 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Call<NodeRepresentation> createNodeCall(@Path("nodeId") String nodeId, @Body NodeBodyCreate nodeBody,
-            @Query(PublicAPIConstant.AUTO_RENAME_VALUE) boolean autoRename,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<NodeRepresentation> createNodeCall(@Path(NODE_ID) String nodeId, @Body NodeBodyCreate nodeBody,
+            @Query(AUTO_RENAME) boolean autoRename, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Create a node Creates a node as a (primary) child of the node with
@@ -490,11 +484,11 @@ public interface NodesAPI
      */
     @Multipart
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Call<NodeRepresentation> createNodeCall(@Path("nodeId") String nodeId, @Part("filedata") RequestBody file);
+    Call<NodeRepresentation> createNodeCall(@Path(NODE_ID) String nodeId, @Part(FILEDATA) RequestBody file);
 
     @Multipart
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Call<NodeRepresentation> createNodeCall(@Path("nodeId") String nodeId, @PartMap() Map<String, RequestBody> partMap);
+    Call<NodeRepresentation> createNodeCall(@Path(NODE_ID) String nodeId, @PartMap() Map<String, RequestBody> partMap);
 
     /**
      * Create a node Creates a node as a (primary) child of the node with
@@ -597,10 +591,9 @@ public interface NodesAPI
      */
     @Multipart
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Call<NodeRepresentation> createNodeCall(@Path("nodeId") String nodeId, @Part("filedata") RequestBody file,
-            @Query(PublicAPIConstant.AUTO_RENAME_VALUE) boolean autoRename,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<NodeRepresentation> createNodeCall(@Path(NODE_ID) String nodeId, @Part(FILEDATA) RequestBody file,
+            @Query(AUTO_RENAME) boolean autoRename, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -624,7 +617,7 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}")
-    Call<NodeRepresentation> updateNodeCall(@Path("nodeId") String nodeId, @Body NodeBodyUpdate nodeBody);
+    Call<NodeRepresentation> updateNodeCall(@Path(NODE_ID) String nodeId, @Body NodeBodyUpdate nodeBody);
 
     /**
      * Update a node Updates the node with identifier **nodeId**. For example,
@@ -656,9 +649,8 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}")
-    Call<NodeRepresentation> updateNodeCall(@Path("nodeId") String nodeId, @Body NodeBodyUpdate nodeBody,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<NodeRepresentation> updateNodeCall(@Path(NODE_ID) String nodeId, @Body NodeBodyUpdate nodeBody,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Update file content Updates the content of the node with identifier
@@ -678,7 +670,7 @@ public interface NodesAPI
      * @return NodeRepresentation
      */
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/content")
-    Call<NodeRepresentation> updateNodeContentCall(@Path("nodeId") String nodeId, @Body RequestBody contentBody);
+    Call<NodeRepresentation> updateNodeContentCall(@Path(NODE_ID) String nodeId, @Body RequestBody contentBody);
 
     /**
      * Update file content Updates the content of the node with identifier
@@ -715,10 +707,9 @@ public interface NodesAPI
      * @return NodeRepresentation
      */
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/content")
-    Call<NodeRepresentation> updateNodeContentCall(@Path("nodeId") String nodeId, @Body RequestBody contentBody,
-            @Query("majorVersion") Boolean majorVersion, @Query("comment") String comment,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<NodeRepresentation> updateNodeContentCall(@Path(NODE_ID) String nodeId, @Body RequestBody contentBody,
+            @Query(MAJOR_VERSION) Boolean majorVersion, @Query(COMMENT) String comment,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Update file content Updates the content of the node with identifier
@@ -744,8 +735,8 @@ public interface NodesAPI
      * @return NodeRepresentation
      */
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/content")
-    Call<NodeRepresentation> updateNodeContentCall(@Path("nodeId") String nodeId, @Body RequestBody contentBody,
-            @Query("majorVersion") Boolean majorVersion, @Query("comment") String comment);
+    Call<NodeRepresentation> updateNodeContentCall(@Path(NODE_ID) String nodeId, @Body RequestBody contentBody,
+            @Query(MAJOR_VERSION) Boolean majorVersion, @Query(COMMENT) String comment);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DOWNLOAD
@@ -758,7 +749,7 @@ public interface NodesAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/content")
-    Call<ResponseBody> getNodeContentCall(@Path("nodeId") String nodeId);
+    Call<ResponseBody> getNodeContentCall(@Path(NODE_ID) String nodeId);
 
     /**
      * Get file content Returns the file content of the node with identifier
@@ -781,8 +772,8 @@ public interface NodesAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/content")
-    Call<ResponseBody> getNodeContentCall(@Path("nodeId") String nodeId, @Query("attachment") Boolean attachment,
-            @Header("If-Modified-Since") Date ifModifiedSince);
+    Call<ResponseBody> getNodeContentCall(@Path(NODE_ID) String nodeId, @Query(ATTACHMENT) Boolean attachment,
+            @Header(IF_MODIFIED_SINCE) Date ifModifiedSince);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -808,7 +799,7 @@ public interface NodesAPI
      * @param nodeId The identifier of a node. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}")
-    Call<Void> deleteNodeCall(@Path("nodeId") String nodeId);
+    Call<Void> deleteNodeCall(@Path(NODE_ID) String nodeId);
 
     /**
      * Delete a node Deletes the node with identifier **nodeId**. If the
@@ -835,8 +826,7 @@ public interface NodesAPI
      *            false)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}")
-    Call<Void> deleteNodeCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.PERMANENT_VALUE) Boolean permanent);
+    Call<Void> deleteNodeCall(@Path(NODE_ID) String nodeId, @Query(PERMANENT_VALUE) Boolean permanent);
 
     // ///////////////////////////////////////////////////////////////////////////
     // PARENT
@@ -850,7 +840,7 @@ public interface NodesAPI
      * @return ApiResponse&lt;NodeAssocPaging&gt;
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/parents")
-    Call<ResultPaging<NodeRepresentation>> listParentsCall(@Path("nodeId") String nodeId);
+    Call<ResultPaging<NodeRepresentation>> listParentsCall(@Path(NODE_ID) String nodeId);
 
     /**
      * List parents Returns a list of parent nodes that point to (ie. are
@@ -865,9 +855,8 @@ public interface NodesAPI
      * @return ApiResponse&lt;NodeAssocPaging&gt;
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/parents")
-    Call<ResultPaging<NodeRepresentation>> listParentsCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
+    Call<ResultPaging<NodeRepresentation>> listParentsCall(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems);
 
     /**
      * List parents Returns a list of parent nodes that point to (ie. are
@@ -899,12 +888,9 @@ public interface NodesAPI
      * @return ApiResponse&lt;NodeAssocPaging&gt;
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/parents")
-    Call<ResultPaging<NodeRepresentation>> listParentsCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<NodeRepresentation>> listParentsCall(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems, @Query(WHERE) String where,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ASSOCIATIONS
@@ -918,7 +904,7 @@ public interface NodesAPI
      * @return NodeChildAssocPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children")
-    Call<ResultPaging<NodeRepresentation>> listSecondaryChildrenCall(@Path("nodeId") String nodeId);
+    Call<ResultPaging<NodeRepresentation>> listSecondaryChildrenCall(@Path(NODE_ID) String nodeId);
 
     /**
      * List secondary children Returns a list of secondary child nodes that are
@@ -935,10 +921,9 @@ public interface NodesAPI
      * @return NodeChildAssocPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children")
-    Call<ResultPaging<NodeRepresentation>> listSecondaryChildrenCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.ASSOC_TYPE_VALUE) String assocType,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
+    Call<ResultPaging<NodeRepresentation>> listSecondaryChildrenCall(@Path(NODE_ID) String nodeId,
+            @Query(ASSOC_TYPE_VALUE) String assocType, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems);
 
     /**
      * List secondary children Returns a list of secondary child nodes that are
@@ -970,13 +955,10 @@ public interface NodesAPI
      * @return NodeChildAssocPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children")
-    Call<ResultPaging<NodeRepresentation>> listSecondaryChildrenCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.ASSOC_TYPE_VALUE) String assocType,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<NodeRepresentation>> listSecondaryChildrenCall(@Path(NODE_ID) String nodeId,
+            @Query(ASSOC_TYPE_VALUE) String assocType, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(WHERE) String where, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Add secondary child Add secondary child association, with given
@@ -988,8 +970,8 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children")
-    Call<ChildAssociationRepresentation> createSecondaryChildAssocationCall(@Path("nodeId") String nodeId,
-            @Body ChildAssociationBody childAssociationBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ChildAssociationRepresentation> createSecondaryChildAssocationCall(@Path(NODE_ID) String nodeId,
+            @Body ChildAssociationBody childAssociationBody, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Remove secondary child (or children) Remove secondary child
@@ -1004,7 +986,7 @@ public interface NodesAPI
      * @param childId The identifier of a child node. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children/{childId}")
-    Call<Void> deleteSecondaryChildAssocationCall(@Path("nodeId") String nodeId, @Path("childId") String childId);
+    Call<Void> deleteSecondaryChildAssocationCall(@Path(NODE_ID) String nodeId, @Path(CHILD_ID) String childId);
 
     /**
      * Remove secondary child (or children) Remove secondary child
@@ -1021,8 +1003,8 @@ public interface NodesAPI
      *            association type (optional)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children/{childId}")
-    Call<Void> deleteSecondaryChildAssocationCall(@Path("nodeId") String nodeId, @Path("childId") String childId,
-            @Query("assocType") String assocType);
+    Call<Void> deleteSecondaryChildAssocationCall(@Path(NODE_ID) String nodeId, @Path(CHILD_ID) String childId,
+            @Query(ASSOC_TYPE) String assocType);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ASSOCIATION SOURCES & TARGETS
@@ -1035,7 +1017,7 @@ public interface NodesAPI
      * @return NodeAssocPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/sources")
-    Call<ResultPaging<NodeRepresentation>> listSourceAssociationsCall(@Path("nodeId") String nodeId);
+    Call<ResultPaging<NodeRepresentation>> listSourceAssociationsCall(@Path(NODE_ID) String nodeId);
 
     /**
      * List node association Returns a list of source nodes that point to (ie.
@@ -1060,10 +1042,8 @@ public interface NodesAPI
      * @return NodeAssocPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/sources")
-    Call<ResultPaging<NodeRepresentation>> listSourceAssociationsCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<NodeRepresentation>> listSourceAssociationsCall(@Path(NODE_ID) String nodeId,
+            @Query(WHERE) String where, @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     /**
      * List node association Returns a list of target nodes that are pointed to
@@ -1073,7 +1053,7 @@ public interface NodesAPI
      * @return NodeAssocPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/targets")
-    Call<ResultPaging<NodeRepresentation>> listTargetAssociationsCall(@Path("nodeId") String nodeId);
+    Call<ResultPaging<NodeRepresentation>> listTargetAssociationsCall(@Path(NODE_ID) String nodeId);
 
     /**
      * List node association Returns a list of target nodes that are pointed to
@@ -1098,10 +1078,8 @@ public interface NodesAPI
      * @return NodeAssocPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/targets")
-    Call<ResultPaging<NodeRepresentation>> listTargetAssociationsCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<NodeRepresentation>> listTargetAssociationsCall(@Path(NODE_ID) String nodeId,
+            @Query(WHERE) String where, @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Add node association Add association, with given association type,
@@ -1113,8 +1091,8 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/targets")
-    Call<AssociationRepresentation> createAssocationCall(@Path("nodeId") String nodeId,
-            @Body AssociationBody associationBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<AssociationRepresentation> createAssocationCall(@Path(NODE_ID) String nodeId,
+            @Body AssociationBody associationBody, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Remove node association(s) Remove association(s) from source **nodeId* to
@@ -1130,8 +1108,8 @@ public interface NodesAPI
      *            association type (optional)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/targets/{targetId}")
-    Call<Void> deleteAssocationCall(@Path("nodeId") String nodeId, @Path("targetId") String targetId,
-            @Query("assocType") String assocType);
+    Call<Void> deleteAssocationCall(@Path(NODE_ID) String nodeId, @Path("targetId") String targetId,
+            @Query(ASSOC_TYPE) String assocType);
 
     // ///////////////////////////////////////////////////////////////////////////
     // COPY / PASTE
@@ -1151,7 +1129,7 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/copy")
-    Call<NodeRepresentation> copyNodeCall(@Path("nodeId") String nodeId, @Body NodeBodyCopy copyBody);
+    Call<NodeRepresentation> copyNodeCall(@Path(NODE_ID) String nodeId, @Body NodeBodyCopy copyBody);
 
     /**
      * Copy a node Copy the node **nodeId** to the parent folder node
@@ -1179,9 +1157,8 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{sourceNodeId}/copy")
-    Call<NodeRepresentation> copyNodeCall(@Path("nodeId") String nodeId, @Body NodeBodyCopy copyBody,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<NodeRepresentation> copyNodeCall(@Path(NODE_ID) String nodeId, @Body NodeBodyCopy copyBody,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Move a node Move the node **nodeId** to the parent folder node
@@ -1199,7 +1176,7 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/move")
-    Call<NodeRepresentation> moveNodeCall(@Path("nodeId") String nodeId, @Body NodeBodyCopy moveBody);
+    Call<NodeRepresentation> moveNodeCall(@Path(NODE_ID) String nodeId, @Body NodeBodyCopy moveBody);
 
     /**
      * Move a node Move the node **nodeId** to the parent folder node
@@ -1228,9 +1205,8 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/move")
-    Call<NodeRepresentation> moveNodeCall(@Path("nodeId") String nodeId, @Body NodeBodyCopy moveBody,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<NodeRepresentation> moveNodeCall(@Path(NODE_ID) String nodeId, @Body NodeBodyCopy moveBody,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LOCK / UNLOCK
@@ -1262,7 +1238,7 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/lock")
-    Call<NodeRepresentation> lockNodeCall(@Path("nodeId") String nodeId, @Body NodeBodyLock lockBody);
+    Call<NodeRepresentation> lockNodeCall(@Path(NODE_ID) String nodeId, @Body NodeBodyLock lockBody);
 
     /**
      * Lock a node Places a lock on node **nodeId**. If **includeChildren** is
@@ -1302,9 +1278,8 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/lock")
-    Call<NodeRepresentation> lockNodeCall(@Path("nodeId") String nodeId, @Body NodeBodyLock lockBody,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<NodeRepresentation> lockNodeCall(@Path(NODE_ID) String nodeId, @Body NodeBodyLock lockBody,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Unlock a node Removes a lock on node **nodeId**. If **includeChildren**
@@ -1323,7 +1298,7 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/unlock")
-    Call<NodeRepresentation> unlockNodeCall(@Path("nodeId") String nodeId, @Body NodeBodyUnLock unlockBody);
+    Call<NodeRepresentation> unlockNodeCall(@Path(NODE_ID) String nodeId, @Body NodeBodyUnLock unlockBody);
 
     /**
      * Unlock a node Removes a lock on node **nodeId**. If **includeChildren**
@@ -1353,9 +1328,8 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/unlock")
-    Call<NodeRepresentation> unlockNodeCall(@Path("nodeId") String nodeId, @Body NodeBodyUnLock unlockBody,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<NodeRepresentation> unlockNodeCall(@Path(NODE_ID) String nodeId, @Body NodeBodyUnLock unlockBody,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -1393,7 +1367,7 @@ public interface NodesAPI
      * @return NodeRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}")
-    Observable<NodeRepresentation> getNodeObservable(@Path("nodeId") String nodeId);
+    Observable<NodeRepresentation> getNodeObservable(@Path(NODE_ID) String nodeId);
 
     /**
      * Get a node Get information for the node with identifier **nodeId**.
@@ -1417,10 +1391,8 @@ public interface NodesAPI
      * @return NodeRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}")
-    Observable<NodeRepresentation> getNodeObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<NodeRepresentation> getNodeObservable(@Path(NODE_ID) String nodeId, @Query(INCLUDE) IncludeParam include,
+            @Query(RELATIVE_PATH) String relativePath, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LISTING
@@ -1439,7 +1411,7 @@ public interface NodesAPI
      * @return ResultPaging<NodeRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Observable<ResultPaging<NodeRepresentation>> listNodeChildrenObservable(@Path("nodeId") String nodeId);
+    Observable<ResultPaging<NodeRepresentation>> listNodeChildrenObservable(@Path(NODE_ID) String nodeId);
 
     /**
      * Get node children Returns the children of the parent node with identifier
@@ -1470,10 +1442,9 @@ public interface NodesAPI
      * @return ResultPaging<NodeRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Observable<ResultPaging<NodeRepresentation>> listNodeChildrenObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
+    Observable<ResultPaging<NodeRepresentation>> listNodeChildrenObservable(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(ORDER_BY) OrderByParam orderBy);
 
     /**
      * Get node children Returns the children of the parent node with identifier
@@ -1531,15 +1502,11 @@ public interface NodesAPI
      * @return ResultPaging<NodeRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Observable<ResultPaging<NodeRepresentation>> listNodeChildrenObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.RELATIVE_PATH_VALUE) String relativePath,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<NodeRepresentation>> listNodeChildrenObservable(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(ORDER_BY) OrderByParam orderBy, @Query(WHERE) String where, @Query(INCLUDE) IncludeParam include,
+            @Query(RELATIVE_PATH) String relativePath, @Query(INCLUDE_SOURCE) Boolean includeSource,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -1632,7 +1599,7 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Observable<NodeRepresentation> createNodeObservable(@Path("nodeId") String nodeId, @Body NodeBodyCreate nodeBody);
+    Observable<NodeRepresentation> createNodeObservable(@Path(NODE_ID) String nodeId, @Body NodeBodyCreate nodeBody);
 
     /**
      * Create a node Creates a node as a (primary) child of the node with
@@ -1735,10 +1702,9 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Observable<NodeRepresentation> createNodeObservable(@Path("nodeId") String nodeId, @Body NodeBodyCreate nodeBody,
-            @Query(PublicAPIConstant.AUTO_RENAME_VALUE) boolean autoRename,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<NodeRepresentation> createNodeObservable(@Path(NODE_ID) String nodeId, @Body NodeBodyCreate nodeBody,
+            @Query(AUTO_RENAME) boolean autoRename, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Create a node Creates a node as a (primary) child of the node with
@@ -1827,12 +1793,12 @@ public interface NodesAPI
      */
     @Multipart
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Observable<NodeRepresentation> createNodeObservable(@Path("nodeId") String nodeId,
+    Observable<NodeRepresentation> createNodeObservable(@Path(NODE_ID) String nodeId,
             @Part("filedata") RequestBody file);
 
     @Multipart
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Observable<NodeRepresentation> createNodeObservable(@Path("nodeId") String nodeId,
+    Observable<NodeRepresentation> createNodeObservable(@Path(NODE_ID) String nodeId,
             @PartMap() Map<String, RequestBody> partMap);
 
     /**
@@ -1936,10 +1902,9 @@ public interface NodesAPI
      */
     @Multipart
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/children")
-    Observable<NodeRepresentation> createNodeObservable(@Path("nodeId") String nodeId,
-            @Part("filedata") RequestBody file, @Query(PublicAPIConstant.AUTO_RENAME_VALUE) boolean autoRename,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<NodeRepresentation> createNodeObservable(@Path(NODE_ID) String nodeId,
+            @Part("filedata") RequestBody file, @Query(AUTO_RENAME) boolean autoRename,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -1964,7 +1929,7 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}")
-    Observable<NodeRepresentation> updateNodeObservable(@Path("nodeId") String nodeId, @Body NodeBodyUpdate nodeBody);
+    Observable<NodeRepresentation> updateNodeObservable(@Path(NODE_ID) String nodeId, @Body NodeBodyUpdate nodeBody);
 
     /**
      * Update a node Updates the node with identifier **nodeId**. For example,
@@ -1996,9 +1961,8 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}")
-    Observable<NodeRepresentation> updateNodeObservable(@Path("nodeId") String nodeId, @Body NodeBodyUpdate nodeBody,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<NodeRepresentation> updateNodeObservable(@Path(NODE_ID) String nodeId, @Body NodeBodyUpdate nodeBody,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Update file content Updates the content of the node with identifier
@@ -2018,7 +1982,7 @@ public interface NodesAPI
      * @return NodeRepresentation
      */
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/content")
-    Observable<NodeRepresentation> updateNodeContentObservable(@Path("nodeId") String nodeId,
+    Observable<NodeRepresentation> updateNodeContentObservable(@Path(NODE_ID) String nodeId,
             @Body RequestBody contentBody);
 
     /**
@@ -2045,7 +2009,7 @@ public interface NodesAPI
      * @return NodeRepresentation
      */
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/content")
-    Observable<NodeRepresentation> updateNodeContentObservable(@Path("nodeId") String nodeId,
+    Observable<NodeRepresentation> updateNodeContentObservable(@Path(NODE_ID) String nodeId,
             @Body RequestBody contentBody, @Query("majorVersion") Boolean majorVersion,
             @Query("comment") String comment);
 
@@ -2084,10 +2048,9 @@ public interface NodesAPI
      * @return NodeRepresentation
      */
     @PUT(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/content")
-    Observable<NodeRepresentation> updateNodeContentObservable(@Path("nodeId") String nodeId,
+    Observable<NodeRepresentation> updateNodeContentObservable(@Path(NODE_ID) String nodeId,
             @Body RequestBody contentBody, @Query("majorVersion") Boolean majorVersion,
-            @Query("comment") String comment, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query("comment") String comment, @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DOWNLOAD
@@ -2101,7 +2064,7 @@ public interface NodesAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/content")
-    Observable<ResponseBody> getNodeContentObservable(@Path("nodeId") String nodeId);
+    Observable<ResponseBody> getNodeContentObservable(@Path(NODE_ID) String nodeId);
 
     /**
      * Get file content Returns the file content of the node with identifier
@@ -2124,7 +2087,7 @@ public interface NodesAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/content")
-    Observable<ResponseBody> getNodeContentObservable(@Path("nodeId") String nodeId,
+    Observable<ResponseBody> getNodeContentObservable(@Path(NODE_ID) String nodeId,
             @Query("attachment") Boolean attachment, @Header("If-Modified-Since") Date ifModifiedSince);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -2152,7 +2115,7 @@ public interface NodesAPI
      * @param nodeId The identifier of a node. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}")
-    Observable<Void> deleteNodeObservable(@Path("nodeId") String nodeId);
+    Observable<Void> deleteNodeObservable(@Path(NODE_ID) String nodeId);
 
     /**
      * Delete a node Deletes the node with identifier **nodeId**. If the
@@ -2179,8 +2142,7 @@ public interface NodesAPI
      *            false)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}")
-    Observable<Void> deleteNodeObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.PERMANENT_VALUE) Boolean permanent);
+    Observable<Void> deleteNodeObservable(@Path(NODE_ID) String nodeId, @Query(PERMANENT_VALUE) Boolean permanent);
 
     // ///////////////////////////////////////////////////////////////////////////
     // PARENT
@@ -2195,7 +2157,7 @@ public interface NodesAPI
      * @return ApiResponse&lt;NodeAssocPaging&gt;
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/parents")
-    Observable<ResultPaging<NodeRepresentation>> listParentsObservable(@Path("nodeId") String nodeId);
+    Observable<ResultPaging<NodeRepresentation>> listParentsObservable(@Path(NODE_ID) String nodeId);
 
     /**
      * List parents Returns a list of parent nodes that point to (ie. are
@@ -2210,9 +2172,8 @@ public interface NodesAPI
      * @return ApiResponse&lt;NodeAssocPaging&gt;
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/parents")
-    Observable<ResultPaging<NodeRepresentation>> listParentsObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
+    Observable<ResultPaging<NodeRepresentation>> listParentsObservable(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems);
 
     /**
      * List parents Returns a list of parent nodes that point to (ie. are
@@ -2244,12 +2205,9 @@ public interface NodesAPI
      * @return ApiResponse&lt;NodeAssocPaging&gt;
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/parents")
-    Observable<ResultPaging<NodeRepresentation>> listParentsObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<NodeRepresentation>> listParentsObservable(@Path(NODE_ID) String nodeId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems, @Query(WHERE) String where,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ASSOCIATIONS
@@ -2264,7 +2222,7 @@ public interface NodesAPI
      * @return NodeChildAssocPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children")
-    Observable<ResultPaging<NodeRepresentation>> listSecondaryChildrenObservable(@Path("nodeId") String nodeId);
+    Observable<ResultPaging<NodeRepresentation>> listSecondaryChildrenObservable(@Path(NODE_ID) String nodeId);
 
     /**
      * List secondary children Returns a list of secondary child nodes that are
@@ -2281,10 +2239,9 @@ public interface NodesAPI
      * @return NodeChildAssocPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children")
-    Observable<ResultPaging<NodeRepresentation>> listSecondaryChildrenObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.ASSOC_TYPE_VALUE) String assocType,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
+    Observable<ResultPaging<NodeRepresentation>> listSecondaryChildrenObservable(@Path(NODE_ID) String nodeId,
+            @Query(ASSOC_TYPE_VALUE) String assocType, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems);
 
     /**
      * List secondary children Returns a list of secondary child nodes that are
@@ -2316,13 +2273,10 @@ public interface NodesAPI
      * @return NodeChildAssocPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children")
-    Observable<ResultPaging<NodeRepresentation>> listSecondaryChildrenObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.ASSOC_TYPE_VALUE) String assocType,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<NodeRepresentation>> listSecondaryChildrenObservable(@Path(NODE_ID) String nodeId,
+            @Query(ASSOC_TYPE_VALUE) String assocType, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(WHERE) String where, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     /**
      * Add secondary child Add secondary child association, with given
@@ -2334,8 +2288,8 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children")
-    Observable<ChildAssociationRepresentation> createSecondaryChildAssocationObservable(@Path("nodeId") String nodeId,
-            @Body ChildAssociationBody childAssociationBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ChildAssociationRepresentation> createSecondaryChildAssocationObservable(@Path(NODE_ID) String nodeId,
+            @Body ChildAssociationBody childAssociationBody, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Remove secondary child (or children) Remove secondary child
@@ -2350,8 +2304,8 @@ public interface NodesAPI
      * @param childId The identifier of a child node. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children/{childId}")
-    Observable<Void> deleteSecondaryChildAssocationObservable(@Path("nodeId") String nodeId,
-            @Path("childId") String childId);
+    Observable<Void> deleteSecondaryChildAssocationObservable(@Path(NODE_ID) String nodeId,
+            @Path(CHILD_ID) String childId);
 
     /**
      * Remove secondary child (or children) Remove secondary child
@@ -2368,8 +2322,8 @@ public interface NodesAPI
      *            association type (optional)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/secondary-children/{childId}")
-    Observable<Void> deleteSecondaryChildAssocationObservable(@Path("nodeId") String nodeId,
-            @Path("childId") String childId, @Query("assocType") String assocType);
+    Observable<Void> deleteSecondaryChildAssocationObservable(@Path(NODE_ID) String nodeId,
+            @Path(CHILD_ID) String childId, @Query(ASSOC_TYPE) String assocType);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ASSOCIATION SOURCES & TARGETS
@@ -2383,7 +2337,7 @@ public interface NodesAPI
      * @return NodeAssocPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/sources")
-    Observable<ResultPaging<NodeRepresentation>> listSourceAssociationsObservable(@Path("nodeId") String nodeId);
+    Observable<ResultPaging<NodeRepresentation>> listSourceAssociationsObservable(@Path(NODE_ID) String nodeId);
 
     /**
      * List node association Returns a list of source nodes that point to (ie.
@@ -2408,10 +2362,8 @@ public interface NodesAPI
      * @return NodeAssocPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/sources")
-    Observable<ResultPaging<NodeRepresentation>> listSourceAssociationsObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<NodeRepresentation>> listSourceAssociationsObservable(@Path(NODE_ID) String nodeId,
+            @Query(WHERE) String where, @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     /**
      * List node association Returns a list of target nodes that are pointed to
@@ -2421,7 +2373,7 @@ public interface NodesAPI
      * @return NodeAssocPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/targets")
-    Observable<ResultPaging<NodeRepresentation>> listTargetAssociationsObservable(@Path("nodeId") String nodeId);
+    Observable<ResultPaging<NodeRepresentation>> listTargetAssociationsObservable(@Path(NODE_ID) String nodeId);
 
     /**
      * List node association Returns a list of target nodes that are pointed to
@@ -2446,10 +2398,8 @@ public interface NodesAPI
      * @return NodeAssocPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/targets")
-    Observable<ResultPaging<NodeRepresentation>> listTargetAssociationsObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<ResultPaging<NodeRepresentation>> listTargetAssociationsObservable(@Path(NODE_ID) String nodeId,
+            @Query(WHERE) String where, @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Add node association Add association, with given association type,
@@ -2461,8 +2411,8 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/targets")
-    Observable<AssociationRepresentation> createAssociationObservable(@Path("nodeId") String nodeId,
-            @Body AssociationBody associationBody, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<AssociationRepresentation> createAssociationObservable(@Path(NODE_ID) String nodeId,
+            @Body AssociationBody associationBody, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Remove node association(s) Remove association(s) from source **nodeId* to
@@ -2478,8 +2428,8 @@ public interface NodesAPI
      *            association type (optional)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/targets/{targetId}")
-    Observable<Void> deleteAssociationObservable(@Path("nodeId") String nodeId, @Path("targetId") String targetId,
-            @Query("assocType") String assocType);
+    Observable<Void> deleteAssociationObservable(@Path(NODE_ID) String nodeId, @Path("targetId") String targetId,
+            @Query(ASSOC_TYPE) String assocType);
 
     // ///////////////////////////////////////////////////////////////////////////
     // COPY / PASTE
@@ -2500,7 +2450,7 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/copy")
-    Observable<NodeRepresentation> copyNodeObservable(@Path("nodeId") String nodeId, @Body NodeBodyCopy copyBody);
+    Observable<NodeRepresentation> copyNodeObservable(@Path(NODE_ID) String nodeId, @Body NodeBodyCopy copyBody);
 
     /**
      * Copy a node Copy the node **nodeId** to the parent folder node
@@ -2528,9 +2478,8 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{sourceNodeId}/copy")
-    Observable<NodeRepresentation> copyNodeObservable(@Path("nodeId") String nodeId, @Body NodeBodyCopy copyBody,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<NodeRepresentation> copyNodeObservable(@Path(NODE_ID) String nodeId, @Body NodeBodyCopy copyBody,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Move a node Move the node **nodeId** to the parent folder node
@@ -2548,7 +2497,7 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/move")
-    Observable<NodeRepresentation> moveNodeObservable(@Path("nodeId") String nodeId, @Body NodeBodyCopy moveBody);
+    Observable<NodeRepresentation> moveNodeObservable(@Path(NODE_ID) String nodeId, @Body NodeBodyCopy moveBody);
 
     /**
      * Move a node Move the node **nodeId** to the parent folder node
@@ -2577,9 +2526,8 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/moveNodeCall")
-    Observable<NodeRepresentation> moveNodeObservable(@Path("nodeId") String nodeId, @Body NodeBodyCopy moveBody,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<NodeRepresentation> moveNodeObservable(@Path(NODE_ID) String nodeId, @Body NodeBodyCopy moveBody,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // LOCK / UNLOCK
@@ -2612,7 +2560,7 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/lock")
-    Observable<NodeRepresentation> lockNodeObservable(@Path("nodeId") String nodeId, @Body NodeBodyLock lockBody);
+    Observable<NodeRepresentation> lockNodeObservable(@Path(NODE_ID) String nodeId, @Body NodeBodyLock lockBody);
 
     /**
      * Lock a node Places a lock on node **nodeId**. If **includeChildren** is
@@ -2652,9 +2600,8 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/lock")
-    Observable<NodeRepresentation> lockNodeObservable(@Path("nodeId") String nodeId, @Body NodeBodyLock lockBody,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<NodeRepresentation> lockNodeObservable(@Path(NODE_ID) String nodeId, @Body NodeBodyLock lockBody,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Unlock a node Removes a lock on node **nodeId**. If **includeChildren**
@@ -2673,7 +2620,7 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/unlock")
-    Observable<NodeRepresentation> unlockNodeObservable(@Path("nodeId") String nodeId, @Body NodeBodyUnLock unlockBody);
+    Observable<NodeRepresentation> unlockNodeObservable(@Path(NODE_ID) String nodeId, @Body NodeBodyUnLock unlockBody);
 
     /**
      * Unlock a node Removes a lock on node **nodeId**. If **includeChildren**
@@ -2703,8 +2650,7 @@ public interface NodesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/nodes/{nodeId}/unlock")
-    Observable<NodeRepresentation> unlockNodeObservable(@Path("nodeId") String nodeId, @Body NodeBodyUnLock unlockBody,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<NodeRepresentation> unlockNodeObservable(@Path(NODE_ID) String nodeId, @Body NodeBodyUnLock unlockBody,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
 }

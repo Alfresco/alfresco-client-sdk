@@ -18,11 +18,12 @@
 
 package org.alfresco.client.services.content.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
 import org.alfresco.client.services.content.core.model.representation.DeletedNodeRepresentation;
 import org.alfresco.client.services.content.core.model.representation.NodeRepresentation;
 
@@ -64,9 +65,8 @@ public interface TrashcanAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes")
     Call<ResultPaging<DeletedNodeRepresentation>> listDeletedNodesCall(
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include);
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(INCLUDE) IncludeParam include);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO
@@ -79,7 +79,7 @@ public interface TrashcanAPI
      * @return DeletedNodeRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}")
-    Call<DeletedNodeRepresentation> getDeletedNodeCall(@Path("nodeId") String nodeId);
+    Call<DeletedNodeRepresentation> getDeletedNodeCall(@Path(NODE_ID) String nodeId);
 
     /**
      * Get a deleted node Returns a specific deleted node identified by
@@ -92,8 +92,8 @@ public interface TrashcanAPI
      * @return DeletedNodeRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}")
-    Call<DeletedNodeRepresentation> getDeletedNodeCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include);
+    Call<DeletedNodeRepresentation> getDeletedNodeCall(@Path(NODE_ID) String nodeId,
+            @Query(INCLUDE) IncludeParam include);
 
     // ///////////////////////////////////////////////////////////////////////////
     // RESTORE
@@ -114,8 +114,7 @@ public interface TrashcanAPI
      * @return NodeRepresentation
      */
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}/restore")
-    Call<NodeRepresentation> restoreDeletedNodeCall(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<NodeRepresentation> restoreDeletedNodeCall(@Path(NODE_ID) String nodeId, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -127,7 +126,7 @@ public interface TrashcanAPI
      * @param nodeId The identifier of a node. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}")
-    Call<Void> purgeDeletedNodeCall(@Path("nodeId") String nodeId);
+    Call<Void> purgeDeletedNodeCall(@Path(NODE_ID) String nodeId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -187,9 +186,8 @@ public interface TrashcanAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes")
     Observable<ResultPaging<DeletedNodeRepresentation>> listDeletedNodesObservable(
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include);
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(INCLUDE) IncludeParam include);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO
@@ -203,7 +201,7 @@ public interface TrashcanAPI
      * @return DeletedNodeRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}")
-    Observable<DeletedNodeRepresentation> getDeletedNodeObservable(@Path("nodeId") String nodeId);
+    Observable<DeletedNodeRepresentation> getDeletedNodeObservable(@Path(NODE_ID) String nodeId);
 
     /**
      * Get a deleted node Returns a specific deleted node identified by
@@ -216,8 +214,8 @@ public interface TrashcanAPI
      * @return DeletedNodeRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}")
-    Observable<DeletedNodeRepresentation> getDeletedNodeObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include);
+    Observable<DeletedNodeRepresentation> getDeletedNodeObservable(@Path(NODE_ID) String nodeId,
+            @Query(INCLUDE) IncludeParam include);
 
     // ///////////////////////////////////////////////////////////////////////////
     // RESTORE
@@ -239,8 +237,8 @@ public interface TrashcanAPI
      * @return NodeRepresentation
      */
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}/restore")
-    Observable<NodeRepresentation> restoreDeletedNodeObservable(@Path("nodeId") String nodeId,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<NodeRepresentation> restoreDeletedNodeObservable(@Path(NODE_ID) String nodeId,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -253,6 +251,6 @@ public interface TrashcanAPI
      * @param nodeId The identifier of a node. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/deleted-nodes/{nodeId}")
-    Observable<Void> purgeDeletedNodeObservable(@Path("nodeId") String nodeId);
+    Observable<Void> purgeDeletedNodeObservable(@Path(NODE_ID) String nodeId);
 
 }

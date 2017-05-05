@@ -19,6 +19,7 @@
 package org.alfresco.client.services.process.enterprise.discovery.api;
 
 import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+import static org.alfresco.client.services.process.enterprise.common.constant.RequestConstant.TENANT_ID;
 
 import org.alfresco.client.services.process.enterprise.discovery.model.runtime.AppVersionRepresentation;
 import org.alfresco.client.services.process.enterprise.discovery.model.runtime.GlobalDateFormatRepresentation;
@@ -42,13 +43,13 @@ public interface DiscoveryAPI
     Call<SystemPropertiesRepresentation> getPropertiesCall();
 
     @GET(PROCESS_SERVICE_PATH + "/system/properties/password-validation-constraints/{tenantId}")
-    Call<PasswordValidationConstraints> getPasswordValidationConstraintsCall(@Path("tenantId") String tenantI);
+    Call<PasswordValidationConstraints> getPasswordValidationConstraintsCall(@Path(TENANT_ID) String tenantI);
 
     @GET(PROCESS_SERVICE_PATH + "/system/properties/involved-users-can-edit-forms/{tenantId}")
-    Call<Boolean> involvedUsersCanEditFormsCall(@Path("tenantId") String tenantId);
+    Call<Boolean> involvedUsersCanEditFormsCall(@Path(TENANT_ID) String tenantId);
 
     @GET(PROCESS_SERVICE_PATH + "/system/properties/global-date-format/{tenantId}")
-    Call<GlobalDateFormatRepresentation> getGlobalDateFormatCall(@Path("tenantId") String tenantId);
+    Call<GlobalDateFormatRepresentation> getGlobalDateFormatCall(@Path(TENANT_ID) String tenantId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -83,11 +84,11 @@ public interface DiscoveryAPI
 
     @GET(PROCESS_SERVICE_PATH + "/system/properties/password-validation-constraints/{tenantId}")
     Observable<PasswordValidationConstraints> getPasswordValidationConstraintsObservable(
-            @Path("tenantId") String tenantI);
+            @Path(TENANT_ID) String tenantI);
 
     @GET(PROCESS_SERVICE_PATH + "/system/properties/involved-users-can-edit-forms/{tenantId}")
-    Observable<Boolean> involvedUsersCanEditFormsObservable(@Path("tenantId") String tenantId);
+    Observable<Boolean> involvedUsersCanEditFormsObservable(@Path(TENANT_ID) String tenantId);
 
     @GET(PROCESS_SERVICE_PATH + "/system/properties/global-date-format/{tenantId}")
-    Observable<GlobalDateFormatRepresentation> getGlobalDateFormatObservable(@Path("tenantId") String tenantId);
+    Observable<GlobalDateFormatRepresentation> getGlobalDateFormatObservable(@Path(TENANT_ID) String tenantId);
 }

@@ -19,6 +19,7 @@
 package org.alfresco.client.services.process.enterprise.core.api;
 
 import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+import static org.alfresco.client.services.process.enterprise.common.constant.RequestConstant.*;
 
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.core.model.idm.LightGroupRepresentation;
@@ -36,30 +37,30 @@ import rx.Observable;
 public interface UsersGroupsAPI
 {
     @GET(PROCESS_SERVICE_PATH + "/users/{userId}")
-    Call<UserRepresentation> getUserCall(@Path("userId") String userId);
+    Call<UserRepresentation> getUserCall(@Path(USER_ID) String userId);
 
     @PUT(PROCESS_SERVICE_PATH + "/users/{userId}")
-    Call<UserRepresentation> updateUserCall(@Path("userId") String userId, @Body UserRepresentation userRequest);
+    Call<UserRepresentation> updateUserCall(@Path(USER_ID) String userId, @Body UserRepresentation userRequest);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/users/{userId}")
-    Call<Void> executeActionCall(@Path("userId") String userId, @Body UserActionRepresentation representation);
+    Call<Void> executeActionCall(@Path(USER_ID) String userId, @Body UserActionRepresentation representation);
 
     @GET(PROCESS_SERVICE_PATH + "/users")
-    Call<ResultList<LightUserRepresentation>> getUsersCall(@Query("filter") String filter, @Query("email") String email,
-            @Query("externalId") String externalId, @Query("excludeTaskId") String excludeTaskId,
-            @Query("excludeProcessId") String excludeProcessId, @Query("groupId") String groupId,
-            @Query("tenantId") String tenantId);
+    Call<ResultList<LightUserRepresentation>> getUsersCall(@Query(FILTER) String filter, @Query(EMAIL) String email,
+            @Query(EXTERNAL_ID) String externalId, @Query(EXCLUDE_TASK_ID) String excludeTaskId,
+            @Query(EXCLUDE_PROCESS_ID) String excludeProcessId, @Query(GROUP_ID) String groupId,
+            @Query(TENANT_ID) String tenantId);
 
     @GET(PROCESS_SERVICE_PATH + "/users")
-    Call<ResultList<LightUserRepresentation>> getUsersCall(@Query("filter") String filter);
+    Call<ResultList<LightUserRepresentation>> getUsersCall(@Query(FILTER) String filter);
 
     @GET(PROCESS_SERVICE_PATH + "/groups")
-    Call<ResultList<LightGroupRepresentation>> getGroupsCall(@Query("filter") String filter,
-            @Query("groupId") String groupId);
+    Call<ResultList<LightGroupRepresentation>> getGroupsCall(@Query(FILTER) String filter,
+            @Query(GROUP_ID) String groupId);
 
     @GET(PROCESS_SERVICE_PATH + "/groups/{groupId}/users")
-    Call<ResultList<LightUserRepresentation>> getUsersForGroupCall(@Path("groupId") String groupId);
+    Call<ResultList<LightUserRepresentation>> getUsersForGroupCall(@Path(GROUP_ID) String groupId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -87,30 +88,30 @@ public interface UsersGroupsAPI
     // ///////////////////////////////////////////////////////////////////////////
 
     @GET(PROCESS_SERVICE_PATH + "/users/{userId}")
-    Observable<UserRepresentation> getUserObservable(@Path("userId") String userId);
+    Observable<UserRepresentation> getUserObservable(@Path(USER_ID) String userId);
 
     @PUT(PROCESS_SERVICE_PATH + "/users/{userId}")
-    Observable<UserRepresentation> updateUserObservable(@Path("userId") String userId,
+    Observable<UserRepresentation> updateUserObservable(@Path(USER_ID) String userId,
             @Body UserRepresentation userRequest);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/users/{userId}")
-    Observable<Void> executeActionObservable(@Path("userId") String userId,
+    Observable<Void> executeActionObservable(@Path(USER_ID) String userId,
             @Body UserActionRepresentation representation);
 
     @GET(PROCESS_SERVICE_PATH + "/users")
-    Observable<ResultList<LightUserRepresentation>> getUsersObservable(@Query("filter") String filter,
-            @Query("email") String email, @Query("externalId") String externalId,
-            @Query("excludeTaskId") String excludeTaskId, @Query("excludeProcessId") String excludeProcessId,
-            @Query("groupId") String groupId, @Query("tenantId") String tenantId);
+    Observable<ResultList<LightUserRepresentation>> getUsersObservable(@Query(FILTER) String filter,
+            @Query(EMAIL) String email, @Query(EXTERNAL_ID) String externalId,
+            @Query(EXCLUDE_TASK_ID) String excludeTaskId, @Query(EXCLUDE_PROCESS_ID) String excludeProcessId,
+            @Query(GROUP_ID) String groupId, @Query(TENANT_ID) String tenantId);
 
     @GET(PROCESS_SERVICE_PATH + "/users")
-    Observable<ResultList<LightUserRepresentation>> getUsersObservable(@Query("filter") String filter);
+    Observable<ResultList<LightUserRepresentation>> getUsersObservable(@Query(FILTER) String filter);
 
     @GET(PROCESS_SERVICE_PATH + "/groups")
-    Observable<ResultList<LightGroupRepresentation>> getGroupsObservable(@Query("filter") String filter,
-            @Query("groupId") String groupId);
+    Observable<ResultList<LightGroupRepresentation>> getGroupsObservable(@Query(FILTER) String filter,
+            @Query(GROUP_ID) String groupId);
 
     @GET(PROCESS_SERVICE_PATH + "/groups/{groupId}/users")
-    Observable<ResultList<LightUserRepresentation>> getUsersForGroupObservable(@Path("groupId") String groupId);
+    Observable<ResultList<LightUserRepresentation>> getUsersForGroupObservable(@Path(GROUP_ID) String groupId);
 }

@@ -19,6 +19,8 @@
 package org.alfresco.client.services.process.enterprise.integration.api;
 
 import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+import static org.alfresco.client.services.process.enterprise.common.constant.RequestConstant.REPOSITORY_ID;
+import static org.alfresco.client.services.process.enterprise.common.constant.RequestConstant.SITE_ID;
 
 import org.alfresco.client.services.process.enterprise.common.model.representation.ResultList;
 import org.alfresco.client.services.process.enterprise.core.model.runtime.integration.dto.AlfrescoEndpointRepresentation;
@@ -39,15 +41,15 @@ public interface AlfrescoContentServicesAPI
     Call<ResultList<AlfrescoEndpointRepresentation>> getRepositoriesCall();
 
     @GET(PROCESS_SERVICE_PATH + "/integration/alfresco/{repositoryId}/sites")
-    Call<ResultList<AlfrescoSiteRepresenation>> getAllSitesCall(@Path("repositoryId") String repositoryId);
+    Call<ResultList<AlfrescoSiteRepresenation>> getAllSitesCall(@Path(REPOSITORY_ID) String repositoryId);
 
     @GET(PROCESS_SERVICE_PATH + "/integration/alfresco/{repositoryId}/sites/{siteId}/content")
-    Call<ResultList<AlfrescoContentRepresentation>> getContentInSiteCall(@Path("repositoryId") String repositoryId,
-            @Path("siteId") String siteId);
+    Call<ResultList<AlfrescoContentRepresentation>> getContentInSiteCall(@Path(REPOSITORY_ID) String repositoryId,
+            @Path(SITE_ID) String siteId);
 
     @GET(PROCESS_SERVICE_PATH + "/integration/alfresco/{repositoryId}/folders/{folderId}/content")
-    Call<ResultList<AlfrescoContentRepresentation>> getContentInFolderCall(@Path("repositoryId") String repositoryId,
-            @Path("siteId") String siteId);
+    Call<ResultList<AlfrescoContentRepresentation>> getContentInFolderCall(@Path(REPOSITORY_ID) String repositoryId,
+            @Path(SITE_ID) String siteId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -78,13 +80,13 @@ public interface AlfrescoContentServicesAPI
     Observable<ResultList<AlfrescoEndpointRepresentation>> getRepositoriesObservable();
 
     @GET(PROCESS_SERVICE_PATH + "/integration/alfresco/{repositoryId}/sites")
-    Observable<ResultList<AlfrescoSiteRepresenation>> getAllSitesObservable(@Path("repositoryId") String repositoryId);
+    Observable<ResultList<AlfrescoSiteRepresenation>> getAllSitesObservable(@Path(REPOSITORY_ID) String repositoryId);
 
     @GET(PROCESS_SERVICE_PATH + "/integration/alfresco/{repositoryId}/sites/{siteId}/content")
     Observable<ResultList<AlfrescoContentRepresentation>> getContentInSiteObservable(
-            @Path("repositoryId") String repositoryId, @Path("siteId") String siteId);
+            @Path(REPOSITORY_ID) String repositoryId, @Path(SITE_ID) String siteId);
 
     @GET(PROCESS_SERVICE_PATH + "/integration/alfresco/{repositoryId}/folders/{folderId}/content")
     Observable<ResultList<AlfrescoContentRepresentation>> getContentInFolderObservable(
-            @Path("repositoryId") String repositoryId, @Path("siteId") String siteId);
+            @Path(REPOSITORY_ID) String repositoryId, @Path(SITE_ID) String siteId);
 }

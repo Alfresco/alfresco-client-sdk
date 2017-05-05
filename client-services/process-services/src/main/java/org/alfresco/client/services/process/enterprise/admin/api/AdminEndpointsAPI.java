@@ -19,6 +19,7 @@
 package org.alfresco.client.services.process.enterprise.admin.api;
 
 import static org.alfresco.client.services.process.enterprise.ProcessServicesConstant.PROCESS_SERVICE_PATH;
+import static org.alfresco.client.services.process.enterprise.common.constant.RequestConstant.*;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public interface AdminEndpointsAPI
     // ENDPOINTS
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/admin/endpoints")
-    Call<List<OptionRepresentation>> getEndpointConfigurationsCall(@Query("tenantId") String tenantId);
+    Call<List<OptionRepresentation>> getEndpointConfigurationsCall(@Query(TENANT_ID) String tenantId);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/admin/endpoints")
@@ -48,21 +49,21 @@ public interface AdminEndpointsAPI
 
     @GET(PROCESS_SERVICE_PATH + "/admin/endpoints/{endpointConfigurationId}")
     Call<EndpointConfigurationRepresentation> createEndpointConfigurationCall(
-            @Path("endpointConfigurationId") String endpointConfig, @Query("tenantId") String tenantId);
+            @Path(ENDPOINT_CONFIGURATION_ID) String endpointConfig, @Query(TENANT_ID) String tenantId);
 
     @PUT(PROCESS_SERVICE_PATH + "/admin/endpoints/{endpointConfigurationId}")
     Call<EndpointConfigurationRepresentation> updateEndpointConfigurationCall(
-            @Path("endpointConfigurationId") String endpointConfig,
+            @Path(ENDPOINT_CONFIGURATION_ID) String endpointConfig,
             @Body EndpointConfigurationRepresentation representation);
 
     @DELETE(PROCESS_SERVICE_PATH + "/admin/endpoints/{endpointConfigurationId}")
-    Call<Void> removeEndpointConfigurationCall(@Path("endpointConfigurationId") String endpointConfig,
-            @Query("tenantId") String tenantId);
+    Call<Void> removeEndpointConfigurationCall(@Path(ENDPOINT_CONFIGURATION_ID) String endpointConfig,
+            @Query(TENANT_ID) String tenantId);
 
     // BASIC AUTHS
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/admin/basic-auths")
-    Call<List<EndpointBasicAuthRepresentation>> getBasicAuthConfigurationsCall(@Query("tenantId") String tenantId);
+    Call<List<EndpointBasicAuthRepresentation>> getBasicAuthConfigurationsCall(@Query(TENANT_ID) String tenantId);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/admin/basic-auths")
@@ -70,16 +71,16 @@ public interface AdminEndpointsAPI
             @Body CreateEndpointBasicAuthRepresentation representation);
 
     @GET(PROCESS_SERVICE_PATH + "/admin/basic-auths/{basicAuthId}")
-    Call<EndpointConfigurationRepresentation> getBasicAuthConfigurationCall(@Path("basicAuthId") String basicAuthId,
-            @Query("tenantId") String tenantId);
+    Call<EndpointConfigurationRepresentation> getBasicAuthConfigurationCall(@Path(BASIC_AUTH_ID) String basicAuthId,
+            @Query(TENANT_ID) String tenantId);
 
     @PUT(PROCESS_SERVICE_PATH + "/admin/basic-auths/{basicAuthId}")
-    Call<EndpointConfigurationRepresentation> updateBasicAuthConfigurationCall(@Path("basicAuthId") String basicAuthId,
+    Call<EndpointConfigurationRepresentation> updateBasicAuthConfigurationCall(@Path(BASIC_AUTH_ID) String basicAuthId,
             @Body CreateEndpointBasicAuthRepresentation representation);
 
     @DELETE(PROCESS_SERVICE_PATH + "/admin/basic-auths/{basicAuthId}")
-    Call<Void> removeBasicAuthonfigurationCall(@Path("basicAuthId") String basicAuthId,
-            @Query("tenantId") String tenantId);
+    Call<Void> removeBasicAuthonfigurationCall(@Path(BASIC_AUTH_ID) String basicAuthId,
+            @Query(TENANT_ID) String tenantId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -107,7 +108,7 @@ public interface AdminEndpointsAPI
     // ///////////////////////////////////////////////////////////////////////////
 
     @GET(PROCESS_SERVICE_PATH + "/admin/endpoints")
-    Observable<List<OptionRepresentation>> getEndpointConfigurationsObservable(@Query("tenantId") String tenantId);
+    Observable<List<OptionRepresentation>> getEndpointConfigurationsObservable(@Query(TENANT_ID) String tenantId);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/admin/endpoints")
@@ -116,22 +117,22 @@ public interface AdminEndpointsAPI
 
     @GET(PROCESS_SERVICE_PATH + "/admin/endpoints/{endpointConfigurationId}")
     Observable<EndpointConfigurationRepresentation> createEndpointConfigurationObservable(
-            @Path("endpointConfigurationId") String endpointConfig, @Query("tenantId") String tenantId);
+            @Path(ENDPOINT_CONFIGURATION_ID) String endpointConfig, @Query(TENANT_ID) String tenantId);
 
     @PUT(PROCESS_SERVICE_PATH + "/admin/endpoints/{endpointConfigurationId}")
     Observable<EndpointConfigurationRepresentation> updateEndpointConfigurationObservable(
-            @Path("endpointConfigurationId") String endpointConfig,
+            @Path(ENDPOINT_CONFIGURATION_ID) String endpointConfig,
             @Body EndpointConfigurationRepresentation representation);
 
     @DELETE(PROCESS_SERVICE_PATH + "/admin/endpoints/{endpointConfigurationId}")
-    Observable<Void> removeEndpointConfigurationObservable(@Path("endpointConfigurationId") String endpointConfig,
-            @Query("tenantId") String tenantId);
+    Observable<Void> removeEndpointConfigurationObservable(@Path(ENDPOINT_CONFIGURATION_ID) String endpointConfig,
+            @Query(TENANT_ID) String tenantId);
 
     // BASIC AUTHS
     // ///////////////////////////////////////////////////////////////////
     @GET(PROCESS_SERVICE_PATH + "/admin/basic-auths")
     Observable<List<EndpointBasicAuthRepresentation>> getBasicAuthConfigurationsObservable(
-            @Query("tenantId") String tenantId);
+            @Query(TENANT_ID) String tenantId);
 
     @Headers({ "Content-type: application/json" })
     @POST(PROCESS_SERVICE_PATH + "/admin/basic-auths")
@@ -140,14 +141,14 @@ public interface AdminEndpointsAPI
 
     @GET(PROCESS_SERVICE_PATH + "/admin/basic-auths/{basicAuthId}")
     Observable<EndpointConfigurationRepresentation> getBasicAuthConfigurationObservable(
-            @Path("basicAuthId") String basicAuthId, @Query("tenantId") String tenantId);
+            @Path(BASIC_AUTH_ID) String basicAuthId, @Query(TENANT_ID) String tenantId);
 
     @PUT(PROCESS_SERVICE_PATH + "/admin/basic-auths/{basicAuthId}")
     Observable<EndpointConfigurationRepresentation> updateBasicAuthConfigurationObservable(
-            @Path("basicAuthId") String basicAuthId, @Body CreateEndpointBasicAuthRepresentation representation);
+            @Path(BASIC_AUTH_ID) String basicAuthId, @Body CreateEndpointBasicAuthRepresentation representation);
 
     @DELETE(PROCESS_SERVICE_PATH + "/admin/basic-auths/{basicAuthId}")
-    Observable<Void> removeBasicAuthonfigurationObservable(@Path("basicAuthId") String basicAuthId,
-            @Query("tenantId") String tenantId);
+    Observable<Void> removeBasicAuthonfigurationObservable(@Path(BASIC_AUTH_ID) String basicAuthId,
+            @Query(TENANT_ID) String tenantId);
 
 }

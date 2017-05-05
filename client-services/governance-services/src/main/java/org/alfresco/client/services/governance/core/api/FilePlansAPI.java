@@ -18,12 +18,13 @@
 
 package org.alfresco.client.services.governance.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
+import org.alfresco.client.services.common.model.parameters.OrderByParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.model.body.NodeBodyCreate;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
-import org.alfresco.client.services.content.core.model.parameters.OrderByParam;
 import org.alfresco.client.services.governance.core.GovernanceConstant;
 import org.alfresco.client.services.governance.core.model.body.FilePlanBodyUpdate;
 import org.alfresco.client.services.governance.core.model.representation.FilePlanRepresentation;
@@ -50,7 +51,7 @@ public interface FilePlansAPI
      * @return FilePlanEntry
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}")
-    Call<FilePlanRepresentation> getFilePlanCall(@Path("filePlanId") String filePlanId);
+    Call<FilePlanRepresentation> getFilePlanCall(@Path(FILEPLAN_ID) String filePlanId);
 
     /**
      * Get a file plan Get information for file plan **filePlanId** Besides
@@ -73,9 +74,8 @@ public interface FilePlansAPI
      * @return FilePlanEntry
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}")
-    Call<FilePlanRepresentation> getFilePlanCall(@Path("filePlanId") String filePlanId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<FilePlanRepresentation> getFilePlanCall(@Path(FILEPLAN_ID) String filePlanId,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -95,7 +95,7 @@ public interface FilePlansAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}")
-    Call<FilePlanRepresentation> updateFilePlanCall(@Path("filePlanId") String filePlanId,
+    Call<FilePlanRepresentation> updateFilePlanCall(@Path(FILEPLAN_ID) String filePlanId,
             @Body FilePlanBodyUpdate filePlanBodyUpdate);
 
     /**
@@ -124,9 +124,9 @@ public interface FilePlansAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}")
-    Call<FilePlanRepresentation> updateFilePlanCall(@Path("filePlanId") String filePlanId,
-            @Body FilePlanBodyUpdate filePlanBodyUpdate, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<FilePlanRepresentation> updateFilePlanCall(@Path(FILEPLAN_ID) String filePlanId,
+            @Body FilePlanBodyUpdate filePlanBodyUpdate, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CATEGORIES LISTING
@@ -144,7 +144,7 @@ public interface FilePlansAPI
      * @return ResultPaging<RatingRepresentation>
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}/categories")
-    Call<ResultPaging<RecordCategoryRepresentation>> listFilePlanCategoriesCall(@Path("filePlanId") String filePlanId);
+    Call<ResultPaging<RecordCategoryRepresentation>> listFilePlanCategoriesCall(@Path(FILEPLAN_ID) String filePlanId);
 
     /**
      * List file plans&#39;s children Returns a list of record categories.
@@ -171,10 +171,9 @@ public interface FilePlansAPI
      * @return ResultPaging<RatingRepresentation>
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}/categories")
-    Call<ResultPaging<RecordCategoryRepresentation>> listFilePlanCategoriesCall(@Path("filePlanId") String filePlanId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
+    Call<ResultPaging<RecordCategoryRepresentation>> listFilePlanCategoriesCall(@Path(FILEPLAN_ID) String filePlanId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(ORDER_BY) OrderByParam orderBy);
 
     /**
      * List file plans&#39;s children Returns a list of record categories.
@@ -216,13 +215,10 @@ public interface FilePlansAPI
      * @return RecordCategoryAssociationPaging
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}/categories")
-    Call<ResultPaging<RecordCategoryRepresentation>> listFilePlanCategoriesCall(@Path("filePlanId") String filePlanId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<RecordCategoryRepresentation>> listFilePlanCategoriesCall(@Path(FILEPLAN_ID) String filePlanId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(ORDER_BY) OrderByParam orderBy, @Query(INCLUDE) IncludeParam include,
+            @Query(INCLUDE_SOURCE) Boolean includeSource, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CATEGORIES CREATION
@@ -259,7 +255,7 @@ public interface FilePlansAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}/categories")
-    Call<RecordCategoryRepresentation> createFilePlanCategoriesCall(@Path("filePlanId") String filePlanId,
+    Call<RecordCategoryRepresentation> createFilePlanCategoriesCall(@Path(FILEPLAN_ID) String filePlanId,
             @Body NodeBodyCreate nodeBodyCreate);
 
     /**
@@ -309,10 +305,9 @@ public interface FilePlansAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}/categories")
-    Call<RecordCategoryRepresentation> createFilePlanCategoriesCall(@Path("filePlanId") String filePlanId,
-            @Body NodeBodyCreate nodeBodyCreate, @Query(PublicAPIConstant.AUTO_RENAME_VALUE) boolean autoRename,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RecordCategoryRepresentation> createFilePlanCategoriesCall(@Path(FILEPLAN_ID) String filePlanId,
+            @Body NodeBodyCreate nodeBodyCreate, @Query(AUTO_RENAME) boolean autoRename,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -351,7 +346,7 @@ public interface FilePlansAPI
      * @return FilePlanEntry
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}")
-    Observable<FilePlanRepresentation> getFilePlanObservable(@Path("filePlanId") String filePlanId);
+    Observable<FilePlanRepresentation> getFilePlanObservable(@Path(FILEPLAN_ID) String filePlanId);
 
     /**
      * Get a file plan Get information for file plan **filePlanId** Besides
@@ -374,9 +369,8 @@ public interface FilePlansAPI
      * @return FilePlanEntry
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}")
-    Observable<FilePlanRepresentation> getFilePlanObservable(@Path("filePlanId") String filePlanId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<FilePlanRepresentation> getFilePlanObservable(@Path(FILEPLAN_ID) String filePlanId,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // UPDATE
@@ -396,7 +390,7 @@ public interface FilePlansAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}")
-    Observable<FilePlanRepresentation> updateFilePlanObservable(@Path("filePlanId") String filePlanId,
+    Observable<FilePlanRepresentation> updateFilePlanObservable(@Path(FILEPLAN_ID) String filePlanId,
             @Body FilePlanBodyUpdate filePlanBodyUpdate);
 
     /**
@@ -425,9 +419,9 @@ public interface FilePlansAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}")
-    Observable<FilePlanRepresentation> updateFilePlanObservable(@Path("filePlanId") String filePlanId,
-            @Body FilePlanBodyUpdate filePlanBodyUpdate, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<FilePlanRepresentation> updateFilePlanObservable(@Path(FILEPLAN_ID) String filePlanId,
+            @Body FilePlanBodyUpdate filePlanBodyUpdate, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CATEGORIES LISTING
@@ -446,7 +440,7 @@ public interface FilePlansAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}/categories")
     Observable<ResultPaging<RecordCategoryRepresentation>> listFilePlanCategoriesObservable(
-            @Path("filePlanId") String filePlanId);
+            @Path(FILEPLAN_ID) String filePlanId);
 
     /**
      * List file plans&#39;s children Returns a list of record categories.
@@ -474,9 +468,8 @@ public interface FilePlansAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}/categories")
     Observable<ResultPaging<RecordCategoryRepresentation>> listFilePlanCategoriesObservable(
-            @Path("filePlanId") String filePlanId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy);
+            @Path(FILEPLAN_ID) String filePlanId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy);
 
     /**
      * List file plans&#39;s children Returns a list of record categories.
@@ -519,12 +512,10 @@ public interface FilePlansAPI
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}/categories")
     Observable<ResultPaging<RecordCategoryRepresentation>> listFilePlanCategoriesObservable(
-            @Path("filePlanId") String filePlanId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems,
-            @Query(PublicAPIConstant.ORDER_BY_VALUE) OrderByParam orderBy,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.INCLUDE_SOURCE_VALUE) Boolean includeSource,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(FILEPLAN_ID) String filePlanId, @Query(SKIP_COUNT) Integer skipCount,
+            @Query(MAX_ITEMS) Integer maxItems, @Query(ORDER_BY) OrderByParam orderBy,
+            @Query(INCLUDE) IncludeParam include, @Query(INCLUDE_SOURCE) Boolean includeSource,
+            @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CATEGORIES CREATION
@@ -561,7 +552,7 @@ public interface FilePlansAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}/categories")
-    Observable<RecordCategoryRepresentation> createFilePlanCategoriesObservable(@Path("filePlanId") String filePlanId,
+    Observable<RecordCategoryRepresentation> createFilePlanCategoriesObservable(@Path(FILEPLAN_ID) String filePlanId,
             @Body NodeBodyCreate nodeBodyCreate);
 
     /**
@@ -611,8 +602,7 @@ public interface FilePlansAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(GovernanceConstant.GS_PUBLIC_API_V1 + "/file-plans/{filePlanId}/categories")
-    Observable<RecordCategoryRepresentation> createFilePlanCategoriesObservable(@Path("filePlanId") String filePlanId,
-            @Body NodeBodyCreate nodeBodyCreate, @Query(PublicAPIConstant.AUTO_RENAME_VALUE) boolean autoRename,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<RecordCategoryRepresentation> createFilePlanCategoriesObservable(@Path(FILEPLAN_ID) String filePlanId,
+            @Body NodeBodyCreate nodeBodyCreate, @Query(AUTO_RENAME) boolean autoRename,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 }

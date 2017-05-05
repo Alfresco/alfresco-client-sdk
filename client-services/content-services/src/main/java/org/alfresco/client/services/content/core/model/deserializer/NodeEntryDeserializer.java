@@ -18,9 +18,10 @@
 
 package org.alfresco.client.services.content.core.model.deserializer;
 
+import static org.alfresco.client.services.common.constant.ApiConstant.ENTRY;
+
 import java.lang.reflect.Type;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
 import org.alfresco.client.services.common.model.deserializer.EntryDeserializer;
 import org.alfresco.client.services.content.core.model.representation.FileRepresentation;
 import org.alfresco.client.services.content.core.model.representation.FolderRepresentation;
@@ -41,9 +42,9 @@ public class NodeEntryDeserializer extends EntryDeserializer<NodeRepresentation>
             throws JsonParseException
     {
         JsonElement entry = je;
-        if (je.getAsJsonObject().has(PublicAPIConstant.ENTRY_VALUE))
+        if (je.getAsJsonObject().has(ENTRY))
         {
-            entry = je.getAsJsonObject().get(PublicAPIConstant.ENTRY_VALUE);
+            entry = je.getAsJsonObject().get(ENTRY);
         }
 
         // Based on flags

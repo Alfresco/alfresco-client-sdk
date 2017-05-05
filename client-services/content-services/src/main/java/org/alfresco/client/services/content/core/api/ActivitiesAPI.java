@@ -18,10 +18,11 @@
 
 package org.alfresco.client.services.content.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
 import org.alfresco.client.services.content.core.model.representation.ActivityRepresentation;
 
 import retrofit2.Call;
@@ -44,7 +45,7 @@ public interface ActivitiesAPI
      * @return ResultPaging<ActivityRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
-    Call<ResultPaging<ActivityRepresentation>> listActivitiesForPersonCall(@Path("personId") String personId);
+    Call<ResultPaging<ActivityRepresentation>> listActivitiesForPersonCall(@Path(PERSON_ID) String personId);
 
     /**
      * Get activities Returns a list of activities for person **personId**. You
@@ -59,9 +60,8 @@ public interface ActivitiesAPI
      * @return ResultPaging<ActivityRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
-    Call<ResultPaging<ActivityRepresentation>> listActivitiesForPersonCall(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
+    Call<ResultPaging<ActivityRepresentation>> listActivitiesForPersonCall(@Path(PERSON_ID) String personId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems);
 
     /**
      * Get activities Returns a list of activities for person **personId**. You
@@ -89,10 +89,9 @@ public interface ActivitiesAPI
      * @return ResultPaging<ActivityRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
-    Call<ResultPaging<ActivityRepresentation>> listActivitiesForPersonCall(@Path("personId") String personId,
-            @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems, @Query("siteId") String siteId,
-            @Query("who") String who, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<ActivityRepresentation>> listActivitiesForPersonCall(@Path(PERSON_ID) String personId,
+            @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems, @Query(SITE_ID) String siteId,
+            @Query(WHO) String who, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -129,7 +128,7 @@ public interface ActivitiesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
     Observable<ResultPaging<ActivityRepresentation>> listActivitiesForPersonObservable(
-            @Path("personId") String personId);
+            @Path(PERSON_ID) String personId);
 
     /**
      * Get activities Returns a list of activities for person **personId**. You
@@ -145,8 +144,7 @@ public interface ActivitiesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
     Observable<ResultPaging<ActivityRepresentation>> listActivitiesForPersonObservable(
-            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems);
+            @Path(PERSON_ID) String personId, @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems);
 
     /**
      * Get activities Returns a list of activities for person **personId**. You
@@ -175,8 +173,7 @@ public interface ActivitiesAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/people/{personId}/activities")
     Observable<ResultPaging<ActivityRepresentation>> listActivitiesForPersonObservable(
-            @Path("personId") String personId, @Query(PublicAPIConstant.SKIP_COUNT_VALUE) Integer skipCount,
-            @Query(PublicAPIConstant.MAX_ITEMS_VALUE) Integer maxItems, @Query("siteId") String siteId,
-            @Query("who") String who, @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Path(PERSON_ID) String personId, @Query(SKIP_COUNT) Integer skipCount, @Query(MAX_ITEMS) Integer maxItems,
+            @Query(SITE_ID) String siteId, @Query(WHO) String who, @Query(FIELDS) FieldsParam fields);
 
 }

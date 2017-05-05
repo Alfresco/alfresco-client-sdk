@@ -18,15 +18,16 @@
 
 package org.alfresco.client.services.content.core.api;
 
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
 import java.util.Date;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
 import org.alfresco.client.services.common.model.representation.ResultPaging;
 import org.alfresco.client.services.content.core.CoreConstant;
 import org.alfresco.client.services.content.core.model.body.SharedLinkBodyCreate;
 import org.alfresco.client.services.content.core.model.body.SharedLinkBodyEmail;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
 import org.alfresco.client.services.content.core.model.representation.RenditionRepresentation;
 import org.alfresco.client.services.content.core.model.representation.SharedLinkRepresentation;
 
@@ -71,9 +72,8 @@ public interface SharedLinksAPI
      * @return ResultPaging<SharedLinkRepresentation>
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links")
-    Call<ResultPaging<SharedLinkRepresentation>> listSharedLinksCall(@Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<ResultPaging<SharedLinkRepresentation>> listSharedLinksCall(@Query(WHERE) String where,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO
@@ -87,7 +87,7 @@ public interface SharedLinksAPI
      * @return SharedLinkRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}")
-    Call<SharedLinkRepresentation> getSharedLinkCall(@Path("sharedId") String sharedId);
+    Call<SharedLinkRepresentation> getSharedLinkCall(@Path(SHARED_ID) String sharedId);
 
     /**
      * Get a shared link Returns minimal information for the file with shared
@@ -109,9 +109,8 @@ public interface SharedLinksAPI
      * @return SharedLinkRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}")
-    Call<SharedLinkRepresentation> getSharedLinkCall(@Path("sharedId") String sharedId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<SharedLinkRepresentation> getSharedLinkCall(@Path(SHARED_ID) String sharedId,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Get file content Returns the content of the file with shared link
@@ -122,7 +121,7 @@ public interface SharedLinksAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/content")
-    Call<ResponseBody> getSharedLinkContentCall(@Path("sharedId") String sharedId);
+    Call<ResponseBody> getSharedLinkContentCall(@Path(SHARED_ID) String sharedId);
 
     /**
      * Get file content Returns the content of the file with shared link
@@ -146,8 +145,8 @@ public interface SharedLinksAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/content")
-    Call<ResponseBody> getSharedLinkContentCall(@Path("sharedId") String sharedId,
-            @Query("attachment") Boolean attachment, @Header("If-Modified-Since") Date ifModifiedSince);
+    Call<ResponseBody> getSharedLinkContentCall(@Path(SHARED_ID) String sharedId, @Query(ATTACHMENT) Boolean attachment,
+            @Header(IF_MODIFIED_SINCE) Date ifModifiedSince);
 
     /**
      * Email shared link Sends email with app-specific url including identifier
@@ -172,7 +171,7 @@ public interface SharedLinksAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/email")
-    Call<Void> emailSharedLinkCall(@Path("sharedId") String sharedId, @Body SharedLinkBodyEmail emailSharedLinkBody);
+    Call<Void> emailSharedLinkCall(@Path(SHARED_ID) String sharedId, @Body SharedLinkBodyEmail emailSharedLinkBody);
 
     // ///////////////////////////////////////////////////////////////////////////
     // CREATE
@@ -233,8 +232,7 @@ public interface SharedLinksAPI
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links")
     Call<SharedLinkRepresentation> createSharedLinkCall(@Body SharedLinkBodyCreate sharedLinkBody,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -246,7 +244,7 @@ public interface SharedLinksAPI
      * @param sharedId The identifier of a shared link to a file. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}")
-    Call<Void> deleteSharedLinkCall(@Path("sharedId") String sharedId);
+    Call<Void> deleteSharedLinkCall(@Path(SHARED_ID) String sharedId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // Shared Links Rendition
@@ -263,7 +261,7 @@ public interface SharedLinksAPI
      * @return RenditionPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/renditions")
-    Call<RenditionRepresentation> listSharedLinkRenditionsCall(@Path("sharedId") String sharedId);
+    Call<RenditionRepresentation> listSharedLinkRenditionsCall(@Path(SHARED_ID) String sharedId);
 
     /**
      * Gets rendition information for the file with shared link identifier
@@ -278,8 +276,8 @@ public interface SharedLinksAPI
      * @return RenditionPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/renditions/{renditionId}")
-    Call<RenditionRepresentation> getSharedLinkRenditionCall(@Path("sharedId") String sharedId,
-            @Path("renditionId") String renditionId);
+    Call<RenditionRepresentation> getSharedLinkRenditionCall(@Path(SHARED_ID) String sharedId,
+            @Path(RENDITION_ID) String renditionId);
 
     /**
      * Get shared link rendition content Returns the rendition content for file
@@ -292,8 +290,8 @@ public interface SharedLinksAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/renditions/{renditionId}/content")
-    Call<ResponseBody> getSharedLinkRenditionContentCall(@Path("sharedId") String sharedId,
-            @Path("renditionId") String renditionId);
+    Call<ResponseBody> getSharedLinkRenditionContentCall(@Path(SHARED_ID) String sharedId,
+            @Path(RENDITION_ID) String renditionId);
 
     /**
      * Get shared link rendition content Returns the rendition content for file
@@ -319,9 +317,9 @@ public interface SharedLinksAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/renditions/{renditionId}/content")
-    Call<ResponseBody> getSharedLinkRenditionContentCall(@Path("sharedId") String sharedId,
-            @Path("renditionId") String renditionId, @Query("attachment") Boolean attachment,
-            @Header("If-Modified-Since") Date ifModifiedSince);
+    Call<ResponseBody> getSharedLinkRenditionContentCall(@Path(SHARED_ID) String sharedId,
+            @Path(RENDITION_ID) String renditionId, @Query(ATTACHMENT) Boolean attachment,
+            @Header(IF_MODIFIED_SINCE) Date ifModifiedSince);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -384,9 +382,7 @@ public interface SharedLinksAPI
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links")
     Observable<ResultPaging<SharedLinkRepresentation>> listSharedLinksObservable(
-            @Query(PublicAPIConstant.WHERE_VALUE) String where,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(WHERE) String where, @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // INFO
@@ -401,7 +397,7 @@ public interface SharedLinksAPI
      * @return SharedLinkRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}")
-    Observable<SharedLinkRepresentation> getSharedLinkObservable(@Path("sharedId") String sharedId);
+    Observable<SharedLinkRepresentation> getSharedLinkObservable(@Path(SHARED_ID) String sharedId);
 
     /**
      * Get a shared link Returns minimal information for the file with shared
@@ -423,9 +419,8 @@ public interface SharedLinksAPI
      * @return SharedLinkRepresentation
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}")
-    Observable<SharedLinkRepresentation> getSharedLinkObservable(@Path("sharedId") String sharedId,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<SharedLinkRepresentation> getSharedLinkObservable(@Path(SHARED_ID) String sharedId,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     /**
      * Get file content Returns the content of the file with shared link
@@ -436,7 +431,7 @@ public interface SharedLinksAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/content")
-    Observable<ResponseBody> getSharedLinkContentObservable(@Path("sharedId") String sharedId);
+    Observable<ResponseBody> getSharedLinkContentObservable(@Path(SHARED_ID) String sharedId);
 
     /**
      * Get file content Returns the content of the file with shared link
@@ -460,8 +455,8 @@ public interface SharedLinksAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/content")
-    Observable<ResponseBody> getSharedLinkContentObservable(@Path("sharedId") String sharedId,
-            @Query("attachment") Boolean attachment, @Header("If-Modified-Since") Date ifModifiedSince);
+    Observable<ResponseBody> getSharedLinkContentObservable(@Path(SHARED_ID) String sharedId,
+            @Query(ATTACHMENT) Boolean attachment, @Header(IF_MODIFIED_SINCE) Date ifModifiedSince);
 
     /**
      * Email shared link Sends email with app-specific url including identifier
@@ -486,7 +481,7 @@ public interface SharedLinksAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/email")
-    Observable<Void> emailSharedLinkObservable(@Path("sharedId") String sharedId,
+    Observable<Void> emailSharedLinkObservable(@Path(SHARED_ID) String sharedId,
             @Body SharedLinkBodyEmail emailSharedLinkBody);
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -549,8 +544,7 @@ public interface SharedLinksAPI
     @Headers({ "Content-type: application/json" })
     @POST(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links")
     Observable<SharedLinkRepresentation> createSharedLinkObservable(@Body SharedLinkBodyCreate sharedLinkBody,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // DELETE
@@ -563,7 +557,7 @@ public interface SharedLinksAPI
      * @param sharedId The identifier of a shared link to a file. (required)
      */
     @DELETE(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}")
-    Observable<Void> deleteSharedLinkObservable(@Path("sharedId") String sharedId);
+    Observable<Void> deleteSharedLinkObservable(@Path(SHARED_ID) String sharedId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // Shared Links Rendition
@@ -581,7 +575,7 @@ public interface SharedLinksAPI
      * @return RenditionPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/renditions")
-    Observable<RenditionRepresentation> listSharedLinkRenditionsObservable(@Path("sharedId") String sharedId);
+    Observable<RenditionRepresentation> listSharedLinkRenditionsObservable(@Path(SHARED_ID) String sharedId);
 
     /**
      * Gets rendition information for the file with shared link identifier
@@ -596,8 +590,8 @@ public interface SharedLinksAPI
      * @return RenditionPaging
      */
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/renditions/{renditionId}")
-    Observable<RenditionRepresentation> getSharedLinkRenditionObservable(@Path("sharedId") String sharedId,
-            @Path("renditionId") String renditionId);
+    Observable<RenditionRepresentation> getSharedLinkRenditionObservable(@Path(SHARED_ID) String sharedId,
+            @Path(RENDITION_ID) String renditionId);
 
     /**
      * Get shared link rendition content Returns the rendition content for file
@@ -610,8 +604,8 @@ public interface SharedLinksAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/renditions/{renditionId}/content")
-    Observable<ResponseBody> getSharedLinkRenditionContentObservable(@Path("sharedId") String sharedId,
-            @Path("renditionId") String renditionId);
+    Observable<ResponseBody> getSharedLinkRenditionContentObservable(@Path(SHARED_ID) String sharedId,
+            @Path(RENDITION_ID) String renditionId);
 
     /**
      * Get shared link rendition content Returns the rendition content for file
@@ -637,8 +631,8 @@ public interface SharedLinksAPI
      */
     @Streaming
     @GET(CoreConstant.CORE_PUBLIC_API_V1 + "/shared-links/{sharedId}/renditions/{renditionId}/content")
-    Observable<ResponseBody> getSharedLinkRenditionContentObservable(@Path("sharedId") String sharedId,
-            @Path("renditionId") String renditionId, @Query("attachment") Boolean attachment,
-            @Header("If-Modified-Since") Date ifModifiedSince);
+    Observable<ResponseBody> getSharedLinkRenditionContentObservable(@Path(SHARED_ID) String sharedId,
+            @Path(RENDITION_ID) String renditionId, @Query(ATTACHMENT) Boolean attachment,
+            @Header(IF_MODIFIED_SINCE) Date ifModifiedSince);
 
 }

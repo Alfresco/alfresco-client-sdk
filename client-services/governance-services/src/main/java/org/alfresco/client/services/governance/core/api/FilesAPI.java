@@ -18,9 +18,10 @@
 
 package org.alfresco.client.services.governance.core.api;
 
-import org.alfresco.client.services.common.constant.PublicAPIConstant;
-import org.alfresco.client.services.content.core.model.parameters.FieldsParam;
-import org.alfresco.client.services.content.core.model.parameters.IncludeParam;
+import static org.alfresco.client.services.common.constant.ApiConstant.*;
+
+import org.alfresco.client.services.common.model.parameters.FieldsParam;
+import org.alfresco.client.services.common.model.parameters.IncludeParam;
 import org.alfresco.client.services.governance.core.GovernanceConstant;
 import org.alfresco.client.services.governance.core.model.representation.RecordRepresentation;
 
@@ -43,7 +44,7 @@ public interface FilesAPI
      * @return RecordRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/files/{fileId}/declare")
-    Call<RecordRepresentation> declareRecordCall(@Path("fileId") String fileId);
+    Call<RecordRepresentation> declareRecordCall(@Path(FILE_ID) String fileId);
 
     /**
      * Declare as record Declares the file **fileId** in the unfiled record
@@ -67,9 +68,8 @@ public interface FilesAPI
      * @return RecordRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/files/{fileId}/declare")
-    Call<RecordRepresentation> declareRecordCall(@Path("fileId") String fileId, @Query("hideRecord") boolean hideRecord,
-            @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Call<RecordRepresentation> declareRecordCall(@Path(FILE_ID) String fileId, @Query(HIDE_RECORD) boolean hideRecord,
+            @Query(INCLUDE) IncludeParam include, @Query(FIELDS) FieldsParam fields);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -107,7 +107,7 @@ public interface FilesAPI
      * @return RecordRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/files/{fileId}/declare")
-    Observable<RecordRepresentation> declareRecordObservable(@Path("fileId") String fileId);
+    Observable<RecordRepresentation> declareRecordObservable(@Path(FILE_ID) String fileId);
 
     /**
      * Declare as record Declares the file **fileId** in the unfiled record
@@ -131,8 +131,8 @@ public interface FilesAPI
      * @return RecordRepresentation
      */
     @GET(GovernanceConstant.GS_PUBLIC_API_V1 + "/files/{fileId}/declare")
-    Observable<RecordRepresentation> declareRecordObservable(@Path("fileId") String fileId,
-            @Query("hideRecord") boolean hideRecord, @Query(PublicAPIConstant.INCLUDE_VALUE) IncludeParam include,
-            @Query(PublicAPIConstant.FIELDS_VALUE) FieldsParam fields);
+    Observable<RecordRepresentation> declareRecordObservable(@Path(FILE_ID) String fileId,
+            @Query(HIDE_RECORD) boolean hideRecord, @Query(INCLUDE) IncludeParam include,
+            @Query(FIELDS) FieldsParam fields);
 
 }
