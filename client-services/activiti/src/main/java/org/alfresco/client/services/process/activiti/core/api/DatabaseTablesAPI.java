@@ -1,5 +1,6 @@
 package org.alfresco.client.services.process.activiti.core.api;
 
+import static org.alfresco.client.services.process.activiti.common.constant.RequestConstant.*;
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public interface DatabaseTablesAPI
      * @return TableResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/tables/{tableName}")
-    Call<TableResponse> getTableCall(@Path("tableName") String tableName);
+    Call<TableResponse> getTableCall(@Path(TABLE_NAME) String tableName);
 
     /**
      * Get row data for a single table
@@ -44,10 +45,10 @@ public interface DatabaseTablesAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/tables/{tableName}/data")
-    Call<ResultList<List<Map<String, Object>>>> getTableDataCall(@Path("tableName") String tableName,
-            @Query("start") String start, @Query("size") String size,
-            @Query("orderAscendingColumn") String orderAscendingColumn,
-            @Query("orderDescendingColumn") String orderDescendingColumn);
+    Call<ResultList<List<Map<String, Object>>>> getTableDataCall(@Path(TABLE_NAME) String tableName,
+            @Query(START) String start, @Query(SIZE) String size,
+            @Query(ORDER_ASCENDING_COLUMN) String orderAscendingColumn,
+            @Query(ORDER_DESCENDING_COLUMN) String orderDescendingColumn);
 
     /**
      * Get column info for a single table
@@ -56,7 +57,7 @@ public interface DatabaseTablesAPI
      * @return TableMetaData
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/tables/{tableName}/columns")
-    Call<TableMetaData> getTableDataCall(@Path("tableName") String tableName);
+    Call<TableMetaData> getTableDataCall(@Path(TABLE_NAME) String tableName);
 
     /**
      * List of tables
@@ -98,7 +99,7 @@ public interface DatabaseTablesAPI
      * @return TableResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/tables/{tableName}")
-    Observable<TableResponse> getTableObservable(@Path("tableName") String tableName);
+    Observable<TableResponse> getTableObservable(@Path(TABLE_NAME) String tableName);
 
     /**
      * Get row data for a single table
@@ -114,10 +115,10 @@ public interface DatabaseTablesAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/tables/{tableName}/data")
-    Observable<ResultList<List<Map<String, Object>>>> getTableDataObservable(@Path("tableName") String tableName,
-            @Query("start") String start, @Query("size") String size,
-            @Query("orderAscendingColumn") String orderAscendingColumn,
-            @Query("orderDescendingColumn") String orderDescendingColumn);
+    Observable<ResultList<List<Map<String, Object>>>> getTableDataObservable(@Path(TABLE_NAME) String tableName,
+            @Query(START) String start, @Query(SIZE) String size,
+            @Query(ORDER_ASCENDING_COLUMN) String orderAscendingColumn,
+            @Query(ORDER_DESCENDING_COLUMN) String orderDescendingColumn);
 
     /**
      * Get column info for a single table
@@ -126,7 +127,7 @@ public interface DatabaseTablesAPI
      * @return TableMetaData
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/tables/{tableName}/columns")
-    Observable<TableMetaData> getTableDataObservable(@Path("tableName") String tableName);
+    Observable<TableMetaData> getTableDataObservable(@Path(TABLE_NAME) String tableName);
 
     /**
      * List of tables

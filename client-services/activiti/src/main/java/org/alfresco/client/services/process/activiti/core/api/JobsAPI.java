@@ -1,5 +1,6 @@
 package org.alfresco.client.services.process.activiti.core.api;
 
+import static org.alfresco.client.services.process.activiti.common.constant.RequestConstant.*;
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
 import org.alfresco.client.services.process.activiti.common.model.representation.ResultList;
@@ -22,7 +23,7 @@ public interface JobsAPI
      * @param jobId (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/management/deadletter-jobs/{jobId}")
-    Call<Void> deleteDeadLetterJobCall(@Path("jobId") String jobId);
+    Call<Void> deleteDeadLetterJobCall(@Path(JOB_ID) String jobId);
 
     /**
      * Delete a job
@@ -30,7 +31,7 @@ public interface JobsAPI
      * @param jobId The id of the job to delete. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/management/jobs/{jobId}")
-    Call<Void> deleteJobCall(@Path("jobId") String jobId);
+    Call<Void> deleteJobCall(@Path(JOB_ID) String jobId);
 
     /**
      * Delete a timer job
@@ -38,7 +39,7 @@ public interface JobsAPI
      * @param jobId (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/management/timer-jobs/{jobId}")
-    Call<Void> deleteTimerJobCall(@Path("jobId") String jobId);
+    Call<Void> deleteTimerJobCall(@Path(JOB_ID) String jobId);
 
     /**
      * Execute a single job
@@ -49,7 +50,7 @@ public interface JobsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/management/jobs/{jobId}")
-    Call<Void> executeJobActionCall(@Path("jobId") String jobId, @Body RestActionRequest actionRequest);
+    Call<Void> executeJobActionCall(@Path(JOB_ID) String jobId, @Body RestActionRequest actionRequest);
 
     /**
      * Get the exception stacktrace for a deadletter job
@@ -58,7 +59,7 @@ public interface JobsAPI
      * @return String
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/deadletter-jobs/{jobId}/exception-stacktrace")
-    Call<String> getDeadLetterJobStacktraceCall(@Path("jobId") String jobId);
+    Call<String> getDeadLetterJobStacktraceCall(@Path(JOB_ID) String jobId);
 
     /**
      * Get a single deadletter job
@@ -67,7 +68,7 @@ public interface JobsAPI
      * @return JobResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/deadletter-jobs/{jobId}")
-    Call<JobResponse> getDeadletterJobCall(@Path("jobId") String jobId);
+    Call<JobResponse> getDeadletterJobCall(@Path(JOB_ID) String jobId);
 
     /**
      * Get a single job
@@ -76,7 +77,7 @@ public interface JobsAPI
      * @return JobResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/jobs/{jobId}")
-    Call<JobResponse> getJobCall(@Path("jobId") String jobId);
+    Call<JobResponse> getJobCall(@Path(JOB_ID) String jobId);
 
     /**
      * Get the exception stacktrace for a job
@@ -85,7 +86,7 @@ public interface JobsAPI
      * @return String
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/jobs/{jobId}/exception-stacktrace")
-    Call<String> getJobStacktraceCall(@Path("jobId") String jobId);
+    Call<String> getJobStacktraceCall(@Path(JOB_ID) String jobId);
 
     /**
      * Get a single suspended job
@@ -94,7 +95,7 @@ public interface JobsAPI
      * @return JobResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/suspended-jobs/{jobId}")
-    Call<JobResponse> getSuspendedJobCall(@Path("jobId") String jobId);
+    Call<JobResponse> getSuspendedJobCall(@Path(JOB_ID) String jobId);
 
     /**
      * Get the exception stacktrace for a suspended job
@@ -103,7 +104,7 @@ public interface JobsAPI
      * @return String
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/suspended-jobs/{jobId}/exception-stacktrace")
-    Call<String> getSuspendedJobStacktraceCall(@Path("jobId") String jobId);
+    Call<String> getSuspendedJobStacktraceCall(@Path(JOB_ID) String jobId);
 
     /**
      * Get a single timer job
@@ -112,7 +113,7 @@ public interface JobsAPI
      * @return JobResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/timer-jobs/{jobId}")
-    Call<JobResponse> getTimerJobCall(@Path("jobId") String jobId);
+    Call<JobResponse> getTimerJobCall(@Path(JOB_ID) String jobId);
 
     /**
      * Get the exception stacktrace for a timer job
@@ -121,7 +122,7 @@ public interface JobsAPI
      * @return String
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/timer-jobs/{jobId}/exception-stacktrace")
-    Call<String> getTimerJobStacktraceCall(@Path("jobId") String jobId);
+    Call<String> getTimerJobStacktraceCall(@Path(JOB_ID) String jobId);
 
     /**
      * Get a list of deadletter jobs
@@ -165,13 +166,13 @@ public interface JobsAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/deadletter-jobs")
     Call<ResultList<JobResponse>> listDeadLetterJobsCall(@Query("id") String id,
-            @Query("processInstanceId") String processInstanceId, @Query("executionId") String executionId,
-            @Query("processDefinitionId") String processDefinitionId, @Query("timersOnly") Boolean timersOnly,
-            @Query("messagesOnly") Boolean messagesOnly, @Query("withException") Boolean withException,
-            @Query("dueBefore") String dueBefore, @Query("dueAfter") String dueAfter,
-            @Query("exceptionMessage") String exceptionMessage, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId,
-            @Query("locked") Boolean locked, @Query("unlocked") Boolean unlocked, @Query("sort") String sort);
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId, @Query(EXECUTION_ID) String executionId,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId, @Query(TIMERS_ONLY) Boolean timersOnly,
+            @Query(MESSAGES_ONLY) Boolean messagesOnly, @Query(WITH_EXCEPTION) Boolean withException,
+            @Query(DUE_BEFORE) String dueBefore, @Query(DUE_AFTER) String dueAfter,
+            @Query(EXCEPTION_MESSAGE) String exceptionMessage, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId,
+            @Query(LOCKED) Boolean locked, @Query(UNLOCKED) Boolean unlocked, @Query(SORT) String sort);
 
     /**
      * Get a list of jobs
@@ -215,13 +216,13 @@ public interface JobsAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/jobs")
     Call<ResultList<JobResponse>> listJobsCall(@Query("id") String id,
-            @Query("processInstanceId") String processInstanceId, @Query("executionId") String executionId,
-            @Query("processDefinitionId") String processDefinitionId, @Query("timersOnly") Boolean timersOnly,
-            @Query("messagesOnly") Boolean messagesOnly, @Query("withException") Boolean withException,
-            @Query("dueBefore") String dueBefore, @Query("dueAfter") String dueAfter,
-            @Query("exceptionMessage") String exceptionMessage, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId,
-            @Query("locked") Boolean locked, @Query("unlocked") Boolean unlocked, @Query("sort") String sort);
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId, @Query(EXECUTION_ID) String executionId,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId, @Query(TIMERS_ONLY) Boolean timersOnly,
+            @Query(MESSAGES_ONLY) Boolean messagesOnly, @Query(WITH_EXCEPTION) Boolean withException,
+            @Query(DUE_BEFORE) String dueBefore, @Query(DUE_AFTER) String dueAfter,
+            @Query(EXCEPTION_MESSAGE) String exceptionMessage, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId,
+            @Query(LOCKED) Boolean locked, @Query(UNLOCKED) Boolean unlocked, @Query(SORT) String sort);
 
     /**
      * Get a list of suspended jobs
@@ -265,13 +266,13 @@ public interface JobsAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/suspended-jobs")
     Call<ResultList<JobResponse>> listSuspendedJobsCall(@Query("id") String id,
-            @Query("processInstanceId") String processInstanceId, @Query("executionId") String executionId,
-            @Query("processDefinitionId") String processDefinitionId, @Query("timersOnly") Boolean timersOnly,
-            @Query("messagesOnly") Boolean messagesOnly, @Query("withException") Boolean withException,
-            @Query("dueBefore") String dueBefore, @Query("dueAfter") String dueAfter,
-            @Query("exceptionMessage") String exceptionMessage, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId,
-            @Query("locked") Boolean locked, @Query("unlocked") Boolean unlocked, @Query("sort") String sort);
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId, @Query(EXECUTION_ID) String executionId,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId, @Query(TIMERS_ONLY) Boolean timersOnly,
+            @Query(MESSAGES_ONLY) Boolean messagesOnly, @Query(WITH_EXCEPTION) Boolean withException,
+            @Query(DUE_BEFORE) String dueBefore, @Query(DUE_AFTER) String dueAfter,
+            @Query(EXCEPTION_MESSAGE) String exceptionMessage, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId,
+            @Query(LOCKED) Boolean locked, @Query(UNLOCKED) Boolean unlocked, @Query(SORT) String sort);
 
     /**
      * Get a list of timer jobs
@@ -315,13 +316,13 @@ public interface JobsAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/timer-jobs")
     Call<ResultList<JobResponse>> listTimerJobsCall(@Query("id") String id,
-            @Query("processInstanceId") String processInstanceId, @Query("executionId") String executionId,
-            @Query("processDefinitionId") String processDefinitionId, @Query("timersOnly") Boolean timersOnly,
-            @Query("messagesOnly") Boolean messagesOnly, @Query("withException") Boolean withException,
-            @Query("dueBefore") String dueBefore, @Query("dueAfter") String dueAfter,
-            @Query("exceptionMessage") String exceptionMessage, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId,
-            @Query("locked") Boolean locked, @Query("unlocked") Boolean unlocked, @Query("sort") String sort);
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId, @Query(EXECUTION_ID) String executionId,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId, @Query(TIMERS_ONLY) Boolean timersOnly,
+            @Query(MESSAGES_ONLY) Boolean messagesOnly, @Query(WITH_EXCEPTION) Boolean withException,
+            @Query(DUE_BEFORE) String dueBefore, @Query(DUE_AFTER) String dueAfter,
+            @Query(EXCEPTION_MESSAGE) String exceptionMessage, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId,
+            @Query(LOCKED) Boolean locked, @Query(UNLOCKED) Boolean unlocked, @Query(SORT) String sort);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -353,7 +354,7 @@ public interface JobsAPI
      * @param jobId (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/management/deadletter-jobs/{jobId}")
-    Observable<Void> deleteDeadLetterJobObservable(@Path("jobId") String jobId);
+    Observable<Void> deleteDeadLetterJobObservable(@Path(JOB_ID) String jobId);
 
     /**
      * Delete a job
@@ -361,7 +362,7 @@ public interface JobsAPI
      * @param jobId The id of the job to delete. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/management/jobs/{jobId}")
-    Observable<Void> deleteJobObservable(@Path("jobId") String jobId);
+    Observable<Void> deleteJobObservable(@Path(JOB_ID) String jobId);
 
     /**
      * Delete a timer job
@@ -369,7 +370,7 @@ public interface JobsAPI
      * @param jobId (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/management/timer-jobs/{jobId}")
-    Observable<Void> deleteTimerJobObservable(@Path("jobId") String jobId);
+    Observable<Void> deleteTimerJobObservable(@Path(JOB_ID) String jobId);
 
     /**
      * Execute a single job
@@ -380,7 +381,7 @@ public interface JobsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/management/jobs/{jobId}")
-    Observable<Void> executeJobActionObservable(@Path("jobId") String jobId, @Body RestActionRequest actionRequest);
+    Observable<Void> executeJobActionObservable(@Path(JOB_ID) String jobId, @Body RestActionRequest actionRequest);
 
     /**
      * Get the exception stacktrace for a deadletter job
@@ -389,7 +390,7 @@ public interface JobsAPI
      * @return String
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/deadletter-jobs/{jobId}/exception-stacktrace")
-    Observable<String> getDeadLetterJobStacktraceObservable(@Path("jobId") String jobId);
+    Observable<String> getDeadLetterJobStacktraceObservable(@Path(JOB_ID) String jobId);
 
     /**
      * Get a single deadletter job
@@ -398,7 +399,7 @@ public interface JobsAPI
      * @return JobResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/deadletter-jobs/{jobId}")
-    Observable<JobResponse> getDeadletterJobObservable(@Path("jobId") String jobId);
+    Observable<JobResponse> getDeadletterJobObservable(@Path(JOB_ID) String jobId);
 
     /**
      * Get a single job
@@ -407,7 +408,7 @@ public interface JobsAPI
      * @return JobResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/jobs/{jobId}")
-    Observable<JobResponse> getJobObservable(@Path("jobId") String jobId);
+    Observable<JobResponse> getJobObservable(@Path(JOB_ID) String jobId);
 
     /**
      * Get the exception stacktrace for a job
@@ -416,7 +417,7 @@ public interface JobsAPI
      * @return String
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/jobs/{jobId}/exception-stacktrace")
-    Observable<String> getJobStacktraceObservable(@Path("jobId") String jobId);
+    Observable<String> getJobStacktraceObservable(@Path(JOB_ID) String jobId);
 
     /**
      * Get a single suspended job
@@ -425,7 +426,7 @@ public interface JobsAPI
      * @return JobResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/suspended-jobs/{jobId}")
-    Observable<JobResponse> getSuspendedJobObservable(@Path("jobId") String jobId);
+    Observable<JobResponse> getSuspendedJobObservable(@Path(JOB_ID) String jobId);
 
     /**
      * Get the exception stacktrace for a suspended job
@@ -434,7 +435,7 @@ public interface JobsAPI
      * @return String
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/suspended-jobs/{jobId}/exception-stacktrace")
-    Observable<String> getSuspendedJobStacktraceObservable(@Path("jobId") String jobId);
+    Observable<String> getSuspendedJobStacktraceObservable(@Path(JOB_ID) String jobId);
 
     /**
      * Get a single timer job
@@ -443,7 +444,7 @@ public interface JobsAPI
      * @return JobResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/timer-jobs/{jobId}")
-    Observable<JobResponse> getTimerJobObservable(@Path("jobId") String jobId);
+    Observable<JobResponse> getTimerJobObservable(@Path(JOB_ID) String jobId);
 
     /**
      * Get the exception stacktrace for a timer job
@@ -452,7 +453,7 @@ public interface JobsAPI
      * @return String
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/timer-jobs/{jobId}/exception-stacktrace")
-    Observable<String> getTimerJobStacktraceObservable(@Path("jobId") String jobId);
+    Observable<String> getTimerJobStacktraceObservable(@Path(JOB_ID) String jobId);
 
     /**
      * Get a list of deadletter jobs
@@ -496,13 +497,13 @@ public interface JobsAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/deadletter-jobs")
     Observable<ResultList<JobResponse>> listDeadLetterJobsObservable(@Query("id") String id,
-            @Query("processInstanceId") String processInstanceId, @Query("executionId") String executionId,
-            @Query("processDefinitionId") String processDefinitionId, @Query("timersOnly") Boolean timersOnly,
-            @Query("messagesOnly") Boolean messagesOnly, @Query("withException") Boolean withException,
-            @Query("dueBefore") String dueBefore, @Query("dueAfter") String dueAfter,
-            @Query("exceptionMessage") String exceptionMessage, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId,
-            @Query("locked") Boolean locked, @Query("unlocked") Boolean unlocked, @Query("sort") String sort);
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId, @Query(EXECUTION_ID) String executionId,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId, @Query(TIMERS_ONLY) Boolean timersOnly,
+            @Query(MESSAGES_ONLY) Boolean messagesOnly, @Query(WITH_EXCEPTION) Boolean withException,
+            @Query(DUE_BEFORE) String dueBefore, @Query(DUE_AFTER) String dueAfter,
+            @Query(EXCEPTION_MESSAGE) String exceptionMessage, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId,
+            @Query(LOCKED) Boolean locked, @Query(UNLOCKED) Boolean unlocked, @Query(SORT) String sort);
 
     /**
      * Get a list of jobs
@@ -546,13 +547,13 @@ public interface JobsAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/jobs")
     Observable<ResultList<JobResponse>> listJobsObservable(@Query("id") String id,
-            @Query("processInstanceId") String processInstanceId, @Query("executionId") String executionId,
-            @Query("processDefinitionId") String processDefinitionId, @Query("timersOnly") Boolean timersOnly,
-            @Query("messagesOnly") Boolean messagesOnly, @Query("withException") Boolean withException,
-            @Query("dueBefore") String dueBefore, @Query("dueAfter") String dueAfter,
-            @Query("exceptionMessage") String exceptionMessage, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId,
-            @Query("locked") Boolean locked, @Query("unlocked") Boolean unlocked, @Query("sort") String sort);
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId, @Query(EXECUTION_ID) String executionId,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId, @Query(TIMERS_ONLY) Boolean timersOnly,
+            @Query(MESSAGES_ONLY) Boolean messagesOnly, @Query(WITH_EXCEPTION) Boolean withException,
+            @Query(DUE_BEFORE) String dueBefore, @Query(DUE_AFTER) String dueAfter,
+            @Query(EXCEPTION_MESSAGE) String exceptionMessage, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId,
+            @Query(LOCKED) Boolean locked, @Query(UNLOCKED) Boolean unlocked, @Query(SORT) String sort);
 
     /**
      * Get a list of suspended jobs
@@ -596,13 +597,13 @@ public interface JobsAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/suspended-jobs")
     Observable<ResultList<JobResponse>> listSuspendedJobsObservable(@Query("id") String id,
-            @Query("processInstanceId") String processInstanceId, @Query("executionId") String executionId,
-            @Query("processDefinitionId") String processDefinitionId, @Query("timersOnly") Boolean timersOnly,
-            @Query("messagesOnly") Boolean messagesOnly, @Query("withException") Boolean withException,
-            @Query("dueBefore") String dueBefore, @Query("dueAfter") String dueAfter,
-            @Query("exceptionMessage") String exceptionMessage, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId,
-            @Query("locked") Boolean locked, @Query("unlocked") Boolean unlocked, @Query("sort") String sort);
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId, @Query(EXECUTION_ID) String executionId,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId, @Query(TIMERS_ONLY) Boolean timersOnly,
+            @Query(MESSAGES_ONLY) Boolean messagesOnly, @Query(WITH_EXCEPTION) Boolean withException,
+            @Query(DUE_BEFORE) String dueBefore, @Query(DUE_AFTER) String dueAfter,
+            @Query(EXCEPTION_MESSAGE) String exceptionMessage, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId,
+            @Query(LOCKED) Boolean locked, @Query(UNLOCKED) Boolean unlocked, @Query(SORT) String sort);
 
     /**
      * Get a list of timer jobs
@@ -646,12 +647,12 @@ public interface JobsAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/timer-jobs")
     Observable<ResultList<JobResponse>> listTimerJobsObservable(@Query("id") String id,
-            @Query("processInstanceId") String processInstanceId, @Query("executionId") String executionId,
-            @Query("processDefinitionId") String processDefinitionId, @Query("timersOnly") Boolean timersOnly,
-            @Query("messagesOnly") Boolean messagesOnly, @Query("withException") Boolean withException,
-            @Query("dueBefore") String dueBefore, @Query("dueAfter") String dueAfter,
-            @Query("exceptionMessage") String exceptionMessage, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId,
-            @Query("locked") Boolean locked, @Query("unlocked") Boolean unlocked, @Query("sort") String sort);
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId, @Query(EXECUTION_ID) String executionId,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId, @Query(TIMERS_ONLY) Boolean timersOnly,
+            @Query(MESSAGES_ONLY) Boolean messagesOnly, @Query(WITH_EXCEPTION) Boolean withException,
+            @Query(DUE_BEFORE) String dueBefore, @Query(DUE_AFTER) String dueAfter,
+            @Query(EXCEPTION_MESSAGE) String exceptionMessage, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId,
+            @Query(LOCKED) Boolean locked, @Query(UNLOCKED) Boolean unlocked, @Query(SORT) String sort);
 
 }

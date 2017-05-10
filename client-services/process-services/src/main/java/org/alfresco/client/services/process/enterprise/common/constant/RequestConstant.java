@@ -24,9 +24,6 @@ import org.alfresco.client.services.common.constant.ApiConstant;
  */
 public interface RequestConstant extends ApiConstant
 {
-    // ///////////////////////////////////////////////
-    // USER SERVICE
-    // ///////////////////////////////////////////////
     String APPDEFINITION_ID = "appDefinitionId";
 
     String PROCESSDEFINITION_ID = "processDefinitionId";

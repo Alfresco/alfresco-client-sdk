@@ -1,5 +1,6 @@
 package org.alfresco.client.services.process.activiti.core.api;
 
+import static org.alfresco.client.services.process.activiti.common.constant.RequestConstant.*;
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
 import java.util.List;
@@ -42,11 +43,11 @@ public interface TasksAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/attachments")
-    Call<AttachmentResponse> createAttachmentCall(@Path("taskId") String taskId, @Body AttachmentRequest request);
+    Call<AttachmentResponse> createAttachmentCall(@Path(TASK_ID) String taskId, @Body AttachmentRequest request);
 
     @Multipart
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/attachments")
-    Call<AttachmentResponse> createAttachmentCall(@Path("taskId") String taskId,
+    Call<AttachmentResponse> createAttachmentCall(@Path(TASK_ID) String taskId,
             @PartMap() Map<String, RequestBody> partMap);
 
     /**
@@ -68,7 +69,7 @@ public interface TasksAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/comments")
-    Call<CommentResponse> createTaskCommentsCall(@Path("taskId") String taskId, @Body CommentRequest body);
+    Call<CommentResponse> createTaskCommentsCall(@Path(TASK_ID) String taskId, @Body CommentRequest body);
 
     /**
      * Create an identity link on a task ## Request body (user)
@@ -84,7 +85,7 @@ public interface TasksAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/identitylinks")
-    Call<RestIdentityLink> createTaskInstanceIdentityLinksCall(@Path("taskId") String taskId,
+    Call<RestIdentityLink> createTaskInstanceIdentityLinksCall(@Path(TASK_ID) String taskId,
             @Body RestIdentityLink body);
 
     /**
@@ -115,7 +116,7 @@ public interface TasksAPI
     // FIXME multiple signature
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/variables")
-    Call<List<RestVariable>> createTaskVariableCall(@Path("taskId") String taskId, @Body List<RestVariable> body);
+    Call<List<RestVariable>> createTaskVariableCall(@Path(TASK_ID) String taskId, @Body List<RestVariable> body);
 
     /**
      * Delete all local variables on a task
@@ -124,7 +125,7 @@ public interface TasksAPI
      *            (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/variables")
-    Call<Void> deleteAllLocalTaskVariablesCall(@Path("taskId") String taskId);
+    Call<Void> deleteAllLocalTaskVariablesCall(@Path(TASK_ID) String taskId);
 
     /**
      * Delete an attachment on a task
@@ -133,7 +134,7 @@ public interface TasksAPI
      * @param attachmentId The id of the attachment. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/attachment/{attachmentId}")
-    Call<Void> deleteAttachmentCall(@Path("taskId") String taskId, @Path("attachmentId") String attachmentId);
+    Call<Void> deleteAttachmentCall(@Path(TASK_ID) String taskId, @Path(ATTACHMENT_ID) String attachmentId);
 
     /**
      * Delete an event on a task
@@ -143,7 +144,7 @@ public interface TasksAPI
      * @return ApiResponse&lt;Void&gt;
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/events/{eventId}")
-    Call<Void> deleteEventCall(@Path("taskId") String taskId, @Path("eventId") String eventId);
+    Call<Void> deleteEventCall(@Path(TASK_ID) String taskId, @Path(EVENT_ID) String eventId);
 
     /**
      * Delete a task
@@ -151,7 +152,7 @@ public interface TasksAPI
      * @param taskId The id of the task to delete. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}")
-    Call<Void> deleteTaskCall(@Path("taskId") String taskId);
+    Call<Void> deleteTaskCall(@Path(TASK_ID) String taskId);
 
     /**
      * Delete a comment on a task
@@ -160,7 +161,7 @@ public interface TasksAPI
      * @param commentId The id of the comment. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/comments/{commentId}")
-    Call<Void> deleteTaskCommentCall(@Path("taskId") String taskId, @Path("commentId") String commentId);
+    Call<Void> deleteTaskCommentCall(@Path(TASK_ID) String taskId, @Path(COMMENT_ID) String commentId);
 
     /**
      * Delete an identity link on a task
@@ -172,8 +173,8 @@ public interface TasksAPI
      * @param type The type of identity link. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/identitylinks/{family}/{identityId}/{type}")
-    Call<Void> deleteTaskInstanceIdentityLinksCall(@Path("taskId") String taskId, @Path("family") String family,
-            @Path("identityId") String identityId, @Path("type") String type);
+    Call<Void> deleteTaskInstanceIdentityLinksCall(@Path(TASK_ID) String taskId, @Path(FAMILY) String family,
+            @Path(IDENTITY_ID) String identityId, @Path(TYPE) String type);
 
     /**
      * Delete a variable on a task
@@ -183,7 +184,7 @@ public interface TasksAPI
      * @param variableName The name of the variable to delete. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/variables/{variableName}")
-    Call<Void> deleteTaskInstanceVariableCall(@Path("taskId") String taskId, @Path("variableName") String variableName);
+    Call<Void> deleteTaskInstanceVariableCall(@Path(TASK_ID) String taskId, @Path(VARIABLE_NAME) String variableName);
 
     /**
      * Tasks actions ## Complete a task - Request Body &#x60;&#x60;&#x60;JSON {
@@ -214,7 +215,7 @@ public interface TasksAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}")
-    Call<Void> executeTaskActionCall(@Path("taskId") String taskId, @Body TaskActionRequest body);
+    Call<Void> executeTaskActionCall(@Path(TASK_ID) String taskId, @Body TaskActionRequest body);
 
     /**
      * Get the binary data for a variable The response body contains the binary
@@ -232,7 +233,7 @@ public interface TasksAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/variables/{variableName}/data")
-    Call<RequestBody> geTaskVariableDataCall(@Path("taskId") String taskId, @Path("variableName") String variableName);
+    Call<RequestBody> geTaskVariableDataCall(@Path(TASK_ID) String taskId, @Path(VARIABLE_NAME) String variableName);
 
     /**
      * Get an attachment on a task
@@ -242,8 +243,7 @@ public interface TasksAPI
      * @return AttachmentResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/attachments/{attachmentId}")
-    Call<AttachmentResponse> getAttachmentCall(@Path("taskId") String taskId,
-            @Path("attachmentId") String attachmentId);
+    Call<AttachmentResponse> getAttachmentCall(@Path(TASK_ID) String taskId, @Path(ATTACHMENT_ID) String attachmentId);
 
     /**
      * Get the content for an attachment The response body contains the binary
@@ -259,8 +259,7 @@ public interface TasksAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/attachments/{attachmentId}/content")
-    Call<RequestBody> getAttachmentContentCall(@Path("taskId") String taskId,
-            @Path("attachmentId") String attachmentId);
+    Call<RequestBody> getAttachmentContentCall(@Path(TASK_ID) String taskId, @Path(ATTACHMENT_ID) String attachmentId);
 
     /**
      * Get all attachments on a task
@@ -269,7 +268,7 @@ public interface TasksAPI
      * @return List&lt;AttachmentResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/attachments")
-    Call<List<AttachmentResponse>> getAttachmentsCall(@Path("taskId") String taskId);
+    Call<List<AttachmentResponse>> getAttachmentsCall(@Path(TASK_ID) String taskId);
 
     /**
      * Get an event on a task
@@ -279,7 +278,7 @@ public interface TasksAPI
      * @return EventResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/events/{eventId}")
-    Call<EventResponse> getEventCall(@Path("taskId") String taskId, @Path("eventId") String eventId);
+    Call<EventResponse> getEventCall(@Path(TASK_ID) String taskId, @Path(EVENT_ID) String eventId);
 
     /**
      * Get all events for a task
@@ -288,7 +287,7 @@ public interface TasksAPI
      * @return List&lt;EventResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/events")
-    Call<List<EventResponse>> getEventsCall(@Path("taskId") String taskId);
+    Call<List<EventResponse>> getEventsCall(@Path(TASK_ID) String taskId);
 
     /**
      * Get all identitylinks for a task for either groups or users ## Get all
@@ -304,8 +303,8 @@ public interface TasksAPI
      * @return List&lt;RestIdentityLink&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/identitylinks/{family}")
-    Call<List<RestIdentityLink>> getIdentityLinksForFamilyCall(@Path("taskId") String taskId,
-            @Path("family") String family);
+    Call<List<RestIdentityLink>> getIdentityLinksForFamilyCall(@Path(TASK_ID) String taskId,
+            @Path(FAMILY) String family);
 
     /**
      * Query for tasks All supported JSON parameter fields allowed are exactly
@@ -331,7 +330,7 @@ public interface TasksAPI
      * @return List&lt;TaskResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/subtasks")
-    Call<List<TaskResponse>> getSubTasksCall(@Path("taskId") String taskId);
+    Call<List<TaskResponse>> getSubTasksCall(@Path(TASK_ID) String taskId);
 
     /**
      * Get a task
@@ -340,7 +339,7 @@ public interface TasksAPI
      * @return TaskResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}")
-    Call<TaskResponse> getTaskCall(@Path("taskId") String taskId);
+    Call<TaskResponse> getTaskCall(@Path(TASK_ID) String taskId);
 
     /**
      * Get a comment on a task
@@ -350,7 +349,7 @@ public interface TasksAPI
      * @return CommentResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/comments/{commentId}")
-    Call<CommentResponse> getTaskCommentCall(@Path("taskId") String taskId, @Path("commentId") String commentId);
+    Call<CommentResponse> getTaskCommentCall(@Path(TASK_ID) String taskId, @Path(COMMENT_ID) String commentId);
 
     /**
      * Get a single identity link on a task
@@ -363,8 +362,8 @@ public interface TasksAPI
      * @return RestIdentityLink
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/identitylinks/{family}/{identityId}/{type}")
-    Call<RestIdentityLink> getTaskInstanceIdentityLinksCall(@Path("taskId") String taskId,
-            @Path("family") String family, @Path("identityId") String identityId, @Path("type") String type);
+    Call<RestIdentityLink> getTaskInstanceIdentityLinksCall(@Path(TASK_ID) String taskId, @Path(FAMILY) String family,
+            @Path(IDENTITY_ID) String identityId, @Path(TYPE) String type);
 
     /**
      * Get a variable from a task
@@ -380,8 +379,8 @@ public interface TasksAPI
      * @return RestVariable
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/variables/{variableName}")
-    Call<RestVariable> getTaskInstanceVariableCall(@Path("taskId") String taskId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Call<RestVariable> getTaskInstanceVariableCall(@Path(TASK_ID) String taskId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * List of tasks
@@ -483,31 +482,31 @@ public interface TasksAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks")
-    Call<ResultList<TaskResponse>> getTasksCall(@Query("name") String name, @Query("nameLike") String nameLike,
-            @Query("description") String description, @Query("priority") String priority,
-            @Query("minimumPriority") String minimumPriority, @Query("maximumPriority") String maximumPriority,
-            @Query("assignee") String assignee, @Query("assigneeLike") String assigneeLike,
-            @Query("owner") String owner, @Query("ownerLike") String ownerLike, @Query("unassigned") String unassigned,
-            @Query("delegationState") String delegationState, @Query("candidateUser") String candidateUser,
-            @Query("candidateGroup") String candidateGroup, @Query("candidateGroups") String candidateGroups,
-            @Query("involvedUser") String involvedUser, @Query("taskDefinitionKey") String taskDefinitionKey,
-            @Query("taskDefinitionKeyLike") String taskDefinitionKeyLike,
-            @Query("processInstanceId") String processInstanceId,
-            @Query("processInstanceBusinessKey") String processInstanceBusinessKey,
-            @Query("processInstanceBusinessKeyLike") String processInstanceBusinessKeyLike,
-            @Query("processDefinitionId") String processDefinitionId,
-            @Query("processDefinitionKey") String processDefinitionKey,
-            @Query("processDefinitionKeyLike") String processDefinitionKeyLike,
-            @Query("processDefinitionName") String processDefinitionName,
-            @Query("processDefinitionNameLike") String processDefinitionNameLike,
-            @Query("executionId") String executionId, @Query("createdOn") String createdOn,
-            @Query("createdBefore") String createdBefore, @Query("createdAfter") String createdAfter,
-            @Query("dueOn") String dueOn, @Query("dueBefore") String dueBefore, @Query("dueAfter") String dueAfter,
-            @Query("withoutDueDate") String withoutDueDate, @Query("excludeSubTasks") String excludeSubTasks,
-            @Query("active") String active, @Query("includeTaskLocalVariables") String includeTaskLocalVariables,
-            @Query("includeProcessVariables") String includeProcessVariables, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") String withoutTenantId,
-            @Query("candidateOrAssigned") String candidateOrAssigned, @Query("category") String category);
+    Call<ResultList<TaskResponse>> getTasksCall(@Query(NAME) String name, @Query(NAME_LIKE) String nameLike,
+            @Query(DESCRIPTION) String description, @Query(PRIORITY) String priority,
+            @Query(MINIMUM_PRIORITY) String minimumPriority, @Query(MAXIMUM_PRIORITY) String maximumPriority,
+            @Query(ASSIGNEE) String assignee, @Query(ASSIGNEE_LIKE) String assigneeLike, @Query(OWNER) String owner,
+            @Query(OWNER_LIKE) String ownerLike, @Query(UNASSIGNED) String unassigned,
+            @Query(DELEGATION_STATE) String delegationState, @Query(CANDIDATE_USER) String candidateUser,
+            @Query(CANDIDATE_GROUP) String candidateGroup, @Query(CANDIDATE_GROUPS) String candidateGroups,
+            @Query(INVOLVED_USER) String involvedUser, @Query(TASK_DEFINITION_KEY) String taskDefinitionKey,
+            @Query(TASK_DEFINITION_KEY_LIKE) String taskDefinitionKeyLike,
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Query(PROCESS_INSTANCE_BUSINESS_KEY) String processInstanceBusinessKey,
+            @Query(PROCESS_INSTANCE_BUSINESS_KEY_LIKE) String processInstanceBusinessKeyLike,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId,
+            @Query(PROCESS_DEFINITION_KEY) String processDefinitionKey,
+            @Query(PROCESS_DEFINITION_KEY_LIKE) String processDefinitionKeyLike,
+            @Query(PROCESS_DEFINITION_NAME) String processDefinitionName,
+            @Query(PROCESS_DEFINITION_NAME_LIKE) String processDefinitionNameLike,
+            @Query(EXECUTION_ID) String executionId, @Query(CREATED_ON) String createdOn,
+            @Query(CREATED_BEFORE) String createdBefore, @Query(CREATED_AFTER) String createdAfter,
+            @Query(DUE_ON) String dueOn, @Query(DUE_BEFORE) String dueBefore, @Query(DUE_AFTER) String dueAfter,
+            @Query(WITHOUT_DUE_DATE) String withoutDueDate, @Query(EXCLUDE_SUB_TASKS) String excludeSubTasks,
+            @Query(ACTIVE) String active, @Query(INCLUDE_TASK_LOCAL_VARIABLES) String includeTaskLocalVariables,
+            @Query(INCLUDE_PROCESS_VARIABLES) String includeProcessVariables, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) String withoutTenantId,
+            @Query(CANDIDATE_OR_ASSIGNED) String candidateOrAssigned, @Query(CATEGORY) String category);
 
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks")
     Call<ResultList<TaskResponse>> getTasksCall();
@@ -519,7 +518,7 @@ public interface TasksAPI
      * @return List&lt;CommentResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/comments")
-    Call<List<CommentResponse>> listTaskCommentsCall(@Path("taskId") String taskId);
+    Call<List<CommentResponse>> listTaskCommentsCall(@Path(TASK_ID) String taskId);
 
     /**
      * Get all variables for a task
@@ -528,7 +527,7 @@ public interface TasksAPI
      * @return List&lt;RestVariable&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/variables")
-    Call<List<RestVariable>> listTaskVariablesCall(@Path("taskId") String taskId);
+    Call<List<RestVariable>> listTaskVariablesCall(@Path(TASK_ID) String taskId);
 
     /**
      * Get all identity links for a task
@@ -538,7 +537,7 @@ public interface TasksAPI
      * @return List&lt;RestIdentityLink&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/identitylinks")
-    Call<List<RestIdentityLink>> listTasksInstanceIdentityLinksCall(@Path("taskId") String taskId);
+    Call<List<RestIdentityLink>> listTasksInstanceIdentityLinksCall(@Path(TASK_ID) String taskId);
 
     /**
      * Update a task All request values are optional. For example, you can only
@@ -547,13 +546,13 @@ public interface TasksAPI
      * When an attribute is explicitly included and is set to null, the
      * task-value will be updated to null. Example: {\&quot;dueDate\&quot; :
      * null} will clear the duedate of the task).
-     * 
+     *
      * @param taskId (required)
      * @param body (optional)
      * @return TaskResponse
      */
     @PUT(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}")
-    Call<TaskResponse> updateTaskCall(@Path("taskId") String taskId, @Body TaskRequest body);
+    Call<TaskResponse> updateTaskCall(@Path(TASK_ID) String taskId, @Body TaskRequest body);
 
     /**
      * Update an existing variable on a task ## Request body for updating simple
@@ -572,14 +571,14 @@ public interface TasksAPI
      * variable that is updated. If omitted, local is assumed. - *type*: Type of
      * variable that is updated. If omitted, binary is assumed and the binary
      * data in the request will be stored as an array of bytes.
-     * 
+     *
      * @param taskId The id of the task to update the variable for. (required)
      * @param variableName The name of the variable to update. (required)
      * @return RestVariable
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/identitylinks")
-    Call<RestVariable> updateTaskInstanceVariableCall(@Path("taskId") String taskId,
-            @Path("variableName") String variableName);
+    Call<RestVariable> updateTaskInstanceVariableCall(@Path(TASK_ID) String taskId,
+            @Path(VARIABLE_NAME) String variableName);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -628,12 +627,12 @@ public interface TasksAPI
      */
     @Multipart
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/attachments")
-    Observable<AttachmentResponse> createAttachmentObservable(@Path("taskId") String taskId,
+    Observable<AttachmentResponse> createAttachmentObservable(@Path(TASK_ID) String taskId,
             @Part("filedata") RequestBody file);
 
     @Multipart
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/attachments")
-    Observable<AttachmentResponse> createAttachmentObservable(@Path("taskId") String taskId,
+    Observable<AttachmentResponse> createAttachmentObservable(@Path(TASK_ID) String taskId,
             @PartMap() Map<String, RequestBody> partMap);
 
     /**
@@ -655,7 +654,7 @@ public interface TasksAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/comments")
-    Observable<CommentResponse> createTaskCommentsObservable(@Path("taskId") String taskId, @Body CommentRequest body);
+    Observable<CommentResponse> createTaskCommentsObservable(@Path(TASK_ID) String taskId, @Body CommentRequest body);
 
     /**
      * Create an identity link on a task ## Request body (user)
@@ -671,7 +670,7 @@ public interface TasksAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/identitylinks")
-    Observable<RestIdentityLink> createTaskInstanceIdentityLinksObservable(@Path("taskId") String taskId,
+    Observable<RestIdentityLink> createTaskInstanceIdentityLinksObservable(@Path(TASK_ID) String taskId,
             @Body RestIdentityLink body);
 
     /**
@@ -702,7 +701,7 @@ public interface TasksAPI
     // FIXME multiple signature
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/variables")
-    Observable<List<RestVariable>> createTaskVariableObservable(@Path("taskId") String taskId,
+    Observable<List<RestVariable>> createTaskVariableObservable(@Path(TASK_ID) String taskId,
             @Body List<RestVariable> body);
 
     /**
@@ -712,7 +711,7 @@ public interface TasksAPI
      *            (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/variables")
-    Observable<Void> deleteAllLocalTaskVariablesObservable(@Path("taskId") String taskId);
+    Observable<Void> deleteAllLocalTaskVariablesObservable(@Path(TASK_ID) String taskId);
 
     /**
      * Delete an attachment on a task
@@ -721,8 +720,7 @@ public interface TasksAPI
      * @param attachmentId The id of the attachment. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/attachment/{attachmentId}")
-    Observable<Void> deleteAttachmentObservable(@Path("taskId") String taskId,
-            @Path("attachmentId") String attachmentId);
+    Observable<Void> deleteAttachmentObservable(@Path(TASK_ID) String taskId, @Path(ATTACHMENT_ID) String attachmentId);
 
     /**
      * Delete an event on a task
@@ -732,7 +730,7 @@ public interface TasksAPI
      * @return ApiResponse&lt;Void&gt;
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/events/{eventId}")
-    Observable<Void> deleteEventObservable(@Path("taskId") String taskId, @Path("eventId") String eventId);
+    Observable<Void> deleteEventObservable(@Path(TASK_ID) String taskId, @Path(EVENT_ID) String eventId);
 
     /**
      * Delete a task
@@ -740,7 +738,7 @@ public interface TasksAPI
      * @param taskId The id of the task to delete. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}")
-    Observable<Void> deleteTaskObservable(@Path("taskId") String taskId);
+    Observable<Void> deleteTaskObservable(@Path(TASK_ID) String taskId);
 
     /**
      * Delete a comment on a task
@@ -749,7 +747,7 @@ public interface TasksAPI
      * @param commentId The id of the comment. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/comments/{commentId}")
-    Observable<Void> deleteTaskCommentObservable(@Path("taskId") String taskId, @Path("commentId") String commentId);
+    Observable<Void> deleteTaskCommentObservable(@Path(TASK_ID) String taskId, @Path(COMMENT_ID) String commentId);
 
     /**
      * Delete an identity link on a task
@@ -761,8 +759,8 @@ public interface TasksAPI
      * @param type The type of identity link. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/identitylinks/{family}/{identityId}/{type}")
-    Observable<Void> deleteTaskInstanceIdentityLinksObservable(@Path("taskId") String taskId,
-            @Path("family") String family, @Path("identityId") String identityId, @Path("type") String type);
+    Observable<Void> deleteTaskInstanceIdentityLinksObservable(@Path(TASK_ID) String taskId,
+            @Path(FAMILY) String family, @Path(IDENTITY_ID) String identityId, @Path(TYPE) String type);
 
     /**
      * Delete a variable on a task
@@ -772,8 +770,8 @@ public interface TasksAPI
      * @param variableName The name of the variable to delete. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/variables/{variableName}")
-    Observable<Void> deleteTaskInstanceVariableObservable(@Path("taskId") String taskId,
-            @Path("variableName") String variableName);
+    Observable<Void> deleteTaskInstanceVariableObservable(@Path(TASK_ID) String taskId,
+            @Path(VARIABLE_NAME) String variableName);
 
     /**
      * Tasks actions ## Complete a task - Request Body &#x60;&#x60;&#x60;JSON {
@@ -804,7 +802,7 @@ public interface TasksAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}")
-    Observable<Void> executeTaskActionObservable(@Path("taskId") String taskId, @Body TaskActionRequest body);
+    Observable<Void> executeTaskActionObservable(@Path(TASK_ID) String taskId, @Body TaskActionRequest body);
 
     /**
      * Get the binary data for a variable The response body contains the binary
@@ -822,8 +820,8 @@ public interface TasksAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/variables/{variableName}/data")
-    Observable<RequestBody> geTaskVariableDataObservable(@Path("taskId") String taskId,
-            @Path("variableName") String variableName);
+    Observable<RequestBody> geTaskVariableDataObservable(@Path(TASK_ID) String taskId,
+            @Path(VARIABLE_NAME) String variableName);
 
     /**
      * Get an attachment on a task
@@ -833,8 +831,8 @@ public interface TasksAPI
      * @return AttachmentResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/attachments/{attachmentId}")
-    Observable<AttachmentResponse> getAttachmentObservable(@Path("taskId") String taskId,
-            @Path("attachmentId") String attachmentId);
+    Observable<AttachmentResponse> getAttachmentObservable(@Path(TASK_ID) String taskId,
+            @Path(ATTACHMENT_ID) String attachmentId);
 
     /**
      * Get the content for an attachment The response body contains the binary
@@ -850,8 +848,8 @@ public interface TasksAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/attachments/{attachmentId}/content")
-    Observable<RequestBody> getAttachmentContentObservable(@Path("taskId") String taskId,
-            @Path("attachmentId") String attachmentId);
+    Observable<RequestBody> getAttachmentContentObservable(@Path(TASK_ID) String taskId,
+            @Path(ATTACHMENT_ID) String attachmentId);
 
     /**
      * Get all attachments on a task
@@ -860,7 +858,7 @@ public interface TasksAPI
      * @return List&lt;AttachmentResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/attachments")
-    Observable<List<AttachmentResponse>> getAttachmentsObservable(@Path("taskId") String taskId);
+    Observable<List<AttachmentResponse>> getAttachmentsObservable(@Path(TASK_ID) String taskId);
 
     /**
      * Get an event on a task
@@ -870,7 +868,7 @@ public interface TasksAPI
      * @return EventResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/events/{eventId}")
-    Observable<EventResponse> getEventObservable(@Path("taskId") String taskId, @Path("eventId") String eventId);
+    Observable<EventResponse> getEventObservable(@Path(TASK_ID) String taskId, @Path(EVENT_ID) String eventId);
 
     /**
      * Get all events for a task
@@ -879,7 +877,7 @@ public interface TasksAPI
      * @return List&lt;EventResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/events")
-    Observable<List<EventResponse>> getEventsObservable(@Path("taskId") String taskId);
+    Observable<List<EventResponse>> getEventsObservable(@Path(TASK_ID) String taskId);
 
     /**
      * Get all identitylinks for a task for either groups or users ## Get all
@@ -895,8 +893,8 @@ public interface TasksAPI
      * @return List&lt;RestIdentityLink&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/identitylinks/{family}")
-    Observable<List<RestIdentityLink>> getIdentityLinksForFamilyObservable(@Path("taskId") String taskId,
-            @Path("family") String family);
+    Observable<List<RestIdentityLink>> getIdentityLinksForFamilyObservable(@Path(TASK_ID) String taskId,
+            @Path(FAMILY) String family);
 
     /**
      * Query for tasks All supported JSON parameter fields allowed are exactly
@@ -922,7 +920,7 @@ public interface TasksAPI
      * @return List&lt;TaskResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/subtasks")
-    Observable<List<TaskResponse>> getSubTasksObservable(@Path("taskId") String taskId);
+    Observable<List<TaskResponse>> getSubTasksObservable(@Path(TASK_ID) String taskId);
 
     /**
      * Get a task
@@ -931,7 +929,7 @@ public interface TasksAPI
      * @return TaskResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}")
-    Observable<TaskResponse> getTaskObservable(@Path("taskId") String taskId);
+    Observable<TaskResponse> getTaskObservable(@Path(TASK_ID) String taskId);
 
     /**
      * Get a comment on a task
@@ -941,8 +939,8 @@ public interface TasksAPI
      * @return CommentResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/comments/{commentId}")
-    Observable<CommentResponse> getTaskCommentObservable(@Path("taskId") String taskId,
-            @Path("commentId") String commentId);
+    Observable<CommentResponse> getTaskCommentObservable(@Path(TASK_ID) String taskId,
+            @Path(COMMENT_ID) String commentId);
 
     /**
      * Get a single identity link on a task
@@ -955,8 +953,8 @@ public interface TasksAPI
      * @return RestIdentityLink
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/identitylinks/{family}/{identityId}/{type}")
-    Observable<RestIdentityLink> getTaskInstanceIdentityLinksObservable(@Path("taskId") String taskId,
-            @Path("family") String family, @Path("identityId") String identityId, @Path("type") String type);
+    Observable<RestIdentityLink> getTaskInstanceIdentityLinksObservable(@Path(TASK_ID) String taskId,
+            @Path(FAMILY) String family, @Path(IDENTITY_ID) String identityId, @Path(TYPE) String type);
 
     /**
      * Get a variable from a task
@@ -972,8 +970,8 @@ public interface TasksAPI
      * @return RestVariable
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/variables/{variableName}")
-    Observable<RestVariable> getTaskInstanceVariableObservable(@Path("taskId") String taskId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Observable<RestVariable> getTaskInstanceVariableObservable(@Path(TASK_ID) String taskId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * List of tasks
@@ -1075,32 +1073,31 @@ public interface TasksAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks")
-    Observable<ResultList<TaskResponse>> getTasksObservable(@Query("name") String name,
-            @Query("nameLike") String nameLike, @Query("description") String description,
-            @Query("priority") String priority, @Query("minimumPriority") String minimumPriority,
-            @Query("maximumPriority") String maximumPriority, @Query("assignee") String assignee,
-            @Query("assigneeLike") String assigneeLike, @Query("owner") String owner,
-            @Query("ownerLike") String ownerLike, @Query("unassigned") String unassigned,
-            @Query("delegationState") String delegationState, @Query("candidateUser") String candidateUser,
-            @Query("candidateGroup") String candidateGroup, @Query("candidateGroups") String candidateGroups,
-            @Query("involvedUser") String involvedUser, @Query("taskDefinitionKey") String taskDefinitionKey,
-            @Query("taskDefinitionKeyLike") String taskDefinitionKeyLike,
-            @Query("processInstanceId") String processInstanceId,
-            @Query("processInstanceBusinessKey") String processInstanceBusinessKey,
-            @Query("processInstanceBusinessKeyLike") String processInstanceBusinessKeyLike,
-            @Query("processDefinitionId") String processDefinitionId,
-            @Query("processDefinitionKey") String processDefinitionKey,
-            @Query("processDefinitionKeyLike") String processDefinitionKeyLike,
-            @Query("processDefinitionName") String processDefinitionName,
-            @Query("processDefinitionNameLike") String processDefinitionNameLike,
-            @Query("executionId") String executionId, @Query("createdOn") String createdOn,
-            @Query("createdBefore") String createdBefore, @Query("createdAfter") String createdAfter,
-            @Query("dueOn") String dueOn, @Query("dueBefore") String dueBefore, @Query("dueAfter") String dueAfter,
-            @Query("withoutDueDate") String withoutDueDate, @Query("excludeSubTasks") String excludeSubTasks,
-            @Query("active") String active, @Query("includeTaskLocalVariables") String includeTaskLocalVariables,
-            @Query("includeProcessVariables") String includeProcessVariables, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") String withoutTenantId,
-            @Query("candidateOrAssigned") String candidateOrAssigned, @Query("category") String category);
+    Observable<ResultList<TaskResponse>> getTasksObservable(@Query(NAME) String name, @Query(NAME_LIKE) String nameLike,
+            @Query(DESCRIPTION) String description, @Query(PRIORITY) String priority,
+            @Query(MINIMUM_PRIORITY) String minimumPriority, @Query(MAXIMUM_PRIORITY) String maximumPriority,
+            @Query(ASSIGNEE) String assignee, @Query(ASSIGNEE_LIKE) String assigneeLike, @Query(OWNER) String owner,
+            @Query(OWNER_LIKE) String ownerLike, @Query(UNASSIGNED) String unassigned,
+            @Query(DELEGATION_STATE) String delegationState, @Query(CANDIDATE_USER) String candidateUser,
+            @Query(CANDIDATE_GROUP) String candidateGroup, @Query(CANDIDATE_GROUPS) String candidateGroups,
+            @Query(INVOLVED_USER) String involvedUser, @Query(TASK_DEFINITION_KEY) String taskDefinitionKey,
+            @Query(TASK_DEFINITION_KEY_LIKE) String taskDefinitionKeyLike,
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Query(PROCESS_INSTANCE_BUSINESS_KEY) String processInstanceBusinessKey,
+            @Query(PROCESS_INSTANCE_BUSINESS_KEY_LIKE) String processInstanceBusinessKeyLike,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId,
+            @Query(PROCESS_DEFINITION_KEY) String processDefinitionKey,
+            @Query(PROCESS_DEFINITION_KEY_LIKE) String processDefinitionKeyLike,
+            @Query(PROCESS_DEFINITION_NAME) String processDefinitionName,
+            @Query(PROCESS_DEFINITION_NAME_LIKE) String processDefinitionNameLike,
+            @Query(EXECUTION_ID) String executionId, @Query(CREATED_ON) String createdOn,
+            @Query(CREATED_BEFORE) String createdBefore, @Query(CREATED_AFTER) String createdAfter,
+            @Query(DUE_ON) String dueOn, @Query(DUE_BEFORE) String dueBefore, @Query(DUE_AFTER) String dueAfter,
+            @Query(WITHOUT_DUE_DATE) String withoutDueDate, @Query(EXCLUDE_SUB_TASKS) String excludeSubTasks,
+            @Query(ACTIVE) String active, @Query(INCLUDE_TASK_LOCAL_VARIABLES) String includeTaskLocalVariables,
+            @Query(INCLUDE_PROCESS_VARIABLES) String includeProcessVariables, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) String withoutTenantId,
+            @Query(CANDIDATE_OR_ASSIGNED) String candidateOrAssigned, @Query(CATEGORY) String category);
 
     /**
      * Get all comments on a task
@@ -1109,7 +1106,7 @@ public interface TasksAPI
      * @return List&lt;CommentResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/comments")
-    Observable<List<CommentResponse>> listTaskCommentsObservable(@Path("taskId") String taskId);
+    Observable<List<CommentResponse>> listTaskCommentsObservable(@Path(TASK_ID) String taskId);
 
     /**
      * Get all variables for a task
@@ -1118,7 +1115,7 @@ public interface TasksAPI
      * @return List&lt;RestVariable&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/variables")
-    Observable<List<RestVariable>> listTaskVariablesObservable(@Path("taskId") String taskId);
+    Observable<List<RestVariable>> listTaskVariablesObservable(@Path(TASK_ID) String taskId);
 
     /**
      * Get all identity links for a task
@@ -1128,7 +1125,7 @@ public interface TasksAPI
      * @return List&lt;RestIdentityLink&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/identitylinks")
-    Observable<List<RestIdentityLink>> listTasksInstanceIdentityLinksObservable(@Path("taskId") String taskId);
+    Observable<List<RestIdentityLink>> listTasksInstanceIdentityLinksObservable(@Path(TASK_ID) String taskId);
 
     /**
      * Update a task All request values are optional. For example, you can only
@@ -1143,7 +1140,7 @@ public interface TasksAPI
      * @return TaskResponse
      */
     @PUT(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}")
-    Observable<TaskResponse> updateTaskObservable(@Path("taskId") String taskId, @Body TaskRequest body);
+    Observable<TaskResponse> updateTaskObservable(@Path(TASK_ID) String taskId, @Body TaskRequest body);
 
     /**
      * Update an existing variable on a task ## Request body for updating simple
@@ -1168,7 +1165,7 @@ public interface TasksAPI
      * @return RestVariable
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/tasks/{taskId}/identitylinks")
-    Observable<RestVariable> updateTaskInstanceVariableObservable(@Path("taskId") String taskId,
-            @Path("variableName") String variableName);
+    Observable<RestVariable> updateTaskInstanceVariableObservable(@Path(TASK_ID) String taskId,
+            @Path(VARIABLE_NAME) String variableName);
 
 }

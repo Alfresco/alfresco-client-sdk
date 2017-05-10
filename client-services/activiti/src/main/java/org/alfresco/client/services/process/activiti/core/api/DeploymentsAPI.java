@@ -1,5 +1,6 @@
 package org.alfresco.client.services.process.activiti.core.api;
 
+import static org.alfresco.client.services.process.activiti.common.constant.RequestConstant.*;
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public interface DeploymentsAPI
      * @param cascade (optional)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/repository/deployments{deploymentId}")
-    Call<Void> deleteDeploymentCall(@Path("deploymentId") String deploymentId, @Query("cascade") Boolean cascade);
+    Call<Void> deleteDeploymentCall(@Path(DEPLOYMENT_ID) String deploymentId, @Query(CASCADE) Boolean cascade);
 
     /**
      * Get a deployment
@@ -35,7 +36,7 @@ public interface DeploymentsAPI
      * @return DeploymentResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments{deploymentId}")
-    Call<DeploymentResponse> getDeploymentCall(@Path("deploymentId") String deploymentId);
+    Call<DeploymentResponse> getDeploymentCall(@Path(DEPLOYMENT_ID) String deploymentId);
 
     /**
      * Get a deployment resource
@@ -47,8 +48,8 @@ public interface DeploymentsAPI
      * @return DeploymentResourceResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments/{deploymentId}/resources/{resourceId}")
-    Call<DeploymentResourceResponse> getDeploymentResourceCall(@Path("deploymentId") String deploymentId,
-            @Path("resourceId") String resourceId);
+    Call<DeploymentResourceResponse> getDeploymentResourceCall(@Path(DEPLOYMENT_ID) String deploymentId,
+            @Path(RESOURCE_ID) String resourceId);
 
     /**
      * Get a deployment resource content The response body will contain the
@@ -66,8 +67,8 @@ public interface DeploymentsAPI
      * @return RequestBody
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments/{deploymentId}/resourcedata/{resourceId}")
-    Call<RequestBody> getDeploymentResourceDataCall(@Path("deploymentId") String deploymentId,
-            @Path("resourceId") String resourceId);
+    Call<RequestBody> getDeploymentResourceDataCall(@Path(DEPLOYMENT_ID) String deploymentId,
+            @Path(RESOURCE_ID) String resourceId);
 
     /**
      * List resources in a deployment The dataUrl property in the resulting JSON
@@ -79,7 +80,7 @@ public interface DeploymentsAPI
      * @return List&lt;DeploymentResourceResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments/{deploymentId}/resources")
-    Call<List<DeploymentResourceResponse>> getDeploymentResourcesCall(@Path("deploymentId") String deploymentId);
+    Call<List<DeploymentResourceResponse>> getDeploymentResourcesCall(@Path(DEPLOYMENT_ID) String deploymentId);
 
     /**
      * List of Deployments
@@ -103,11 +104,10 @@ public interface DeploymentsAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments")
-    Call<ResultList<DeploymentResponse>> getDeploymentsCall(@Query("name") String name,
-            @Query("nameLike") String nameLike, @Query("category") String category,
-            @Query("categoryNotEquals") String categoryNotEquals, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") String withoutTenantId,
-            @Query("sort") String sort);
+    Call<ResultList<DeploymentResponse>> getDeploymentsCall(@Query(NAME) String name, @Query(NAME_LIKE) String nameLike,
+            @Query(CATEGORY) String category, @Query(CATEGORY_NOT_EQUALS) String categoryNotEquals,
+            @Query(TENANT_ID) String tenantId, @Query(TENANT_ID_LIKE) String tenantIdLike,
+            @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId, @Query(SORT) String sort);
 
     @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments")
     Call<ResultList<DeploymentResponse>> getDeploymentsCall();
@@ -127,7 +127,7 @@ public interface DeploymentsAPI
      */
     @Multipart
     @POST(ACTIVITI_SERVICE_PATH + "/repository/deployments")
-    Call<DeploymentResponse> uploadDeploymentCall(@Part("file") RequestBody file, @Query("tenantId") String tenantId);
+    Call<DeploymentResponse> uploadDeploymentCall(@Part(FILE) RequestBody file, @Query(TENANT_ID) String tenantId);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -161,8 +161,8 @@ public interface DeploymentsAPI
      * @param cascade (optional)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/repository/deployments{deploymentId}")
-    Observable<Void> deleteDeploymentObservable(@Path("deploymentId") String deploymentId,
-            @Query("cascade") Boolean cascade);
+    Observable<Void> deleteDeploymentObservable(@Path(DEPLOYMENT_ID) String deploymentId,
+            @Query(CASCADE) Boolean cascade);
 
     /**
      * Get a deployment
@@ -171,7 +171,7 @@ public interface DeploymentsAPI
      * @return DeploymentResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments{deploymentId}")
-    Observable<DeploymentResponse> getDeploymentObservable(@Path("deploymentId") String deploymentId);
+    Observable<DeploymentResponse> getDeploymentObservable(@Path(DEPLOYMENT_ID) String deploymentId);
 
     /**
      * Get a deployment resource
@@ -183,8 +183,8 @@ public interface DeploymentsAPI
      * @return DeploymentResourceResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments/{deploymentId}/resources/{resourceId}")
-    Observable<DeploymentResourceResponse> getDeploymentResourceObservable(@Path("deploymentId") String deploymentId,
-            @Path("resourceId") String resourceId);
+    Observable<DeploymentResourceResponse> getDeploymentResourceObservable(@Path(DEPLOYMENT_ID) String deploymentId,
+            @Path(RESOURCE_ID) String resourceId);
 
     /**
      * Get a deployment resource content The response body will contain the
@@ -202,8 +202,8 @@ public interface DeploymentsAPI
      * @return RequestBody
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments/{deploymentId}/resourcedata/{resourceId}")
-    Observable<RequestBody> getDeploymentResourceDataObservable(@Path("deploymentId") String deploymentId,
-            @Path("resourceId") String resourceId);
+    Observable<RequestBody> getDeploymentResourceDataObservable(@Path(DEPLOYMENT_ID) String deploymentId,
+            @Path(RESOURCE_ID) String resourceId);
 
     /**
      * List resources in a deployment The dataUrl property in the resulting JSON
@@ -216,7 +216,7 @@ public interface DeploymentsAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments/{deploymentId}/resources")
     Observable<List<DeploymentResourceResponse>> getDeploymentResourcesObservable(
-            @Path("deploymentId") String deploymentId);
+            @Path(DEPLOYMENT_ID) String deploymentId);
 
     /**
      * List of Deployments
@@ -240,11 +240,11 @@ public interface DeploymentsAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/deployments")
-    Observable<ResultList<DeploymentResourceResponse>> getDeploymentsObservable(@Query("name") String name,
-            @Query("nameLike") String nameLike, @Query("category") String category,
-            @Query("categoryNotEquals") String categoryNotEquals, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") String withoutTenantId,
-            @Query("sort") String sort);
+    Observable<ResultList<DeploymentResourceResponse>> getDeploymentsObservable(@Query(NAME) String name,
+            @Query(NAME_LIKE) String nameLike, @Query(CATEGORY) String category,
+            @Query(CATEGORY_NOT_EQUALS) String categoryNotEquals, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) String withoutTenantId,
+            @Query(SORT) String sort);
 
     /**
      * Create a new deployment The request body should contain data of type
@@ -261,7 +261,7 @@ public interface DeploymentsAPI
      */
     @Multipart
     @POST(ACTIVITI_SERVICE_PATH + "/repository/deployments")
-    Observable<DeploymentResponse> uploadDeploymentObservable(@Part("file") RequestBody file,
-            @Query("tenantId") String tenantId);
+    Observable<DeploymentResponse> uploadDeploymentObservable(@Part(FILE) RequestBody file,
+            @Query(TENANT_ID) String tenantId);
 
 }

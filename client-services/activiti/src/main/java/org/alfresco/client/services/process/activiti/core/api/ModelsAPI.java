@@ -1,5 +1,6 @@
 package org.alfresco.client.services.process.activiti.core.api;
 
+import static org.alfresco.client.services.process.activiti.common.constant.RequestConstant.*;
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
 import org.alfresco.client.services.process.activiti.common.model.representation.ResultList;
@@ -34,7 +35,7 @@ public interface ModelsAPI
      * @param modelId The id of the model to delete. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/repository/models/{modelId}")
-    Call<Void> deleteModelCall(@Path("modelId") String modelId);
+    Call<Void> deleteModelCall(@Path(MODEL_ID) String modelId);
 
     /**
      * Get a model
@@ -43,7 +44,7 @@ public interface ModelsAPI
      * @return ModelResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/models/{modelId}")
-    Call<ModelResponse> getModelCall(@Path("modelId") String modelId);
+    Call<ModelResponse> getModelCall(@Path(MODEL_ID) String modelId);
 
     /**
      * Get a list of models
@@ -79,13 +80,13 @@ public interface ModelsAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/models")
-    Call<ResultList<ModelResponse>> getModelsCall(@Query("id") String id, @Query("category") String category,
-            @Query("categoryLike") String categoryLike, @Query("categoryNotEquals") String categoryNotEquals,
-            @Query("name") String name, @Query("nameLike") String nameLike, @Query("key") String key,
-            @Query("deploymentId") String deploymentId, @Query("version") Integer version,
-            @Query("latestVersion") Boolean latestVersion, @Query("deployed") Boolean deployed,
-            @Query("tenantId") String tenantId, @Query("tenantIdLike") String tenantIdLike,
-            @Query("withoutTenantId") Boolean withoutTenantId, @Query("sort") Boolean sort);
+    Call<ResultList<ModelResponse>> getModelsCall(@Query(ID) String id, @Query(CATEGORY) String category,
+            @Query(CATEGORY_LIKE) String categoryLike, @Query(CATEGORY_NOT_EQUALS) String categoryNotEquals,
+            @Query(NAME) String name, @Query(NAME_LIKE) String nameLike, @Query(KEY) String key,
+            @Query(DEPLOYMENT_ID) String deploymentId, @Query(VERSION) Integer version,
+            @Query(LATEST_VERSION) Boolean latestVersion, @Query(DEPLOYED) Boolean deployed,
+            @Query(TENANT_ID) String tenantId, @Query(TENANT_ID_LIKE) String tenantIdLike,
+            @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId, @Query(SORT) Boolean sort);
 
     /**
      * Update a model All request values are optional. For example, you can only
@@ -101,7 +102,7 @@ public interface ModelsAPI
      * @return ModelResponse
      */
     @PUT(ACTIVITI_SERVICE_PATH + "/repository/models/{modelId}")
-    Call<ModelResponse> updateModelCall(@Path("modelId") String modelId, @Body ModelRequest body);
+    Call<ModelResponse> updateModelCall(@Path(MODEL_ID) String modelId, @Body ModelRequest body);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -146,7 +147,7 @@ public interface ModelsAPI
      * @param modelId The id of the model to delete. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/repository/models/{modelId}")
-    Observable<Void> deleteModelObservable(@Path("modelId") String modelId);
+    Observable<Void> deleteModelObservable(@Path(MODEL_ID) String modelId);
 
     /**
      * Get a model
@@ -155,7 +156,7 @@ public interface ModelsAPI
      * @return ModelResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/models/{modelId}")
-    Observable<ModelResponse> getModelObservable(@Path("modelId") String modelId);
+    Observable<ModelResponse> getModelObservable(@Path(MODEL_ID) String modelId);
 
     /**
      * Get a list of models
@@ -191,14 +192,13 @@ public interface ModelsAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/models")
-    Observable<ResultList<ModelResponse>> getModelsObservable(@Query("id") String id,
-            @Query("category") String category, @Query("categoryLike") String categoryLike,
-            @Query("categoryNotEquals") String categoryNotEquals, @Query("name") String name,
-            @Query("nameLike") String nameLike, @Query("key") String key, @Query("deploymentId") String deploymentId,
-            @Query("version") Integer version, @Query("latestVersion") Boolean latestVersion,
-            @Query("deployed") Boolean deployed, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId,
-            @Query("sort") Boolean sort);
+    Observable<ResultList<ModelResponse>> getModelsObservable(@Query(ID) String id, @Query(CATEGORY) String category,
+            @Query(CATEGORY_LIKE) String categoryLike, @Query(CATEGORY_NOT_EQUALS) String categoryNotEquals,
+            @Query(NAME) String name, @Query(NAME_LIKE) String nameLike, @Query(KEY) String key,
+            @Query(DEPLOYMENT_ID) String deploymentId, @Query(VERSION) Integer version,
+            @Query(LATEST_VERSION) Boolean latestVersion, @Query("deployed") Boolean deployed,
+            @Query(TENANT_ID) String tenantId, @Query(TENANT_ID_LIKE) String tenantIdLike,
+            @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId, @Query(SORT) Boolean sort);
 
     /**
      * Update a model All request values are optional. For example, you can only
@@ -214,6 +214,6 @@ public interface ModelsAPI
      * @return ModelResponse
      */
     @PUT(ACTIVITI_SERVICE_PATH + "/repository/models/{modelId}")
-    Observable<ModelResponse> updateModelObservable(@Path("modelId") String modelId, @Body ModelRequest body);
+    Observable<ModelResponse> updateModelObservable(@Path(MODEL_ID) String modelId, @Body ModelRequest body);
 
 }

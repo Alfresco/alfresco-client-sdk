@@ -1,5 +1,7 @@
 package org.alfresco.client.services.process.activiti.core.api;
 
+import static org.alfresco.client.services.process.activiti.common.constant.RequestConstant.PROCESS_DEFINITION_ID;
+import static org.alfresco.client.services.process.activiti.common.constant.RequestConstant.TASK_ID;
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
 import org.alfresco.client.services.process.activiti.core.model.body.SubmitFormRequest;
@@ -26,8 +28,8 @@ public interface FormsAPI
      * @return FormDataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/form/form-data")
-    Call<FormDataResponse> getFormDataCall(@Query("taskId") String taskId,
-            @Query("processDefinitionId") String processDefinitionId);
+    Call<FormDataResponse> getFormDataCall(@Query(TASK_ID) String taskId,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId);
 
     /**
      * Submit task form data
@@ -74,8 +76,8 @@ public interface FormsAPI
      * @return FormDataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/form/form-data")
-    Observable<FormDataResponse> getFormDataObservable(@Query("taskId") String taskId,
-            @Query("processDefinitionId") String processDefinitionId);
+    Observable<FormDataResponse> getFormDataObservable(@Query(TASK_ID) String taskId,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId);
 
     /**
      * Submit task form data

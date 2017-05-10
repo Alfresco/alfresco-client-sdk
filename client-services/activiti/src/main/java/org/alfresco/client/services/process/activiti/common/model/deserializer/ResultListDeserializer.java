@@ -4,7 +4,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.alfresco.client.services.process.activiti.common.model.constant.RequestConstant;
+import org.alfresco.client.services.process.activiti.common.constant.RequestConstant;
 import org.alfresco.client.services.process.activiti.common.model.representation.ResultList;
 
 import com.google.gson.*;

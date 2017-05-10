@@ -1,5 +1,6 @@
 package org.alfresco.client.services.process.activiti.core.api;
 
+import static org.alfresco.client.services.process.activiti.common.constant.RequestConstant.*;
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public interface ProcessDefinitionsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}/identitylinks")
-    Call<RestIdentityLink> createIdentityLinkCall(@Path("processDefinitionId") String processDefinitionId,
+    Call<RestIdentityLink> createIdentityLinkCall(@Path(PROCESS_DEFINITION_ID) String processDefinitionId,
             @Body RestIdentityLink body);
 
     /**
@@ -47,8 +48,8 @@ public interface ProcessDefinitionsAPI
      */
     @DELETE(ACTIVITI_SERVICE_PATH
             + "/repository/process-definitions/{processDefinitionId}/identitylinks/{family}/{identityId}")
-    Call<Void> deleteIdentityLinkCall(@Path("processDefinitionId") String processDefinitionId,
-            @Path("family") String family, @Path("identityId") String identityId);
+    Call<Void> deleteIdentityLinkCall(@Path(PROCESS_DEFINITION_ID) String processDefinitionId,
+            @Path(FAMILY) String family, @Path(IDENTITY_ID) String identityId);
 
     /**
      * Execute actions for a process definition (Update category, Suspend or
@@ -71,7 +72,7 @@ public interface ProcessDefinitionsAPI
     @Headers({ "Content-type: application/json" })
     @PUT(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}")
     Call<ProcessDefinitionResponse> executeProcessDefinitionActionCall(
-            @Path("processDefinitionId") String processDefinitionId, @Body ProcessDefinitionActionRequest body);
+            @Path(PROCESS_DEFINITION_ID) String processDefinitionId, @Body ProcessDefinitionActionRequest body);
 
     /**
      * Get a process definition BPMN model
@@ -81,7 +82,7 @@ public interface ProcessDefinitionsAPI
      * @return BpmnModel
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}/model")
-    Call<BpmnModel> getBpmnModelResourceCall(@Path("processDefinitionId") String processDefinitionId);
+    Call<BpmnModel> getBpmnModelResourceCall(@Path(PROCESS_DEFINITION_ID) String processDefinitionId);
 
     /**
      * Get a candidate starter from a process definition
@@ -95,8 +96,8 @@ public interface ProcessDefinitionsAPI
      */
     @GET(ACTIVITI_SERVICE_PATH
             + "/repository/process-definitions/{processDefinitionId}/identitylinks/{family}/{identityId}")
-    Call<RestIdentityLink> getIdentityLinkCall(@Path("processDefinitionId") String processDefinitionId,
-            @Path("family") String family, @Path("identityId") String identityId);
+    Call<RestIdentityLink> getIdentityLinkCall(@Path(PROCESS_DEFINITION_ID) String processDefinitionId,
+            @Path(FAMILY) String family, @Path(IDENTITY_ID) String identityId);
 
     /**
      * Get all candidate starters for a process-definition
@@ -106,7 +107,7 @@ public interface ProcessDefinitionsAPI
      * @return List&lt;RestIdentityLink&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}/identitylinks")
-    Call<List<RestIdentityLink>> getIdentityLinksCall(@Path("processDefinitionId") String processDefinitionId);
+    Call<List<RestIdentityLink>> getIdentityLinksCall(@Path(PROCESS_DEFINITION_ID) String processDefinitionId);
 
     /**
      * Get a process definition image
@@ -116,7 +117,7 @@ public interface ProcessDefinitionsAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}/image")
-    Call<RequestBody> getModelResourceCall(@Path("processDefinitionId") String processDefinitionId);
+    Call<RequestBody> getModelResourceCall(@Path(PROCESS_DEFINITION_ID) String processDefinitionId);
 
     /**
      * Get a process definition
@@ -126,7 +127,7 @@ public interface ProcessDefinitionsAPI
      * @return ProcessDefinitionResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}")
-    Call<ProcessDefinitionResponse> getProcessDefinitionCall(@Path("processDefinitionId") String processDefinitionId);
+    Call<ProcessDefinitionResponse> getProcessDefinitionCall(@Path(PROCESS_DEFINITION_ID) String processDefinitionId);
 
     /**
      * Get a process definition resource content
@@ -137,7 +138,7 @@ public interface ProcessDefinitionsAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}/resourcedata")
-    Call<RequestBody> getProcessDefinitionResourceCall(@Path("processDefinitionId") String processDefinitionId);
+    Call<RequestBody> getProcessDefinitionResourceCall(@Path(PROCESS_DEFINITION_ID) String processDefinitionId);
 
     /**
      * List of process definitions
@@ -176,13 +177,13 @@ public interface ProcessDefinitionsAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}/resourcedata")
-    Call<ResultList<ProcessDefinitionResponse>> getProcessDefinitionsCall(@Query("version") Integer version,
-            @Query("name") String name, @Query("nameLike") String nameLike, @Query("key") String key,
-            @Query("keyLike") String keyLike, @Query("resourceName") String resourceName,
-            @Query("resourceNameLike") String resourceNameLike, @Query("category") String category,
-            @Query("categoryLike") String categoryLike, @Query("categoryNotEquals") String categoryNotEquals,
-            @Query("deploymentId") String deploymentId, @Query("startableByUser") String startableByUser,
-            @Query("latest") Boolean latest, @Query("suspended") Boolean suspended, @Query("sort") Boolean sort);
+    Call<ResultList<ProcessDefinitionResponse>> getProcessDefinitionsCall(@Query(VERSION) Integer version,
+            @Query(NAME) String name, @Query(NAME_LIKE) String nameLike, @Query(KEY) String key,
+            @Query(KEY_LIKE) String keyLike, @Query(RESOURCE_NAME) String resourceName,
+            @Query(RESOURCE_NAME_LIKE) String resourceNameLike, @Query(CATEGORY) String category,
+            @Query(CATEGORY_LIKE) String categoryLike, @Query(CATEGORY_NOT_EQUALS) String categoryNotEquals,
+            @Query(DEPLOYMENT_ID) String deploymentId, @Query(STARTABLE_BY_USER) String startableByUser,
+            @Query(LATEST) Boolean latest, @Query(SUSPENDED) Boolean suspended, @Query(SORT) Boolean sort);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -221,7 +222,7 @@ public interface ProcessDefinitionsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}/identitylinks")
-    Observable<RestIdentityLink> createIdentityLinkObservable(@Path("processDefinitionId") String processDefinitionId,
+    Observable<RestIdentityLink> createIdentityLinkObservable(@Path(PROCESS_DEFINITION_ID) String processDefinitionId,
             @Body RestIdentityLink body);
 
     /**
@@ -235,8 +236,8 @@ public interface ProcessDefinitionsAPI
      */
     @DELETE(ACTIVITI_SERVICE_PATH
             + "/repository/process-definitions/{processDefinitionId}/identitylinks/{family}/{identityId}")
-    Observable<Void> deleteIdentityLinkObservable(@Path("processDefinitionId") String processDefinitionId,
-            @Path("family") String family, @Path("identityId") String identityId);
+    Observable<Void> deleteIdentityLinkObservable(@Path(PROCESS_DEFINITION_ID) String processDefinitionId,
+            @Path(FAMILY) String family, @Path(IDENTITY_ID) String identityId);
 
     /**
      * Execute actions for a process definition (Update category, Suspend or
@@ -259,7 +260,7 @@ public interface ProcessDefinitionsAPI
     @Headers({ "Content-type: application/json" })
     @PUT(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}")
     Observable<ProcessDefinitionResponse> executeProcessDefinitionActionObservable(
-            @Path("processDefinitionId") String processDefinitionId, @Body ProcessDefinitionActionRequest body);
+            @Path(PROCESS_DEFINITION_ID) String processDefinitionId, @Body ProcessDefinitionActionRequest body);
 
     /**
      * Get a process definition BPMN model
@@ -269,7 +270,7 @@ public interface ProcessDefinitionsAPI
      * @return BpmnModel
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}/model")
-    Observable<BpmnModel> getBpmnModelResourceObservable(@Path("processDefinitionId") String processDefinitionId);
+    Observable<BpmnModel> getBpmnModelResourceObservable(@Path(PROCESS_DEFINITION_ID) String processDefinitionId);
 
     /**
      * Get a candidate starter from a process definition
@@ -283,8 +284,8 @@ public interface ProcessDefinitionsAPI
      */
     @GET(ACTIVITI_SERVICE_PATH
             + "/repository/process-definitions/{processDefinitionId}/identitylinks/{family}/{identityId}")
-    Observable<RestIdentityLink> getIdentityLinkObservable(@Path("processDefinitionId") String processDefinitionId,
-            @Path("family") String family, @Path("identityId") String identityId);
+    Observable<RestIdentityLink> getIdentityLinkObservable(@Path(PROCESS_DEFINITION_ID) String processDefinitionId,
+            @Path(FAMILY) String family, @Path(IDENTITY_ID) String identityId);
 
     /**
      * Get all candidate starters for a process-definition
@@ -295,7 +296,7 @@ public interface ProcessDefinitionsAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}/identitylinks")
     Observable<List<RestIdentityLink>> getIdentityLinksObservable(
-            @Path("processDefinitionId") String processDefinitionId);
+            @Path(PROCESS_DEFINITION_ID) String processDefinitionId);
 
     /**
      * Get a process definition image
@@ -305,7 +306,7 @@ public interface ProcessDefinitionsAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}/image")
-    Observable<RequestBody> getModelResourceObservable(@Path("processDefinitionId") String processDefinitionId);
+    Observable<RequestBody> getModelResourceObservable(@Path(PROCESS_DEFINITION_ID) String processDefinitionId);
 
     /**
      * Get a process definition
@@ -316,7 +317,7 @@ public interface ProcessDefinitionsAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}")
     Observable<ProcessDefinitionResponse> getProcessDefinitionObservable(
-            @Path("processDefinitionId") String processDefinitionId);
+            @Path(PROCESS_DEFINITION_ID) String processDefinitionId);
 
     /**
      * Get a process definition resource content
@@ -328,7 +329,7 @@ public interface ProcessDefinitionsAPI
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}/resourcedata")
     Observable<RequestBody> getProcessDefinitionResourceObservable(
-            @Path("processDefinitionId") String processDefinitionId);
+            @Path(PROCESS_DEFINITION_ID) String processDefinitionId);
 
     /**
      * List of process definitions
@@ -367,12 +368,12 @@ public interface ProcessDefinitionsAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/repository/process-definitions/{processDefinitionId}/resourcedata")
-    Observable<ResultList<ProcessDefinitionResponse>> getProcessDefinitionsObservable(@Query("version") Integer version,
-            @Query("name") String name, @Query("nameLike") String nameLike, @Query("key") String key,
-            @Query("keyLike") String keyLike, @Query("resourceName") String resourceName,
-            @Query("resourceNameLike") String resourceNameLike, @Query("category") String category,
-            @Query("categoryLike") String categoryLike, @Query("categoryNotEquals") String categoryNotEquals,
-            @Query("deploymentId") String deploymentId, @Query("startableByUser") String startableByUser,
-            @Query("latest") Boolean latest, @Query("suspended") Boolean suspended, @Query("sort") Boolean sort);
+    Observable<ResultList<ProcessDefinitionResponse>> getProcessDefinitionsObservable(@Query(VERSION) Integer version,
+            @Query(NAME) String name, @Query(NAME_LIKE) String nameLike, @Query(KEY) String key,
+            @Query(KEY_LIKE) String keyLike, @Query(RESOURCE_NAME) String resourceName,
+            @Query(RESOURCE_NAME_LIKE) String resourceNameLike, @Query(CATEGORY) String category,
+            @Query(CATEGORY_LIKE) String categoryLike, @Query(CATEGORY_NOT_EQUALS) String categoryNotEquals,
+            @Query(DEPLOYMENT_ID) String deploymentId, @Query("startableByUser") String startableByUser,
+            @Query(LATEST) Boolean latest, @Query(SUSPENDED) Boolean suspended, @Query(SORT) Boolean sort);
 
 }

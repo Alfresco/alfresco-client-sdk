@@ -1,5 +1,6 @@
 package org.alfresco.client.services.process.activiti.core.api;
 
+import static org.alfresco.client.services.process.activiti.common.constant.RequestConstant.*;
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
 import org.alfresco.client.services.process.activiti.common.model.representation.ResultList;
@@ -37,7 +38,7 @@ public interface GroupsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/identity/groups/{groupId}/members")
-    Call<MembershipResponse> createMembershipCall(@Path("groupId") String groupId, @Body MembershipRequest body);
+    Call<MembershipResponse> createMembershipCall(@Path(GROUP_ID) String groupId, @Body MembershipRequest body);
 
     /**
      * Delete a group
@@ -45,7 +46,7 @@ public interface GroupsAPI
      * @param groupId The id of the group to delete. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/identity/groups/{groupId}")
-    Call<Void> deleteGroupCall(@Path("groupId") String groupId);
+    Call<Void> deleteGroupCall(@Path(GROUP_ID) String groupId);
 
     /**
      * Delete a member from a group
@@ -54,7 +55,7 @@ public interface GroupsAPI
      * @param userId The id of the user to remove. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/identity/groups/{groupId}/members/{userId}")
-    Call<Void> deleteMembershipCall(@Path("groupId") String groupId, @Path("userId") String userId);
+    Call<Void> deleteMembershipCall(@Path(GROUP_ID) String groupId, @Path(USER_ID) String userId);
 
     /**
      * Get a single group
@@ -63,7 +64,7 @@ public interface GroupsAPI
      * @return GroupResponse
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/identity/groups/{groupId}")
-    Call<GroupResponse> getGroupCall(@Path("groupId") String groupId);
+    Call<GroupResponse> getGroupCall(@Path(GROUP_ID) String groupId);
 
     /**
      * Get a list of groups
@@ -82,9 +83,9 @@ public interface GroupsAPI
      *            (optional)
      * @return DataResponse
      */
-    Call<ResultList<GroupResponse>> getGroupsCall(@Query("id") String id, @Query("name") String name,
-            @Query("type") String type, @Query("nameLike") String nameLike, @Query("member") String member,
-            @Query("potentialStarter") String potentialStarter, @Query("sort") String sort);
+    Call<ResultList<GroupResponse>> getGroupsCall(@Query(ID) String id, @Query(NAME) String name,
+            @Query(TYPE) String type, @Query(NAME_LIKE) String nameLike, @Query(MEMBER) String member,
+            @Query(POTENTIAL_STARTER) String potentialStarter, @Query(SORT) String sort);
 
     /**
      * Update a group All request values are optional. For example, you can only
@@ -99,7 +100,7 @@ public interface GroupsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/identity/groups/{groupId}")
-    Call<GroupResponse> updateGroupCall(@Path("groupId") String groupId, @Body GroupRequest body);
+    Call<GroupResponse> updateGroupCall(@Path(GROUP_ID) String groupId, @Body GroupRequest body);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -145,7 +146,7 @@ public interface GroupsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/identity/groups/{groupId}/members")
-    Observable<MembershipResponse> createMembershipObservable(@Path("groupId") String groupId,
+    Observable<MembershipResponse> createMembershipObservable(@Path(GROUP_ID) String groupId,
             @Body MembershipRequest body);
 
     /**
@@ -154,7 +155,7 @@ public interface GroupsAPI
      * @param groupId The id of the group to delete. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/identity/groups/{groupId}")
-    Observable<Void> deleteGroupObservable(@Path("groupId") String groupId);
+    Observable<Void> deleteGroupObservable(@Path(GROUP_ID) String groupId);
 
     /**
      * Delete a member from a group
@@ -163,7 +164,7 @@ public interface GroupsAPI
      * @param userId The id of the user to remove. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/identity/groups/{groupId}/members/{userId}")
-    Observable<Void> deleteMembershipObservable(@Path("groupId") String groupId, @Path("userId") String userId);
+    Observable<Void> deleteMembershipObservable(@Path(GROUP_ID) String groupId, @Path(USER_ID) String userId);
 
     /**
      * Get a single group
@@ -172,7 +173,7 @@ public interface GroupsAPI
      * @return GroupResponse
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/identity/groups/{groupId}")
-    Observable<GroupResponse> getGroupObservable(@Path("groupId") String groupId);
+    Observable<GroupResponse> getGroupObservable(@Path(GROUP_ID) String groupId);
 
     /**
      * Get a list of groups
@@ -191,9 +192,9 @@ public interface GroupsAPI
      *            (optional)
      * @return DataResponse
      */
-    Observable<ResultList<GroupResponse>> getGroupsObservable(@Query("id") String id, @Query("name") String name,
-            @Query("type") String type, @Query("nameLike") String nameLike, @Query("member") String member,
-            @Query("potentialStarter") String potentialStarter, @Query("sort") String sort);
+    Observable<ResultList<GroupResponse>> getGroupsObservable(@Query(ID) String id, @Query(NAME) String name,
+            @Query(TYPE) String type, @Query(NAME_LIKE) String nameLike, @Query(MEMBER) String member,
+            @Query(POTENTIAL_STARTER) String potentialStarter, @Query(SORT) String sort);
 
     /**
      * Update a group All request values are optional. For example, you can only
@@ -208,6 +209,6 @@ public interface GroupsAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/identity/groups/{groupId}")
-    Observable<GroupResponse> updateGroupObservable(@Path("groupId") String groupId, @Body GroupRequest body);
+    Observable<GroupResponse> updateGroupObservable(@Path(GROUP_ID) String groupId, @Body GroupRequest body);
 
 }

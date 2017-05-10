@@ -1,5 +1,6 @@
 package org.alfresco.client.services.process.activiti.core.api;
 
+import static org.alfresco.client.services.process.activiti.common.constant.RequestConstant.*;
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public interface ExecutionsAPI
      * @return Object
      */
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variables")
-    Call<Object> createExecutionVariableCall(@Path("executionId") String executionId);
+    Call<Object> createExecutionVariableCall(@Path(EXECUTION_ID) String executionId);
 
     // FIXME type & Params
     /**
@@ -42,7 +43,7 @@ public interface ExecutionsAPI
      * @return Object
      */
     @PUT(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variables")
-    Call<ProcessEngineInfoResponse> createOrUpdateExecutionVariableCall(@Path("executionId") String executionId);
+    Call<ProcessEngineInfoResponse> createOrUpdateExecutionVariableCall(@Path(EXECUTION_ID) String executionId);
 
     /**
      * Delete all variables for an execution
@@ -50,7 +51,7 @@ public interface ExecutionsAPI
      * @param executionId (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variables")
-    Call<Void> deleteLocalVariablesCall(@Path("executionId") String executionId);
+    Call<Void> deleteLocalVariablesCall(@Path(EXECUTION_ID) String executionId);
 
     /**
      * Delete a variable for an execution
@@ -60,8 +61,8 @@ public interface ExecutionsAPI
      * @param scope (optional)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variables/{variableName}")
-    Call<Void> deletedExecutionVariableCall(@Path("executionId") String executionId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Call<Void> deletedExecutionVariableCall(@Path(EXECUTION_ID) String executionId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * Signal event received
@@ -82,7 +83,7 @@ public interface ExecutionsAPI
      * @return List&lt;String&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/activities")
-    Call<List<String>> getActiveActivitiesCall(@Path("executionId") String executionId);
+    Call<List<String>> getActiveActivitiesCall(@Path(EXECUTION_ID) String executionId);
 
     /**
      * Get an execution
@@ -91,7 +92,7 @@ public interface ExecutionsAPI
      * @return ExecutionResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}")
-    Call<ExecutionResponse> getExecutionCall(@Path("executionId") String executionId);
+    Call<ExecutionResponse> getExecutionCall(@Path(EXECUTION_ID) String executionId);
 
     /**
      * Get a variable for an execution
@@ -105,8 +106,8 @@ public interface ExecutionsAPI
      * @return RestVariable
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variables/{variableName}")
-    Call<RestVariable> getExecutionVariableCall(@Path("executionId") String executionId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Call<RestVariable> getExecutionVariableCall(@Path(EXECUTION_ID) String executionId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * Get the binary data for an execution
@@ -118,8 +119,8 @@ public interface ExecutionsAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variables/{variableName}/data")
-    Call<RequestBody> getExecutionVariableData(@Path("executionId") String executionId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Call<RequestBody> getExecutionVariableData(@Path(EXECUTION_ID) String executionId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * List of executions
@@ -151,15 +152,15 @@ public interface ExecutionsAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/executions")
-    Call<ResultList<ExecutionResponse>> getExecutionsCall(@Query("id") String id,
-            @Query("activityId") String activityId, @Query("processDefinitionKey") String processDefinitionKey,
-            @Query("processDefinitionId") String processDefinitionId,
-            @Query("processInstanceId") String processInstanceId,
-            @Query("messageEventSubscriptionName") String messageEventSubscriptionName,
-            @Query("signalEventSubscriptionName") String signalEventSubscriptionName,
-            @Query("parentId") String parentId, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId,
-            @Query("sort") String sort);
+    Call<ResultList<ExecutionResponse>> getExecutionsCall(@Query(ID) String id, @Query(ACTIVITY_ID) String activityId,
+            @Query(PROCESS_DEFINITION_KEY) String processDefinitionKey,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId,
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Query(MESSAGE_EVENT_SUBSCRIPTION_NAME) String messageEventSubscriptionName,
+            @Query(SIGNAL_EVENT_SUBSCRIPTION_NAME) String signalEventSubscriptionName,
+            @Query(PARENT_ID) String parentId, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId,
+            @Query(SORT) String sort);
 
     /**
      * List of variables for an execution
@@ -171,8 +172,8 @@ public interface ExecutionsAPI
      * @return List&lt;RestVariable&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variable")
-    Call<List<RestVariable>> listExecutionVariablesCall(@Path("executionId") String executionId,
-            @Query("scope") String scope);
+    Call<List<RestVariable>> listExecutionVariablesCall(@Path(EXECUTION_ID) String executionId,
+            @Query(SCOPE) String scope);
 
     /**
      * Execute an action on an execution ## Request body (signal an execution):
@@ -199,7 +200,7 @@ public interface ExecutionsAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}")
-    Call<ExecutionResponse> performExecutionActionCall(@Path("executionId") String executionId,
+    Call<ExecutionResponse> performExecutionActionCall(@Path(EXECUTION_ID) String executionId,
             @Body ExecutionActionRequest body);
 
     /**
@@ -227,8 +228,8 @@ public interface ExecutionsAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variables/{variableName}")
-    Call<ExecutionResponse> updateExecutionVariableCall(@Path("executionId") String executionId,
-            @Path("variableName") String variableName);
+    Call<ExecutionResponse> updateExecutionVariableCall(@Path(EXECUTION_ID) String executionId,
+            @Path(VARIABLE_NAME) String variableName);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -264,7 +265,7 @@ public interface ExecutionsAPI
      * @return Object
      */
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variables")
-    Observable<Object> createExecutionVariableObservable(@Path("executionId") String executionId);
+    Observable<Object> createExecutionVariableObservable(@Path(EXECUTION_ID) String executionId);
 
     // FIXME type & Params
     /**
@@ -276,7 +277,7 @@ public interface ExecutionsAPI
      */
     @PUT(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variables")
     Observable<ProcessEngineInfoResponse> createOrUpdateExecutionVariableObservable(
-            @Path("executionId") String executionId);
+            @Path(EXECUTION_ID) String executionId);
 
     /**
      * Delete all variables for an execution
@@ -284,7 +285,7 @@ public interface ExecutionsAPI
      * @param executionId (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variables")
-    Observable<Void> deleteLocalVariablesObservable(@Path("executionId") String executionId);
+    Observable<Void> deleteLocalVariablesObservable(@Path(EXECUTION_ID) String executionId);
 
     /**
      * Delete a variable for an execution
@@ -294,8 +295,8 @@ public interface ExecutionsAPI
      * @param scope (optional)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variables/{variableName}")
-    Observable<Void> deletedExecutionVariableObservable(@Path("executionId") String executionId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Observable<Void> deletedExecutionVariableObservable(@Path(EXECUTION_ID) String executionId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * Signal event received
@@ -316,7 +317,7 @@ public interface ExecutionsAPI
      * @return List&lt;String&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/activities")
-    Observable<List<String>> getActiveActivitiesObservable(@Path("executionId") String executionId);
+    Observable<List<String>> getActiveActivitiesObservable(@Path(EXECUTION_ID) String executionId);
 
     /**
      * Get an execution
@@ -325,7 +326,7 @@ public interface ExecutionsAPI
      * @return ExecutionResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}")
-    Observable<ExecutionResponse> getExecutionObservable(@Path("executionId") String executionId);
+    Observable<ExecutionResponse> getExecutionObservable(@Path(EXECUTION_ID) String executionId);
 
     /**
      * Get a variable for an execution
@@ -339,8 +340,8 @@ public interface ExecutionsAPI
      * @return RestVariable
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variables/{variableName}")
-    Observable<RestVariable> getExecutionVariableObservable(@Path("executionId") String executionId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Observable<RestVariable> getExecutionVariableObservable(@Path(EXECUTION_ID) String executionId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * Get the binary data for an execution
@@ -352,8 +353,8 @@ public interface ExecutionsAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variables/{variableName}/data")
-    Observable<RequestBody> getExecutionVariableDataObservable(@Path("executionId") String executionId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Observable<RequestBody> getExecutionVariableDataObservable(@Path(EXECUTION_ID) String executionId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * List of executions
@@ -385,15 +386,15 @@ public interface ExecutionsAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/executions")
-    Observable<ResultList<ExecutionResponse>> getExecutionsObservable(@Query("id") String id,
-            @Query("activityId") String activityId, @Query("processDefinitionKey") String processDefinitionKey,
-            @Query("processDefinitionId") String processDefinitionId,
-            @Query("processInstanceId") String processInstanceId,
-            @Query("messageEventSubscriptionName") String messageEventSubscriptionName,
-            @Query("signalEventSubscriptionName") String signalEventSubscriptionName,
-            @Query("parentId") String parentId, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId,
-            @Query("sort") String sort);
+    Observable<ResultList<ExecutionResponse>> getExecutionsObservable(@Query(ID) String id,
+            @Query(ACTIVITY_ID) String activityId, @Query(PROCESS_DEFINITION_KEY) String processDefinitionKey,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId,
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Query(MESSAGE_EVENT_SUBSCRIPTION_NAME) String messageEventSubscriptionName,
+            @Query(SIGNAL_EVENT_SUBSCRIPTION_NAME) String signalEventSubscriptionName,
+            @Query(PARENT_ID) String parentId, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId,
+            @Query(SORT) String sort);
 
     /**
      * List of variables for an execution
@@ -405,8 +406,8 @@ public interface ExecutionsAPI
      * @return List&lt;RestVariable&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variable")
-    Observable<List<RestVariable>> listExecutionVariablesObservable(@Path("executionId") String executionId,
-            @Query("scope") String scope);
+    Observable<List<RestVariable>> listExecutionVariablesObservable(@Path(EXECUTION_ID) String executionId,
+            @Query(SCOPE) String scope);
 
     /**
      * Execute an action on an execution ## Request body (signal an execution):
@@ -433,7 +434,7 @@ public interface ExecutionsAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}")
-    Observable<ExecutionResponse> performExecutionActionObservable(@Path("executionId") String executionId,
+    Observable<ExecutionResponse> performExecutionActionObservable(@Path(EXECUTION_ID) String executionId,
             @Body ExecutionActionRequest body);
 
     /**
@@ -461,6 +462,6 @@ public interface ExecutionsAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(ACTIVITI_SERVICE_PATH + "/runtime/executions/{executionId}/variables/{variableName}")
-    Observable<ExecutionResponse> updateExecutionVariableObservable(@Path("executionId") String executionId,
-            @Path("variableName") String variableName);
+    Observable<ExecutionResponse> updateExecutionVariableObservable(@Path(EXECUTION_ID) String executionId,
+            @Path(VARIABLE_NAME) String variableName);
 }

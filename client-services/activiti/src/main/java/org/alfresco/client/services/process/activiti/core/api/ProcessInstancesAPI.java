@@ -1,5 +1,6 @@
 package org.alfresco.client.services.process.activiti.core.api;
 
+import static org.alfresco.client.services.process.activiti.common.constant.RequestConstant.*;
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public interface ProcessInstancesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables")
-    Call<List<RestVariable>> createOrUpdateProcessVariableCall(@Path("processInstanceId") String processInstanceId);
+    Call<List<RestVariable>> createOrUpdateProcessVariableCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Start a process instance ## Request body (start by process definition id)
@@ -97,7 +98,7 @@ public interface ProcessInstancesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/identitylinks")
-    Call<RestIdentityLink> createProcessInstanceIdentityLinksCall(@Path("processInstanceId") String processInstanceId,
+    Call<RestIdentityLink> createProcessInstanceIdentityLinksCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
             @Body RestIdentityLink body);
 
     /**
@@ -121,7 +122,7 @@ public interface ProcessInstancesAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables")
-    Call<List<RestVariable>> createProcessInstanceVariableCall(@Path("processInstanceId") String processInstanceId,
+    Call<List<RestVariable>> createProcessInstanceVariableCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
             @Body List<RestVariable> body);
 
     /**
@@ -130,7 +131,7 @@ public interface ProcessInstancesAPI
      * @param processInstanceId (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables")
-    Call<Void> deleteLocalProcessVariableCall(@Path("processInstanceId") String processInstanceId);
+    Call<Void> deleteLocalProcessVariableCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Delete a process instance
@@ -140,8 +141,8 @@ public interface ProcessInstancesAPI
      * @param deleteReason (optional)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}")
-    Call<Void> deleteProcessInstanceCall(@Path("processInstanceId") String processInstanceId,
-            @Query("deleteReason") String deleteReason);
+    Call<Void> deleteProcessInstanceCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Query(DELETE_REASON) String deleteReason);
 
     /**
      * Remove an involved user to from process instance
@@ -152,8 +153,8 @@ public interface ProcessInstancesAPI
      */
     @DELETE(ACTIVITI_SERVICE_PATH
             + "/runtime/process-instances/{processInstanceId}/identitylinks/users/{identityId}/{type}")
-    Call<Void> deleteProcessInstanceIdentityLinksCall(@Path("processInstanceId") String processInstanceId,
-            @Path("identityId") String identityId, @Path("type") String type);
+    Call<Void> deleteProcessInstanceIdentityLinksCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Path(IDENTITY_ID) String identityId, @Path(TYPE) String type);
 
     /**
      * Delete a variable
@@ -163,8 +164,8 @@ public interface ProcessInstancesAPI
      * @param scope (optional)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables/{variableName}")
-    Call<Void> deleteProcessInstanceVariableCall(@Path("processInstanceId") String processInstanceId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Call<Void> deleteProcessInstanceVariableCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * Get a process instance
@@ -174,7 +175,7 @@ public interface ProcessInstancesAPI
      * @return ProcessInstanceResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}")
-    Call<ProcessInstanceResponse> getProcessInstanceCall(@Path("processInstanceId") String processInstanceId);
+    Call<ProcessInstanceResponse> getProcessInstanceCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Get diagram for a process instance
@@ -185,7 +186,7 @@ public interface ProcessInstancesAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/diagram")
-    Call<RequestBody> getProcessInstanceDiagramCall(@Path("processInstanceId") String processInstanceId);
+    Call<RequestBody> getProcessInstanceDiagramCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Get a specific involved people from process instance
@@ -198,8 +199,8 @@ public interface ProcessInstancesAPI
      */
     @GET(ACTIVITI_SERVICE_PATH
             + "/runtime/process-instances/{processInstanceId}/identitylinks/users/{identityId}/{type}")
-    Call<RestIdentityLink> getProcessInstanceIdentityLinksCall(@Path("processInstanceId") String processInstanceId,
-            @Path("identityId") String identityId, @Path("type") String type);
+    Call<RestIdentityLink> getProcessInstanceIdentityLinksCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Path(IDENTITY_ID) String identityId, @Path(TYPE) String type);
 
     /**
      * Get a variable for a process instance
@@ -211,8 +212,8 @@ public interface ProcessInstancesAPI
      * @return RestVariable
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables/{variableName}")
-    Call<RestVariable> getProcessInstanceVariableCall(@Path("processInstanceId") String processInstanceId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Call<RestVariable> getProcessInstanceVariableCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * Get the binary data for a variable
@@ -224,8 +225,8 @@ public interface ProcessInstancesAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables/{variableName}/data")
-    Call<RequestBody> getProcessInstanceVariableDataCall(@Path("processInstanceId") String processInstanceId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Call<RequestBody> getProcessInstanceVariableDataCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * List of process instances
@@ -264,16 +265,16 @@ public interface ProcessInstancesAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/process-instances")
-    Call<ResultList<ProcessInstanceResponse>> getProcessInstancesCall(@Query("id") String id,
-            @Query("processDefinitionKey") String processDefinitionKey,
-            @Query("processDefinitionId") String processDefinitionId, @Query("businessKey") String businessKey,
-            @Query("involvedUser") String involvedUser, @Query("suspended") Boolean suspended,
-            @Query("superProcessInstanceId") String superProcessInstanceId,
-            @Query("subProcessInstanceId") String subProcessInstanceId,
-            @Query("excludeSubprocesses") Boolean excludeSubprocesses,
-            @Query("includeProcessVariables") Boolean includeProcessVariables, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId,
-            @Query("sort") String sort);
+    Call<ResultList<ProcessInstanceResponse>> getProcessInstancesCall(@Query(ID) String id,
+            @Query(PROCESS_DEFINITION_KEY) String processDefinitionKey,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId, @Query(BUSINESS_KEY) String businessKey,
+            @Query(INVOLVED_USER) String involvedUser, @Query(SUSPENDED) Boolean suspended,
+            @Query(SUPER_PROCESS_INSTANCE_ID) String superProcessInstanceId,
+            @Query(SUB_PROCESS_INSTANCE_ID) String subProcessInstanceId,
+            @Query(EXCLUDE_SUB_PROCESSES) Boolean excludeSubprocesses,
+            @Query(INCLUDE_PROCESS_VARIABLES) Boolean includeProcessVariables, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId,
+            @Query(SORT) String sort);
 
     /**
      * List of variables for a process instance In case the variable is a binary
@@ -288,8 +289,8 @@ public interface ProcessInstancesAPI
      * @return List&lt;RestVariable&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables")
-    Call<List<RestVariable>> getVariablesCall(@Path("processInstanceId") String processInstanceId,
-            @Query("scope") String scope);
+    Call<List<RestVariable>> getVariablesCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Query(SCOPE) String scope);
 
     /**
      * Get involved people for process instance Note that the groupId in
@@ -302,7 +303,7 @@ public interface ProcessInstancesAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/identitylinks")
     Call<List<RestIdentityLink>> listProcessInstanceIdentityLinksCall(
-            @Path("processInstanceId") String processInstanceId);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Activate or suspend a process instance ## Activate a process instance
@@ -317,7 +318,7 @@ public interface ProcessInstancesAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}")
-    Call<ProcessInstanceResponse> performProcessInstanceActionCall(@Path("processInstanceId") String processInstanceId,
+    Call<ProcessInstanceResponse> performProcessInstanceActionCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
             @Body ProcessInstanceActionRequest body);
 
     /**
@@ -344,8 +345,8 @@ public interface ProcessInstancesAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables/{variableName}")
-    Call<RestVariable> updateProcessInstanceVariableCall(@Path("processInstanceId") String processInstanceId,
-            @Path("variableName") String variableName);
+    Call<RestVariable> updateProcessInstanceVariableCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Path(VARIABLE_NAME) String variableName);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -398,7 +399,7 @@ public interface ProcessInstancesAPI
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables")
     Observable<List<RestVariable>> createOrUpdateProcessVariableObservable(
-            @Path("processInstanceId") String processInstanceId);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Start a process instance ## Request body (start by process definition id)
@@ -449,7 +450,7 @@ public interface ProcessInstancesAPI
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/identitylinks")
     Observable<RestIdentityLink> createProcessInstanceIdentityLinksObservable(
-            @Path("processInstanceId") String processInstanceId, @Body RestIdentityLink body);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId, @Body RestIdentityLink body);
 
     /**
      * Create variables or new binary variable on a process instance ## Update
@@ -473,7 +474,7 @@ public interface ProcessInstancesAPI
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables")
     Observable<List<RestVariable>> createProcessInstanceVariableObservable(
-            @Path("processInstanceId") String processInstanceId, @Body List<RestVariable> body);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId, @Body List<RestVariable> body);
 
     /**
      * Delete all variables
@@ -481,7 +482,7 @@ public interface ProcessInstancesAPI
      * @param processInstanceId (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables")
-    Observable<Void> deleteLocalProcessVariableObservable(@Path("processInstanceId") String processInstanceId);
+    Observable<Void> deleteLocalProcessVariableObservable(@Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Delete a process instance
@@ -491,8 +492,8 @@ public interface ProcessInstancesAPI
      * @param deleteReason (optional)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}")
-    Observable<Void> deleteProcessInstanceObservable(@Path("processInstanceId") String processInstanceId,
-            @Query("deleteReason") String deleteReason);
+    Observable<Void> deleteProcessInstanceObservable(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Query(DELETE_REASON) String deleteReason);
 
     /**
      * Remove an involved user to from process instance
@@ -503,8 +504,8 @@ public interface ProcessInstancesAPI
      */
     @DELETE(ACTIVITI_SERVICE_PATH
             + "/runtime/process-instances/{processInstanceId}/identitylinks/users/{identityId}/{type}")
-    Observable<Void> deleteProcessInstanceIdentityLinksObservable(@Path("processInstanceId") String processInstanceId,
-            @Path("identityId") String identityId, @Path("type") String type);
+    Observable<Void> deleteProcessInstanceIdentityLinksObservable(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Path(IDENTITY_ID) String identityId, @Path(TYPE) String type);
 
     /**
      * Delete a variable
@@ -514,8 +515,8 @@ public interface ProcessInstancesAPI
      * @param scope (optional)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables/{variableName}")
-    Observable<Void> deleteProcessInstanceVariableObservable(@Path("processInstanceId") String processInstanceId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Observable<Void> deleteProcessInstanceVariableObservable(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * Get a process instance
@@ -526,7 +527,7 @@ public interface ProcessInstancesAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}")
     Observable<ProcessInstanceResponse> getProcessInstanceObservable(
-            @Path("processInstanceId") String processInstanceId);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Get diagram for a process instance
@@ -537,7 +538,7 @@ public interface ProcessInstancesAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/diagram")
-    Observable<RequestBody> getProcessInstanceDiagramObservable(@Path("processInstanceId") String processInstanceId);
+    Observable<RequestBody> getProcessInstanceDiagramObservable(@Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Get a specific involved people from process instance
@@ -551,8 +552,8 @@ public interface ProcessInstancesAPI
     @GET(ACTIVITI_SERVICE_PATH
             + "/runtime/process-instances/{processInstanceId}/identitylinks/users/{identityId}/{type}")
     Observable<RestIdentityLink> getProcessInstanceIdentityLinksObservable(
-            @Path("processInstanceId") String processInstanceId, @Path("identityId") String identityId,
-            @Path("type") String type);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId, @Path(IDENTITY_ID) String identityId,
+            @Path(TYPE) String type);
 
     /**
      * Get a variable for a process instance
@@ -564,8 +565,8 @@ public interface ProcessInstancesAPI
      * @return RestVariable
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables/{variableName}")
-    Observable<RestVariable> getProcessInstanceVariableObservable(@Path("processInstanceId") String processInstanceId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Observable<RestVariable> getProcessInstanceVariableObservable(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * Get the binary data for a variable
@@ -578,8 +579,8 @@ public interface ProcessInstancesAPI
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables/{variableName}/data")
     Observable<RequestBody> getProcessInstanceVariableDataObservable(
-            @Path("processInstanceId") String processInstanceId, @Path("variableName") String variableName,
-            @Query("scope") String scope);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId, @Path(VARIABLE_NAME) String variableName,
+            @Query(SCOPE) String scope);
 
     /**
      * List of process instances
@@ -618,16 +619,16 @@ public interface ProcessInstancesAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/process-instances")
-    Observable<ResultList<ProcessInstanceResponse>> getProcessInstancesObservable(@Query("id") String id,
-            @Query("processDefinitionKey") String processDefinitionKey,
-            @Query("processDefinitionId") String processDefinitionId, @Query("businessKey") String businessKey,
-            @Query("involvedUser") String involvedUser, @Query("suspended") Boolean suspended,
-            @Query("superProcessInstanceId") String superProcessInstanceId,
-            @Query("subProcessInstanceId") String subProcessInstanceId,
-            @Query("excludeSubprocesses") Boolean excludeSubprocesses,
-            @Query("includeProcessVariables") Boolean includeProcessVariables, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId,
-            @Query("sort") String sort);
+    Observable<ResultList<ProcessInstanceResponse>> getProcessInstancesObservable(@Query(ID) String id,
+            @Query(PROCESS_DEFINITION_KEY) String processDefinitionKey,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId, @Query(BUSINESS_KEY) String businessKey,
+            @Query(INVOLVED_USER) String involvedUser, @Query(SUSPENDED) Boolean suspended,
+            @Query(SUPER_PROCESS_INSTANCE_ID) String superProcessInstanceId,
+            @Query(SUB_PROCESS_INSTANCE_ID) String subProcessInstanceId,
+            @Query(EXCLUDE_SUB_PROCESSES) Boolean excludeSubprocesses,
+            @Query(INCLUDE_PROCESS_VARIABLES) Boolean includeProcessVariables, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId,
+            @Query(SORT) String sort);
 
     /**
      * List of variables for a process instance In case the variable is a binary
@@ -642,8 +643,8 @@ public interface ProcessInstancesAPI
      * @return List&lt;RestVariable&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables")
-    Observable<List<RestVariable>> getVariablesObservable(@Path("processInstanceId") String processInstanceId,
-            @Query("scope") String scope);
+    Observable<List<RestVariable>> getVariablesObservable(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Query(SCOPE) String scope);
 
     /**
      * Get involved people for process instance Note that the groupId in
@@ -656,7 +657,7 @@ public interface ProcessInstancesAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/identitylinks")
     Observable<List<RestIdentityLink>> listProcessInstanceIdentityLinksObservable(
-            @Path("processInstanceId") String processInstanceId);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Activate or suspend a process instance ## Activate a process instance
@@ -672,7 +673,7 @@ public interface ProcessInstancesAPI
     @Headers({ "Content-type: application/json" })
     @PUT(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}")
     Observable<ProcessInstanceResponse> performProcessInstanceActionObservable(
-            @Path("processInstanceId") String processInstanceId, @Body ProcessInstanceActionRequest body);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId, @Body ProcessInstanceActionRequest body);
 
     /**
      * Query process instances The request body can contain all possible filters
@@ -700,6 +701,6 @@ public interface ProcessInstancesAPI
     @Headers({ "Content-type: application/json" })
     @PUT(ACTIVITI_SERVICE_PATH + "/runtime/process-instances/{processInstanceId}/variables/{variableName}")
     Observable<RestVariable> updateProcessInstanceVariableObservable(
-            @Path("processInstanceId") String processInstanceId, @Path("variableName") String variableName);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId, @Path(VARIABLE_NAME) String variableName);
 
 }

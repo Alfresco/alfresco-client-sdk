@@ -1,5 +1,6 @@
 package org.alfresco.client.services.process.activiti.core.api;
 
+import static org.alfresco.client.services.process.activiti.common.constant.RequestConstant.*;
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public interface HistoryAPI
      * @return CommentResponse
      */
     @POST(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances/{processInstanceId}/comments")
-    Call<CommentResponse> createCommentCall(@Path("processInstanceId") String processInstanceId,
+    Call<CommentResponse> createCommentCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
             @Body CommentRequest body);
 
     /**
@@ -40,8 +41,8 @@ public interface HistoryAPI
      * @param commentId The id of the comment. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances/{processInstanceId}/comments/{commentId}")
-    Call<Void> deleteCommentCall(@Path("processInstanceId") String processInstanceId,
-            @Path("commentId") String commentId);
+    Call<Void> deleteCommentCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Path(COMMENT_ID) String commentId);
 
     /**
      * Delete a historic process instance
@@ -49,7 +50,7 @@ public interface HistoryAPI
      * @param processInstanceId (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances/{processInstanceId}")
-    Call<Void> deleteHitoricProcessInstanceCall(@Path("processInstanceId") String processInstanceId);
+    Call<Void> deleteHitoricProcessInstanceCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Delete a historic task instance
@@ -57,7 +58,7 @@ public interface HistoryAPI
      * @param taskId (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/history/historic-task-instances/{taskId}")
-    Call<Void> deleteTaskInstanceCall(@Path("taskId") String taskId);
+    Call<Void> deleteTaskInstanceCall(@Path(TASK_ID) String taskId);
 
     /**
      * Get a comment on a historic process instance
@@ -68,8 +69,8 @@ public interface HistoryAPI
      * @return CommentResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances/{processInstanceId}/comments/{commentId}")
-    Call<CommentResponse> getCommentCall(@Path("processInstanceId") String processInstanceId,
-            @Path("commentId") String commentId);
+    Call<CommentResponse> getCommentCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Path(COMMENT_ID) String commentId);
 
     /**
      * Get all comments on a historic process instance
@@ -79,7 +80,7 @@ public interface HistoryAPI
      * @return List&lt;CommentResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances/{processInstanceId}/comments")
-    Call<List<CommentResponse>> getCommentsCall(@Path("processInstanceId") String processInstanceId);
+    Call<List<CommentResponse>> getCommentsCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Get historic activity instances
@@ -111,12 +112,12 @@ public interface HistoryAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-activity-instances")
     Call<ResultList<HistoricActivityInstanceResponse>> getHistoricActivityInstancesCall(
-            @Query("activityId") String activityId, @Query("activityInstanceId") String activityInstanceId,
-            @Query("activityName") String activityName, @Query("activityType") String activityType,
-            @Query("executionId") String executionId, @Query("finished") Boolean finished,
-            @Query("taskAssignee") String taskAssignee, @Query("processInstanceId") String processInstanceId,
-            @Query("processDefinitionId") String processDefinitionId, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId);
+            @Query(ACTIVITY_ID) String activityId, @Query(ACTIVITY_INSTANCE_ID) String activityInstanceId,
+            @Query(ACTIVITY_NAME) String activityName, @Query(ACTIVITY_TYPE) String activityType,
+            @Query(EXECUTION_ID) String executionId, @Query(FINISHED) Boolean finished,
+            @Query(TASK_ASSIGNEE) String taskAssignee, @Query(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId);
 
     /**
      * Get historic detail
@@ -136,10 +137,10 @@ public interface HistoryAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-detail")
     Call<ResultList<HistoricDetailResponse>> getHistoricDetailInfoCall(@Query("id") String id,
-            @Query("processInstanceId") String processInstanceId, @Query("executionId") String executionId,
-            @Query("activityInstanceId") String activityInstanceId, @Query("taskId") String taskId,
-            @Query("selectOnlyFormProperties") Boolean selectOnlyFormProperties,
-            @Query("selectOnlyVariableUpdates") Boolean selectOnlyVariableUpdates);
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId, @Query(EXECUTION_ID) String executionId,
+            @Query(ACTIVITY_INSTANCE_ID) String activityInstanceId, @Query(TASK_ID) String taskId,
+            @Query(SELECT_ONLY_FORM_PROPERTIES) Boolean selectOnlyFormProperties,
+            @Query(SELECT_ONLY_VARIABLE_UPDATES) Boolean selectOnlyVariableUpdates);
 
     /**
      * Get the binary data for a historic detail variable The response body
@@ -154,7 +155,7 @@ public interface HistoryAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-detail/{detailId}/data")
-    Call<RequestBody> getHistoricDetailVariableDataCall(@Path("detailId") String detailId);
+    Call<RequestBody> getHistoricDetailVariableDataCall(@Path(DETAIL_ID) String detailId);
 
     /**
      * Get the binary data for a historic task instance variable The response
@@ -169,7 +170,7 @@ public interface HistoryAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-variable-instances/{varInstanceId}/data")
-    Call<RequestBody> getHistoricInstanceVariableDataCall(@Path("varInstanceId") String varInstanceId);
+    Call<RequestBody> getHistoricInstanceVariableDataCall(@Path(VAR_INSTANCE_ID) String varInstanceId);
 
     /**
      * Get a historic process instance
@@ -179,7 +180,7 @@ public interface HistoryAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances/{processInstanceId}")
     Call<HistoricProcessInstanceResponse> getHistoricProcessInstanceCall(
-            @Path("processInstanceId") String processInstanceId);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Get the binary data for a historic process instance variable The response
@@ -196,8 +197,8 @@ public interface HistoryAPI
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH
             + "/history/historic-process-instances/{processInstanceId}/variables/{variableName}/data")
-    Call<RequestBody> getHistoricProcessInstanceVariableDataCall(@Path("processInstanceId") String processInstanceId,
-            @Path("variableName") String variableName);
+    Call<RequestBody> getHistoricProcessInstanceVariableDataCall(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Path(VARIABLE_NAME) String variableName);
 
     /**
      * Get the binary data for a historic task instance variable The response
@@ -214,8 +215,8 @@ public interface HistoryAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-task-instances/{taskId}/variables/{variableName}/data")
-    Call<RequestBody> getHistoricTaskInstanceVariableDataCall(@Path("taskId") String taskId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Call<RequestBody> getHistoricTaskInstanceVariableDataCall(@Path(TASK_ID) String taskId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * List of historic variable instances
@@ -233,9 +234,9 @@ public interface HistoryAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-variable-instances")
     Call<ResultList<HistoricVariableInstanceResponse>> getHistoricVariableInstancesCall(
-            @Query("processInstanceId") String processInstanceId, @Query("taskId") String taskId,
-            @Query("excludeTaskVariables") Boolean excludeTaskVariables, @Query("variableName") String variableName,
-            @Query("variableNameLike") String variableNameLike);
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId, @Query(TASK_ID) String taskId,
+            @Query(EXCLUDE_TASK_VARIABLES) Boolean excludeTaskVariables, @Query(VARIABLE_NAME) String variableName,
+            @Query(VARIABLE_NAME_LIKE) String variableNameLike);
 
     /**
      * Get the identity links of a historic process instance
@@ -245,7 +246,7 @@ public interface HistoryAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances/{processInstanceId}/identitylinks")
     Call<List<HistoricIdentityLinkResponse>> getProcessIdentityLinksCall(
-            @Path("processInstanceId") String processInstanceId);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Get the identity links of a historic task instance
@@ -254,7 +255,7 @@ public interface HistoryAPI
      * @return List&lt;HistoricIdentityLinkResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-task-instances/{taskId}/identitylinks")
-    Call<List<HistoricIdentityLinkResponse>> getTaskIdentityLinksCall(@Path("taskId") String taskId);
+    Call<List<HistoricIdentityLinkResponse>> getTaskIdentityLinksCall(@Path(TASK_ID) String taskId);
 
     /**
      * Get a single historic task instance
@@ -263,7 +264,7 @@ public interface HistoryAPI
      * @return HistoricTaskInstanceResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-task-instances/{taskId}")
-    Call<HistoricTaskInstanceResponse> getTaskInstanceCall(@Path("taskId") String taskId);
+    Call<HistoricTaskInstanceResponse> getTaskInstanceCall(@Path(TASK_ID) String taskId);
 
     /**
      * List of historic process instances
@@ -306,16 +307,16 @@ public interface HistoryAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances")
     Call<ResultList<HistoricProcessInstanceResponse>> listHistoricProcessInstancesCall(
-            @Query("processInstanceId") String processInstanceId,
-            @Query("processDefinitionKey") String processDefinitionKey,
-            @Query("processDefinitionId") String processDefinitionId, @Query("businessKey") String businessKey,
-            @Query("involvedUser") String involvedUser, @Query("finished") Boolean finished,
-            @Query("superProcessInstanceId") String superProcessInstanceId,
-            @Query("excludeSubprocesses") Boolean excludeSubprocesses, @Query("finishedAfter") String finishedAfter,
-            @Query("finishedBefore") String finishedBefore, @Query("startedAfter") String startedAfter,
-            @Query("startedBefore") String startedBefore, @Query("startedBy") String startedBy,
-            @Query("includeProcessVariables") Boolean includeProcessVariables, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("tenantId") Boolean withoutTenantId);
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Query(PROCESS_DEFINITION_KEY) String processDefinitionKey,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId, @Query("businessKey") String businessKey,
+            @Query(INVOLVED_USER) String involvedUser, @Query(FINISHED) Boolean finished,
+            @Query(SUPER_PROCESS_INSTANCE_ID) String superProcessInstanceId,
+            @Query(EXCLUDE_SUB_PROCESSES) Boolean excludeSubprocesses, @Query(FINISHED_AFTER) String finishedAfter,
+            @Query("finishedBefore") String finishedBefore, @Query(STARTED_AFTER) String startedAfter,
+            @Query(STARTED_BEFORE) String startedBefore, @Query("startedBy") String startedBy,
+            @Query(INCLUDE_PROCESS_VARIABLES) Boolean includeProcessVariables, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(TENANT_ID) Boolean withoutTenantId);
 
     /**
      * Get historic task instances
@@ -413,31 +414,31 @@ public interface HistoryAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-task-instances")
     Call<ResultList<HistoricTaskInstanceResponse>> listHistoricTaskInstancesCall(
-            @Query("processInstanceId") String taskId, @Query("processInstanceId") String processInstanceId,
-            @Query("processDefinitionKey") String processDefinitionKey,
-            @Query("processDefinitionKeyLike") String processDefinitionKeyLike,
-            @Query("processDefinitionId") String processDefinitionId,
-            @Query("processDefinitionName") String processDefinitionName,
-            @Query("processDefinitionNameLike") String processDefinitionNameLike,
-            @Query("processBusinessKey") String processBusinessKey,
-            @Query("processBusinessKeyLike") String processBusinessKeyLike, @Query("executionId") String executionId,
-            @Query("taskDefinitionKey") String taskDefinitionKey, @Query("taskName") String taskName,
-            @Query("taskNameLike") String taskNameLike, @Query("taskDescription") String taskDescription,
-            @Query("taskDescriptionLike") String taskDescriptionLike, @Query("taskCategory") String taskCategory,
-            @Query("taskDeleteReason") String taskDeleteReason,
-            @Query("taskDeleteReasonLike") String taskDeleteReasonLike, @Query("taskAssignee") String taskAssignee,
-            @Query("taskAssigneeLike") String taskAssigneeLike, @Query("taskOwner") String taskOwner,
-            @Query("taskOwnerLike") String taskOwnerLike, @Query("taskInvolvedUser") String taskInvolvedUser,
-            @Query("taskPriority") String taskPriority, @Query("finished") Boolean finished,
-            @Query("processFinished") Boolean processFinished, @Query("parentTaskId") String parentTaskId,
-            @Query("dueDate") String dueDate, @Query("dueDateAfter") String dueDateAfter,
-            @Query("dueDateBefore") String dueDateBefore, @Query("withoutDueDate") Boolean withoutDueDate,
-            @Query("taskCompletedOn") String taskCompletedOn, @Query("taskCompletedAfter") String taskCompletedAfter,
-            @Query("taskCompletedBefore") String taskCompletedBefore, @Query("taskCreatedOn") String taskCreatedOn,
-            @Query("taskCreatedBefore") String taskCreatedBefore, @Query("taskCreatedAfter") String taskCreatedAfter,
-            @Query("includeTaskLocalVariables") String includeTaskLocalVariables,
-            @Query("includeProcessVariables") Boolean includeProcessVariables, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("tenantId") Boolean withoutTenantId);
+            @Query(PROCESS_INSTANCE_ID) String taskId, @Query(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Query(PROCESS_DEFINITION_KEY) String processDefinitionKey,
+            @Query(PROCESS_DEFINITION_KEY_LIKE) String processDefinitionKeyLike,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId,
+            @Query(PROCESS_DEFINITION_NAME) String processDefinitionName,
+            @Query(PROCESS_DEFINITION_NAME_LIKE) String processDefinitionNameLike,
+            @Query(PROCESS_BUSINESS_KEY) String processBusinessKey,
+            @Query(PROCESS_BUSINESS_KEY_LIKE) String processBusinessKeyLike, @Query(EXECUTION_ID) String executionId,
+            @Query(TASK_DEFINITION_KEY) String taskDefinitionKey, @Query(TASK_NAME) String taskName,
+            @Query(TASK_NAME_LIKE) String taskNameLike, @Query(TASK_DESCRIPTION) String taskDescription,
+            @Query(TASK_DESCRIPTION_LIKE) String taskDescriptionLike, @Query(TASK_CATEGORY) String taskCategory,
+            @Query(TASK_DELETE_REASON) String taskDeleteReason,
+            @Query(TASK_DELETE_REASON_LIKE) String taskDeleteReasonLike, @Query(TASK_ASSIGNEE) String taskAssignee,
+            @Query(TASK_ASSIGNEE_LIKE) String taskAssigneeLike, @Query(TASK_OWNER) String taskOwner,
+            @Query(TASK_OWNER_LIKE) String taskOwnerLike, @Query(TASK_INVOLVED_USER) String taskInvolvedUser,
+            @Query(TASK_PRIORITY) String taskPriority, @Query(FINISHED) Boolean finished,
+            @Query(PROCESS_FINISHED) Boolean processFinished, @Query(PARENT_TASK_ID) String parentTaskId,
+            @Query(DUE_DATE) String dueDate, @Query("dueDateAfter") String dueDateAfter,
+            @Query(DUE_DATE_BEFORE) String dueDateBefore, @Query(WITHOUT_DUE_DATE) Boolean withoutDueDate,
+            @Query(TASK_COMPLETED_ON) String taskCompletedOn, @Query(TASK_COMPLETED_AFTER) String taskCompletedAfter,
+            @Query(TASK_COMPLETED_BEFORE) String taskCompletedBefore, @Query(TASK_CREATED_ON) String taskCreatedOn,
+            @Query(TASK_CREATED_BEFORE) String taskCreatedBefore, @Query(TASK_CREATED_AFTER) String taskCreatedAfter,
+            @Query(INCLUDE_TASK_LOCAL_VARIABLES) String includeTaskLocalVariables,
+            @Query(INCLUDE_PROCESS_VARIABLES) Boolean includeProcessVariables, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(TENANT_ID) Boolean withoutTenantId);
 
     /**
      * Query for historic activity instances All supported JSON parameter fields
@@ -445,7 +446,7 @@ public interface HistoryAPI
      * collection of historic task instances, but passed in as JSON-body
      * arguments rather than URL-parameters to allow for more advanced querying
      * and preventing errors with request-uri?s that are too long.
-     * 
+     *
      * @param body (optional)
      * @return DataResponse
      */
@@ -460,7 +461,7 @@ public interface HistoryAPI
      * historic process instances, but passed in as JSON-body arguments rather
      * than URL-parameters to allow for more advanced querying and preventing
      * errors with request-uri?s that are too long.
-     * 
+     *
      * @param body (optional)
      * @return DataResponse
      */
@@ -477,7 +478,7 @@ public interface HistoryAPI
      * that, the query allows for filtering based on process variables. The
      * variables property is a JSON-array containing objects with the format as
      * described here.
-     * 
+     *
      * @param body (optional)
      * @return DataResponse
      */
@@ -495,7 +496,7 @@ public interface HistoryAPI
      * that, the query allows for filtering based on process variables. The
      * taskVariables and processVariables properties are JSON-arrays containing
      * objects with the format as described here.
-     * 
+     *
      * @param body (optional)
      * @return DataResponse
      */
@@ -513,7 +514,7 @@ public interface HistoryAPI
      * that, the query allows for filtering based on process variables. The
      * taskVariables and processVariables properties are JSON-arrays containing
      * objects with the format as described here.
-     * 
+     *
      * @param body (optional)
      * @return DataResponse
      */
@@ -557,7 +558,7 @@ public interface HistoryAPI
      * @return CommentResponse
      */
     @POST(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances/{processInstanceId}/comments")
-    Observable<CommentResponse> createCommentObservable(@Path("processInstanceId") String processInstanceId,
+    Observable<CommentResponse> createCommentObservable(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
             @Body CommentRequest body);
 
     /**
@@ -568,8 +569,8 @@ public interface HistoryAPI
      * @param commentId The id of the comment. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances/{processInstanceId}/comments/{commentId}")
-    Observable<Void> deleteCommentObservable(@Path("processInstanceId") String processInstanceId,
-            @Path("commentId") String commentId);
+    Observable<Void> deleteCommentObservable(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Path(COMMENT_ID) String commentId);
 
     /**
      * Delete a historic process instance
@@ -577,7 +578,7 @@ public interface HistoryAPI
      * @param processInstanceId (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances/{processInstanceId}")
-    Observable<Void> deleteHitoricProcessInstanceObservable(@Path("processInstanceId") String processInstanceId);
+    Observable<Void> deleteHitoricProcessInstanceObservable(@Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Delete a historic task instance
@@ -585,7 +586,7 @@ public interface HistoryAPI
      * @param taskId (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/history/historic-task-instances/{taskId}")
-    Observable<Void> deleteTaskInstanceObservable(@Path("taskId") String taskId);
+    Observable<Void> deleteTaskInstanceObservable(@Path(TASK_ID) String taskId);
 
     /**
      * Get a comment on a historic process instance
@@ -596,8 +597,8 @@ public interface HistoryAPI
      * @return CommentResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances/{processInstanceId}/comments/{commentId}")
-    Observable<CommentResponse> getCommentObservable(@Path("processInstanceId") String processInstanceId,
-            @Path("commentId") String commentId);
+    Observable<CommentResponse> getCommentObservable(@Path(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Path(COMMENT_ID) String commentId);
 
     /**
      * Get all comments on a historic process instance
@@ -607,7 +608,7 @@ public interface HistoryAPI
      * @return List&lt;CommentResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances/{processInstanceId}/comments")
-    Observable<List<CommentResponse>> getCommentsObservable(@Path("processInstanceId") String processInstanceId);
+    Observable<List<CommentResponse>> getCommentsObservable(@Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Get historic activity instances
@@ -639,12 +640,12 @@ public interface HistoryAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-activity-instances")
     Observable<ResultList<HistoricActivityInstanceResponse>> getHistoricActivityInstancesObservable(
-            @Query("activityId") String activityId, @Query("activityInstanceId") String activityInstanceId,
-            @Query("activityName") String activityName, @Query("activityType") String activityType,
-            @Query("executionId") String executionId, @Query("finished") Boolean finished,
-            @Query("taskAssignee") String taskAssignee, @Query("processInstanceId") String processInstanceId,
-            @Query("processDefinitionId") String processDefinitionId, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("withoutTenantId") Boolean withoutTenantId);
+            @Query(ACTIVITY_ID) String activityId, @Query(ACTIVITY_INSTANCE_ID) String activityInstanceId,
+            @Query(ACTIVITY_NAME) String activityName, @Query("activityType") String activityType,
+            @Query(EXECUTION_ID) String executionId, @Query(FINISHED) Boolean finished,
+            @Query(TASK_ASSIGNEE) String taskAssignee, @Query(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(WITHOUT_TENANT_ID) Boolean withoutTenantId);
 
     /**
      * Get historic detail
@@ -664,10 +665,10 @@ public interface HistoryAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-detail")
     Observable<ResultList<HistoricDetailResponse>> getHistoricDetailInfoObservable(@Query("id") String id,
-            @Query("processInstanceId") String processInstanceId, @Query("executionId") String executionId,
-            @Query("activityInstanceId") String activityInstanceId, @Query("taskId") String taskId,
-            @Query("selectOnlyFormProperties") Boolean selectOnlyFormProperties,
-            @Query("selectOnlyVariableUpdates") Boolean selectOnlyVariableUpdates);
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId, @Query(EXECUTION_ID) String executionId,
+            @Query(ACTIVITY_INSTANCE_ID) String activityInstanceId, @Query(TASK_ID) String taskId,
+            @Query(SELECT_ONLY_FORM_PROPERTIES) Boolean selectOnlyFormProperties,
+            @Query(SELECT_ONLY_VARIABLE_UPDATES) Boolean selectOnlyVariableUpdates);
 
     /**
      * Get the binary data for a historic detail variable The response body
@@ -682,7 +683,7 @@ public interface HistoryAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-detail/{detailId}/data")
-    Observable<RequestBody> getHistoricDetailVariableDataObservable(@Path("detailId") String detailId);
+    Observable<RequestBody> getHistoricDetailVariableDataObservable(@Path(DETAIL_ID) String detailId);
 
     /**
      * Get the binary data for a historic task instance variable The response
@@ -697,7 +698,7 @@ public interface HistoryAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-variable-instances/{varInstanceId}/data")
-    Observable<RequestBody> getHistoricInstanceVariableDataObservable(@Path("varInstanceId") String varInstanceId);
+    Observable<RequestBody> getHistoricInstanceVariableDataObservable(@Path(VAR_INSTANCE_ID) String varInstanceId);
 
     /**
      * Get a historic process instance
@@ -707,7 +708,7 @@ public interface HistoryAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances/{processInstanceId}")
     Observable<HistoricProcessInstanceResponse> getHistoricProcessInstanceObservable(
-            @Path("processInstanceId") String processInstanceId);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Get the binary data for a historic process instance variable The response
@@ -725,7 +726,7 @@ public interface HistoryAPI
     @GET(ACTIVITI_SERVICE_PATH
             + "/history/historic-process-instances/{processInstanceId}/variables/{variableName}/data")
     Observable<RequestBody> getHistoricProcessInstanceVariableDataObservable(
-            @Path("processInstanceId") String processInstanceId, @Path("variableName") String variableName);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId, @Path(VARIABLE_NAME) String variableName);
 
     /**
      * Get the binary data for a historic task instance variable The response
@@ -742,8 +743,8 @@ public interface HistoryAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-task-instances/{taskId}/variables/{variableName}/data")
-    Observable<RequestBody> getHistoricTaskInstanceVariableDataObservable(@Path("taskId") String taskId,
-            @Path("variableName") String variableName, @Query("scope") String scope);
+    Observable<RequestBody> getHistoricTaskInstanceVariableDataObservable(@Path(TASK_ID) String taskId,
+            @Path(VARIABLE_NAME) String variableName, @Query(SCOPE) String scope);
 
     /**
      * List of historic variable instances
@@ -761,9 +762,9 @@ public interface HistoryAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-variable-instances")
     Observable<ResultList<HistoricVariableInstanceResponse>> getHistoricVariableInstancesObservable(
-            @Query("processInstanceId") String processInstanceId, @Query("taskId") String taskId,
-            @Query("excludeTaskVariables") Boolean excludeTaskVariables, @Query("variableName") String variableName,
-            @Query("variableNameLike") String variableNameLike);
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId, @Query(TASK_ID) String taskId,
+            @Query("excludeTaskVariables") Boolean excludeTaskVariables, @Query(VARIABLE_NAME) String variableName,
+            @Query(VARIABLE_NAME_LIKE) String variableNameLike);
 
     /**
      * Get the identity links of a historic process instance
@@ -773,7 +774,7 @@ public interface HistoryAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances/{processInstanceId}/identitylinks")
     Observable<List<HistoricIdentityLinkResponse>> getProcessIdentityLinksObservable(
-            @Path("processInstanceId") String processInstanceId);
+            @Path(PROCESS_INSTANCE_ID) String processInstanceId);
 
     /**
      * Get the identity links of a historic task instance
@@ -782,7 +783,7 @@ public interface HistoryAPI
      * @return List&lt;HistoricIdentityLinkResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-task-instances/{taskId}/identitylinks")
-    Observable<List<HistoricIdentityLinkResponse>> getTaskIdentityLinksObservable(@Path("taskId") String taskId);
+    Observable<List<HistoricIdentityLinkResponse>> getTaskIdentityLinksObservable(@Path(TASK_ID) String taskId);
 
     /**
      * Get a single historic task instance
@@ -791,7 +792,7 @@ public interface HistoryAPI
      * @return HistoricTaskInstanceResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-task-instances/{taskId}")
-    Observable<HistoricTaskInstanceResponse> getTaskInstanceObservable(@Path("taskId") String taskId);
+    Observable<HistoricTaskInstanceResponse> getTaskInstanceObservable(@Path(TASK_ID) String taskId);
 
     /**
      * List of historic process instances
@@ -834,16 +835,16 @@ public interface HistoryAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-process-instances")
     Observable<ResultList<HistoricProcessInstanceResponse>> listHistoricProcessInstancesObservable(
-            @Query("processInstanceId") String processInstanceId,
-            @Query("processDefinitionKey") String processDefinitionKey,
-            @Query("processDefinitionId") String processDefinitionId, @Query("businessKey") String businessKey,
-            @Query("involvedUser") String involvedUser, @Query("finished") Boolean finished,
-            @Query("superProcessInstanceId") String superProcessInstanceId,
-            @Query("excludeSubprocesses") Boolean excludeSubprocesses, @Query("finishedAfter") String finishedAfter,
-            @Query("finishedBefore") String finishedBefore, @Query("startedAfter") String startedAfter,
-            @Query("startedBefore") String startedBefore, @Query("startedBy") String startedBy,
-            @Query("includeProcessVariables") Boolean includeProcessVariables, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("tenantId") Boolean withoutTenantId);
+            @Query(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Query(PROCESS_DEFINITION_KEY) String processDefinitionKey,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId, @Query(BUSINESS_KEY) String businessKey,
+            @Query(INVOLVED_USER) String involvedUser, @Query(FINISHED) Boolean finished,
+            @Query(SUPER_PROCESS_INSTANCE_ID) String superProcessInstanceId,
+            @Query(EXCLUDE_SUB_PROCESSES) Boolean excludeSubprocesses, @Query(FINISHED_AFTER) String finishedAfter,
+            @Query(FINISHED_BEFORE) String finishedBefore, @Query(STARTED_AFTER) String startedAfter,
+            @Query(STARTED_BEFORE) String startedBefore, @Query("startedBy") String startedBy,
+            @Query(INCLUDE_PROCESS_VARIABLES) Boolean includeProcessVariables, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(TENANT_ID) Boolean withoutTenantId);
 
     /**
      * Get historic task instances
@@ -941,31 +942,31 @@ public interface HistoryAPI
      */
     @GET(ACTIVITI_SERVICE_PATH + "/history/historic-task-instances")
     Observable<ResultList<HistoricTaskInstanceResponse>> listHistoricTaskInstancesObservable(
-            @Query("processInstanceId") String taskId, @Query("processInstanceId") String processInstanceId,
-            @Query("processDefinitionKey") String processDefinitionKey,
-            @Query("processDefinitionKeyLike") String processDefinitionKeyLike,
-            @Query("processDefinitionId") String processDefinitionId,
-            @Query("processDefinitionName") String processDefinitionName,
-            @Query("processDefinitionNameLike") String processDefinitionNameLike,
-            @Query("processBusinessKey") String processBusinessKey,
-            @Query("processBusinessKeyLike") String processBusinessKeyLike, @Query("executionId") String executionId,
-            @Query("taskDefinitionKey") String taskDefinitionKey, @Query("taskName") String taskName,
-            @Query("taskNameLike") String taskNameLike, @Query("taskDescription") String taskDescription,
-            @Query("taskDescriptionLike") String taskDescriptionLike, @Query("taskCategory") String taskCategory,
-            @Query("taskDeleteReason") String taskDeleteReason,
-            @Query("taskDeleteReasonLike") String taskDeleteReasonLike, @Query("taskAssignee") String taskAssignee,
-            @Query("taskAssigneeLike") String taskAssigneeLike, @Query("taskOwner") String taskOwner,
-            @Query("taskOwnerLike") String taskOwnerLike, @Query("taskInvolvedUser") String taskInvolvedUser,
-            @Query("taskPriority") String taskPriority, @Query("finished") Boolean finished,
-            @Query("processFinished") Boolean processFinished, @Query("parentTaskId") String parentTaskId,
-            @Query("dueDate") String dueDate, @Query("dueDateAfter") String dueDateAfter,
-            @Query("dueDateBefore") String dueDateBefore, @Query("withoutDueDate") Boolean withoutDueDate,
-            @Query("taskCompletedOn") String taskCompletedOn, @Query("taskCompletedAfter") String taskCompletedAfter,
-            @Query("taskCompletedBefore") String taskCompletedBefore, @Query("taskCreatedOn") String taskCreatedOn,
-            @Query("taskCreatedBefore") String taskCreatedBefore, @Query("taskCreatedAfter") String taskCreatedAfter,
-            @Query("includeTaskLocalVariables") String includeTaskLocalVariables,
-            @Query("includeProcessVariables") Boolean includeProcessVariables, @Query("tenantId") String tenantId,
-            @Query("tenantIdLike") String tenantIdLike, @Query("tenantId") Boolean withoutTenantId);
+            @Query(PROCESS_INSTANCE_ID) String taskId, @Query(PROCESS_INSTANCE_ID) String processInstanceId,
+            @Query(PROCESS_DEFINITION_KEY) String processDefinitionKey,
+            @Query(PROCESS_DEFINITION_KEY_LIKE) String processDefinitionKeyLike,
+            @Query(PROCESS_DEFINITION_ID) String processDefinitionId,
+            @Query(PROCESS_DEFINITION_NAME) String processDefinitionName,
+            @Query(PROCESS_DEFINITION_NAME_LIKE) String processDefinitionNameLike,
+            @Query(PROCESS_BUSINESS_KEY) String processBusinessKey,
+            @Query(PROCESS_BUSINESS_KEY_LIKE) String processBusinessKeyLike, @Query(EXECUTION_ID) String executionId,
+            @Query(TASK_DEFINITION_KEY) String taskDefinitionKey, @Query(TASK_NAME) String taskName,
+            @Query(TASK_NAME_LIKE) String taskNameLike, @Query(TASK_DESCRIPTION) String taskDescription,
+            @Query(TASK_DESCRIPTION_LIKE) String taskDescriptionLike, @Query(TASK_CATEGORY) String taskCategory,
+            @Query(TASK_DELETE_REASON) String taskDeleteReason,
+            @Query(TASK_DELETE_REASON_LIKE) String taskDeleteReasonLike, @Query(TASK_ASSIGNEE) String taskAssignee,
+            @Query(TASK_ASSIGNEE_LIKE) String taskAssigneeLike, @Query(TASK_OWNER) String taskOwner,
+            @Query(TASK_OWNER_LIKE) String taskOwnerLike, @Query(TASK_INVOLVED_USER) String taskInvolvedUser,
+            @Query(TASK_PRIORITY) String taskPriority, @Query(FINISHED) Boolean finished,
+            @Query(PROCESS_FINISHED) Boolean processFinished, @Query(PARENT_TASK_ID) String parentTaskId,
+            @Query(DUE_DATE) String dueDate, @Query(DUE_DATE_AFTER) String dueDateAfter,
+            @Query(DUE_DATE_BEFORE) String dueDateBefore, @Query(WITHOUT_DUE_DATE) Boolean withoutDueDate,
+            @Query(TASK_COMPLETED_ON) String taskCompletedOn, @Query(TASK_COMPLETED_AFTER) String taskCompletedAfter,
+            @Query(TASK_COMPLETED_BEFORE) String taskCompletedBefore, @Query(TASK_CREATED_ON) String taskCreatedOn,
+            @Query(TASK_CREATED_BEFORE) String taskCreatedBefore, @Query(TASK_CREATED_AFTER) String taskCreatedAfter,
+            @Query(INCLUDE_TASK_LOCAL_VARIABLES) String includeTaskLocalVariables,
+            @Query(INCLUDE_PROCESS_VARIABLES) Boolean includeProcessVariables, @Query(TENANT_ID) String tenantId,
+            @Query(TENANT_ID_LIKE) String tenantIdLike, @Query(TENANT_ID) Boolean withoutTenantId);
 
     /**
      * Query for historic activity instances All supported JSON parameter fields

@@ -1,5 +1,6 @@
 package org.alfresco.client.services.process.activiti.core.api;
 
+import static org.alfresco.client.services.process.activiti.common.constant.RequestConstant.*;
 import static org.alfresco.client.services.process.activiti.core.ActivitiConstant.ACTIVITI_SERVICE_PATH;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public interface UsersAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}/info")
-    Call<UserResponse> createUserInfoCall(@Path("userId") String userId, @Body UserInfoRequest body);
+    Call<UserResponse> createUserInfoCall(@Path(USER_ID) String userId, @Body UserInfoRequest body);
 
     /**
      * Delete a user
@@ -48,7 +49,7 @@ public interface UsersAPI
      * @param userId The id of the user to delete. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}")
-    Call<Void> deleteUserCall(@Path("userId") String userId);
+    Call<Void> deleteUserCall(@Path(USER_ID) String userId);
 
     /**
      * Delete a user"s info
@@ -57,7 +58,7 @@ public interface UsersAPI
      * @param key The key of the user info to delete. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}/info/{key}")
-    Call<Void> deleteUserInfoCall(@Path("userId") String userId, @Path("key") String key);
+    Call<Void> deleteUserInfoCall(@Path(USER_ID) String userId, @Path(KEY) String key);
 
     /**
      * Get a single user
@@ -66,7 +67,7 @@ public interface UsersAPI
      * @return UserResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}")
-    Call<UserResponse> getUserCall(@Path("userId") String userId);
+    Call<UserResponse> getUserCall(@Path(USER_ID) String userId);
 
     /**
      * Get a user's info
@@ -76,7 +77,7 @@ public interface UsersAPI
      * @return UserInfoResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}/info/{key}")
-    Call<UserInfoResponse> getUserInfoCall(@Path("userId") String userId, @Path("key") String key);
+    Call<UserInfoResponse> getUserInfoCall(@Path(USER_ID) String userId, @Path(KEY) String key);
 
     /**
      * Get a user's picture The response body contains the raw picture data,
@@ -88,7 +89,7 @@ public interface UsersAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}/picture")
-    Call<RequestBody> getUserPictureCall(@Path("userId") String userId);
+    Call<RequestBody> getUserPictureCall(@Path(USER_ID) String userId);
 
     /**
      * Get a list of users
@@ -113,11 +114,11 @@ public interface UsersAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/identity/users")
-    Call<ResultList<UserResponse>> getUsersCall(@Query("id") String id, @Query("firstName") String firstName,
-            @Query("lastName") String lastName, @Query("email") String email,
-            @Query("firstNameLike") String firstNameLike, @Query("lastNameLike") String lastNameLike,
-            @Query("emailLike") String emailLike, @Query("memberOfGroup") String memberOfGroup,
-            @Query("potentialStarter") String potentialStarter, @Query("sort") String sort);
+    Call<ResultList<UserResponse>> getUsersCall(@Query(ID) String id, @Query(FIRST_NAME) String firstName,
+            @Query(LAST_NAME) String lastName, @Query(EMAIL) String email, @Query(FIRST_NAME_LIKE) String firstNameLike,
+            @Query(LAST_NAME_LIKE) String lastNameLike, @Query(EMAIL_LIKE) String emailLike,
+            @Query(MEMBER_OF_GROUP) String memberOfGroup, @Query(POTENTIAL_STARTER) String potentialStarter,
+            @Query(SORT) String sort);
 
     /**
      * List a user?s info
@@ -126,7 +127,7 @@ public interface UsersAPI
      * @return List&lt;UserInfoResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}/info")
-    Call<List<UserInfoResponse>> listUsersInfoCall(@Path("userId") String userId);
+    Call<List<UserInfoResponse>> listUsersInfoCall(@Path(USER_ID) String userId);
 
     /**
      * Update a user All request values are optional. For example, you can only
@@ -142,7 +143,7 @@ public interface UsersAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}")
-    Call<UserResponse> updateUserCall(@Path("userId") String userId, @Body UserRequest body);
+    Call<UserResponse> updateUserCall(@Path(USER_ID) String userId, @Body UserRequest body);
 
     /**
      * Update a user?s info
@@ -154,7 +155,7 @@ public interface UsersAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}/info/{key}")
-    Call<UserInfoResponse> updateUserInfoCall(@Path("userId") String userId, @Path("key") String key,
+    Call<UserInfoResponse> updateUserInfoCall(@Path(USER_ID) String userId, @Path(KEY) String key,
             @Body UserInfoRequest body);
 
     /**
@@ -169,7 +170,7 @@ public interface UsersAPI
      */
     @Multipart
     @PUT(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}/picture")
-    Call<Void> updateUserInfoCall(@Path("userId") String userId, @Part("filedata") RequestBody file);
+    Call<Void> updateUserInfoCall(@Path(USER_ID) String userId, @Part(FILE_DATA) RequestBody file);
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -215,7 +216,7 @@ public interface UsersAPI
      */
     @Headers({ "Content-type: application/json" })
     @POST(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}/info")
-    Observable<UserResponse> createUserInfoObservable(@Path("userId") String userId, @Body UserInfoRequest body);
+    Observable<UserResponse> createUserInfoObservable(@Path(USER_ID) String userId, @Body UserInfoRequest body);
 
     /**
      * Delete a user
@@ -223,7 +224,7 @@ public interface UsersAPI
      * @param userId The id of the user to delete. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}")
-    Observable<Void> deleteUserObservable(@Path("userId") String userId);
+    Observable<Void> deleteUserObservable(@Path(USER_ID) String userId);
 
     /**
      * Delete a user"s info
@@ -232,7 +233,7 @@ public interface UsersAPI
      * @param key The key of the user info to delete. (required)
      */
     @DELETE(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}/info/{key}")
-    Observable<Void> deleteUserInfoObservable(@Path("userId") String userId, @Path("key") String key);
+    Observable<Void> deleteUserInfoObservable(@Path(USER_ID) String userId, @Path(KEY) String key);
 
     /**
      * Get a single user
@@ -241,7 +242,7 @@ public interface UsersAPI
      * @return UserResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}")
-    Observable<UserResponse> getUserObservable(@Path("userId") String userId);
+    Observable<UserResponse> getUserObservable(@Path(USER_ID) String userId);
 
     /**
      * Get a user's info
@@ -251,7 +252,7 @@ public interface UsersAPI
      * @return UserInfoResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}/info/{key}")
-    Observable<UserInfoResponse> getUserInfoObservable(@Path("userId") String userId, @Path("key") String key);
+    Observable<UserInfoResponse> getUserInfoObservable(@Path(USER_ID) String userId, @Path(KEY) String key);
 
     /**
      * Get a user's picture The response body contains the raw picture data,
@@ -263,7 +264,7 @@ public interface UsersAPI
      */
     @Streaming
     @GET(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}/picture")
-    Observable<RequestBody> getUserPictureObservable(@Path("userId") String userId);
+    Observable<RequestBody> getUserPictureObservable(@Path(USER_ID) String userId);
 
     /**
      * Get a list of users
@@ -288,11 +289,11 @@ public interface UsersAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/identity/users")
-    Observable<ResultList<UserResponse>> getUsersObservable(@Query("id") String id,
-            @Query("firstName") String firstName, @Query("lastName") String lastName, @Query("email") String email,
-            @Query("firstNameLike") String firstNameLike, @Query("lastNameLike") String lastNameLike,
-            @Query("emailLike") String emailLike, @Query("memberOfGroup") String memberOfGroup,
-            @Query("potentialStarter") String potentialStarter, @Query("sort") String sort);
+    Observable<ResultList<UserResponse>> getUsersObservable(@Query(ID) String id, @Query(FIRST_NAME) String firstName,
+            @Query(LAST_NAME) String lastName, @Query(EMAIL) String email, @Query(FIRST_NAME_LIKE) String firstNameLike,
+            @Query(LAST_NAME_LIKE) String lastNameLike, @Query(EMAIL_LIKE) String emailLike,
+            @Query(MEMBER_OF_GROUP) String memberOfGroup, @Query(POTENTIAL_STARTER) String potentialStarter,
+            @Query(SORT) String sort);
 
     /**
      * List a user?s info
@@ -301,7 +302,7 @@ public interface UsersAPI
      * @return List&lt;UserInfoResponse&gt;
      */
     @GET(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}/info")
-    Observable<List<UserInfoResponse>> listUsersInfoObservable(@Path("userId") String userId);
+    Observable<List<UserInfoResponse>> listUsersInfoObservable(@Path(USER_ID) String userId);
 
     /**
      * Update a user All request values are optional. For example, you can only
@@ -317,7 +318,7 @@ public interface UsersAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}")
-    Observable<UserResponse> updateUserObservable(@Path("userId") String userId, @Body UserRequest body);
+    Observable<UserResponse> updateUserObservable(@Path(USER_ID) String userId, @Body UserRequest body);
 
     /**
      * Update a user?s info
@@ -329,7 +330,7 @@ public interface UsersAPI
      */
     @Headers({ "Content-type: application/json" })
     @PUT(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}/info/{key}")
-    Observable<UserInfoResponse> updateUserInfoObservable(@Path("userId") String userId, @Path("key") String key,
+    Observable<UserInfoResponse> updateUserInfoObservable(@Path(USER_ID) String userId, @Path(KEY) String key,
             @Body UserInfoRequest body);
 
     /**
@@ -344,6 +345,6 @@ public interface UsersAPI
      */
     @Multipart
     @PUT(ACTIVITI_SERVICE_PATH + "/identity/users/{userId}/picture")
-    Observable<Void> updateUserInfoObservable(@Path("userId") String userId, @Part("filedata") RequestBody file);
+    Observable<Void> updateUserInfoObservable(@Path(USER_ID) String userId, @Part(FILE_DATA) RequestBody file);
 
 }
