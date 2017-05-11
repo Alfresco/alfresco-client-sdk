@@ -35,6 +35,15 @@ public interface DatabaseTablesAPI
      * Get row data for a single table
      *
      * @param tableName The name of the table to get. (required)
+     * @return DataResponse
+     */
+    @GET(ACTIVITI_SERVICE_PATH + "/management/tables/{tableName}/data")
+    Call<ResultList<Map<String, Object>>> listTableDataCall(@Path(TABLE_NAME) String tableName);
+
+    /**
+     * Get row data for a single table
+     *
+     * @param tableName The name of the table to get. (required)
      * @param start Index of the first row to fetch. Defaults to 0. (optional)
      * @param size Number of rows to fetch, starting from start. Defaults to 10.
      *            (optional)
@@ -45,7 +54,7 @@ public interface DatabaseTablesAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/tables/{tableName}/data")
-    Call<ResultList<List<Map<String, Object>>>> getTableDataCall(@Path(TABLE_NAME) String tableName,
+    Call<ResultList<Map<String, Object>>> listTableDataCall(@Path(TABLE_NAME) String tableName,
             @Query(START) String start, @Query(SIZE) String size,
             @Query(ORDER_ASCENDING_COLUMN) String orderAscendingColumn,
             @Query(ORDER_DESCENDING_COLUMN) String orderDescendingColumn);
@@ -64,8 +73,8 @@ public interface DatabaseTablesAPI
      *
      * @return List&lt;TableResponse&gt;
      */
-    @GET(ACTIVITI_SERVICE_PATH + "/management/tables/{tableName}/columns")
-    Call<List<TableResponse>> getTablesCall();
+    @GET(ACTIVITI_SERVICE_PATH + "/management/tables")
+    Call<List<TableResponse>> listTablesCall();
 
     // ///////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////
@@ -115,7 +124,7 @@ public interface DatabaseTablesAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/management/tables/{tableName}/data")
-    Observable<ResultList<List<Map<String, Object>>>> getTableDataObservable(@Path(TABLE_NAME) String tableName,
+    Observable<ResultList<Map<String, Object>>> listTableDataObservable(@Path(TABLE_NAME) String tableName,
             @Query(START) String start, @Query(SIZE) String size,
             @Query(ORDER_ASCENDING_COLUMN) String orderAscendingColumn,
             @Query(ORDER_DESCENDING_COLUMN) String orderDescendingColumn);
@@ -134,7 +143,7 @@ public interface DatabaseTablesAPI
      *
      * @return List&lt;TableResponse&gt;
      */
-    @GET(ACTIVITI_SERVICE_PATH + "/management/tables/{tableName}/columns")
-    Observable<List<TableResponse>> getTablesObservable();
+    @GET(ACTIVITI_SERVICE_PATH + "/management/tables")
+    Observable<List<TableResponse>> listTablesObservable();
 
 }

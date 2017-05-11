@@ -9,7 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class DeploymentAPITest extends ActivitiAPITestCase
+public class DeploymentsAPITest extends ActivitiAPITestCase
 {
     @BeforeClass
     public void prepare() throws Exception
