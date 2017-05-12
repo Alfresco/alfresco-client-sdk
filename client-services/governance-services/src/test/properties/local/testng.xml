@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Core" verbose="1">
+    <test name="Core">
+        <classes>
+            <class name="org.alfresco.client.services.governance.core.api.RMSiteApiIT"/>
+            <!--<class name="org.alfresco.client.services.governance.core.api.FilePlanApiIT"/>
+            <class name="org.alfresco.client.services.governance.core.api.RecordCategoriesApiIT"/>
+            <class name="org.alfresco.client.services.governance.core.api.RecordFoldersApiIT"/>
+            <class name="org.alfresco.client.services.governance.core.api.UnfiledContainersApiIT"/>
+            <class name="org.alfresco.client.services.governance.core.api.UnfiledRecordFolderApiIT"/>-->
+        </classes>
+    </test>
+</suite>

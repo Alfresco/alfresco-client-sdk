@@ -151,6 +151,17 @@ nodesAPI.getRMSiteObservable().subscribe(root -> Assert.assertEquals(root.getNam
 
 ```
 
+## Build
+
+**Simple Build**
+    
+    mvn clean install
+
+**Build + Integration Test**
+    
+    mvn clean install -Ptest
+
+
 ## Running tests
 
 ### Requirements

@@ -73,31 +73,8 @@ public abstract class CSAPITestCase extends AlfrescoAPITestCase
 
     public NodeRepresentation createDummyFile() throws IOException
     {
-
         NodesAPI nodeService = client.getAPI(NodesAPI.class);
-
-        // Create Test Folder
-        NodeBodyCreate request = new NodeBodyCreate(TEST_FOLDER_NAME, "cm:folder");
-        Response<NodeRepresentation> testNodeResponse = nodeService.createNodeCall(NodesAPI.FOLDER_MY, request)
-                .execute();
-
-        // If Folder already exist it's a failure so we delete & recreate
-        if (!testNodeResponse.isSuccessful())
-        {
-            ResultPaging<NodeRepresentation> nodeResponse = nodeService
-                    .listNodeChildrenCall(NodesAPI.FOLDER_MY, 0, 25, null, "(isFolder=true)", null, null, null, null)
-                    .execute().body();
-            for (NodeRepresentation folder : nodeResponse.getList())
-            {
-                if (TEST_FOLDER_NAME.equals(folder.getName()))
-                {
-                    nodeService.deleteNodeCall(folder.getId()).execute();
-                }
-            }
-            testNodeResponse = nodeService.createNodeCall(NodesAPI.FOLDER_MY, request).execute();
-        }
-
-        NodeRepresentation testFolder = testNodeResponse.body();
+        NodeRepresentation testFolder = createRootTestFolder();
 
         // Check if test file is present
         checkResourceFile("/org/alfresco/client/api/tests/test.txt");
@@ -127,6 +104,36 @@ public abstract class CSAPITestCase extends AlfrescoAPITestCase
         }
 
         return createdNodeResponse.body();
+    }
+
+    public NodeRepresentation createRootTestFolder() throws IOException
+    {
+        NodesAPI nodeService = client.getAPI(NodesAPI.class);
+
+        // Create Test Folder
+        NodeBodyCreate request = new NodeBodyCreate(TEST_FOLDER_NAME, "cm:folder");
+        Response<NodeRepresentation> testNodeResponse = nodeService.createNodeCall(NodesAPI.FOLDER_MY, request)
+                .execute();
+
+        // If Folder already exist it's a failure so we delete & recreate
+        if (!testNodeResponse.isSuccessful())
+        {
+            ResultPaging<NodeRepresentation> nodeResponse = nodeService
+                    .listNodeChildrenCall(NodesAPI.FOLDER_MY, 0, 25, null, "(isFolder=true)", null, null, null, null)
+                    .execute().body();
+            for (NodeRepresentation folder : nodeResponse.getList())
+            {
+                if (TEST_FOLDER_NAME.equals(folder.getName()))
+                {
+                    nodeService.deleteNodeCall(folder.getId()).execute();
+                }
+            }
+            testNodeResponse = nodeService.createNodeCall(NodesAPI.FOLDER_MY, request).execute();
+        }
+
+        NodeRepresentation testFolder = testNodeResponse.body();
+
+        return testFolder;
     }
 
 }

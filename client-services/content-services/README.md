@@ -177,6 +177,18 @@ nodesAPI.getNodeObservable(NodesAPI.FOLDER_ROOT)
 
 You can retrieve other usage of the lib in [unit tests defined here](src/test/java/com/alfresco/client/services/content)
 
+
+## Build
+
+**Simple Build**
+    
+    mvn clean install
+
+**Build + Integration Test**
+    
+    mvn clean install -Ptest
+
+
 ## Running tests
 
 ### Requirements

@@ -32,7 +32,7 @@ public interface ApiConstant
 
     String LIST = "list";
 
-    String PAGINATION = "list";
+    String PAGINATION = "pagination";
 
     String ENTRY = "entry";
 
@@ -71,7 +71,7 @@ public interface ApiConstant
     // PARAMS CONTENT SERVICES
     String NODE_ID = "nodeId";
 
-    String CHILD_ID = "ChilId";
+    String CHILD_ID = "childId";
 
     String ASSOC_TYPE = "assocType";
 

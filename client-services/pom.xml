@@ -21,4 +21,44 @@
         <module>process-services</module>
         <module>activiti</module>
     </modules>
+
+    <properties>
+        <alfresco.data.location>${project.basedir}/alf_data_dev</alfresco.data.location>
+        <solr.home>${alfresco.data.location}/solr</solr.home>
+        <solr.model.dir>${solr.home}/alfrescoModels</solr.model.dir>
+        <solr.content.dir>${solr.home}/index</solr.content.dir>
+        <alfresco.groupId>org.alfresco</alfresco.groupId>
+        <alfresco.platform.version>5.2.e</alfresco.platform.version>
+        <maven.alfresco.edition>community</maven.alfresco.edition>
+        <env>local</env>
+    </properties>
+
+
+    <profiles>
+        <profile>
+            <id>purge</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <configuration>
+                            <filesets>
+                                <fileset>
+                                    <directory>${alfresco.data.location}</directory>
+                                </fileset>
+                                <fileset>
+                                    <directory>${project.basedir}</directory>
+                                    <includes>
+                                        <include>*.log</include>
+                                    </includes>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>

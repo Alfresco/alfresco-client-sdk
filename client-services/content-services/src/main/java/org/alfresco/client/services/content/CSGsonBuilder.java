@@ -9,7 +9,8 @@ import org.alfresco.client.services.content.core.model.deserializer.DeletedNodeE
 import org.alfresco.client.services.content.core.model.deserializer.FavoriteEntryDeserializer;
 import org.alfresco.client.services.content.core.model.deserializer.NodeEntryDeserializer;
 import org.alfresco.client.services.content.core.model.representation.*;
-import org.alfresco.client.services.content.discovery.model.RepositoryInfoRepresentation;
+import org.alfresco.client.services.content.discovery.model.deserializer.RepositoryInfoEntryDeserializer;
+import org.alfresco.client.services.content.discovery.model.representation.RepositoryInfoRepresentation;
 import org.alfresco.client.services.content.search.deserializer.ResultSetPagingDeserializer;
 import org.alfresco.client.services.content.search.model.ResultNodeRepresentation;
 import org.alfresco.client.services.content.search.model.ResultSetRepresentation;
@@ -116,8 +117,7 @@ public class CSGsonBuilder
                 }.getType(), new PagingDeserializer<>(GroupMemberRepresentation.class))
 
                 // Discovery
-                .registerTypeAdapter(RepositoryInfoRepresentation.class,
-                        new EntryDeserializer<RepositoryInfoRepresentation>())
+                .registerTypeAdapter(RepositoryInfoRepresentation.class, new RepositoryInfoEntryDeserializer())
 
                 // Authentication
                 .registerTypeAdapter(TicketRepresentation.class, new EntryDeserializer<TicketRepresentation>())

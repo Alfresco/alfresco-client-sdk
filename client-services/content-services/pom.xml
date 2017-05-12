@@ -39,6 +39,7 @@
     </properties>
 
     <dependencies>
+        <!-- ALFRESCO DEPENDENCIES -->
         <dependency>
             <groupId>org.alfresco.client</groupId>
             <artifactId>java-client</artifactId>
@@ -57,4 +58,69 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <version>2.2</version>
+                        <executions>
+                            <execution>
+                                <id>stop-alfresco</id>
+                                <goals>
+                                    <goal>shutdown</goal>
+                                </goals>
+                                <phase>verify</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.20</version>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>src/test/properties/local/testng.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.alfresco.maven.plugin</groupId>
+                        <artifactId>alfresco-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>start-alfresco</id>
+                                <goals>
+                                    <goal>it</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <enableH2>true</enableH2>
+                            <enablePlatform>true</enablePlatform>
+                            <enableSolr>false</enableSolr>
+                            <enableShare>false</enableShare>
+                            <enableApiExplorer>false</enableApiExplorer>
+                            <enableActivitiAdmin>false</enableActivitiAdmin>
+                            <enableActivitiApp>false</enableActivitiApp>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
 </project>

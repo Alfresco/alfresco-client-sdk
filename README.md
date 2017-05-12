@@ -36,7 +36,7 @@ If you are a developer trying to interact with more than one Alfresco Services h
 
 **Build Librairies**
     
-    mvn clean install -DskipTests=true
+    mvn clean install
 	
 ## How to Contribute ?
 

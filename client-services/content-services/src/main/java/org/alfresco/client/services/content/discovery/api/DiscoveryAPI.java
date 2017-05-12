@@ -1,7 +1,7 @@
 package org.alfresco.client.services.content.discovery.api;
 
 import org.alfresco.client.services.content.discovery.DiscoveryConstant;
-import org.alfresco.client.services.content.discovery.model.RepositoryInfoRepresentation;
+import org.alfresco.client.services.content.discovery.model.representation.RepositoryInfoRepresentation;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -23,7 +23,7 @@ public interface DiscoveryAPI
      * 
      * @return RepositoryInfoRepresentation
      */
-    @GET(DiscoveryConstant.DISCOVERY_PUBLIC_API_V1 + "/discovery")
+    @GET(DiscoveryConstant.PREFIX_API + "/discovery")
     Call<RepositoryInfoRepresentation> getRepositoryInformationCall();
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -62,7 +62,7 @@ public interface DiscoveryAPI
      *
      * @return RepositoryInfoRepresentation
      */
-    @GET(DiscoveryConstant.DISCOVERY_PUBLIC_API_V1 + "/discovery")
+    @GET(DiscoveryConstant.PREFIX_API + "/discovery")
     Observable<RepositoryInfoRepresentation> getRepositoryInformationObservable();
 
 }

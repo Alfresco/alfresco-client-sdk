@@ -1,0 +1,6 @@
+#ALFRESCO
+alf_data_dev/
+alfresco.log
+alfresco.log.*
+solr.log
+solr.log.*

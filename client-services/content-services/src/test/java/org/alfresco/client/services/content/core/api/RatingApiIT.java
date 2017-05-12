@@ -16,11 +16,25 @@
  *   limitations under the License.
  */
 
-package org.alfresco.client.services.common;
+package org.alfresco.client.services.content.core.api;
 
-public interface APIConstant
+import java.io.IOException;
+
+import org.alfresco.client.services.CSAPITestCase;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class RatingApiIT extends CSAPITestCase
 {
-    String PREFIX_API = "api";
+    @BeforeClass
+    public void prepare() throws Exception
+    {
+        client = prepareClient(TEST_ENDPOINT, TEST_USERNAME, TEST_PASSWORD);
+    }
 
-    String PREFIX_PUBLIC_API = "api/-default-/public/";
+    @Test(groups = { "core" })
+    public void retrieveRatings() throws IOException
+    {
+
+    }
 }

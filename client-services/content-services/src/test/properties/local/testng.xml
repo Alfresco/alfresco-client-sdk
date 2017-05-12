@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Core" verbose="1">
+    <test name="Core">
+        <classes>
+            <class name="org.alfresco.client.services.content.core.api.ActivityStreamApiIT"/>
+            <!-- <class name="org.alfresco.client.services.content.core.api.CommentsApiIT"/>
+             <class name="org.alfresco.client.services.content.core.api.FavoritesApiIT"/>
+             <class name="org.alfresco.client.services.content.core.api.NodesApiIT"/>
+             <class name="org.alfresco.client.services.content.core.api.PeopleApiIT"/>
+             <class name="org.alfresco.client.services.content.core.api.RatingApiIT"/>
+             <class name="org.alfresco.client.services.content.core.api.SiteApiIT"/>
+             <class name="org.alfresco.client.services.content.core.api.TagApiIT"/>
+             <class name="org.alfresco.client.services.content.core.api.TrashcanApiIT"/>-->
+        </classes>
+
+    </test>
+</suite>
