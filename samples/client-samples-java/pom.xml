@@ -42,7 +42,7 @@
     <dependencies>
         <dependency>
             <groupId>org.alfresco.client</groupId>
-            <artifactId>java-platform-client</artifactId>
+            <artifactId>java-client</artifactId>
         </dependency>
         <dependency>
             <groupId>org.alfresco.client</groupId>
