@@ -25,5 +25,6 @@ public class DeploymentsApiIT extends ActivitiAPITestCase
         ResultList<DeploymentResponse> deployments = deploymentsAPI.getDeploymentsCall().execute().body();
         Assert.assertNotNull(deployments);
 
+
     }
 }

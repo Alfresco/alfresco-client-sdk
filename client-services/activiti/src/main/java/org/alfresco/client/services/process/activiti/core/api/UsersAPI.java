@@ -94,6 +94,14 @@ public interface UsersAPI
     /**
      * Get a list of users
      *
+     * @return DataResponse
+     */
+    @GET(ACTIVITI_SERVICE_PATH + "/identity/users")
+    Call<ResultList<UserResponse>> listUsersCall();
+
+    /**
+     * Get a list of users
+     *
      * @param id Only return group with the given id (optional)
      * @param firstName Only return users with the given firstname (optional)
      * @param lastName Only return users with the given lastname (optional)
@@ -114,7 +122,7 @@ public interface UsersAPI
      * @return DataResponse
      */
     @GET(ACTIVITI_SERVICE_PATH + "/identity/users")
-    Call<ResultList<UserResponse>> getUsersCall(@Query(ID) String id, @Query(FIRST_NAME) String firstName,
+    Call<ResultList<UserResponse>> listUsersCall(@Query(ID) String id, @Query(FIRST_NAME) String firstName,
             @Query(LAST_NAME) String lastName, @Query(EMAIL) String email, @Query(FIRST_NAME_LIKE) String firstNameLike,
             @Query(LAST_NAME_LIKE) String lastNameLike, @Query(EMAIL_LIKE) String emailLike,
             @Query(MEMBER_OF_GROUP) String memberOfGroup, @Query(POTENTIAL_STARTER) String potentialStarter,

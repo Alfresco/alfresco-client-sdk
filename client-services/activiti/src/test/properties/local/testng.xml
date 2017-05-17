@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Core" verbose="1">
+    <test name="Core">
+        <classes>
+            <class name="org.alfresco.client.services.process.activiti.core.api.DatabaseTablesApiIT"/>
+        </classes>
+    </test>
+</suite>
