@@ -1,3 +1,9 @@
+# NOTICE
+```diff
+- THIS PROJECT IS UNSUPPORTED AND NO LONGER UNDER ACTIVE DEVELOPMENT -
+```
+
+
 # Alfresco Java Client (Early Access)
 
 ## Introduction
